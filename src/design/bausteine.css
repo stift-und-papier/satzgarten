@@ -1,0 +1,232 @@
+/* Hallmark · shape: app screen · genre: playful · theme: custom · idea: "Ein Gartenheft auf der Wiese" · scope: app · Stamp und Kritik: siehe tokens.css */
+/* Hallmark · pre-emit critique: P3 H3 E3 S2 R3 V3 · weakest: S, Creme auf Grün ist Vorgabe der Lehrkraft */
+
+/* Bausteine der Schüleransicht („Gartenheft“) und Grundregeln für alle Seiten.
+   Nur Variablen aus tokens.css verwenden – keine eigenen Farbwerte. */
+
+html, body { overflow-x: clip; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  color: var(--color-tinte);
+  background: var(--color-papier);
+  font-synthesis: none;
+  -webkit-text-size-adjust: 100%;
+}
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  min-width: 0;
+  margin: 0;
+}
+h1 { font-size: var(--text-h1); max-width: 20ch; }
+h2 { font-size: var(--text-h2); max-width: 30ch; }
+h3 { font-size: var(--text-h3); max-width: 40ch; }
+p { margin: 0; text-wrap: pretty; max-width: 65ch; }
+.symbol { width: 24px; height: 24px; flex-shrink: 0; }
+
+:focus-visible { outline: 3px solid var(--color-fokus); outline-offset: 3px; }
+
+/* ---------- Seite: Wiese mit Grashalmen ---------- */
+.garten-seite {
+  min-height: 100vh;
+  background: var(--color-wiese) var(--muster-wiese);
+  padding: var(--space-lg) var(--space-md) calc(var(--space-2xl) + var(--space-xl));
+  box-sizing: border-box;
+}
+.garten-seite__inhalt {
+  max-width: var(--breite-inhalt);
+  margin: 0 auto;
+  display: grid;
+  gap: var(--space-lg);
+}
+
+/* ---------- Karte: Heftseite mit Holzkontur ---------- */
+.karte {
+  background: var(--color-papier);
+  border: var(--kontur) solid var(--color-holz);
+  border-radius: var(--radius-karte);
+  box-shadow: 0 var(--kante) 0 var(--color-holz-schatten);
+  padding: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+  min-width: 0;
+}
+.leise { color: var(--color-tinte-leise); font-size: var(--text-klein); }
+
+/* ---------- Pillenknöpfe ---------- */
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: var(--tipp-min);
+  min-width: var(--tipp-min);
+  padding: var(--space-xs) var(--space-lg);
+  border-radius: var(--radius-pille);
+  border: var(--kontur) solid var(--color-holz);
+  background: var(--color-papier-2);
+  color: var(--color-tinte);
+  font: 800 var(--text-body)/1.2 var(--font-body);
+  box-shadow: 0 var(--kante) 0 var(--color-holz-schatten);
+  cursor: pointer;
+  transition: transform var(--dur-micro) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.knopf:hover { background: var(--color-creme); }
+.knopf:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--color-holz-schatten); }
+.knopf:disabled, .knopf[aria-disabled='true'] {
+  cursor: not-allowed;
+  color: var(--color-tinte-leise);
+  box-shadow: none;
+  transform: translateY(var(--kante));
+  border-style: dashed;
+}
+.knopf--haupt {
+  background: var(--color-blatt);
+  border-color: var(--color-blatt-kante);
+  color: var(--color-creme);
+  box-shadow: 0 var(--kante) 0 var(--color-blatt-kante);
+}
+.knopf--haupt:hover { background: var(--color-blatt-2); }
+.knopf--haupt:active { box-shadow: 0 1px 0 var(--color-blatt-kante); }
+.knopf[aria-busy='true'] { cursor: progress; opacity: 0.8; }
+.knopf-reihe { display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: center; }
+
+/* ---------- Runde Holzknöpfe (nur Symbol, Name per aria-label) ---------- */
+.holzknopf {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: var(--kontur) solid var(--color-holz-schatten);
+  background: var(--color-holz-flaeche);
+  color: var(--color-creme);
+  box-shadow: inset 0 0 0 4px var(--color-holz-flaeche-2), 0 var(--kante) 0 var(--color-holz-schatten);
+  cursor: pointer;
+  transition: transform var(--dur-micro) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.holzknopf .symbol { width: 28px; height: 28px; }
+.holzknopf:hover { background: var(--color-holz-flaeche-2); }
+.holzknopf:active { transform: translateY(3px); box-shadow: inset 0 0 0 4px var(--color-holz-flaeche-2), 0 1px 0 var(--color-holz-schatten); }
+.holzknopf:disabled { cursor: not-allowed; opacity: 0.55; }
+
+/* ---------- Lücke (Texteingabe im Satz) ---------- */
+.luecke {
+  font: inherit;
+  color: var(--color-tinte);
+  width: 7ch;
+  min-height: 44px;
+  padding: 0 var(--space-xs);
+  margin: 0 var(--space-2xs);
+  border: var(--kontur) dashed var(--color-holz);
+  border-radius: var(--radius-feld);
+  background: var(--color-papier-2);
+  text-align: center;
+  box-sizing: border-box;
+}
+.luecke:hover { border-style: solid; }
+.luecke:focus-visible { border-style: solid; background: var(--color-creme); }
+.luecke:disabled { cursor: not-allowed; }
+.luecke--richtig { border-style: solid; border-color: var(--color-richtig-tinte); background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); }
+.luecke--nochmal { border-style: solid; border-color: var(--color-nochmal-tinte); background: var(--color-nochmal-flaeche); color: var(--color-nochmal-tinte); }
+.satz { line-height: 2.4; font-size: var(--text-body); }
+.marke { font-weight: 800; margin-left: var(--space-2xs); }
+.marke--richtig { color: var(--color-richtig-tinte); }
+.marke--nochmal { color: var(--color-nochmal-tinte); }
+
+/* ---------- Auswahl-Chips und antippbare Wörter ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.chip {
+  min-height: var(--tipp-min);
+  min-width: var(--tipp-min);
+  padding: var(--space-xs) var(--space-lg);
+  border-radius: var(--radius-pille);
+  border: var(--kontur) solid var(--color-holz);
+  background: var(--color-papier);
+  color: var(--color-tinte);
+  font: 400 var(--text-body)/1.2 var(--font-body);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.chip:hover { background: var(--color-papier-2); }
+.chip:active { transform: translateY(2px); }
+.chip[aria-pressed='true'] { background: var(--color-blatt); border-color: var(--color-blatt-kante); color: var(--color-creme); font-weight: 800; }
+.chip[aria-pressed='true']::before { content: '✓ '; }
+.chip:disabled { cursor: not-allowed; border-style: dashed; color: var(--color-tinte-leise); }
+
+.wort {
+  font: inherit;
+  color: inherit;
+  min-height: 44px;
+  padding: 0 var(--space-2xs);
+  border: var(--kontur) solid transparent;
+  border-radius: var(--radius-feld);
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.wort:hover { border-color: var(--color-holz); border-style: dashed; }
+.wort[aria-pressed='true'] { background: var(--color-papier-2); border-color: var(--color-blatt-kante); border-style: solid; text-decoration: underline wavy var(--color-blatt) 2px; text-underline-offset: 6px; }
+
+/* ---------- Rückmeldung (✓ grün, ! Pfirsich – nie rot) ---------- */
+.rueckmeldung {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  padding: var(--space-md);
+  border-radius: var(--radius-feld);
+  font-weight: 400;
+}
+.rueckmeldung__zeichen {
+  display: inline-grid; place-items: center; flex-shrink: 0;
+  width: 32px; height: 32px; border-radius: 50%;
+  font-weight: 800; border: var(--kontur) solid currentColor;
+}
+.rueckmeldung--richtig { background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); }
+.rueckmeldung--nochmal { background: var(--color-nochmal-flaeche); color: var(--color-nochmal-tinte); }
+
+/* ---------- Sterne (Arbeitsstufe, kein Lernstand) ---------- */
+.sterne { display: inline-flex; align-items: center; gap: var(--space-2xs); color: var(--color-holz); }
+.sterne .symbol { width: 22px; height: 22px; }
+.sterne__voll { color: var(--color-sonne); }
+.sterne__voll path { stroke: var(--color-holz); }
+
+/* ---------- Menüleiste unten ---------- */
+.menue {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 300;
+  background: var(--color-papier);
+  border-top: var(--kontur) solid var(--color-holz);
+  padding: var(--space-2xs) var(--space-xs) max(var(--space-2xs), env(safe-area-inset-bottom));
+}
+.menue ul {
+  list-style: none; margin: 0 auto; padding: 0;
+  max-width: var(--breite-inhalt);
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-2xs);
+}
+.menue a {
+  display: grid; justify-items: center; gap: 2px;
+  min-height: 56px; padding: var(--space-2xs) 0;
+  color: var(--color-tinte); text-decoration: none;
+  font-size: var(--text-klein); font-weight: 400;
+  border-radius: var(--radius-feld);
+  -webkit-tap-highlight-color: transparent;
+}
+.menue a .symbol { padding: var(--space-2xs) var(--space-sm); border-radius: var(--radius-pille); }
+.menue a:hover .symbol { background: var(--color-papier-2); }
+.menue a[aria-current='page'] { font-weight: 800; }
+.menue a[aria-current='page'] .symbol { background: var(--color-blatt); color: var(--color-creme); }
+
+@media (prefers-reduced-motion: reduce) {
+  .knopf, .holzknopf { transition: none; }
+}

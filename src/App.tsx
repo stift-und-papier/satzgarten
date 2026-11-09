@@ -4,14 +4,20 @@ import { useNeueVersion } from './lib/version'
 
 // Vorschauseiten mit Beispieldaten – nur beim Entwickeln auf dem eigenen Rechner, nie in der veröffentlichten App.
 const Vorschau = import.meta.env.DEV ? lazy(() => import('./entwicklung/Vorschau')) : null
+// Stilblatt zum Prüfen des Designs am iPad (ohne Daten). Wird nach der Design-Freigabe entfernt.
+const Stilblatt = lazy(() => import('./stil/Stilblatt'))
 
-// Platzhalter, bis Design (Phase 2) und die echten Seiten da sind.
+// Platzhalter, bis die echten Seiten da sind.
 function Platzhalter({ titel, children }: { titel: string; children: ReactNode }) {
   return (
-    <main style={{ fontFamily: 'system-ui, sans-serif', maxWidth: '36rem', margin: '4rem auto', padding: '0 1rem', fontSize: '1.0625rem' }}>
-      <h1>{titel}</h1>
-      {children}
-    </main>
+    <div className="garten-seite">
+      <main className="garten-seite__inhalt">
+        <div className="karte">
+          <h1>{titel}</h1>
+          {children}
+        </div>
+      </main>
+    </div>
   )
 }
 
@@ -24,6 +30,12 @@ function Seite() {
         <Vorschau />
       </Suspense>
     )
+  if (bereich === 'stil')
+    return (
+      <Suspense fallback={null}>
+        <Stilblatt />
+      </Suspense>
+    )
   if (bereich === 's')
     return (
       <Platzhalter titel="Satzgarten">
@@ -32,7 +44,7 @@ function Seite() {
     )
   if (bereich === 'lehrkraft')
     return (
-      <Platzhalter titel="Satzgarten – Lehrkraft">
+      <Platzhalter titel="Bereich für Lehrkräfte">
         <p>Hier entsteht der Bereich für Lehrkräfte.</p>
       </Platzhalter>
     )
@@ -48,11 +60,13 @@ export default function App() {
   return (
     <>
       {neueVersion && (
-        <div role="status" style={{ fontFamily: 'system-ui, sans-serif', padding: '0.75rem 1rem', textAlign: 'center' }}>
-          Es gibt eine neue Version.{' '}
-          <button type="button" onClick={() => window.location.reload()} style={{ minHeight: 48, fontSize: '1rem' }}>
-            Neu laden
-          </button>
+        <div role="status" className="karte" style={{ margin: 'var(--space-md)' }}>
+          <p>Es gibt eine neue Version.</p>
+          <div className="knopf-reihe">
+            <button type="button" className="knopf knopf--haupt" onClick={() => window.location.reload()}>
+              Neu laden
+            </button>
+          </div>
         </div>
       )}
       <Seite />

@@ -1,0 +1,90 @@
+/* Hallmark · shape: app screen · genre: playful · theme: custom · idea: "Ein Gartenheft auf der Wiese" · vibe: "warm, handgezeichnet, ruhig, freundlich, zum Anfassen" · scope: app
+ * paper: Creme-Karten (--color-papier) auf Wiesengrün (--color-wiese) · ink: Holzbraun (--color-tinte) · accent: Blattgrün (--color-blatt) · display: Fraunces 600 · body: Nunito 400/800
+ * posture: Committed (Wiese trägt die Fläche, Blattgrün nur für Hauptknopf, Auswahl, Fokus) · axes: light/soft-serif/chromatic-green · contrast: pass (nachgerechnet, kleinster Wert 3,7:1 Fokusring auf Wiese)
+ * signature: die Aufgabenkarte als Heftseite mit Holzknöpfen und Pillen · hero: keiner (App-Ansicht) · v2.0.0 */
+/* Hallmark · pre-emit critique: P3 H3 E3 S2 R3 V3 · weakest: S, Creme auf Grün ist die Vorgabe der Lehrkraft (Referenzbilder), nicht frei gewählt */
+/* waive 65: Creme-Papier ist ausdrücklicher Wunsch der Lehrkraft (Referenzbilder in refrences/), Akzent ist Blattgrün statt Ton */
+/* answered 40: .holzknopf trägt nur Symbole (Name per aria-label); 4,2:1 liegt über 3:1 für Symbole
+ * waive OKLCH: Farben als Hex, weil Safari 15.0–15.3 (ältere iPads) kein oklch kennt; berechnet aus OKLCH-Werten */
+/* waive F24: Kontur + harte Kante unten sind das Material der Referenzbilder (Holzrahmen, Pillenknöpfe) */
+
+/* Satzgarten – EINZIGE Token-Datei. Farben und Schriften nur hier festlegen, nirgends sonst.
+   Schriften liegen in fonts/ (kein CDN). Kontraste am 2026-11-09 nachgerechnet (WCAG). */
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Nunito';src:url('fonts/nunito-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Nunito';src:url('fonts/nunito-latin-800-normal.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
+
+:root {
+  /* Flächen */
+  --color-wiese: #c9d9a6;          /* Hintergrund der Schülerseiten */
+  --color-wiese-tief: #acc188;     /* Grashalme im Muster */
+  --color-papier: #fcf5e3;         /* Karten */
+  --color-papier-2: #f3e7ce;       /* vertiefte Felder in Karten (Lücken, Chips) */
+  --color-creme: #fcf8ed;          /* Schrift auf dunklen Knöpfen */
+
+  /* Schrift und Linien */
+  --color-tinte: #3d281a;           /* Text: 12,6:1 auf Papier */
+  --color-tinte-leise: #5e4837;     /* Nebentext: 7,8:1 auf Papier */
+  --color-holz: #613f27;            /* Konturen */
+  --color-holz-schatten: #472b1b;   /* harte Kante unter Karten und Knöpfen */
+  --color-holz-flaeche: #a7693c;    /* runde Holzknöpfe (Symbol creme 4,2:1) */
+  --color-holz-flaeche-2: #ba7c4c;  /* Holzknopf beim Darüberfahren */
+
+  /* Akzent: Blattgrün – nur Hauptknopf, Auswahl, aktuelle Seite, Fokus */
+  --color-blatt: #357430;          /* creme darauf 5,4:1 */
+  --color-blatt-2: #266521;        /* gedrückt / darüberfahren */
+  --color-blatt-kante: #17501d;
+  --color-fokus: #077900;          /* Fokusring: 5,1:1 auf Papier, 3,7:1 auf Wiese */
+
+  /* Rückmeldung – nie rot */
+  --color-richtig-flaeche: #cdf0cd;
+  --color-richtig-tinte: #18491c;  /* 8,4:1 */
+  --color-nochmal-flaeche: #fed4b9; /* Pfirsich */
+  --color-nochmal-tinte: #7c350e;   /* 6,5:1 */
+  --color-sonne: #eebc4a;           /* Sterne */
+
+  /* Lehrkraft – Thema „ruhig“ */
+  --color-lk-papier: #fdfaf4;
+  --color-lk-papier-2: #f4f0e7;
+  --color-lk-tinte: #261d16;        /* 15,8:1 */
+  --color-lk-leise: #665b53;        /* 6,3:1 */
+  --color-lk-linie: #ddd7cd;
+
+  /* Muster: kurze Grashalme wie in den Gartenbildern (Farbe = --color-wiese-tief) */
+  --muster-wiese: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg stroke='%23acc188' stroke-width='2.5' stroke-linecap='round' fill='none'%3E%3Cpath d='M18 30l2-6M24 31l1-5'/%3E%3Cpath d='M78 74l2-6M84 75l1-5'/%3E%3Cpath d='M40 100l2-5'/%3E%3Cpath d='M98 18l1-5'/%3E%3C/g%3E%3C/svg%3E");
+
+  /* Schriften */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+
+  /* Größen (Verhältnis 1,2 ab 18 px; Fließtext nie unter 17 px) */
+  --text-klein: 0.9375rem;
+  --text-body: 1.125rem;
+  --text-h3: 1.35rem;
+  --text-h2: 1.625rem;
+  --text-h1: 2rem;
+
+  /* Abstände */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* Formen: leicht ungleiche Rundungen wirken gezeichnet */
+  --radius-karte: 26px 22px 28px 20px / 22px 28px 20px 26px;
+  --radius-feld: 12px 10px 13px 9px / 10px 13px 9px 12px;
+  --radius-pille: 999px;
+  --radius-lk: 6px;
+  --kontur: 2.5px;
+  --kante: 4px;                                 /* Höhe der harten Kante unter Knöpfen */
+
+  --tipp-min: 48px;
+  --breite-inhalt: 44rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+}

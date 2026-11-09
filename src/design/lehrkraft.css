@@ -1,0 +1,41 @@
+/* Hallmark · shape: app screen · genre: modern-minimal · theme: custom · idea: "Das Lehrerzimmer neben dem Garten: dieselben Farben, nur leise" · scope: app · Tokens: tokens.css */
+/* Hallmark · pre-emit critique: P3 H3 E3 S3 R3 V3 · weakest: E, bewusst schlicht – Arbeitsfläche, kein Schmuck */
+
+/* Thema „ruhig“ für alle Lehrkraft-Seiten (.lehrkraft): flache Flächen, feine Linien, kleine Rundungen,
+   Blattgrün nur für die Hauptaktion. Nur Variablen aus tokens.css. */
+.lehrkraft {
+  background: var(--color-lk-papier);
+  color: var(--color-lk-tinte);
+  font-size: 1.0625rem;
+}
+.lehrkraft h1, .lehrkraft h2, .lehrkraft h3 { color: var(--color-lk-tinte); }
+.lehrkraft .lk-leise { color: var(--color-lk-leise); font-size: var(--text-klein); }
+
+.lk-knopf {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-lk);
+  border: 1px solid var(--color-lk-linie);
+  background: var(--color-lk-papier);
+  color: var(--color-lk-tinte);
+  font: 800 var(--text-klein)/1.2 var(--font-body);
+  cursor: pointer;
+}
+.lk-knopf:hover { background: var(--color-lk-papier-2); }
+.lk-knopf:active { transform: translateY(1px); }
+.lk-knopf:disabled { cursor: not-allowed; color: var(--color-lk-leise); }
+.lk-knopf--haupt { background: var(--color-blatt); border-color: var(--color-blatt); color: var(--color-creme); }
+.lk-knopf--haupt:hover { background: var(--color-blatt-2); }
+
+.lk-feld {
+  font: inherit; color: inherit;
+  min-height: 44px; padding: 0 var(--space-sm);
+  border: 1px solid var(--color-lk-linie); border-radius: var(--radius-lk);
+  background: var(--color-lk-papier);
+  box-sizing: border-box;
+}
+.lk-feld:hover { border-color: var(--color-lk-leise); }
+
+.lk-tabelle { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.lk-tabelle th { text-align: left; font-weight: 800; font-size: var(--text-klein); color: var(--color-lk-leise); padding: var(--space-xs) var(--space-sm); border-bottom: 1px solid var(--color-lk-linie); }
+.lk-tabelle td { padding: var(--space-sm); border-bottom: 1px solid var(--color-lk-linie); }
