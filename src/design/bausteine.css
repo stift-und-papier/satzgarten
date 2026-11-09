@@ -348,9 +348,10 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .geist-raster .geist { width: 130px; }
 
 /* Albert bewegt sich ruhig, damit er nicht ablenkt: blinzelt etwa alle 6 s, atmet langsam (nur transform). */
-.geist__augen, .geist__atmen { transform-box: fill-box; }
-.geist__augen { transform-origin: 50% 50%; animation: geist-blinzeln 6s ease-in-out infinite; }
-.geist__atmen { transform-origin: 50% 100%; animation: geist-atmen 4.5s ease-in-out infinite; }
+/* Drehpunkt fest in Zeichnungs-Einheiten (Augenmitte 60|96, Fußboden 60|134): transform-box: fill-box
+   ist in Safari bei verschobenen Gruppen unzuverlässig (Augen sprangen beim zeigenden Albert). */
+.geist__augen { transform-origin: 60px 96px; animation: geist-blinzeln 6s ease-in-out infinite; }
+.geist__atmen { transform-origin: 60px 134px; animation: geist-atmen 4.5s ease-in-out infinite; }
 /* mehrere Figuren auf einer Seite blinzeln nicht gleichzeitig */
 .geist[data-ausdruck='nachdenklich'] .geist__augen { animation-delay: -2.1s; }
 .geist[data-ausdruck='zeigt'] .geist__augen { animation-delay: -4.3s; }
