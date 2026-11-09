@@ -92,3 +92,6 @@
   freut-sich, zeigt; `MaskottchenSagt` mit Sprechblase, Rand Himmelblau).
 - 2026-11-09 (Lehrkraft): Albert bewegt sich ruhig, nicht ablenkend: blinzelt etwa alle 6 s, atmet langsam;
   aus bei „Bewegung reduzieren“. Nur eine Figur (keine Auswahl für Schüler:innen).
+- 2026-11-09 (Lehrkraft): Garten-Entwurf freigegeben (`src/gemeinsam/Garten.tsx`, `src/design/garten.css`) – Haltepunkt 2 erreicht.
+  12 Pflanzen = verschiedene Blumen, je Beet eine Blume, vorerst kein Ernten. Deko z. B. Bank, Wimpelkette, Lampe,
+  Gartengeräte. Vorschlagslisten in `docs/SPEC.md` (Garten), Bestätigung bei Aufgabe 32.

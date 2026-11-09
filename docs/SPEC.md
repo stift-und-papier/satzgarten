@@ -102,7 +102,7 @@ lernstand → garten → uebernahme
 - Samen sieht man **nur als Bild** (z. B. Samentüten im Korb), **nie als Zahl**.
 - Man wählt selbst eine Pflanze aus den eigenen Samen und tippt auf ein freies Beet → sie wird gepflanzt.
 - **Wachsen durch Üben** (entschieden): Jede erledigte Aufgabe „gießt“ alle wachsenden Pflanzen einmal.
-  Gepflanztes wächst in Stufen (Samen → Spross → Pflanze → Blüte/Ernte); je Stufe sind einige Güsse nötig
+  Gepflanztes wächst in Stufen (Samen → Spross → Pflanze → Blüte); je Stufe sind einige Güsse nötig
   (Vorschlag: 3, von der Lehrkraft einstellbar). Erklärseiten gießen nicht.
 - **Umfang zum Start** (entschieden): **12 Pflanzen + 6 Deko-Dinge**. Neue Sorten und Deko werden nach und nach
   freigeschaltet (z. B. je Kompetenzbereich).
@@ -110,6 +110,12 @@ lernstand → garten → uebernahme
 - Der Garten **welkt nie**. Neue Beete oder Deko (Bank, Kiste, Gießkanne …) kommen nach und nach dazu.
 - **Sammelbuch:** eigene Seite mit allen Pflanzen und Dingen. Schon Gefundenes ist bunt mit Namen,
   Fehlendes als „?“-Platzhalter (wie `refrences/0ca7bfba….jpg`).
+- **Pflanzen und Deko** (entschieden 9. November 2026): Die 12 Pflanzen sind erst einmal **verschiedene Blumen**,
+  **jedes Beet trägt eine Blume**. Fertige Blumen kann man (vorerst) **nicht ernten**; neue Funktionen evtl. später.
+  Deko z. B. Bank, Wimpelkette, Lampe/Laterne, Gartengeräte.
+  Vorschlag Blumen (Claude, noch zu bestätigen): Sonnenblume, Tulpe, Rose, Gänseblümchen, Mohn, Lavendel, Kornblume,
+  Glockenblume, Stiefmütterchen, Vergissmeinnicht, Dahlie, Lupine.
+  Vorschlag Deko: Bank, Wimpelkette, Laterne, Gießkanne, Rechen und Schaufel, Vogelhäuschen.
 - Kein Bezug zu Noten oder Stufen. Der Garten zeigt Fleiß, keinen Lernstand.
 - Bedienbar ohne Ziehen (antippen reicht). Ziehen darf zusätzlich gehen.
 - „Ergebnisse zurücksetzen“ durch die Lehrkraft setzt auch den Garten zurück (wie bisher die Wiese).

@@ -53,7 +53,7 @@ läuft `npm run test:datenbank` mit dem Ergebnis „ALLE TESTS BESTANDEN“.
   - Prüfen: Vorschauseite `#/vorschau/maskottchen`; Freigabe der Lehrkraft.
   - Dateien: `src/design/maskottchen/*.svg`, `src/gemeinsam/Maskottchen.tsx`, `src/design/bausteine.css`
 
-- [ ] **6 Garten-Entwurf** (M) – hängt an 4
+- [x] **6 Garten-Entwurf** (M) – hängt an 4
   - Akzeptanz: Szene von oben (Wiese, Zaun, Weg, 6 Beete), 1 Pflanze in 4 Stufen (Samen, Spross, Pflanze, Blüte),
     Korb mit Samentüten-Bildern, 1 Deko-Ding, 1 Sammelbuch-Seite mit „?“-Platzhaltern; keine Gesichter.
     Nur Anzeige mit Beispieldaten, noch ohne Datenbank.
@@ -61,7 +61,7 @@ läuft `npm run test:datenbank` mit dem Ergebnis „ALLE TESTS BESTANDEN“.
   - Dateien: `src/design/garten/*.svg`, `src/gemeinsam/Garten.tsx`, `src/design/garten.css`
 
 ### Haltepunkt 2
-- [ ] **Lehrkraft gibt Stil, Maskottchen und Garten frei.** Ohne Freigabe keine Schülerseiten.
+- [x] **Lehrkraft gibt Stil, Maskottchen und Garten frei.** Ohne Freigabe keine Schülerseiten.
 
 ---
 
@@ -247,7 +247,7 @@ läuft `npm run test:datenbank` mit dem Ergebnis „ALLE TESTS BESTANDEN“.
   - Dateien: Migration, `src/gemeinsam/Garten.tsx`
 
 - [ ] **33 Sammelbuch und Freischalten** (M) – hängt an 31
-  - Akzeptanz: 12 Pflanzen + 6 Deko-Dinge (eigene SVGs); Regel zum Freischalten (offene Frage 1 im Plan);
+  - Akzeptanz: 12 Blumen + 6 Deko-Dinge (eigene SVGs; Liste in docs/SPEC.md, Garten); Regel zum Freischalten (offene Frage 1 im Plan);
     Seite „Sammelbuch“ mit „?“-Platzhaltern; Menüpunkt; Zurücksetzen leert den Garten.
   - Prüfen: am iPad; DB-Test Zurücksetzen.
   - Dateien: `src/design/garten/*.svg`, `src/schueler/Sammelbuch.tsx`, Migration
