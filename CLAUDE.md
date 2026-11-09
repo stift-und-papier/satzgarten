@@ -30,8 +30,9 @@
 - Vite + React + TypeScript, statisch, Bau-Ziel Safari 15. Pfad-Basis `/satzgarten/`.
 - GitHub Pages: Repo `stift-und-papier/satzgarten` (öffentlich), Adresse https://stift-und-papier.github.io/satzgarten/,
   Veröffentlichung per GitHub Actions bei Push auf `main`.
-- Supabase (kostenlos, Frankfurt `eu-central-1`), RLS überall. Änderungen nur als Migration in `supabase/migrations/`,
-  dann `npm run db:push`. CLI per `npx supabase` (v2), Anmeldung per Token; Befehle aus Claudes Shell
+- Supabase-Projekt `diwpqkxhmuetdpxxcoar` („satzgarten“, kostenlos, Frankfurt `eu-central-1`), RLS überall. Änderungen nur als Migration in `supabase/migrations/`,
+  dann `npm run db:push`. CLI per `npx supabase` (v2), Anmeldung per Token (Lehrkraft trägt ihn selbst ein:
+  `npx.cmd --prefix C:/Users/jrkug/Projekte/satzgarten supabase login --token …`, `npx.ps1` ist gesperrt); Befehle aus Claudes Shell
   (im Terminal der Lehrkraft scheitert die CLI, vermutlich Avast).
 - Schüler:innen: kein Konto, Link-Token (192 Bit) hinter `#`; Zugriff nur über Datenbankfunktionen mit Token-Prüfung.
 - Bibliotheken: supabase-js, @dnd-kit, qrcode. Neue nur nach Rückfrage.

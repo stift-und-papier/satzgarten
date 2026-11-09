@@ -17,7 +17,7 @@ läuft `npm run test:datenbank` mit dem Ergebnis „ALLE TESTS BESTANDEN“.
   - Prüfen: Seite „Satzgarten“ ist unter `https://stift-und-papier.github.io/satzgarten/` erreichbar.
   - Dateien: `package.json`, `vite.config.ts`, `.github/workflows/veroeffentlichen.yml`, `.gitignore`, `CLAUDE.md`
 
-- [ ] **2 Datenbank anlegen mit Test-Gerüst** (M) – hängt an 1
+- [x] **2 Datenbank anlegen mit Test-Gerüst** (M) – hängt an 1
   - Akzeptanz: neues Supabase-Projekt in Frankfurt (Region mit `npx supabase projects list` geprüft), CLI verknüpft,
     erste Migration mit Tabelle `einstellungen` (owner, RLS an) als Probe für das Test-Gerüst; `supabase/tests/zugriffsregeln.sql`
     (Aufbau wie alt: anon / Lehrkraft A / Lehrkraft B / Token, macht alles rückgängig) mit **kurzer Ausgabe**;
