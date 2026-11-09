@@ -1,0 +1,22 @@
+# Hilfsdateien und Bau-Ergebnisse (werden automatisch erzeugt)
+node_modules
+dist
+*.log
+*.local
+
+# Geheime Schlüssel – NIE hochladen
+.env
+.env.*
+!.env.example
+supabase/.temp
+
+# Kerncurricula-PDFs: urheberrechtlich geschützt, nicht ins öffentliche Repo
+docs/*.pdf
+
+# Referenzbilder: fremde Werke, nur zur Orientierung, nur lokal
+refrences/
+
+# Editor
+.vscode/*
+.idea
+.DS_Store
