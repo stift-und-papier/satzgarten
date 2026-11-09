@@ -39,7 +39,7 @@ läuft `npm run test:datenbank` mit dem Ergebnis „ALLE TESTS BESTANDEN“.
 
 ## Phase 2: Design (vor allen Schülerseiten)
 
-- [ ] **4 Stilblatt** (M) – hängt an 3
+- [x] **4 Stilblatt** (M) – hängt an 3
   - Akzeptanz: `src/design/tokens.css` (Creme, Wiesengrün, Holzbraun, Pfirsich; Kontrast ≥ 4,5:1 nachgerechnet),
     Bausteine Karte, Pillenknopf, runder Holzknopf, Menüleiste unten, Lücke, Auswahl, Rückmeldung ✓/↻;
     nur lokale Schriften; Vorschauseite `#/vorschau/stil` mit allen Bausteinen; Lehrkraft-Thema „ruhig“.

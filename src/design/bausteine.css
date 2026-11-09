@@ -122,12 +122,10 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 
 /* Hilfe-Knöpfe (Tipp, Hilfe): Himmelblau statt Holz – Blau bedeutet überall „Hilfe“ */
 .holzknopf--hilfe {
-  background: var(--color-hilfe-flaeche);   /* Wunsch Lehrkraft: Hilfe gelb hinterlegt, Rand und Symbol blau */
   color: var(--color-hilfe);
   border-color: var(--color-hilfe);
   box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 var(--kante) 0 var(--color-hilfe-kante);
 }
-.holzknopf--hilfe:hover { background: var(--color-hilfe-flaeche); filter: brightness(1.04); }
 .holzknopf--hilfe:active { box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 1px 0 var(--color-hilfe-kante); }
 
 /* Umschalter (z. B. Leseschrift) */
@@ -301,6 +299,23 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .menue a[aria-current='page'] { font-weight: 800; }
 /* aktuelle Seite: wie Apples Tab-Leiste ohne Farbfläche – fett, mit hellem Feld hinter dem Symbol und Strich darunter */
 .menue a[aria-current='page'] .symbol { background: var(--color-papier-2); box-shadow: inset 0 -3px 0 var(--color-aktion); }
+
+/* ---------- Maskottchen (Gartengeist) ----------
+   Nur Figur (aria-hidden). Kontur rund wie bei den Symbolen; Farben aus --color-geist-*. */
+.geist { width: 160px; height: auto; flex: none; overflow: visible; }
+.geist__koerper { fill: var(--color-geist); stroke: var(--color-geist-kontur); stroke-width: 2.5; stroke-linejoin: round; }
+.geist__schatten { fill: var(--color-geist-schatten); }
+.geist__glanz { fill: var(--color-geist-glanz); }
+.geist__boden { fill: var(--color-holz-schatten); opacity: 0.18; }
+.geist__auge { fill: var(--color-geist-auge); }
+.geist__wange { fill: var(--color-geist-wange); }
+.geist__mund { fill: none; stroke: var(--color-geist-auge); stroke-width: 2.2; stroke-linecap: round; }
+.geist__blatt { fill: var(--color-geist-blatt); stroke: var(--color-geist-kontur); stroke-width: 2.5; stroke-linejoin: round; }
+.geist__stiel { fill: none; stroke: var(--color-geist-blatt-tief); stroke-width: 3; stroke-linecap: round; }
+.geist__ader { fill: none; stroke: var(--color-geist-blatt-tief); stroke-width: 1.6; stroke-linecap: round; }
+.geist__pusteknopf { fill: var(--color-geist-glanz); stroke: var(--color-geist-kontur); stroke-width: 1.6; }
+.geist-entwurf { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-lg); }
+.geist-entwurf > div { flex: 1 1 14rem; min-width: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .knopf, .holzknopf, .schalter__knopf { transition: none; }

@@ -82,4 +82,6 @@
   „Lösung ansehen“ (gesperrt) nicht mehr gestrichelt, damit es nicht wie eine Lücke aussieht.
 - 2026-11-09 (Lehrkraft): Orange (zu nah an Pfirsich) → Weinrot, Türkis (zu nah an Artikel) → Petrol. Gewählte Antworten
   sehen aus wie markierte Wortgruppen (helles Feld, Holzrand, Kante). Sterne nach refrences/sterne.jpg (src/gemeinsam/Sterne.tsx),
-  ohne „Stufe n von 3“ (nur für Vorlesehilfen). Hilfe-Knöpfe gelb hinterlegt, Rand/Symbol blau. Lehrkraft: Stufe als ★/☆.
+  ohne „Stufe n von 3“ (nur für Vorlesehilfen). Lehrkraft: Stufe als ★/☆.
+- 2026-11-09 (Lehrkraft): Hilfe-Knöpfe doch ohne gelbe Füllung (hell wie alle runden Knöpfe, Rand/Symbol blau).
+  Stilblatt freigegeben (Aufgabe 4).

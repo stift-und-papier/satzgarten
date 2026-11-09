@@ -90,6 +90,7 @@ export default function Stilblatt() {
             <span className="schalter__bahn" aria-hidden="true"><span className="schalter__knopf" /></span>
             Leseschrift für LRS
           </button>
+          <a className="knopf" href="#/stil/maskottchen" style={{ justifySelf: 'start' }}>Maskottchen-Entwürfe ansehen</a>
         </header>
 
         <section className="karte" aria-labelledby="t-aufgabe">

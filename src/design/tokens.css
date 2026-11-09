@@ -49,6 +49,15 @@
   /* Himmelblau = Hilfe */
   --color-hilfe: #006c98;
   --color-hilfe-kante: #004267;
+  /* Maskottchen (Gartengeist): hell und kühl wie Himmelblau = Hilfe. Nur Figur, nie Schrift. */
+  --color-geist: #dff3f1;
+  --color-geist-schatten: #b4dfe0;
+  --color-geist-glanz: #fbfffe;
+  --color-geist-kontur: #2b5866;
+  --color-geist-auge: #22303a;
+  --color-geist-wange: #f6bfae;
+  --color-geist-blatt: #8cc070;
+  --color-geist-blatt-tief: #4f7d3b;
 
   /* Rückmeldung */
   --color-richtig-flaeche: #cdf0cd;
@@ -59,7 +68,6 @@
   --color-sonne-hell: #fae8a2;
   --color-stern-leer: #55341c;
   --color-stern-rand: #422616;
-  --color-hilfe-flaeche: #faecb6;   /* gelbes Feld hinter Hilfe-Symbolen */
 
   --color-fokus: #3d281a;
 
@@ -126,6 +134,14 @@
     --color-aktion-text: #2a1b11;
     --color-hilfe: #67b5e1;
     --color-hilfe-kante: #040c13;
+    --color-geist: #cbe9e8;
+    --color-geist-schatten: #93c9cc;
+    --color-geist-glanz: #f2fbfa;
+    --color-geist-kontur: #0f2a33;
+    --color-geist-auge: #14202a;
+    --color-geist-wange: #e8a996;
+    --color-geist-blatt: #7cad62;
+    --color-geist-blatt-tief: #3f6a2e;
     --color-richtig-flaeche: #193c1b;
     --color-richtig-tinte: #b9eeba;
     --color-nochmal-flaeche: #512e1a;
@@ -134,7 +150,6 @@
     --color-sonne-hell: #fcebae;
     --color-stern-leer: #614731;
     --color-stern-rand: #bf9d7d;
-    --color-hilfe-flaeche: #4f4119;
     --color-fokus: #f1eadc;
     --color-lk-papier: #17130f;
     --color-lk-papier-2: #241e1a;
@@ -149,7 +164,6 @@
 @media (prefers-contrast: more) {
   :root {
     --color-stern-rand: #1c0d06;
-    --color-hilfe-flaeche: #fef2c5;
     --color-papier: #fefcf4;
     --color-tinte: #1c0e05;
     --color-tinte-leise: #2f2016;
@@ -158,6 +172,8 @@
     --color-aktion: #3c220f;
     --color-aktion-2: #2c1302;
     --color-hilfe: #004776;
+    --color-geist-kontur: #163845;
+    --color-geist-auge: #0e1820;
     --color-richtig-tinte: #012d07;
     --color-nochmal-tinte: #541600;
     --color-fokus: #1c0e05;
@@ -172,7 +188,6 @@
   :root {
     --color-stern-rand: #f4d9bb;
     --color-stern-leer: #795d46;
-    --color-hilfe-flaeche: #392c01;
     --color-papier: #140b05;
     --color-papier-2: #23180f;
     --color-tinte: #fffbf4;
@@ -183,6 +198,8 @@
     --color-aktion-2: #fff3d8;
     --color-aktion-text: #0f0703;
     --color-hilfe: #8fd5fd;
+    --color-geist-kontur: #071b22;
+    --color-geist-auge: #0a1218;
     --color-richtig-tinte: #d5ffd5;
     --color-nochmal-tinte: #ffead3;
     --color-fokus: #fffbf4;
