@@ -14,6 +14,11 @@
      Blattgrün   = richtig / geschafft (nie für Knöpfe)
      Pfirsich    = nochmal versuchen (nie rot)
      Sonne       = Sterne (Arbeitsstufe)
+     Wortarten   = nur Wortarten (--wa-*, unten), immer mit dem Namen der Wortart dazu
+   Rollen wie Apples dynamische Systemfarben – nie vertauschen (z. B. Linienfarbe nie als Schrift):
+     Hintergrund --color-wiese · Fläche darauf --color-papier · Fläche in der Fläche --color-papier-2
+     Beschriftung --color-tinte · zweite Beschriftung --color-tinte-leise · Rand/Linie --color-holz
+   Farbraum: alle Farben sRGB (sicher auf jedem Bildschirm); Grafiken sind SVG ohne eingebettete Farbprofile.
    Schriften liegen in fonts/ (kein CDN). Kontraste am 2026-11-09 nachgerechnet (WCAG). */
 @font-face{font-family:'Fraunces';src:url('fonts/fraunces-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:'Nunito';src:url('fonts/nunito-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
@@ -40,15 +45,10 @@
   --color-aktion: #643d20;            /* Hauptknopf, Auswahl, aktuelle Seite */
   --color-aktion-2: #502f17;          /* darüberfahren */
   --color-aktion-text: #fcf8ed;
-  --color-holzknopf: #a7693c;         /* runde Pfeilknöpfe */
-  --color-holzknopf-2: #ba7c4c;
-  --color-holzknopf-symbol: #fcf8ed;
 
   /* Himmelblau = Hilfe */
   --color-hilfe: #006c98;
-  --color-hilfe-2: #2181af;
   --color-hilfe-kante: #004267;
-  --color-hilfe-symbol: #fcf8ed;
 
   /* Rückmeldung */
   --color-richtig-flaeche: #cdf0cd;
@@ -120,13 +120,8 @@
     --color-aktion: #edc291;
     --color-aktion-2: #fad8ab;
     --color-aktion-text: #2a1b11;
-    --color-holzknopf: #bb8558;
-    --color-holzknopf-2: #ce9869;
-    --color-holzknopf-symbol: #211208;
     --color-hilfe: #67b5e1;
-    --color-hilfe-2: #82c7f0;
     --color-hilfe-kante: #040c13;
-    --color-hilfe-symbol: #031826;
     --color-richtig-flaeche: #193c1b;
     --color-richtig-tinte: #b9eeba;
     --color-nochmal-flaeche: #512e1a;
@@ -152,10 +147,7 @@
     --color-holz-schatten: #1c0d06;
     --color-aktion: #3c220f;
     --color-aktion-2: #2c1302;
-    --color-holzknopf: #6e401e;
-    --color-holzknopf-2: #5c300b;
     --color-hilfe: #004776;
-    --color-hilfe-2: #003764;
     --color-richtig-tinte: #012d07;
     --color-nochmal-tinte: #541600;
     --color-fokus: #1c0e05;
@@ -177,12 +169,7 @@
     --color-aktion: #fde0b9;
     --color-aktion-2: #fff3d8;
     --color-aktion-text: #0f0703;
-    --color-holzknopf: #e2b487;
-    --color-holzknopf-2: #f2c8a1;
-    --color-holzknopf-symbol: #0f0703;
     --color-hilfe: #8fd5fd;
-    --color-hilfe-2: #b1e6ff;
-    --color-hilfe-symbol: #010a14;
     --color-richtig-tinte: #d5ffd5;
     --color-nochmal-tinte: #ffead3;
     --color-fokus: #fffbf4;
@@ -200,3 +187,101 @@
   --zeilenhoehe: 1.8;
   --buchstabenabstand: 0;
 }
+
+/* WORTARTEN-START – erzeugt von scripts/wortarten-farben.mjs, nicht von Hand ändern.
+   --wa-<wortart> = Schrift und Rahmen (mind. 4,5:1 auf Papier und auf der eigenen Fläche), --wa-<wortart>-flaeche = Kästchen. */
+:root {
+  --wa-nomen: #1e4eac;
+  --wa-nomen-flaeche: #d8e9ff;
+  --wa-verb: #a20711;
+  --wa-verb-flaeche: #ffddd8;
+  --wa-adjektiv: #0a6802;
+  --wa-adjektiv-flaeche: #d8f0d4;
+  --wa-artikel: #006d90;
+  --wa-artikel-flaeche: #caefff;
+  --wa-pronomen: #693996;
+  --wa-pronomen-flaeche: #efe1ff;
+  --wa-adverb: #903500;
+  --wa-adverb-flaeche: #ffe1cc;
+  --wa-praeposition: #6a5300;
+  --wa-praeposition-flaeche: #f1e8c7;
+  --wa-konjunktion: #8d2661;
+  --wa-konjunktion-flaeche: #ffdcec;
+  --wa-numerale: #006566;
+  --wa-numerale-flaeche: #c6f2f1;
+  --wa-interjektion: #5a5450;
+  --wa-interjektion-flaeche: #ece7e3;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --wa-nomen: #90c9ff;
+    --wa-nomen-flaeche: #243554;
+    --wa-verb: #ff9789;
+    --wa-verb-flaeche: #502824;
+    --wa-adjektiv: #8fe386;
+    --wa-adjektiv-flaeche: #223d20;
+    --wa-artikel: #80d8fe;
+    --wa-artikel-flaeche: #073b4d;
+    --wa-pronomen: #e1b0ff;
+    --wa-pronomen-flaeche: #3d2d4e;
+    --wa-adverb: #ffae64;
+    --wa-adverb-flaeche: #4d2c15;
+    --wa-praeposition: #e3ca69;
+    --wa-praeposition-flaeche: #3f350a;
+    --wa-konjunktion: #ffa0d8;
+    --wa-konjunktion-flaeche: #4c283a;
+    --wa-numerale: #73dfdf;
+    --wa-numerale-flaeche: #003f3f;
+    --wa-interjektion: #d0c9c4;
+    --wa-interjektion-flaeche: #393431;
+  }
+}
+@media (prefers-contrast: more) {
+  :root {
+    --wa-nomen: #03328f;
+    --wa-nomen-flaeche: #d9ecff;
+    --wa-verb: #830000;
+    --wa-verb-flaeche: #ffdfd9;
+    --wa-adjektiv: #004e00;
+    --wa-adjektiv-flaeche: #d9f4d5;
+    --wa-artikel: #005374;
+    --wa-artikel-flaeche: #c9f3ff;
+    --wa-pronomen: #501d7a;
+    --wa-pronomen-flaeche: #f3e3ff;
+    --wa-adverb: #731700;
+    --wa-adverb-flaeche: #ffe3cc;
+    --wa-praeposition: #513a00;
+    --wa-praeposition-flaeche: #f5ecc6;
+    --wa-konjunktion: #700048;
+    --wa-konjunktion-flaeche: #ffdef0;
+    --wa-numerale: #004c4d;
+    --wa-numerale-flaeche: #c5f6f5;
+    --wa-interjektion: #413c38;
+    --wa-interjektion-flaeche: #efeae6;
+  }
+}
+@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
+  :root {
+    --wa-nomen: #a9e4ff;
+    --wa-nomen-flaeche: #132341;
+    --wa-verb: #ffb1a2;
+    --wa-verb-flaeche: #3c1714;
+    --wa-adjektiv: #a9fea0;
+    --wa-adjektiv-flaeche: #112b0e;
+    --wa-artikel: #9af2ff;
+    --wa-artikel-flaeche: #00293b;
+    --wa-pronomen: #fccaff;
+    --wa-pronomen-flaeche: #2b1c3b;
+    --wa-adverb: #ffc87e;
+    --wa-adverb-flaeche: #391b03;
+    --wa-praeposition: #fee484;
+    --wa-praeposition-flaeche: #2d2300;
+    --wa-konjunktion: #ffbaf3;
+    --wa-konjunktion-flaeche: #391628;
+    --wa-numerale: #8efaf9;
+    --wa-numerale-flaeche: #002c2d;
+    --wa-interjektion: #eae3de;
+    --wa-interjektion-flaeche: #272320;
+  }
+}
+/* WORTARTEN-ENDE */

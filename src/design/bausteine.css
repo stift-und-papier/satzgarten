@@ -100,35 +100,35 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .knopf[aria-busy='true'] { cursor: progress; opacity: 0.8; }
 .knopf-reihe { display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: center; }
 
-/* ---------- Runde Holzknöpfe (nur Symbol, Name per aria-label) ---------- */
+/* ---------- Runde Knöpfe (nur Symbol, Name per aria-label) ----------
+   Nach Apple: Farbe im Hintergrund nur für die EINE Hauptaktion. Runde Knöpfe sind deshalb hell (Papier),
+   Farbe tragen Rand und Symbol: Holzbraun für Pfeile/Navigation, Himmelblau für Hilfe. */
 .holzknopf {
   display: inline-grid;
   place-items: center;
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  border: var(--kontur) solid var(--color-holz-schatten);
-  background: var(--color-holzknopf);
-  color: var(--color-holzknopf-symbol);
-  box-shadow: inset 0 0 0 4px var(--color-holzknopf-2), 0 var(--kante) 0 var(--color-holz-schatten);
+  border: var(--kontur) solid var(--color-aktion);
+  background: var(--color-papier);
+  color: var(--color-aktion);
+  box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 var(--kante) 0 var(--color-holz-schatten);
   cursor: pointer;
   transition: transform var(--dur-micro) var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
 .holzknopf .symbol { width: 28px; height: 28px; }
-.holzknopf:hover { background: var(--color-holzknopf-2); }
-.holzknopf:active { transform: translateY(3px); box-shadow: inset 0 0 0 4px var(--color-holzknopf-2), 0 1px 0 var(--color-holz-schatten); }
+.holzknopf:hover { background: var(--color-papier-2); }
+.holzknopf:active { transform: translateY(3px); box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 1px 0 var(--color-holz-schatten); }
 .holzknopf:disabled { cursor: not-allowed; opacity: 0.55; }
 
 /* Hilfe-Knöpfe (Tipp, Hilfe): Himmelblau statt Holz – Blau bedeutet überall „Hilfe“ */
 .holzknopf--hilfe {
-  background: var(--color-hilfe);
-  color: var(--color-hilfe-symbol);
-  border-color: var(--color-hilfe-kante);
-  box-shadow: inset 0 0 0 4px var(--color-hilfe-2), 0 var(--kante) 0 var(--color-hilfe-kante);
+  color: var(--color-hilfe);
+  border-color: var(--color-hilfe);
+  box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 var(--kante) 0 var(--color-hilfe-kante);
 }
-.holzknopf--hilfe:hover { background: var(--color-hilfe-2); }
-.holzknopf--hilfe:active { box-shadow: inset 0 0 0 4px var(--color-hilfe-2), 0 1px 0 var(--color-hilfe-kante); }
+.holzknopf--hilfe:active { box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 1px 0 var(--color-hilfe-kante); }
 
 /* Umschalter (z. B. Leseschrift) */
 .schalter {
@@ -216,7 +216,33 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   -webkit-tap-highlight-color: transparent;
 }
 .wort:hover { border-color: var(--color-holz); border-style: dashed; }
-.wort[aria-pressed='true'] { background: var(--color-papier-2); border-color: var(--color-aktion); border-style: solid; text-decoration: underline wavy var(--color-aktion) 2px; text-underline-offset: 6px; }
+.wort[aria-pressed='true'] { background: var(--color-papier-2); border-color: var(--color-aktion); border-style: solid; box-shadow: 0 2px 0 var(--color-holz-schatten); }
+
+/* ---------- Wortarten: jede Wortart hat ihre Farbe (Werte in tokens.css, Zuordnung in src/lib/wortarten.ts) ----------
+   data-wortart setzt --wa/--wa-flaeche; die Regeln darunter nutzen nur diese zwei.
+   Bedeutung nie nur über Farbe: im Kästchen steht immer der Name der Wortart. */
+[data-wortart='nomen'] { --wa: var(--wa-nomen); --wa-flaeche: var(--wa-nomen-flaeche); }
+[data-wortart='verb'] { --wa: var(--wa-verb); --wa-flaeche: var(--wa-verb-flaeche); }
+[data-wortart='adjektiv'] { --wa: var(--wa-adjektiv); --wa-flaeche: var(--wa-adjektiv-flaeche); }
+[data-wortart='artikel'] { --wa: var(--wa-artikel); --wa-flaeche: var(--wa-artikel-flaeche); }
+[data-wortart='pronomen'] { --wa: var(--wa-pronomen); --wa-flaeche: var(--wa-pronomen-flaeche); }
+[data-wortart='adverb'] { --wa: var(--wa-adverb); --wa-flaeche: var(--wa-adverb-flaeche); }
+[data-wortart='praeposition'] { --wa: var(--wa-praeposition); --wa-flaeche: var(--wa-praeposition-flaeche); }
+[data-wortart='konjunktion'] { --wa: var(--wa-konjunktion); --wa-flaeche: var(--wa-konjunktion-flaeche); }
+[data-wortart='numerale'] { --wa: var(--wa-numerale); --wa-flaeche: var(--wa-numerale-flaeche); }
+[data-wortart='interjektion'] { --wa: var(--wa-interjektion); --wa-flaeche: var(--wa-interjektion-flaeche); }
+
+/* Wort im Text in der Farbe seiner Wortart (z. B. in Erklärungen und Beispielen) */
+.wa-text { color: var(--wa); font-weight: 800; }
+
+/* Markiertes Wort: Kästchen in der Farbe der Wortart, Name darunter */
+.wort[data-wortart] { background: var(--wa-flaeche); border-color: var(--wa); border-style: solid; color: var(--wa); }
+.wort-mit-name { display: inline-grid; justify-items: center; vertical-align: top; }
+.wort-mit-name__name { font-size: var(--text-klein); line-height: 1.2; color: var(--wa, var(--color-tinte-leise)); }
+
+/* Stifte zum Markieren: Chip in der Farbe der Wortart; der gewählte Stift hat einen dicken Rand und ✓ */
+.stift[data-wortart] { background: var(--wa-flaeche); border-color: var(--wa); color: var(--wa); font-weight: 800; }
+.stift[data-wortart][aria-pressed='true'] { background: var(--wa-flaeche); color: var(--wa); border-width: 4px; box-shadow: 0 var(--kante) 0 var(--wa); }
 
 /* ---------- Rückmeldung (✓ grün, ! Pfirsich – nie rot) ---------- */
 .rueckmeldung {
@@ -236,7 +262,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .rueckmeldung--nochmal { background: var(--color-nochmal-flaeche); color: var(--color-nochmal-tinte); }
 
 /* ---------- Sterne (Arbeitsstufe, kein Lernstand) ---------- */
-.sterne { display: inline-flex; align-items: center; gap: var(--space-2xs); color: var(--color-holz); }
+.sterne { display: inline-flex; align-items: center; gap: var(--space-2xs); color: var(--color-tinte); }
 .sterne .symbol { width: 22px; height: 22px; }
 .sterne__voll { color: var(--color-sonne); }
 .sterne__voll path { stroke: var(--color-holz); }
@@ -266,7 +292,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .menue a .symbol { padding: var(--space-2xs) var(--space-sm); border-radius: var(--radius-pille); }
 .menue a:hover .symbol { background: var(--color-papier-2); }
 .menue a[aria-current='page'] { font-weight: 800; }
-.menue a[aria-current='page'] .symbol { background: var(--color-aktion); color: var(--color-aktion-text); }
+/* aktuelle Seite: wie Apples Tab-Leiste ohne Farbfläche – fett, mit hellem Feld hinter dem Symbol und Strich darunter */
+.menue a[aria-current='page'] .symbol { background: var(--color-papier-2); box-shadow: inset 0 -3px 0 var(--color-aktion); }
 
 @media (prefers-reduced-motion: reduce) {
   .knopf, .holzknopf, .schalter__knopf { transition: none; }

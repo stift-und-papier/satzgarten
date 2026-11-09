@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Symbol, type SymbolName } from '../gemeinsam/Symbol'
 import { useLeseschrift } from '../lib/leseschrift'
+import { WORTART_NAME, type Wortart } from '../lib/wortarten'
 
 // Stilblatt (Phase 2, Aufgabe 4): alle Bausteine auf einer Seite, damit die Lehrkraft das Design am iPad prüfen kann.
 // Ohne Daten und ohne Datenbank. Adresse: #/stil. Wird nach der Design-Freigabe wieder entfernt.
@@ -22,6 +23,15 @@ const MENUE: { name: SymbolName; text: string }[] = [
   { name: 'hilfe', text: 'Hilfe' },
 ]
 
+// Beispielsatz mit Wortarten (so färbt die App Wörter, deren Wortart in der Aufgabe steht)
+const BEISPIEL: [string, Wortart][] = [
+  ['Oh,', 'interjektion'], ['der', 'artikel'], ['kleine', 'adjektiv'], ['Hund', 'nomen'], ['bellt', 'verb'],
+  ['heute', 'adverb'], ['laut', 'adjektiv'], ['vor', 'praeposition'], ['dem', 'artikel'], ['Haus,', 'nomen'],
+  ['weil', 'konjunktion'], ['er', 'pronomen'], ['zwei', 'numerale'], ['Katzen', 'nomen'], ['sieht.', 'verb'],
+]
+const ALLE_WORTARTEN = Object.keys(WORTART_NAME) as Wortart[]
+const ZUORDNEN = ['Die', 'Sonne', 'scheint', 'warm', 'auf', 'unseren', 'Garten.']
+
 const WOERTER = ['Gestern', 'ging', 'ich', 'mit', 'meiner', 'Schwester', 'in', 'den', 'Garten.']
 
 function Sterne({ stufe }: { stufe: 1 | 2 | 3 }) {
@@ -40,6 +50,8 @@ function Sterne({ stufe }: { stufe: 1 | 2 | 3 }) {
 export default function Stilblatt() {
   const [wahl, setWahl] = useState<number | null>(1)
   const [markiert, setMarkiert] = useState<number[]>([1])
+  const [stift, setStift] = useState<Wortart>('nomen')
+  const [zugeordnet, setZugeordnet] = useState<Record<number, Wortart>>({ 1: 'nomen', 2: 'verb' })
   const [geprueft, setGeprueft] = useState(false)
   const [lrs, setLrs] = useLeseschrift()
 
@@ -108,7 +120,7 @@ export default function Stilblatt() {
               gesperrt
             </button>
           </div>
-          <p>Tippe alle Verben an.</p>
+          <p>Tippe alle Verben an. Gefundene Wörter werden rot wie alle Verben.</p>
           <p className="satz">
             {WOERTER.map((w, i) => (
               <span key={i}>
@@ -116,12 +128,60 @@ export default function Stilblatt() {
                   type="button"
                   className="wort"
                   aria-pressed={markiert.includes(i)}
+                  data-wortart={markiert.includes(i) ? 'verb' : undefined}
                   onClick={() => setMarkiert((m) => (m.includes(i) ? m.filter((x) => x !== i) : [...m, i]))}
                 >
                   {w}
                 </button>{' '}
               </span>
             ))}
+          </p>
+        </section>
+
+        <section className="karte" aria-labelledby="t-wortarten">
+          <h2 id="t-wortarten">Wortarten haben Farben</h2>
+          <p className="satz">
+            {BEISPIEL.map(([w, art], i) => (
+              <span key={i}>
+                <span className="wa-text" data-wortart={art}>{w}</span>{' '}
+              </span>
+            ))}
+          </p>
+          <p>Wähle einen Stift und tippe die Wörter an.</p>
+          <div className="chips" role="group" aria-label="Stifte">
+            {ALLE_WORTARTEN.map((art) => (
+              <button key={art} type="button" className="chip stift" data-wortart={art} aria-pressed={stift === art} onClick={() => setStift(art)}>
+                {WORTART_NAME[art]}
+              </button>
+            ))}
+          </div>
+          <p className="satz">
+            {ZUORDNEN.map((w, i) => {
+              const art = zugeordnet[i]
+              return (
+                <span key={i}>
+                  <span className="wort-mit-name" data-wortart={art}>
+                    <button
+                      type="button"
+                      className="wort"
+                      data-wortart={art}
+                      aria-pressed={!!art}
+                      onClick={() =>
+                        setZugeordnet((z) => {
+                          const neu = { ...z }
+                          if (neu[i] === stift) delete neu[i]
+                          else neu[i] = stift
+                          return neu
+                        })
+                      }
+                    >
+                      {w}
+                    </button>
+                    <span className="wort-mit-name__name">{art ? WORTART_NAME[art] : ' '}</span>
+                  </span>{' '}
+                </span>
+              )
+            })}
           </p>
         </section>
 

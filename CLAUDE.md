@@ -44,6 +44,12 @@
   Himmelblau = Hilfe (Tipp, Hilfe, Maskottchen), Blattgrün = richtig/geschafft (nie Knöpfe), Pfirsich = nochmal, Sonne = Sterne.
 - Jede Farbe in vier Varianten: hell, dunkel („Abendgarten“, folgt der iPad-Einstellung), mehr Kontrast, dunkel + mehr Kontrast.
   Neue Farben in allen vier Blöcken ergänzen und Kontrast nachrechnen.
+- **Farbe im Hintergrund nur für die EINE Hauptaktion** (Apple): runde Knöpfe hell mit farbigem Rand/Symbol
+  (Holz = Pfeile/Navigation, Himmelblau = Hilfe), Menü ohne Farbfläche. Linienfarbe nie als Schrift.
+- **Wortarten-Farben** (Lehrkraft): Nomen blau, Verb rot, Adjektiv grün, Artikel hellblau, Pronomen lila; Vorschlag Claude:
+  Adverb orange, Präposition senfgelb, Konjunktion/Subjunktion pink, Numerale türkis, Interjektion/Partikel grau.
+  Werte erzeugt `node scripts/wortarten-farben.mjs` (prüft Kontrast) in tokens.css; Namen → Wortart `src/lib/wortarten.ts` (getestet).
+  Kästchen markierter Wörter nehmen die Farbe der Wortart an, immer mit Namen; Wörter in Texten per `.wa-text` + `data-wortart`.
 - Leseschrift für LRS: OpenDyslexic (lokal, OFL), Umschalter `useLeseschrift` (`src/lib/leseschrift.ts`), gespeichert auf dem Gerät.
 - Prüfen: `node ~/.claude/skills/hallmark/scripts/sloplint.mjs src --genre playful --scope app`.
 
@@ -63,3 +69,5 @@
 - 2026-11-09 (Lehrkraft): Hilfe-Knöpfe (Tipp, Fragezeichen) in eigener Farbe (Himmelblau), Pfeile bleiben Holzbraun.
   Farben nach Apple-Richtlinien: eine Bedeutung je Farbe, Varianten für hell/dunkel/mehr Kontrast. Grün ist deshalb nur
   noch „richtig“, Hauptknöpfe und Auswahl sind Holz. Umschalter auf OpenDyslexic für Schüler:innen mit LRS.
+- 2026-11-09 (Lehrkraft): Keine Wellenlinie bei markierten Wörtern (wirkt wie „falsch“). Wortarten mit festen Farben
+  (s. Design). Apple-Farbregeln angewendet: Farbe im Hintergrund nur für die Hauptaktion, Rollen der Farben nie vertauschen.
