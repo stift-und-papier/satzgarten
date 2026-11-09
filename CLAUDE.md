@@ -17,7 +17,7 @@
 - **Keine Klarnamen** von Schüler:innen, nur Pseudonyme (z. B. „Fuchs-07“).
 - **Keine Geheimnisse ins Repo** (Repo ist öffentlich). Supabase-`anon`/publishable Key darf in den Code,
   `service_role`-Schlüssel und DB-Passwort **nie**.
-- KC-PDFs (`docs/*.pdf`) und Referenzbilder (`refrences/`) nie ins Repo. Grafiken immer **selbst neu zeichnen**.
+- KC-PDFs (`docs/*.pdf`), Referenzbilder (`refrences/`) und Referenz-Texte (`Erklärungen referenz/`) nie ins Repo. Grafiken immer **selbst neu zeichnen**.
 - Kompetenzen **nicht erfinden** – nur aus `docs/kompetenzen.csv` bzw. durch die Lehrkraft.
 - Schüler:innen sehen **nie** absolute Lernstände (kein `--` bis `++`, keine Prozente, Punkte, Noten) und **keine
   Belohnungszahlen** (Samen) – abgesichert in der Datenbank, nicht nur in der Oberfläche.
