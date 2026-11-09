@@ -37,6 +37,16 @@
 - Schüler:innen: kein Konto, Link-Token (192 Bit) hinter `#`; Zugriff nur über Datenbankfunktionen mit Token-Prüfung.
 - Bibliotheken: supabase-js, @dnd-kit, qrcode. Neue nur nach Rückfrage.
 
+## Design „Gartenheft“ (Stilblatt `#/stil`, wird nach Freigabe entfernt)
+- Einzige Token-Datei `src/design/tokens.css` (Farben als Hex wegen Safari 15.0–15.3, aus OKLCH berechnet),
+  Bausteine `src/design/bausteine.css` (Schüler:innen), `src/design/lehrkraft.css` (Thema „ruhig“). Symbole: `src/gemeinsam/Symbol.tsx`.
+- **Eine Farbe = eine Bedeutung** (Apple-Richtlinien): Holz = bedienen (Knöpfe, Pfeile, Auswahl, aktuelle Seite),
+  Himmelblau = Hilfe (Tipp, Hilfe, Maskottchen), Blattgrün = richtig/geschafft (nie Knöpfe), Pfirsich = nochmal, Sonne = Sterne.
+- Jede Farbe in vier Varianten: hell, dunkel („Abendgarten“, folgt der iPad-Einstellung), mehr Kontrast, dunkel + mehr Kontrast.
+  Neue Farben in allen vier Blöcken ergänzen und Kontrast nachrechnen.
+- Leseschrift für LRS: OpenDyslexic (lokal, OFL), Umschalter `useLeseschrift` (`src/lib/leseschrift.ts`), gespeichert auf dem Gerät.
+- Prüfen: `node ~/.claude/skills/hallmark/scripts/sloplint.mjs src --genre playful --scope app`.
+
 ## Befehle
 - `npm run dev` · `npm run build` · `npm run lint` · `npm test`
 - `npm run test:datenbank` → Erfolg = „ALLE TESTS BESTANDEN“. **Nach jeder Migration ausführen und erweitern.**
@@ -50,3 +60,6 @@
   Alle drei Zweige, erst eine Lehrkraft, alle 6 Formate + Erklärseite, Sterne-Stufen manuell + automatisch,
   Garten statt Wiese (Samen je Paket und je verbesserter Kompetenz, wachsen durch Üben, 12 Pflanzen + 6 Deko,
   umsetzen/entfernen erlaubt, keine Zahlen), Sammelbuch, Maskottchen (Gartengeist), neues Design nach Referenzbildern.
+- 2026-11-09 (Lehrkraft): Hilfe-Knöpfe (Tipp, Fragezeichen) in eigener Farbe (Himmelblau), Pfeile bleiben Holzbraun.
+  Farben nach Apple-Richtlinien: eine Bedeutung je Farbe, Varianten für hell/dunkel/mehr Kontrast. Grün ist deshalb nur
+  noch „richtig“, Hauptknöpfe und Auswahl sind Holz. Umschalter auf OpenDyslexic für Schüler:innen mit LRS.

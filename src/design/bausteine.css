@@ -9,7 +9,8 @@ body {
   margin: 0;
   font-family: var(--font-body);
   font-size: var(--text-body);
-  line-height: 1.55;
+  line-height: var(--zeilenhoehe);
+  letter-spacing: var(--buchstabenabstand);
   color: var(--color-tinte);
   background: var(--color-papier);
   font-synthesis: none;
@@ -79,7 +80,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   transition: transform var(--dur-micro) var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
-.knopf:hover { background: var(--color-creme); }
+.knopf:hover { background: var(--color-papier); }
 .knopf:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--color-holz-schatten); }
 .knopf:disabled, .knopf[aria-disabled='true'] {
   cursor: not-allowed;
@@ -89,13 +90,13 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   border-style: dashed;
 }
 .knopf--haupt {
-  background: var(--color-blatt);
-  border-color: var(--color-blatt-kante);
-  color: var(--color-creme);
-  box-shadow: 0 var(--kante) 0 var(--color-blatt-kante);
+  background: var(--color-aktion);
+  border-color: var(--color-holz-schatten);
+  color: var(--color-aktion-text);
+  box-shadow: 0 var(--kante) 0 var(--color-holz-schatten);
 }
-.knopf--haupt:hover { background: var(--color-blatt-2); }
-.knopf--haupt:active { box-shadow: 0 1px 0 var(--color-blatt-kante); }
+.knopf--haupt:hover { background: var(--color-aktion-2); }
+.knopf--haupt:active { box-shadow: 0 1px 0 var(--color-holz-schatten); }
 .knopf[aria-busy='true'] { cursor: progress; opacity: 0.8; }
 .knopf-reihe { display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: center; }
 
@@ -107,17 +108,57 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   height: 56px;
   border-radius: 50%;
   border: var(--kontur) solid var(--color-holz-schatten);
-  background: var(--color-holz-flaeche);
-  color: var(--color-creme);
-  box-shadow: inset 0 0 0 4px var(--color-holz-flaeche-2), 0 var(--kante) 0 var(--color-holz-schatten);
+  background: var(--color-holzknopf);
+  color: var(--color-holzknopf-symbol);
+  box-shadow: inset 0 0 0 4px var(--color-holzknopf-2), 0 var(--kante) 0 var(--color-holz-schatten);
   cursor: pointer;
   transition: transform var(--dur-micro) var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
 .holzknopf .symbol { width: 28px; height: 28px; }
-.holzknopf:hover { background: var(--color-holz-flaeche-2); }
-.holzknopf:active { transform: translateY(3px); box-shadow: inset 0 0 0 4px var(--color-holz-flaeche-2), 0 1px 0 var(--color-holz-schatten); }
+.holzknopf:hover { background: var(--color-holzknopf-2); }
+.holzknopf:active { transform: translateY(3px); box-shadow: inset 0 0 0 4px var(--color-holzknopf-2), 0 1px 0 var(--color-holz-schatten); }
 .holzknopf:disabled { cursor: not-allowed; opacity: 0.55; }
+
+/* Hilfe-Knöpfe (Tipp, Hilfe): Himmelblau statt Holz – Blau bedeutet überall „Hilfe“ */
+.holzknopf--hilfe {
+  background: var(--color-hilfe);
+  color: var(--color-hilfe-symbol);
+  border-color: var(--color-hilfe-kante);
+  box-shadow: inset 0 0 0 4px var(--color-hilfe-2), 0 var(--kante) 0 var(--color-hilfe-kante);
+}
+.holzknopf--hilfe:hover { background: var(--color-hilfe-2); }
+.holzknopf--hilfe:active { box-shadow: inset 0 0 0 4px var(--color-hilfe-2), 0 1px 0 var(--color-hilfe-kante); }
+
+/* Umschalter (z. B. Leseschrift) */
+.schalter {
+  display: inline-flex; align-items: center; gap: var(--space-sm);
+  min-height: var(--tipp-min);
+  padding: var(--space-xs) var(--space-md) var(--space-xs) var(--space-xs);
+  border: var(--kontur) solid var(--color-holz);
+  border-radius: var(--radius-pille);
+  background: var(--color-papier);
+  color: var(--color-tinte);
+  font: 800 var(--text-body)/1.2 var(--font-body);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.schalter:hover { background: var(--color-papier-2); }
+.schalter__bahn {
+  position: relative; flex-shrink: 0;
+  width: 52px; height: 30px; border-radius: var(--radius-pille);
+  border: var(--kontur) solid var(--color-holz);
+  background: var(--color-papier-2);
+  box-sizing: border-box;
+}
+.schalter__knopf {
+  position: absolute; top: 3px; left: 3px;
+  width: 19px; height: 19px; border-radius: 50%;
+  background: var(--color-holz);
+  transition: transform var(--dur-short) var(--ease-out);
+}
+.schalter[aria-checked='true'] .schalter__bahn { background: var(--color-aktion); border-color: var(--color-aktion); }
+.schalter[aria-checked='true'] .schalter__knopf { transform: translateX(22px); background: var(--color-aktion-text); }
 
 /* ---------- Lücke (Texteingabe im Satz) ---------- */
 .luecke {
@@ -134,7 +175,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   box-sizing: border-box;
 }
 .luecke:hover { border-style: solid; }
-.luecke:focus-visible { border-style: solid; background: var(--color-creme); }
+.luecke:focus-visible { border-style: solid; background: var(--color-papier); }
 .luecke:disabled { cursor: not-allowed; }
 .luecke--richtig { border-style: solid; border-color: var(--color-richtig-tinte); background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); }
 .luecke--nochmal { border-style: solid; border-color: var(--color-nochmal-tinte); background: var(--color-nochmal-flaeche); color: var(--color-nochmal-tinte); }
@@ -159,7 +200,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 }
 .chip:hover { background: var(--color-papier-2); }
 .chip:active { transform: translateY(2px); }
-.chip[aria-pressed='true'] { background: var(--color-blatt); border-color: var(--color-blatt-kante); color: var(--color-creme); font-weight: 800; }
+.chip[aria-pressed='true'] { background: var(--color-aktion); border-color: var(--color-holz-schatten); color: var(--color-aktion-text); font-weight: 800; }
 .chip[aria-pressed='true']::before { content: '✓ '; }
 .chip:disabled { cursor: not-allowed; border-style: dashed; color: var(--color-tinte-leise); }
 
@@ -175,7 +216,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   -webkit-tap-highlight-color: transparent;
 }
 .wort:hover { border-color: var(--color-holz); border-style: dashed; }
-.wort[aria-pressed='true'] { background: var(--color-papier-2); border-color: var(--color-blatt-kante); border-style: solid; text-decoration: underline wavy var(--color-blatt) 2px; text-underline-offset: 6px; }
+.wort[aria-pressed='true'] { background: var(--color-papier-2); border-color: var(--color-aktion); border-style: solid; text-decoration: underline wavy var(--color-aktion) 2px; text-underline-offset: 6px; }
 
 /* ---------- Rückmeldung (✓ grün, ! Pfirsich – nie rot) ---------- */
 .rueckmeldung {
@@ -225,8 +266,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .menue a .symbol { padding: var(--space-2xs) var(--space-sm); border-radius: var(--radius-pille); }
 .menue a:hover .symbol { background: var(--color-papier-2); }
 .menue a[aria-current='page'] { font-weight: 800; }
-.menue a[aria-current='page'] .symbol { background: var(--color-blatt); color: var(--color-creme); }
+.menue a[aria-current='page'] .symbol { background: var(--color-aktion); color: var(--color-aktion-text); }
 
 @media (prefers-reduced-motion: reduce) {
-  .knopf, .holzknopf { transition: none; }
+  .knopf, .holzknopf, .schalter__knopf { transition: none; }
 }

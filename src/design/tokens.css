@@ -1,61 +1,79 @@
 /* Hallmark · shape: app screen · genre: playful · theme: custom · idea: "Ein Gartenheft auf der Wiese" · vibe: "warm, handgezeichnet, ruhig, freundlich, zum Anfassen" · scope: app
- * paper: Creme-Karten (--color-papier) auf Wiesengrün (--color-wiese) · ink: Holzbraun (--color-tinte) · accent: Blattgrün (--color-blatt) · display: Fraunces 600 · body: Nunito 400/800
- * posture: Committed (Wiese trägt die Fläche, Blattgrün nur für Hauptknopf, Auswahl, Fokus) · axes: light/soft-serif/chromatic-green · contrast: pass (nachgerechnet, kleinster Wert 3,7:1 Fokusring auf Wiese)
- * signature: die Aufgabenkarte als Heftseite mit Holzknöpfen und Pillen · hero: keiner (App-Ansicht) · v2.0.0 */
+ * paper: Creme-Karten (--color-papier) auf Wiesengrün (--color-wiese) · ink: Holzbraun (--color-tinte) · accent: Holz = „hier kann man tippen“ (--color-aktion) · display: Fraunces 600 · body: Nunito 400/800, umschaltbar auf OpenDyslexic
+ * posture: Full palette, jede Farbe EINE Bedeutung (Holz bedienen, Himmelblau Hilfe, Grün richtig, Pfirsich nochmal, Sonne Sterne) · modes: hell, dunkel, mehr Kontrast
+ * axes: light/soft-serif/chromatic-brown · contrast: pass (nachgerechnet je Modus, siehe Kommentare) · signature: die Aufgabenkarte als Heftseite mit Holzknöpfen und Pillen · hero: keiner (App-Ansicht) · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H3 E3 S2 R3 V3 · weakest: S, Creme auf Grün ist die Vorgabe der Lehrkraft (Referenzbilder), nicht frei gewählt */
-/* waive 65: Creme-Papier ist ausdrücklicher Wunsch der Lehrkraft (Referenzbilder in refrences/), Akzent ist Blattgrün statt Ton */
-/* answered 40: .holzknopf trägt nur Symbole (Name per aria-label); 4,2:1 liegt über 3:1 für Symbole
- * waive OKLCH: Farben als Hex, weil Safari 15.0–15.3 (ältere iPads) kein oklch kennt; berechnet aus OKLCH-Werten */
+/* waive 65: Creme-Papier ist ausdrücklicher Wunsch der Lehrkraft (Referenzbilder in refrences/) */
+/* waive OKLCH: Farben als Hex, weil Safari 15.0–15.3 (ältere iPads) kein oklch kennt; berechnet aus OKLCH-Werten */
 /* waive F24: Kontur + harte Kante unten sind das Material der Referenzbilder (Holzrahmen, Pillenknöpfe) */
 
 /* Satzgarten – EINZIGE Token-Datei. Farben und Schriften nur hier festlegen, nirgends sonst.
+   Farbsprache (nach Apple-Richtlinien: eine Farbe = eine Bedeutung, Varianten für hell, dunkel, mehr Kontrast):
+     Holz        = bedienen: Knöpfe, Pfeile, Auswahl, aktuelle Seite
+     Himmelblau  = Hilfe: Tipp, Hilfe, später das Maskottchen
+     Blattgrün   = richtig / geschafft (nie für Knöpfe)
+     Pfirsich    = nochmal versuchen (nie rot)
+     Sonne       = Sterne (Arbeitsstufe)
    Schriften liegen in fonts/ (kein CDN). Kontraste am 2026-11-09 nachgerechnet (WCAG). */
 @font-face{font-family:'Fraunces';src:url('fonts/fraunces-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:'Nunito';src:url('fonts/nunito-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'Nunito';src:url('fonts/nunito-latin-800-normal.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:'OpenDyslexic';src:url('fonts/OpenDyslexic-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'OpenDyslexic';src:url('fonts/OpenDyslexic-Bold.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
 
+/* ===================== HELL (Standard) ===================== */
 :root {
+  color-scheme: light dark;
+
   /* Flächen */
-  --color-wiese: #c9d9a6;          /* Hintergrund der Schülerseiten */
-  --color-wiese-tief: #acc188;     /* Grashalme im Muster */
-  --color-papier: #fcf5e3;         /* Karten */
-  --color-papier-2: #f3e7ce;       /* vertiefte Felder in Karten (Lücken, Chips) */
-  --color-creme: #fcf8ed;          /* Schrift auf dunklen Knöpfen */
+  --color-wiese: #c9d9a6;
+  --color-papier: #fcf5e3;
+  --color-papier-2: #f3e7ce;
 
   /* Schrift und Linien */
-  --color-tinte: #3d281a;           /* Text: 12,6:1 auf Papier */
-  --color-tinte-leise: #5e4837;     /* Nebentext: 7,8:1 auf Papier */
-  --color-holz: #613f27;            /* Konturen */
-  --color-holz-schatten: #472b1b;   /* harte Kante unter Karten und Knöpfen */
-  --color-holz-flaeche: #a7693c;    /* runde Holzknöpfe (Symbol creme 4,2:1) */
-  --color-holz-flaeche-2: #ba7c4c;  /* Holzknopf beim Darüberfahren */
+  --color-tinte: #3d281a;
+  --color-tinte-leise: #5e4837;
+  --color-holz: #613f27;
+  --color-holz-schatten: #472b1b;
 
-  /* Akzent: Blattgrün – nur Hauptknopf, Auswahl, aktuelle Seite, Fokus */
-  --color-blatt: #357430;          /* creme darauf 5,4:1 */
-  --color-blatt-2: #266521;        /* gedrückt / darüberfahren */
-  --color-blatt-kante: #17501d;
-  --color-fokus: #077900;          /* Fokusring: 5,1:1 auf Papier, 3,7:1 auf Wiese */
+  /* Holz = bedienen */
+  --color-aktion: #643d20;            /* Hauptknopf, Auswahl, aktuelle Seite */
+  --color-aktion-2: #502f17;          /* darüberfahren */
+  --color-aktion-text: #fcf8ed;
+  --color-holzknopf: #a7693c;         /* runde Pfeilknöpfe */
+  --color-holzknopf-2: #ba7c4c;
+  --color-holzknopf-symbol: #fcf8ed;
 
-  /* Rückmeldung – nie rot */
+  /* Himmelblau = Hilfe */
+  --color-hilfe: #006c98;
+  --color-hilfe-2: #2181af;
+  --color-hilfe-kante: #004267;
+  --color-hilfe-symbol: #fcf8ed;
+
+  /* Rückmeldung */
   --color-richtig-flaeche: #cdf0cd;
-  --color-richtig-tinte: #18491c;  /* 8,4:1 */
-  --color-nochmal-flaeche: #fed4b9; /* Pfirsich */
-  --color-nochmal-tinte: #7c350e;   /* 6,5:1 */
-  --color-sonne: #eebc4a;           /* Sterne */
+  --color-richtig-tinte: #18491c;
+  --color-nochmal-flaeche: #fed4b9;
+  --color-nochmal-tinte: #7c350e;
+  --color-sonne: #eebc4a;
+
+  --color-fokus: #3d281a;
 
   /* Lehrkraft – Thema „ruhig“ */
   --color-lk-papier: #fdfaf4;
   --color-lk-papier-2: #f4f0e7;
-  --color-lk-tinte: #261d16;        /* 15,8:1 */
-  --color-lk-leise: #665b53;        /* 6,3:1 */
+  --color-lk-tinte: #261d16;
+  --color-lk-leise: #665b53;
   --color-lk-linie: #ddd7cd;
 
-  /* Muster: kurze Grashalme wie in den Gartenbildern (Farbe = --color-wiese-tief) */
+  /* Muster: kurze Grashalme */
   --muster-wiese: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg stroke='%23acc188' stroke-width='2.5' stroke-linecap='round' fill='none'%3E%3Cpath d='M18 30l2-6M24 31l1-5'/%3E%3Cpath d='M78 74l2-6M84 75l1-5'/%3E%3Cpath d='M40 100l2-5'/%3E%3Cpath d='M98 18l1-5'/%3E%3C/g%3E%3C/svg%3E");
 
-  /* Schriften */
+  /* Schriften (Umschalter Leseschrift: siehe unten) */
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Nunito', system-ui, sans-serif;
+  --zeilenhoehe: 1.55;
+  --buchstabenabstand: 0;
 
   /* Größen (Verhältnis 1,2 ab 18 px; Fließtext nie unter 17 px) */
   --text-klein: 0.9375rem;
@@ -79,7 +97,7 @@
   --radius-pille: 999px;
   --radius-lk: 6px;
   --kontur: 2.5px;
-  --kante: 4px;                                 /* Höhe der harten Kante unter Knöpfen */
+  --kante: 4px;
 
   --tipp-min: 48px;
   --breite-inhalt: 44rem;
@@ -87,4 +105,98 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-micro: 120ms;
   --dur-short: 220ms;
+}
+
+/* ===================== DUNKEL („Abendgarten“) ===================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-wiese: #27321c;
+    --color-papier: #2b1f15;
+    --color-papier-2: #3c2d21;
+    --color-tinte: #f1eadc;
+    --color-tinte-leise: #cec2af;
+    --color-holz: #bf9d7d;
+    --color-holz-schatten: #110904;
+    --color-aktion: #edc291;
+    --color-aktion-2: #fad8ab;
+    --color-aktion-text: #2a1b11;
+    --color-holzknopf: #bb8558;
+    --color-holzknopf-2: #ce9869;
+    --color-holzknopf-symbol: #211208;
+    --color-hilfe: #67b5e1;
+    --color-hilfe-2: #82c7f0;
+    --color-hilfe-kante: #040c13;
+    --color-hilfe-symbol: #031826;
+    --color-richtig-flaeche: #193c1b;
+    --color-richtig-tinte: #b9eeba;
+    --color-nochmal-flaeche: #512e1a;
+    --color-nochmal-tinte: #ffd3b2;
+    --color-sonne: #f4c352;
+    --color-fokus: #f1eadc;
+    --color-lk-papier: #17130f;
+    --color-lk-papier-2: #241e1a;
+    --color-lk-tinte: #eeebe4;
+    --color-lk-leise: #b6b0a7;
+    --color-lk-linie: #423c35;
+    --muster-wiese: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg stroke='%23344226' stroke-width='2.5' stroke-linecap='round' fill='none'%3E%3Cpath d='M18 30l2-6M24 31l1-5'/%3E%3Cpath d='M78 74l2-6M84 75l1-5'/%3E%3Cpath d='M40 100l2-5'/%3E%3Cpath d='M98 18l1-5'/%3E%3C/g%3E%3C/svg%3E");
+  }
+}
+
+/* ===================== MEHR KONTRAST (iPad: Bedienungshilfen → „Kontrast erhöhen“) ===================== */
+@media (prefers-contrast: more) {
+  :root {
+    --color-papier: #fefcf4;
+    --color-tinte: #1c0e05;
+    --color-tinte-leise: #2f2016;
+    --color-holz: #2e1a0c;
+    --color-holz-schatten: #1c0d06;
+    --color-aktion: #3c220f;
+    --color-aktion-2: #2c1302;
+    --color-holzknopf: #6e401e;
+    --color-holzknopf-2: #5c300b;
+    --color-hilfe: #004776;
+    --color-hilfe-2: #003764;
+    --color-richtig-tinte: #012d07;
+    --color-nochmal-tinte: #541600;
+    --color-fokus: #1c0e05;
+    --color-lk-tinte: #0f0703;
+    --color-lk-leise: #362c24;
+    --color-lk-linie: #797065;
+    --muster-wiese: none;
+    --kontur: 3px;
+  }
+}
+@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
+  :root {
+    --color-papier: #140b05;
+    --color-papier-2: #23180f;
+    --color-tinte: #fffbf4;
+    --color-tinte-leise: #ebe4d6;
+    --color-holz: #edd2b5;
+    --color-holz-schatten: #030101;
+    --color-aktion: #fde0b9;
+    --color-aktion-2: #fff3d8;
+    --color-aktion-text: #0f0703;
+    --color-holzknopf: #e2b487;
+    --color-holzknopf-2: #f2c8a1;
+    --color-holzknopf-symbol: #0f0703;
+    --color-hilfe: #8fd5fd;
+    --color-hilfe-2: #b1e6ff;
+    --color-hilfe-symbol: #010a14;
+    --color-richtig-tinte: #d5ffd5;
+    --color-nochmal-tinte: #ffead3;
+    --color-fokus: #fffbf4;
+    --color-lk-papier: #080503;
+    --color-lk-tinte: #fdfcf8;
+    --color-lk-leise: #dbd7d0;
+    --color-lk-linie: #867f77;
+  }
+}
+
+/* ===================== LESESCHRIFT für LRS (Umschalter, gespeichert auf dem Gerät) ===================== */
+:root[data-leseschrift='lrs'] {
+  --font-display: 'OpenDyslexic', 'Nunito', system-ui, sans-serif;
+  --font-body: 'OpenDyslexic', 'Nunito', system-ui, sans-serif;
+  --zeilenhoehe: 1.8;
+  --buchstabenabstand: 0;
 }

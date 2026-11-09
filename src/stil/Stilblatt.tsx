@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import { Symbol, type SymbolName } from '../gemeinsam/Symbol'
+import { useLeseschrift } from '../lib/leseschrift'
 
 // Stilblatt (Phase 2, Aufgabe 4): alle Bausteine auf einer Seite, damit die Lehrkraft das Design am iPad prüfen kann.
 // Ohne Daten und ohne Datenbank. Adresse: #/stil. Wird nach der Design-Freigabe wieder entfernt.
 
 const FARBEN: { name: string; wofuer: string; variable: string }[] = [
-  { name: 'Wiese', wofuer: 'Hintergrund', variable: '--color-wiese' },
-  { name: 'Papier', wofuer: 'Karten', variable: '--color-papier' },
-  { name: 'Holz', wofuer: 'Konturen, Text', variable: '--color-holz' },
-  { name: 'Blattgrün', wofuer: 'Hauptknopf, Auswahl', variable: '--color-blatt' },
-  { name: 'Pfirsich', wofuer: 'Nochmal', variable: '--color-nochmal-flaeche' },
+  { name: 'Holz', wofuer: 'Hier kannst du tippen: Knöpfe, Pfeile, Auswahl', variable: '--color-aktion' },
+  { name: 'Himmelblau', wofuer: 'Hilfe: Tipp und Fragezeichen', variable: '--color-hilfe' },
+  { name: 'Blattgrün', wofuer: 'Richtig, geschafft', variable: '--color-richtig-flaeche' },
+  { name: 'Pfirsich', wofuer: 'Nochmal versuchen', variable: '--color-nochmal-flaeche' },
   { name: 'Sonne', wofuer: 'Sterne', variable: '--color-sonne' },
+  { name: 'Wiese und Papier', wofuer: 'Hintergrund und Karten', variable: '--color-papier' },
 ]
 
 const MENUE: { name: SymbolName; text: string }[] = [
@@ -40,6 +41,7 @@ export default function Stilblatt() {
   const [wahl, setWahl] = useState<number | null>(1)
   const [markiert, setMarkiert] = useState<number[]>([1])
   const [geprueft, setGeprueft] = useState(false)
+  const [lrs, setLrs] = useLeseschrift()
 
   return (
     <div className="garten-seite">
@@ -50,11 +52,15 @@ export default function Stilblatt() {
               <Symbol name="zurueck" />
             </button>
             <h1>Stilblatt</h1>
-            <button type="button" className="holzknopf" aria-label="Hilfe">
+            <button type="button" className="holzknopf holzknopf--hilfe" aria-label="Hilfe">
               <Symbol name="hilfe" />
             </button>
           </div>
-          <p>So sollen die Seiten für Schüler:innen aussehen. Alles hier lässt sich antippen und ausprobieren.</p>
+          <p>So sollen die Seiten für Schüler:innen aussehen. Alles hier lässt sich antippen und ausprobieren. Ist dein iPad auf „Dunkel“ gestellt, wird der Garten zum Abendgarten.</p>
+          <button type="button" role="switch" aria-checked={lrs} className="schalter" onClick={() => setLrs(!lrs)} style={{ justifySelf: 'start' }}>
+            <span className="schalter__bahn" aria-hidden="true"><span className="schalter__knopf" /></span>
+            Leseschrift für LRS
+          </button>
         </header>
 
         <section className="karte" aria-labelledby="t-aufgabe">
@@ -77,7 +83,7 @@ export default function Stilblatt() {
             <button type="button" className="knopf" disabled={!geprueft}>
               Lösung ansehen
             </button>
-            <button type="button" className="holzknopf" aria-label="Tipp anzeigen">
+            <button type="button" className="holzknopf holzknopf--hilfe" aria-label="Tipp anzeigen">
               <Symbol name="tipp" />
             </button>
           </div>
@@ -140,7 +146,7 @@ export default function Stilblatt() {
         </section>
 
         <section className="karte" aria-labelledby="t-farben">
-          <h2 id="t-farben">Farben und Schrift</h2>
+          <h2 id="t-farben">Jede Farbe hat eine Bedeutung</h2>
           <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 9rem), 1fr))', gap: 'var(--space-md)' }}>
             {FARBEN.map((f) => (
               <li key={f.name} style={{ display: 'grid', gap: 'var(--space-2xs)' }}>

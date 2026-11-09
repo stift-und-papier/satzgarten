@@ -24,8 +24,8 @@
 .lk-knopf:hover { background: var(--color-lk-papier-2); }
 .lk-knopf:active { transform: translateY(1px); }
 .lk-knopf:disabled { cursor: not-allowed; color: var(--color-lk-leise); }
-.lk-knopf--haupt { background: var(--color-blatt); border-color: var(--color-blatt); color: var(--color-creme); }
-.lk-knopf--haupt:hover { background: var(--color-blatt-2); }
+.lk-knopf--haupt { background: var(--color-aktion); border-color: var(--color-aktion); color: var(--color-aktion-text); }
+.lk-knopf--haupt:hover { background: var(--color-aktion-2); }
 
 .lk-feld {
   font: inherit; color: inherit;
