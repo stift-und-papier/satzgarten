@@ -86,4 +86,4 @@ const neu = alt.includes('/* WORTARTEN-START')
   ? alt.replace(/\/\* WORTARTEN-START[\s\S]*?WORTARTEN-ENDE \*\//, css)
   : alt.trimEnd() + '\n\n' + css + '\n'
 fs.writeFileSync(datei, neu)
-console.log('Wortarten-Farben geschrieben, alle Kontraste ≥ 4,5:1.')
+console.log('Fachbegriff-Farben geschrieben, alle Kontraste ≥ 4,5:1.')

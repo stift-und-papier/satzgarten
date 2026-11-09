@@ -46,15 +46,15 @@
   Neue Farben in allen vier Blöcken ergänzen und Kontrast nachrechnen.
 - **Farbe im Hintergrund nur für die EINE Hauptaktion** (Apple): runde Knöpfe hell mit farbigem Rand/Symbol
   (Holz = Pfeile/Navigation, Himmelblau = Hilfe), Menü ohne Farbfläche. Linienfarbe nie als Schrift.
-- **Fachbegriff-Farben** (eine Palette mit 10 Farben, , erzeugt + kontrastgeprüft von Wortarten-Farben geschrieben, alle Kontraste ≥ 4,5:1.;
-  Begriff → Farbe in , getestet). Gruppen dürfen Farben teilen (nie gleichzeitig abgefragt).
+- **Fachbegriff-Farben** (eine Palette mit 10 Farben, `--kat-*`, erzeugt + kontrastgeprüft von `node scripts/fachbegriff-farben.mjs`;
+  Begriff → Farbe in `src/lib/kategorien.ts`, getestet). Gruppen dürfen Farben teilen (nie gleichzeitig abgefragt).
   Wortarten (Lehrkraft): Nomen blau, Verb rot, Adjektiv grün, Artikel hellblau, Pronomen lila; Claude: Adverb orange,
   Präposition senf, Konjunktion/Subjunktion pink, Numerale türkis, Interjektion/Partikel grau.
   Satzglieder (Claude): Subjekt blau, Prädikat rot, Akkusativobjekt grün, Dativobjekt senf, Genitivobjekt türkis,
   Präpositionalobjekt lila, Adverbiale orange, Attribut pink. Zeitformen (Claude, Zeitstrahl kühl → warm):
   Plusquamperfekt lila, Präteritum blau, Perfekt hellblau, Präsens grün, Futur I orange, Futur II pink.
-  Fachbegriffe in Anweisungen färben sich automatisch (, je Aufgabe abschaltbar: ).
-  Markierte Wörter nehmen die Farbe an (); ohne Farbe bleiben sie neutral (Antippen ohne Fachbegriff).
+  Fachbegriffe in Anweisungen färben sich automatisch (`src/gemeinsam/Anweisung.tsx`, je Aufgabe abschaltbar: `farbig={false}`).
+  Markierte Wörter nehmen die Farbe an (`data-farbe`); ohne Farbe bleiben sie neutral (Antippen ohne Fachbegriff).
   Gestrichelt heißt immer „hier schreiben“ (Lücken) – gesperrte Knöpfe sind nur blasser.
 - Leseschrift für LRS: OpenDyslexic (lokal, OFL), Umschalter `useLeseschrift` (`src/lib/leseschrift.ts`), gespeichert auf dem Gerät.
 - Prüfen: `node ~/.claude/skills/hallmark/scripts/sloplint.mjs src --genre playful --scope app`.
