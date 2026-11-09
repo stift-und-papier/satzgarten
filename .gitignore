@@ -20,3 +20,6 @@ refrences/
 .vscode/*
 .idea
 .DS_Store
+
+# Referenz-Texte fremder Webseiten (nur lokal, nie ins öffentliche Repo)
+Erklärungen referenz/
