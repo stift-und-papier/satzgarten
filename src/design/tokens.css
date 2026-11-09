@@ -56,6 +56,10 @@
   --color-nochmal-flaeche: #fed4b9;
   --color-nochmal-tinte: #7c350e;
   --color-sonne: #eebc4a;
+  --color-sonne-hell: #fae8a2;
+  --color-stern-leer: #55341c;
+  --color-stern-rand: #422616;
+  --color-hilfe-flaeche: #faecb6;   /* gelbes Feld hinter Hilfe-Symbolen */
 
   --color-fokus: #3d281a;
 
@@ -127,6 +131,10 @@
     --color-nochmal-flaeche: #512e1a;
     --color-nochmal-tinte: #ffd3b2;
     --color-sonne: #f4c352;
+    --color-sonne-hell: #fcebae;
+    --color-stern-leer: #614731;
+    --color-stern-rand: #bf9d7d;
+    --color-hilfe-flaeche: #4f4119;
     --color-fokus: #f1eadc;
     --color-lk-papier: #17130f;
     --color-lk-papier-2: #241e1a;
@@ -140,6 +148,8 @@
 /* ===================== MEHR KONTRAST (iPad: Bedienungshilfen → „Kontrast erhöhen“) ===================== */
 @media (prefers-contrast: more) {
   :root {
+    --color-stern-rand: #1c0d06;
+    --color-hilfe-flaeche: #fef2c5;
     --color-papier: #fefcf4;
     --color-tinte: #1c0e05;
     --color-tinte-leise: #2f2016;
@@ -160,6 +170,9 @@
 }
 @media (prefers-color-scheme: dark) and (prefers-contrast: more) {
   :root {
+    --color-stern-rand: #f4d9bb;
+    --color-stern-leer: #795d46;
+    --color-hilfe-flaeche: #392c01;
     --color-papier: #140b05;
     --color-papier-2: #23180f;
     --color-tinte: #fffbf4;
@@ -201,14 +214,14 @@
   --kat-hellblau-flaeche: #caefff;
   --kat-lila: #693996;
   --kat-lila-flaeche: #efe1ff;
-  --kat-orange: #903500;
-  --kat-orange-flaeche: #ffe1cc;
+  --kat-weinrot: #6d0b2d;
+  --kat-weinrot-flaeche: #f7cfd5;
   --kat-senf: #6a5300;
   --kat-senf-flaeche: #f1e8c7;
   --kat-pink: #8d2661;
   --kat-pink-flaeche: #ffdcec;
-  --kat-tuerkis: #006566;
-  --kat-tuerkis-flaeche: #c6f2f1;
+  --kat-petrol: #006757;
+  --kat-petrol-flaeche: #c8f2e9;
   --kat-grau: #5a5450;
   --kat-grau-flaeche: #ece7e3;
 }
@@ -224,14 +237,14 @@
     --kat-hellblau-flaeche: #073b4d;
     --kat-lila: #e1b0ff;
     --kat-lila-flaeche: #3d2d4e;
-    --kat-orange: #ffae64;
-    --kat-orange-flaeche: #4d2c15;
+    --kat-weinrot: #ffb2c7;
+    --kat-weinrot-flaeche: #3e1821;
     --kat-senf: #e3ca69;
     --kat-senf-flaeche: #3f350a;
     --kat-pink: #ffa0d8;
     --kat-pink-flaeche: #4c283a;
-    --kat-tuerkis: #73dfdf;
-    --kat-tuerkis-flaeche: #003f3f;
+    --kat-petrol: #7ae0cd;
+    --kat-petrol-flaeche: #003f36;
     --kat-grau: #d0c9c4;
     --kat-grau-flaeche: #393431;
   }
@@ -248,14 +261,14 @@
     --kat-hellblau-flaeche: #c9f3ff;
     --kat-lila: #501d7a;
     --kat-lila-flaeche: #f3e3ff;
-    --kat-orange: #731700;
-    --kat-orange-flaeche: #ffe3cc;
+    --kat-weinrot: #500018;
+    --kat-weinrot-flaeche: #fdd1d8;
     --kat-senf: #513a00;
     --kat-senf-flaeche: #f5ecc6;
     --kat-pink: #700048;
     --kat-pink-flaeche: #ffdef0;
-    --kat-tuerkis: #004c4d;
-    --kat-tuerkis-flaeche: #c5f6f5;
+    --kat-petrol: #004d3f;
+    --kat-petrol-flaeche: #c8f7ec;
     --kat-grau: #413c38;
     --kat-grau-flaeche: #efeae6;
   }
@@ -272,14 +285,14 @@
     --kat-hellblau-flaeche: #00293b;
     --kat-lila: #fccaff;
     --kat-lila-flaeche: #2b1c3b;
-    --kat-orange: #ffc87e;
-    --kat-orange-flaeche: #391b03;
+    --kat-weinrot: #ffcde1;
+    --kat-weinrot-flaeche: #2b0711;
     --kat-senf: #fee484;
     --kat-senf-flaeche: #2d2300;
     --kat-pink: #ffbaf3;
     --kat-pink-flaeche: #391628;
-    --kat-tuerkis: #8efaf9;
-    --kat-tuerkis-flaeche: #002c2d;
+    --kat-petrol: #95fbe7;
+    --kat-petrol-flaeche: #002d25;
     --kat-grau: #eae3de;
     --kat-grau-flaeche: #272320;
   }

@@ -122,10 +122,12 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 
 /* Hilfe-Knöpfe (Tipp, Hilfe): Himmelblau statt Holz – Blau bedeutet überall „Hilfe“ */
 .holzknopf--hilfe {
+  background: var(--color-hilfe-flaeche);   /* Wunsch Lehrkraft: Hilfe gelb hinterlegt, Rand und Symbol blau */
   color: var(--color-hilfe);
   border-color: var(--color-hilfe);
   box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 var(--kante) 0 var(--color-hilfe-kante);
 }
+.holzknopf--hilfe:hover { background: var(--color-hilfe-flaeche); filter: brightness(1.04); }
 .holzknopf--hilfe:active { box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 1px 0 var(--color-hilfe-kante); }
 
 /* Umschalter (z. B. Leseschrift) */
@@ -198,8 +200,6 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 }
 .chip:hover { background: var(--color-papier-2); }
 .chip:active { transform: translateY(2px); }
-.chip[aria-pressed='true'] { background: var(--color-aktion); border-color: var(--color-holz-schatten); color: var(--color-aktion-text); font-weight: 800; }
-.chip[aria-pressed='true']::before { content: '✓ '; }
 .chip:disabled { cursor: not-allowed; opacity: 0.45; }
 
 .wort {
@@ -214,7 +214,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   -webkit-tap-highlight-color: transparent;
 }
 .wort:hover { border-color: var(--color-holz); border-style: dashed; }
-.wort[aria-pressed='true'] { background: var(--color-papier-2); border-color: var(--color-aktion); border-style: solid; box-shadow: 0 2px 0 var(--color-holz-schatten); }
+/* Markiert/gewählt – gleich für Auswahl-Chips und angetippte Wörter: helles Feld, Holzrand, Kante darunter */
+.chip[aria-pressed='true'], .wort[aria-pressed='true'] { background: var(--color-papier-2); border-color: var(--color-aktion); border-style: solid; box-shadow: 0 3px 0 var(--color-holz-schatten); }
 
 /* ---------- Fachbegriffe in Farbe: Wortarten, Satzglieder, Zeitformen ----------
    Zuordnung Begriff → Farbe in src/lib/kategorien.ts, Farbwerte in tokens.css (--kat-*).
@@ -225,10 +226,10 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 [data-farbe='gruen'] { --kat: var(--kat-gruen); --kat-flaeche: var(--kat-gruen-flaeche); }
 [data-farbe='hellblau'] { --kat: var(--kat-hellblau); --kat-flaeche: var(--kat-hellblau-flaeche); }
 [data-farbe='lila'] { --kat: var(--kat-lila); --kat-flaeche: var(--kat-lila-flaeche); }
-[data-farbe='orange'] { --kat: var(--kat-orange); --kat-flaeche: var(--kat-orange-flaeche); }
+[data-farbe='weinrot'] { --kat: var(--kat-weinrot); --kat-flaeche: var(--kat-weinrot-flaeche); }
 [data-farbe='senf'] { --kat: var(--kat-senf); --kat-flaeche: var(--kat-senf-flaeche); }
 [data-farbe='pink'] { --kat: var(--kat-pink); --kat-flaeche: var(--kat-pink-flaeche); }
-[data-farbe='tuerkis'] { --kat: var(--kat-tuerkis); --kat-flaeche: var(--kat-tuerkis-flaeche); }
+[data-farbe='petrol'] { --kat: var(--kat-petrol); --kat-flaeche: var(--kat-petrol-flaeche); }
 [data-farbe='grau'] { --kat: var(--kat-grau); --kat-flaeche: var(--kat-grau-flaeche); }
 
 /* Fachbegriff oder Beispielwort im Text in seiner Farbe (Anweisungen, Erklärungen) */
@@ -265,10 +266,13 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .rueckmeldung--nochmal { background: var(--color-nochmal-flaeche); color: var(--color-nochmal-tinte); }
 
 /* ---------- Sterne (Arbeitsstufe, kein Lernstand) ---------- */
-.sterne { display: inline-flex; align-items: center; gap: var(--space-2xs); color: var(--color-tinte); }
-.sterne .symbol { width: 22px; height: 22px; }
-.sterne__voll { color: var(--color-sonne); }
-.sterne__voll path { stroke: var(--color-holz); }
+.sterne { display: inline-flex; align-items: center; gap: 2px; }
+.stern { width: 34px; height: 34px; flex-shrink: 0; }
+.stern__rand-aussen { fill: none; stroke: var(--color-papier); stroke-width: 6; stroke-linejoin: round; }
+.stern__koerper { fill: var(--color-stern-leer); stroke: var(--color-stern-rand); stroke-width: 2.5; stroke-linejoin: round; }
+.stern__koerper--voll { fill: var(--color-sonne); }
+.stern__glanz { fill: var(--color-sonne-hell); }
+.sterne-text { letter-spacing: 0.05em; white-space: nowrap; }
 
 /* ---------- Menüleiste unten ---------- */
 .menue {

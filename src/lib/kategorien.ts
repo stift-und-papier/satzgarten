@@ -2,7 +2,7 @@
 // Farbwerte in tokens.css (--kat-<farbe>, --kat-<farbe>-flaeche), erzeugt von scripts/fachbegriff-farben.mjs.
 // Gruppen dürfen dieselbe Farbe nutzen, weil eine Aufgabe nie zwei Gruppen gleichzeitig abfragt.
 
-export type Farbe = 'blau' | 'rot' | 'gruen' | 'hellblau' | 'lila' | 'orange' | 'senf' | 'pink' | 'tuerkis' | 'grau'
+export type Farbe = 'blau' | 'rot' | 'gruen' | 'hellblau' | 'lila' | 'weinrot' | 'senf' | 'pink' | 'petrol' | 'grau'
 export type Gruppe = 'wortart' | 'satzglied' | 'zeitform'
 
 export interface Kategorie {
@@ -19,10 +19,10 @@ export const KATEGORIEN: Kategorie[] = [
   { name: 'Adjektiv', gruppe: 'wortart', farbe: 'gruen', formen: ['adjektiv', 'wiewort', 'eigenschaftswort'] },
   { name: 'Artikel', gruppe: 'wortart', farbe: 'hellblau', formen: ['artikel', 'begleiter'] },
   { name: 'Pronomen', gruppe: 'wortart', farbe: 'lila', formen: ['pronom', 'pronomina', 'fuerwort'] },
-  { name: 'Adverb', gruppe: 'wortart', farbe: 'orange', formen: ['adverb', 'adverbien', 'umstandswort'] },
+  { name: 'Adverb', gruppe: 'wortart', farbe: 'weinrot', formen: ['adverb', 'adverbien', 'umstandswort'] },
   { name: 'Präposition', gruppe: 'wortart', farbe: 'senf', formen: ['praeposition', 'verhaeltniswort'] },
   { name: 'Konjunktion', gruppe: 'wortart', farbe: 'pink', formen: ['konjunktion', 'subjunktion', 'bindewort'] },
-  { name: 'Numerale', gruppe: 'wortart', farbe: 'tuerkis', formen: ['numerale', 'numeralia', 'zahlwort'] },
+  { name: 'Numerale', gruppe: 'wortart', farbe: 'petrol', formen: ['numerale', 'numeralia', 'zahlwort'] },
   { name: 'Interjektion', gruppe: 'wortart', farbe: 'grau', formen: ['interjektion', 'ausrufewort', 'partikel'] },
 
   // Satzglieder (Subjekt wie Nomen blau, Prädikat wie Verb rot)
@@ -30,12 +30,12 @@ export const KATEGORIEN: Kategorie[] = [
   { name: 'Prädikat', gruppe: 'satzglied', farbe: 'rot', formen: ['praedikat'] },
   { name: 'Akkusativobjekt', gruppe: 'satzglied', farbe: 'gruen', formen: ['akkusativobjekt', 'objekt'] },
   { name: 'Dativobjekt', gruppe: 'satzglied', farbe: 'senf', formen: ['dativobjekt'] },
-  { name: 'Genitivobjekt', gruppe: 'satzglied', farbe: 'tuerkis', formen: ['genitivobjekt'] },
+  { name: 'Genitivobjekt', gruppe: 'satzglied', farbe: 'petrol', formen: ['genitivobjekt'] },
   { name: 'Präpositionalobjekt', gruppe: 'satzglied', farbe: 'lila', formen: ['praepositionalobjekt'] },
   {
     name: 'Adverbiale',
     gruppe: 'satzglied',
-    farbe: 'orange',
+    farbe: 'weinrot',
     formen: ['adverbial', 'adverbialbestimmung', 'adverbiale bestimmung', 'temporaladverbial', 'lokaladverbial', 'kausaladverbial', 'modaladverbial'],
   },
   { name: 'Attribut', gruppe: 'satzglied', farbe: 'pink', formen: ['attribut'] },
@@ -45,7 +45,7 @@ export const KATEGORIEN: Kategorie[] = [
   { name: 'Präteritum', gruppe: 'zeitform', farbe: 'blau', formen: ['praeteritum', 'imperfekt'] },
   { name: 'Perfekt', gruppe: 'zeitform', farbe: 'hellblau', formen: ['perfekt'] },
   { name: 'Präsens', gruppe: 'zeitform', farbe: 'gruen', formen: ['praesens'] },
-  { name: 'Futur I', gruppe: 'zeitform', farbe: 'orange', formen: ['futur i', 'futur 1', 'futur'] },
+  { name: 'Futur I', gruppe: 'zeitform', farbe: 'weinrot', formen: ['futur i', 'futur 1', 'futur'] },
   { name: 'Futur II', gruppe: 'zeitform', farbe: 'pink', formen: ['futur ii', 'futur 2'] },
 ]
 

@@ -48,11 +48,11 @@
   (Holz = Pfeile/Navigation, Himmelblau = Hilfe), Menü ohne Farbfläche. Linienfarbe nie als Schrift.
 - **Fachbegriff-Farben** (eine Palette mit 10 Farben, `--kat-*`, erzeugt + kontrastgeprüft von `node scripts/fachbegriff-farben.mjs`;
   Begriff → Farbe in `src/lib/kategorien.ts`, getestet). Gruppen dürfen Farben teilen (nie gleichzeitig abgefragt).
-  Wortarten (Lehrkraft): Nomen blau, Verb rot, Adjektiv grün, Artikel hellblau, Pronomen lila; Claude: Adverb orange,
-  Präposition senf, Konjunktion/Subjunktion pink, Numerale türkis, Interjektion/Partikel grau.
-  Satzglieder (Claude): Subjekt blau, Prädikat rot, Akkusativobjekt grün, Dativobjekt senf, Genitivobjekt türkis,
-  Präpositionalobjekt lila, Adverbiale orange, Attribut pink. Zeitformen (Claude, Zeitstrahl kühl → warm):
-  Plusquamperfekt lila, Präteritum blau, Perfekt hellblau, Präsens grün, Futur I orange, Futur II pink.
+  Wortarten (Lehrkraft): Nomen blau, Verb rot, Adjektiv grün, Artikel hellblau, Pronomen lila; Claude: Adverb weinrot,
+  Präposition senf, Konjunktion/Subjunktion pink, Numerale petrol, Interjektion/Partikel grau.
+  Satzglieder (Claude): Subjekt blau, Prädikat rot, Akkusativobjekt grün, Dativobjekt senf, Genitivobjekt petrol,
+  Präpositionalobjekt lila, Adverbiale weinrot, Attribut pink. Zeitformen (Claude, Zeitstrahl kühl → warm):
+  Plusquamperfekt lila, Präteritum blau, Perfekt hellblau, Präsens grün, Futur I weinrot, Futur II pink.
   Fachbegriffe in Anweisungen färben sich automatisch (`src/gemeinsam/Anweisung.tsx`, je Aufgabe abschaltbar: `farbig={false}`).
   Markierte Wörter nehmen die Farbe an (`data-farbe`); ohne Farbe bleiben sie neutral (Antippen ohne Fachbegriff).
   Gestrichelt heißt immer „hier schreiben“ (Lücken) – gesperrte Knöpfe sind nur blasser.
@@ -80,3 +80,6 @@
 - 2026-11-09 (Lehrkraft): Hilfe-Farbe bleibt. Fachbegriffe in Anweisungen in ihrer Farbe statt Erklärsatz.
   Antippen auch farblos möglich. Eigene Farben für Satzglieder und Zeitformen (Überschneidung mit Wortarten erlaubt).
   „Lösung ansehen“ (gesperrt) nicht mehr gestrichelt, damit es nicht wie eine Lücke aussieht.
+- 2026-11-09 (Lehrkraft): Orange (zu nah an Pfirsich) → Weinrot, Türkis (zu nah an Artikel) → Petrol. Gewählte Antworten
+  sehen aus wie markierte Wortgruppen (helles Feld, Holzrand, Kante). Sterne nach refrences/sterne.jpg (src/gemeinsam/Sterne.tsx),
+  ohne „Stufe n von 3“ (nur für Vorlesehilfen). Hilfe-Knöpfe gelb hinterlegt, Rand/Symbol blau. Lehrkraft: Stufe als ★/☆.

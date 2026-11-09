@@ -12,10 +12,10 @@ const WORTARTEN = {
   gruen: { h: 142, c: 0.15 },
   hellblau: { h: 228, c: 0.10, hell: true },
   lila: { h: 305, c: 0.15 },
-  orange: { h: 55, c: 0.15 },
+  weinrot: { h: 8, c: 0.13, dunkel: true }, // dunkler als Rot (Adverb gehört zum Verb), weit weg von Pfirsich
   senf: { h: 95, c: 0.12 },
   pink: { h: 350, c: 0.15 },
-  tuerkis: { h: 195, c: 0.10 },
+  petrol: { h: 180, c: 0.10 },               // zwischen Grün und Hellblau
   grau: { h: 60, c: 0.01 },
 }
 
@@ -44,8 +44,11 @@ function block(modus) {
   const m = MODI[modus]
   return Object.entries(WORTARTEN).map(([name, w]) => {
     // Hellblau bleibt heller als Blau, dunkle Modi sind ohnehin hell
-    const L = w.hell && (modus === 'hell' || modus === 'mehr') ? m.tinte + 0.05 : m.tinte
-    const tinte = [L, w.c, w.h], flaeche = [m.flaeche, w.c < 0.05 ? 0.008 : m.fc, w.h]
+    const lichtModus = modus === 'hell' || modus === 'mehr'
+    // Hellblau heller als Blau; Weinrot dunkler als Rot (Schrift dunkler, Fläche etwas kräftiger)
+    const L = w.hell && lichtModus ? m.tinte + 0.05 : w.dunkel && lichtModus ? m.tinte - 0.1 : w.dunkel ? m.tinte + 0.04 : m.tinte
+    const fL = w.dunkel ? (lichtModus ? m.flaeche - 0.04 : m.flaeche - 0.06) : m.flaeche
+    const tinte = [L, w.c, w.h], flaeche = [fL, w.c < 0.05 ? 0.008 : m.fc, w.h]
     for (const [was, grund] of [['Papier', m.papier], ['Fläche', flaeche]]) {
       const k = kontrast(tinte, grund)
       if (k < 4.5) fehler.push(`${modus} ${name} auf ${was}: ${k.toFixed(2)}`)

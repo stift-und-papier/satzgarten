@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Anweisung } from '../gemeinsam/Anweisung'
+import { Sterne, SterneText } from '../gemeinsam/Sterne'
 import { Symbol, type SymbolName } from '../gemeinsam/Symbol'
 import { KATEGORIEN, kategorieAus, type Gruppe, type Kategorie } from '../lib/kategorien'
 import { useLeseschrift } from '../lib/leseschrift'
@@ -41,19 +42,6 @@ const WOERTER = ['Gestern', 'ging', 'ich', 'mit', 'meiner', 'Schwester', 'in', '
 // Antippen ohne Farbe: ganze Wortgruppen, keine Wortart
 const GRUPPEN_FARBLOS = ['Gestern Abend', 'haben', 'wir', 'im Garten', 'Tomaten', 'gepflanzt.']
 const VERB = k('Verben')
-
-function Sterne({ stufe }: { stufe: 1 | 2 | 3 }) {
-  return (
-    <span className="sterne">
-      {[1, 2, 3].map((i) => (
-        <span key={i} className={i <= stufe ? 'sterne__voll' : undefined}>
-          <Symbol name="stern" gefuellt={i <= stufe} />
-        </span>
-      ))}
-      <span className="leise">Stufe {stufe} von 3</span>
-    </span>
-  )
-}
 
 /** Antippbare Wörter oder Wortgruppen; markierte bekommen die Farbe (oder bleiben neutral, wenn farbe fehlt). */
 function Antippen({ teile, farbe }: { teile: string[]; farbe?: Kategorie['farbe'] }) {
@@ -263,8 +251,8 @@ export default function Stilblatt() {
               </tr>
             </thead>
             <tbody>
-              <tr><td>Fuchs-07</td><td>12</td><td>2</td></tr>
-              <tr><td>Eule-12</td><td>8</td><td>1</td></tr>
+              <tr><td>Fuchs-07</td><td>12</td><td><SterneText stufe={2} /></td></tr>
+              <tr><td>Eule-12</td><td>8</td><td><SterneText stufe={1} /></td></tr>
             </tbody>
           </table>
           <div className="knopf-reihe">
