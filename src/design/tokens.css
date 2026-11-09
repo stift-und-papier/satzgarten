@@ -28,7 +28,7 @@
 
 /* ===================== HELL (Standard) ===================== */
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   /* Flächen */
   --color-wiese: #c9d9a6;
@@ -120,44 +120,43 @@
 }
 
 /* ===================== DUNKEL („Abendgarten“) ===================== */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-wiese: #27321c;
-    --color-papier: #2b1f15;
-    --color-papier-2: #3c2d21;
-    --color-tinte: #f1eadc;
-    --color-tinte-leise: #cec2af;
-    --color-holz: #bf9d7d;
-    --color-holz-schatten: #110904;
-    --color-aktion: #edc291;
-    --color-aktion-2: #fad8ab;
-    --color-aktion-text: #2a1b11;
-    --color-hilfe: #67b5e1;
-    --color-hilfe-kante: #040c13;
-    --color-geist: #cbe9e8;
-    --color-geist-schatten: #93c9cc;
-    --color-geist-glanz: #f2fbfa;
-    --color-geist-kontur: #0f2a33;
-    --color-geist-auge: #14202a;
-    --color-geist-wange: #e8a996;
-    --color-geist-blatt: #7cad62;
-    --color-geist-blatt-tief: #3f6a2e;
-    --color-richtig-flaeche: #193c1b;
-    --color-richtig-tinte: #b9eeba;
-    --color-nochmal-flaeche: #512e1a;
-    --color-nochmal-tinte: #ffd3b2;
-    --color-sonne: #f4c352;
-    --color-sonne-hell: #fcebae;
-    --color-stern-leer: #614731;
-    --color-stern-rand: #bf9d7d;
-    --color-fokus: #f1eadc;
-    --color-lk-papier: #17130f;
-    --color-lk-papier-2: #241e1a;
-    --color-lk-tinte: #eeebe4;
-    --color-lk-leise: #b6b0a7;
-    --color-lk-linie: #423c35;
-    --muster-wiese: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg stroke='%23344226' stroke-width='2.5' stroke-linecap='round' fill='none'%3E%3Cpath d='M18 30l2-6M24 31l1-5'/%3E%3Cpath d='M78 74l2-6M84 75l1-5'/%3E%3Cpath d='M40 100l2-5'/%3E%3Cpath d='M98 18l1-5'/%3E%3C/g%3E%3C/svg%3E");
-  }
+:root[data-thema='dunkel'] {
+  color-scheme: dark;
+  --color-wiese: #27321c;
+  --color-papier: #2b1f15;
+  --color-papier-2: #3c2d21;
+  --color-tinte: #f1eadc;
+  --color-tinte-leise: #cec2af;
+  --color-holz: #bf9d7d;
+  --color-holz-schatten: #110904;
+  --color-aktion: #edc291;
+  --color-aktion-2: #fad8ab;
+  --color-aktion-text: #2a1b11;
+  --color-hilfe: #67b5e1;
+  --color-hilfe-kante: #040c13;
+  --color-geist: #cbe9e8;
+  --color-geist-schatten: #93c9cc;
+  --color-geist-glanz: #f2fbfa;
+  --color-geist-kontur: #0f2a33;
+  --color-geist-auge: #14202a;
+  --color-geist-wange: #e8a996;
+  --color-geist-blatt: #7cad62;
+  --color-geist-blatt-tief: #3f6a2e;
+  --color-richtig-flaeche: #193c1b;
+  --color-richtig-tinte: #b9eeba;
+  --color-nochmal-flaeche: #512e1a;
+  --color-nochmal-tinte: #ffd3b2;
+  --color-sonne: #f4c352;
+  --color-sonne-hell: #fcebae;
+  --color-stern-leer: #614731;
+  --color-stern-rand: #bf9d7d;
+  --color-fokus: #f1eadc;
+  --color-lk-papier: #17130f;
+  --color-lk-papier-2: #241e1a;
+  --color-lk-tinte: #eeebe4;
+  --color-lk-leise: #b6b0a7;
+  --color-lk-linie: #423c35;
+  --muster-wiese: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg stroke='%23344226' stroke-width='2.5' stroke-linecap='round' fill='none'%3E%3Cpath d='M18 30l2-6M24 31l1-5'/%3E%3Cpath d='M78 74l2-6M84 75l1-5'/%3E%3Cpath d='M40 100l2-5'/%3E%3Cpath d='M98 18l1-5'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* ===================== MEHR KONTRAST (iPad: Bedienungshilfen → „Kontrast erhöhen“) ===================== */
@@ -184,8 +183,8 @@
     --kontur: 3px;
   }
 }
-@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
-  :root {
+@media (prefers-contrast: more) {
+  :root[data-thema='dunkel'] {
     --color-stern-rand: #f4d9bb;
     --color-stern-leer: #795d46;
     --color-papier: #140b05;
@@ -242,29 +241,27 @@
   --kat-grau: #5a5450;
   --kat-grau-flaeche: #ece7e3;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --kat-blau: #90c9ff;
-    --kat-blau-flaeche: #243554;
-    --kat-rot: #ff9789;
-    --kat-rot-flaeche: #502824;
-    --kat-gruen: #8fe386;
-    --kat-gruen-flaeche: #223d20;
-    --kat-hellblau: #80d8fe;
-    --kat-hellblau-flaeche: #073b4d;
-    --kat-lila: #e1b0ff;
-    --kat-lila-flaeche: #3d2d4e;
-    --kat-weinrot: #ffb2c7;
-    --kat-weinrot-flaeche: #3e1821;
-    --kat-senf: #e3ca69;
-    --kat-senf-flaeche: #3f350a;
-    --kat-pink: #ffa0d8;
-    --kat-pink-flaeche: #4c283a;
-    --kat-petrol: #7ae0cd;
-    --kat-petrol-flaeche: #003f36;
-    --kat-grau: #d0c9c4;
-    --kat-grau-flaeche: #393431;
-  }
+:root[data-thema='dunkel'] {
+  --kat-blau: #90c9ff;
+  --kat-blau-flaeche: #243554;
+  --kat-rot: #ff9789;
+  --kat-rot-flaeche: #502824;
+  --kat-gruen: #8fe386;
+  --kat-gruen-flaeche: #223d20;
+  --kat-hellblau: #80d8fe;
+  --kat-hellblau-flaeche: #073b4d;
+  --kat-lila: #e1b0ff;
+  --kat-lila-flaeche: #3d2d4e;
+  --kat-weinrot: #ffb2c7;
+  --kat-weinrot-flaeche: #3e1821;
+  --kat-senf: #e3ca69;
+  --kat-senf-flaeche: #3f350a;
+  --kat-pink: #ffa0d8;
+  --kat-pink-flaeche: #4c283a;
+  --kat-petrol: #7ae0cd;
+  --kat-petrol-flaeche: #003f36;
+  --kat-grau: #d0c9c4;
+  --kat-grau-flaeche: #393431;
 }
 @media (prefers-contrast: more) {
   :root {
@@ -290,8 +287,8 @@
     --kat-grau-flaeche: #efeae6;
   }
 }
-@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
-  :root {
+@media (prefers-contrast: more) {
+  :root[data-thema='dunkel'] {
     --kat-blau: #a9e4ff;
     --kat-blau-flaeche: #132341;
     --kat-rot: #ffb1a2;

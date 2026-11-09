@@ -62,18 +62,16 @@ const css = `/* WORTARTEN-START – erzeugt von scripts/wortarten-farben.mjs, ni
 :root {
 ${block('hell').replaceAll('\n    ', '\n  ').replace(/^ {4}/, '  ')}
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-${block('dunkel')}
-  }
+:root[data-thema='dunkel'] {
+${block('dunkel').replaceAll('\n    ', '\n  ').replace(/^ {4}/, '  ')}
 }
 @media (prefers-contrast: more) {
   :root {
 ${block('mehr')}
   }
 }
-@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
-  :root {
+@media (prefers-contrast: more) {
+  :root[data-thema='dunkel'] {
 ${block('dunkelMehr')}
   }
 }

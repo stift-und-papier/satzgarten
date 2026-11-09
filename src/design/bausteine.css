@@ -314,8 +314,38 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .geist__stiel { fill: none; stroke: var(--color-geist-blatt-tief); stroke-width: 3; stroke-linecap: round; }
 .geist__ader { fill: none; stroke: var(--color-geist-blatt-tief); stroke-width: 1.6; stroke-linecap: round; }
 .geist__pusteknopf { fill: var(--color-geist-glanz); stroke: var(--color-geist-kontur); stroke-width: 1.6; }
-.geist-entwurf { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-lg); }
-.geist-entwurf > div { flex: 1 1 14rem; min-width: 0; }
+.geist__mund--offen { fill: var(--color-geist-auge); }
+
+/* Maskottchen mit Sprechblase: Figur links, Blase rechts (Spitze zeigt zur Figur), immer nebeneinander.
+   Blase hell mit blauem Rand: Blau = Hilfe. */
+.maskottchen-sagt { display: flex; align-items: center; gap: var(--space-lg); }
+.maskottchen-sagt .geist { width: clamp(84px, 22vw, 120px); }
+.sprechblase {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: var(--space-md);
+  background: var(--color-papier);
+  color: var(--color-tinte);
+  border: var(--kontur) solid var(--color-hilfe);
+  border-radius: var(--radius-karte);
+}
+/* Spitze: gedrehtes Quadrat mit zwei Rändern, liegt über dem Rand der Blase */
+.sprechblase::before {
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: calc(50% - 8px);
+  width: 16px;
+  height: 16px;
+  background: var(--color-papier);
+  border-left: var(--kontur) solid var(--color-hilfe);
+  border-bottom: var(--kontur) solid var(--color-hilfe);
+  transform: rotate(45deg);
+}
+.geist-raster { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); gap: var(--space-lg); }
+.geist-raster li { display: grid; align-content: start; justify-items: center; text-align: center; gap: var(--space-xs); }
+.geist-raster .geist { width: 130px; }
 
 @media (prefers-reduced-motion: reduce) {
   .knopf, .holzknopf, .schalter__knopf { transition: none; }

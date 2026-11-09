@@ -57,6 +57,7 @@
   Markierte Wörter nehmen die Farbe an (`data-farbe`); ohne Farbe bleiben sie neutral (Antippen ohne Fachbegriff).
   Gestrichelt heißt immer „hier schreiben“ (Lücken) – gesperrte Knöpfe sind nur blasser.
 - Leseschrift für LRS: OpenDyslexic (lokal, OFL), Umschalter `useLeseschrift` (`src/lib/leseschrift.ts`), gespeichert auf dem Gerät.
+- Abendgarten (dunkel): folgt dem Gerät, von Hand umschaltbar mit `useDunkel` (`src/lib/thema.ts`), gespeichert auf dem Gerät.
 - Prüfen: `node ~/.claude/skills/hallmark/scripts/sloplint.mjs src --genre playful --scope app`.
 
 ## Befehle
@@ -85,3 +86,7 @@
   ohne „Stufe n von 3“ (nur für Vorlesehilfen). Lehrkraft: Stufe als ★/☆.
 - 2026-11-09 (Lehrkraft): Hilfe-Knöpfe doch ohne gelbe Füllung (hell wie alle runden Knöpfe, Rand/Symbol blau).
   Stilblatt freigegeben (Aufgabe 4).
+- 2026-11-09 (Lehrkraft): Dunkelmodus auch von Hand umschaltbar (`useDunkel`, `src/lib/thema.ts`; ohne eigene Wahl
+  folgt er dem Gerät; tokens.css nutzt `:root[data-thema='dunkel']` statt `prefers-color-scheme`).
+  Maskottchen: Entwurf B „Blatthut“ gewählt (`src/gemeinsam/Maskottchen.tsx`, Ausdrücke freundlich, nachdenklich,
+  freut-sich, zeigt; `MaskottchenSagt` mit Sprechblase, Rand Himmelblau).

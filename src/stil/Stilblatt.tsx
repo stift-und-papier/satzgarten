@@ -4,6 +4,7 @@ import { Sterne, SterneText } from '../gemeinsam/Sterne'
 import { Symbol, type SymbolName } from '../gemeinsam/Symbol'
 import { KATEGORIEN, kategorieAus, type Gruppe, type Kategorie } from '../lib/kategorien'
 import { useLeseschrift } from '../lib/leseschrift'
+import { useDunkel } from '../lib/thema'
 
 // Stilblatt (Phase 2, Aufgabe 4): alle Bausteine auf einer Seite, damit die Lehrkraft das Design am iPad prüfen kann.
 // Ohne Daten und ohne Datenbank. Adresse: #/stil. Wird nach der Design-Freigabe wieder entfernt.
@@ -71,6 +72,7 @@ export default function Stilblatt() {
   const [zugeordnet, setZugeordnet] = useState<Record<number, Kategorie>>({ 1: k('Nomen'), 2: k('Verb') })
   const [geprueft, setGeprueft] = useState(false)
   const [lrs, setLrs] = useLeseschrift()
+  const [dunkel, setDunkel] = useDunkel()
 
   return (
     <div className="garten-seite">
@@ -85,12 +87,18 @@ export default function Stilblatt() {
               <Symbol name="hilfe" />
             </button>
           </div>
-          <p>So sollen die Seiten für Schüler:innen aussehen. Alles hier lässt sich antippen und ausprobieren. Ist dein iPad auf „Dunkel“ gestellt, wird der Garten zum Abendgarten.</p>
-          <button type="button" role="switch" aria-checked={lrs} className="schalter" onClick={() => setLrs(!lrs)} style={{ justifySelf: 'start' }}>
-            <span className="schalter__bahn" aria-hidden="true"><span className="schalter__knopf" /></span>
-            Leseschrift für LRS
-          </button>
-          <a className="knopf" href="#/stil/maskottchen" style={{ justifySelf: 'start' }}>Maskottchen-Entwürfe ansehen</a>
+          <p>So sollen die Seiten für Schüler:innen aussehen. Alles hier lässt sich antippen und ausprobieren. Der Abendgarten (dunkel) folgt der iPad-Einstellung, bis du ihn selbst umschaltest.</p>
+          <div className="knopf-reihe">
+            <button type="button" role="switch" aria-checked={lrs} className="schalter" onClick={() => setLrs(!lrs)}>
+              <span className="schalter__bahn" aria-hidden="true"><span className="schalter__knopf" /></span>
+              Leseschrift für LRS
+            </button>
+            <button type="button" role="switch" aria-checked={dunkel} className="schalter" onClick={() => setDunkel(!dunkel)}>
+              <span className="schalter__bahn" aria-hidden="true"><span className="schalter__knopf" /></span>
+              Abendgarten (dunkel)
+            </button>
+          </div>
+          <a className="knopf" href="#/stil/maskottchen" style={{ justifySelf: 'start' }}>Maskottchen ansehen</a>
         </header>
 
         <section className="karte" aria-labelledby="t-aufgabe">

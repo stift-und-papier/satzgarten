@@ -6,7 +6,7 @@ import { useNeueVersion } from './lib/version'
 const Vorschau = import.meta.env.DEV ? lazy(() => import('./entwicklung/Vorschau')) : null
 // Stilblatt zum Prüfen des Designs am iPad (ohne Daten). Wird nach der Design-Freigabe entfernt.
 const Stilblatt = lazy(() => import('./stil/Stilblatt'))
-const MaskottchenEntwuerfe = lazy(() => import('./stil/MaskottchenEntwuerfe'))
+const MaskottchenVorschau = lazy(() => import('./stil/MaskottchenVorschau'))
 
 // Platzhalter, bis die echten Seiten da sind.
 function Platzhalter({ titel, children }: { titel: string; children: ReactNode }) {
@@ -34,7 +34,7 @@ function Seite() {
   if (bereich === 'stil')
     return (
       <Suspense fallback={null}>
-        {teil === 'maskottchen' ? <MaskottchenEntwuerfe /> : <Stilblatt />}
+        {teil === 'maskottchen' ? <MaskottchenVorschau /> : <Stilblatt />}
       </Suspense>
     )
   if (bereich === 's')
