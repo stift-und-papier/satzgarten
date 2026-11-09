@@ -2,7 +2,7 @@
 /* Hallmark · pre-emit critique: P3 H3 E3 S3 R3 V3 · weakest: E, bewusst schlicht – Arbeitsfläche, kein Schmuck */
 
 /* Thema „ruhig“ für alle Lehrkraft-Seiten (.lehrkraft): flache Flächen, feine Linien, kleine Rundungen,
-   Blattgrün nur für die Hauptaktion. Nur Variablen aus tokens.css. */
+   Holz (--color-aktion) nur für die Hauptaktion. Nur Variablen aus tokens.css. */
 .lehrkraft {
   background: var(--color-lk-papier);
   color: var(--color-lk-tinte);
@@ -39,3 +39,58 @@
 .lk-tabelle { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .lk-tabelle th { text-align: left; font-weight: 800; font-size: var(--text-klein); color: var(--color-lk-leise); padding: var(--space-xs) var(--space-sm); border-bottom: 1px solid var(--color-lk-linie); }
 .lk-tabelle td { padding: var(--space-sm); border-bottom: 1px solid var(--color-lk-linie); }
+
+/* ---------- Rahmen: Seitenleiste links, ab 900 px Breite und weniger als Leiste unten ---------- */
+.lk-rahmen { min-height: 100vh; display: grid; grid-template-columns: 15rem minmax(0, 1fr); }
+.lk-nav {
+  position: sticky; top: 0; height: 100vh; box-sizing: border-box;
+  display: flex; flex-direction: column; gap: var(--space-xs);
+  padding: var(--space-lg) var(--space-md);
+  background: var(--color-lk-papier-2);
+  border-right: 1px solid var(--color-lk-linie);
+}
+.lk-nav__name { margin: 0 0 var(--space-md); font: 600 var(--text-h3)/1.2 var(--font-display); }
+.lk-nav__punkt {
+  display: flex; align-items: center; min-height: 44px; padding: 0 var(--space-sm);
+  border-radius: var(--radius-lk); color: var(--color-lk-tinte); text-decoration: none; font-weight: 800;
+}
+.lk-nav__punkt:hover { background: var(--color-lk-papier); }
+/* aktuelle Seite: helles Feld + Holz-Strich (wie bei den Schüler:innen, nur leiser) */
+.lk-nav__punkt[aria-current='page'] { background: var(--color-lk-papier); box-shadow: inset 3px 0 0 var(--color-aktion); }
+.lk-nav__fuss { margin-top: auto; display: grid; gap: var(--space-sm); }
+.lk-nav__email { margin: 0; overflow-wrap: anywhere; }
+.lk-inhalt { padding: var(--space-xl) var(--space-lg); min-width: 0; }
+.lk-karte {
+  max-width: 64rem; box-sizing: border-box;
+  display: grid; gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--color-lk-papier);
+  border: 1px solid var(--color-lk-linie);
+  border-radius: var(--radius-lk);
+}
+.lk-karte h1 { margin: 0; font-size: var(--text-h2); }
+.lk-karte p { margin: 0; }
+
+@media (max-width: 900px) {
+  .lk-rahmen { grid-template-columns: minmax(0, 1fr); }
+  .lk-nav {
+    position: fixed; inset: auto 0 0 0; top: auto; height: auto; z-index: 10;
+    flex-direction: row; gap: 0; padding: var(--space-xs);
+    border-right: 0; border-top: 1px solid var(--color-lk-linie);
+  }
+  .lk-nav__name, .lk-nav__email { display: none; }
+  .lk-nav__punkt, .lk-nav__fuss { flex: 1 1 0; justify-content: center; text-align: center; font-size: var(--text-klein); min-width: 0; }
+  .lk-nav__punkt[aria-current='page'] { box-shadow: inset 0 -3px 0 var(--color-aktion); }
+  .lk-nav__fuss { margin: 0; }
+  .lk-inhalt { padding: var(--space-lg) var(--space-md) calc(var(--space-2xl) + var(--space-xl)); }
+}
+
+/* ---------- Anmeldung ---------- */
+.lk-mitte { min-height: 100vh; display: grid; place-items: center; padding: var(--space-md); box-sizing: border-box; }
+.lk-schmal { width: 100%; max-width: 26rem; }
+.lk-formular { display: grid; gap: var(--space-md); }
+.lk-formular label { display: grid; gap: var(--space-xs); font-weight: 800; }
+.lk-hinweis {
+  padding: var(--space-sm); border-radius: var(--radius-lk);
+  background: var(--color-nochmal-flaeche); color: var(--color-nochmal-tinte);
+}

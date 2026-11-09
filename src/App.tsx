@@ -8,6 +8,8 @@ const Vorschau = import.meta.env.DEV ? lazy(() => import('./entwicklung/Vorschau
 const Stilblatt = lazy(() => import('./stil/Stilblatt'))
 const MaskottchenVorschau = lazy(() => import('./stil/MaskottchenVorschau'))
 const GartenVorschau = lazy(() => import('./stil/GartenVorschau'))
+// Lehrkraft-Bereich eigenständig nachladen: Schüler:innen laden ihn nie.
+const LehrkraftBereich = lazy(() => import('./lehrkraft/LehrkraftRahmen').then((m) => ({ default: m.LehrkraftBereich })))
 
 // Platzhalter, bis die echten Seiten da sind.
 function Platzhalter({ titel, children }: { titel: string; children: ReactNode }) {
@@ -24,7 +26,8 @@ function Platzhalter({ titel, children }: { titel: string; children: ReactNode }
 }
 
 function Seite() {
-  const [bereich, teil] = usePfad()
+  const pfad = usePfad()
+  const [bereich, teil] = pfad
 
   if (bereich === 'vorschau' && Vorschau)
     return (
@@ -46,9 +49,9 @@ function Seite() {
     )
   if (bereich === 'lehrkraft')
     return (
-      <Platzhalter titel="Bereich für Lehrkräfte">
-        <p>Hier entsteht der Bereich für Lehrkräfte.</p>
-      </Platzhalter>
+      <Suspense fallback={null}>
+        <LehrkraftBereich pfad={pfad.slice(1)} />
+      </Suspense>
     )
   return (
     <Platzhalter titel="Satzgarten">
