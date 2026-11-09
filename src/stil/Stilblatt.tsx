@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { Anweisung } from '../gemeinsam/Anweisung'
 import { Symbol, type SymbolName } from '../gemeinsam/Symbol'
+import { KATEGORIEN, kategorieAus, type Gruppe, type Kategorie } from '../lib/kategorien'
 import { useLeseschrift } from '../lib/leseschrift'
-import { WORTART_NAME, type Wortart } from '../lib/wortarten'
 
 // Stilblatt (Phase 2, Aufgabe 4): alle Bausteine auf einer Seite, damit die Lehrkraft das Design am iPad prüfen kann.
 // Ohne Daten und ohne Datenbank. Adresse: #/stil. Wird nach der Design-Freigabe wieder entfernt.
@@ -23,16 +24,23 @@ const MENUE: { name: SymbolName; text: string }[] = [
   { name: 'hilfe', text: 'Hilfe' },
 ]
 
-// Beispielsatz mit Wortarten (so färbt die App Wörter, deren Wortart in der Aufgabe steht)
-const BEISPIEL: [string, Wortart][] = [
-  ['Oh,', 'interjektion'], ['der', 'artikel'], ['kleine', 'adjektiv'], ['Hund', 'nomen'], ['bellt', 'verb'],
-  ['heute', 'adverb'], ['laut', 'adjektiv'], ['vor', 'praeposition'], ['dem', 'artikel'], ['Haus,', 'nomen'],
-  ['weil', 'konjunktion'], ['er', 'pronomen'], ['zwei', 'numerale'], ['Katzen', 'nomen'], ['sieht.', 'verb'],
+const GRUPPEN: { gruppe: Gruppe; titel: string }[] = [
+  { gruppe: 'wortart', titel: 'Wortarten' },
+  { gruppe: 'satzglied', titel: 'Satzglieder' },
+  { gruppe: 'zeitform', titel: 'Zeitformen' },
 ]
-const ALLE_WORTARTEN = Object.keys(WORTART_NAME) as Wortart[]
-const ZUORDNEN = ['Die', 'Sonne', 'scheint', 'warm', 'auf', 'unseren', 'Garten.']
+const k = (name: string) => kategorieAus(name) as Kategorie
 
+// Beispielsatz mit Satzgliedern (so färbt die App Wörter, deren Satzglied in der Aufgabe steht)
+const SATZGLIEDER: [string, Kategorie][] = [
+  ['Der kleine Hund', k('Subjekt')], ['bellt', k('Prädikat')], ['heute', k('Adverbiale')], ['den Briefträger', k('Akkusativobjekt')], ['an.', k('Prädikat')],
+]
+const WORTARTEN = KATEGORIEN.filter((kat) => kat.gruppe === 'wortart')
+const ZUORDNEN = ['Die', 'Sonne', 'scheint', 'warm', 'auf', 'unseren', 'Garten.']
 const WOERTER = ['Gestern', 'ging', 'ich', 'mit', 'meiner', 'Schwester', 'in', 'den', 'Garten.']
+// Antippen ohne Farbe: ganze Wortgruppen, keine Wortart
+const GRUPPEN_FARBLOS = ['Gestern Abend', 'haben', 'wir', 'im Garten', 'Tomaten', 'gepflanzt.']
+const VERB = k('Verben')
 
 function Sterne({ stufe }: { stufe: 1 | 2 | 3 }) {
   return (
@@ -47,11 +55,32 @@ function Sterne({ stufe }: { stufe: 1 | 2 | 3 }) {
   )
 }
 
+/** Antippbare Wörter oder Wortgruppen; markierte bekommen die Farbe (oder bleiben neutral, wenn farbe fehlt). */
+function Antippen({ teile, farbe }: { teile: string[]; farbe?: Kategorie['farbe'] }) {
+  const [markiert, setMarkiert] = useState<number[]>([1])
+  return (
+    <p className="satz">
+      {teile.map((w, i) => (
+        <span key={i}>
+          <button
+            type="button"
+            className="wort"
+            aria-pressed={markiert.includes(i)}
+            data-farbe={markiert.includes(i) ? farbe : undefined}
+            onClick={() => setMarkiert((m) => (m.includes(i) ? m.filter((x) => x !== i) : [...m, i]))}
+          >
+            {w}
+          </button>{' '}
+        </span>
+      ))}
+    </p>
+  )
+}
+
 export default function Stilblatt() {
   const [wahl, setWahl] = useState<number | null>(1)
-  const [markiert, setMarkiert] = useState<number[]>([1])
-  const [stift, setStift] = useState<Wortart>('nomen')
-  const [zugeordnet, setZugeordnet] = useState<Record<number, Wortart>>({ 1: 'nomen', 2: 'verb' })
+  const [stift, setStift] = useState<Kategorie>(WORTARTEN[0])
+  const [zugeordnet, setZugeordnet] = useState<Record<number, Kategorie>>({ 1: k('Nomen'), 2: k('Verb') })
   const [geprueft, setGeprueft] = useState(false)
   const [lrs, setLrs] = useLeseschrift()
 
@@ -120,52 +149,54 @@ export default function Stilblatt() {
               gesperrt
             </button>
           </div>
-          <p>Tippe alle Verben an. Gefundene Wörter werden rot wie alle Verben.</p>
-          <p className="satz">
-            {WOERTER.map((w, i) => (
-              <span key={i}>
-                <button
-                  type="button"
-                  className="wort"
-                  aria-pressed={markiert.includes(i)}
-                  data-wortart={markiert.includes(i) ? 'verb' : undefined}
-                  onClick={() => setMarkiert((m) => (m.includes(i) ? m.filter((x) => x !== i) : [...m, i]))}
-                >
-                  {w}
-                </button>{' '}
-              </span>
-            ))}
-          </p>
+          <Anweisung text="Tippe alle Verben an." />
+          <Antippen teile={WOERTER} farbe={VERB.farbe} />
+          <Anweisung text="Tippe die Wortgruppe an, die sagt, wann etwas passiert." farbig={false} />
+          <Antippen teile={GRUPPEN_FARBLOS} />
         </section>
 
-        <section className="karte" aria-labelledby="t-wortarten">
-          <h2 id="t-wortarten">Wortarten haben Farben</h2>
+        <section className="karte" aria-labelledby="t-fach">
+          <h2 id="t-fach">Fachbegriffe haben Farben</h2>
+          {GRUPPEN.map(({ gruppe, titel }) => (
+            <div key={gruppe} style={{ display: 'grid', gap: 'var(--space-xs)' }}>
+              <h3>{titel}</h3>
+              <ul className="legende">
+                {KATEGORIEN.filter((kat) => kat.gruppe === gruppe).map((kat) => (
+                  <li key={kat.name} data-farbe={kat.farbe}>{kat.name}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <Anweisung text="Bestimme die Satzglieder." />
           <p className="satz">
-            {BEISPIEL.map(([w, art], i) => (
+            {SATZGLIEDER.map(([w, kat], i) => (
               <span key={i}>
-                <span className="wa-text" data-wortart={art}>{w}</span>{' '}
+                <span className="wort-mit-name" data-farbe={kat.farbe}>
+                  <span className="wort" data-farbe={kat.farbe} style={{ display: 'inline-block' }}>{w}</span>
+                  <span className="wort-mit-name__name">{kat.name}</span>
+                </span>{' '}
               </span>
             ))}
           </p>
-          <p>Wähle einen Stift und tippe die Wörter an.</p>
+          <Anweisung text="Wähle einen Stift und markiere die Wortarten." />
           <div className="chips" role="group" aria-label="Stifte">
-            {ALLE_WORTARTEN.map((art) => (
-              <button key={art} type="button" className="chip stift" data-wortart={art} aria-pressed={stift === art} onClick={() => setStift(art)}>
-                {WORTART_NAME[art]}
+            {WORTARTEN.map((kat) => (
+              <button key={kat.name} type="button" className="chip stift" data-farbe={kat.farbe} aria-pressed={stift === kat} onClick={() => setStift(kat)}>
+                {kat.name}
               </button>
             ))}
           </div>
           <p className="satz">
             {ZUORDNEN.map((w, i) => {
-              const art = zugeordnet[i]
+              const kat = zugeordnet[i]
               return (
                 <span key={i}>
-                  <span className="wort-mit-name" data-wortart={art}>
+                  <span className="wort-mit-name" data-farbe={kat?.farbe}>
                     <button
                       type="button"
                       className="wort"
-                      data-wortart={art}
-                      aria-pressed={!!art}
+                      data-farbe={kat?.farbe}
+                      aria-pressed={!!kat}
                       onClick={() =>
                         setZugeordnet((z) => {
                           const neu = { ...z }
@@ -177,7 +208,7 @@ export default function Stilblatt() {
                     >
                       {w}
                     </button>
-                    <span className="wort-mit-name__name">{art ? WORTART_NAME[art] : ' '}</span>
+                    <span className="wort-mit-name__name">{kat ? kat.name : ' '}</span>
                   </span>{' '}
                 </span>
               )

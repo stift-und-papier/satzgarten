@@ -14,7 +14,7 @@
      Blattgrün   = richtig / geschafft (nie für Knöpfe)
      Pfirsich    = nochmal versuchen (nie rot)
      Sonne       = Sterne (Arbeitsstufe)
-     Wortarten   = nur Wortarten (--wa-*, unten), immer mit dem Namen der Wortart dazu
+     Fachbegriffe = Wortarten, Satzglieder, Zeitformen (--kat-*, unten), immer mit dem Namen des Begriffs dazu
    Rollen wie Apples dynamische Systemfarben – nie vertauschen (z. B. Linienfarbe nie als Schrift):
      Hintergrund --color-wiese · Fläche darauf --color-papier · Fläche in der Fläche --color-papier-2
      Beschriftung --color-tinte · zweite Beschriftung --color-tinte-leise · Rand/Linie --color-holz
@@ -189,99 +189,99 @@
 }
 
 /* WORTARTEN-START – erzeugt von scripts/wortarten-farben.mjs, nicht von Hand ändern.
-   --wa-<wortart> = Schrift und Rahmen (mind. 4,5:1 auf Papier und auf der eigenen Fläche), --wa-<wortart>-flaeche = Kästchen. */
+   --kat-<farbe> = Schrift und Rahmen (mind. 4,5:1 auf Papier und auf der eigenen Fläche), --kat-<farbe>-flaeche = Kästchen. */
 :root {
-  --wa-nomen: #1e4eac;
-  --wa-nomen-flaeche: #d8e9ff;
-  --wa-verb: #a20711;
-  --wa-verb-flaeche: #ffddd8;
-  --wa-adjektiv: #0a6802;
-  --wa-adjektiv-flaeche: #d8f0d4;
-  --wa-artikel: #006d90;
-  --wa-artikel-flaeche: #caefff;
-  --wa-pronomen: #693996;
-  --wa-pronomen-flaeche: #efe1ff;
-  --wa-adverb: #903500;
-  --wa-adverb-flaeche: #ffe1cc;
-  --wa-praeposition: #6a5300;
-  --wa-praeposition-flaeche: #f1e8c7;
-  --wa-konjunktion: #8d2661;
-  --wa-konjunktion-flaeche: #ffdcec;
-  --wa-numerale: #006566;
-  --wa-numerale-flaeche: #c6f2f1;
-  --wa-interjektion: #5a5450;
-  --wa-interjektion-flaeche: #ece7e3;
+  --kat-blau: #1e4eac;
+  --kat-blau-flaeche: #d8e9ff;
+  --kat-rot: #a20711;
+  --kat-rot-flaeche: #ffddd8;
+  --kat-gruen: #0a6802;
+  --kat-gruen-flaeche: #d8f0d4;
+  --kat-hellblau: #006d90;
+  --kat-hellblau-flaeche: #caefff;
+  --kat-lila: #693996;
+  --kat-lila-flaeche: #efe1ff;
+  --kat-orange: #903500;
+  --kat-orange-flaeche: #ffe1cc;
+  --kat-senf: #6a5300;
+  --kat-senf-flaeche: #f1e8c7;
+  --kat-pink: #8d2661;
+  --kat-pink-flaeche: #ffdcec;
+  --kat-tuerkis: #006566;
+  --kat-tuerkis-flaeche: #c6f2f1;
+  --kat-grau: #5a5450;
+  --kat-grau-flaeche: #ece7e3;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --wa-nomen: #90c9ff;
-    --wa-nomen-flaeche: #243554;
-    --wa-verb: #ff9789;
-    --wa-verb-flaeche: #502824;
-    --wa-adjektiv: #8fe386;
-    --wa-adjektiv-flaeche: #223d20;
-    --wa-artikel: #80d8fe;
-    --wa-artikel-flaeche: #073b4d;
-    --wa-pronomen: #e1b0ff;
-    --wa-pronomen-flaeche: #3d2d4e;
-    --wa-adverb: #ffae64;
-    --wa-adverb-flaeche: #4d2c15;
-    --wa-praeposition: #e3ca69;
-    --wa-praeposition-flaeche: #3f350a;
-    --wa-konjunktion: #ffa0d8;
-    --wa-konjunktion-flaeche: #4c283a;
-    --wa-numerale: #73dfdf;
-    --wa-numerale-flaeche: #003f3f;
-    --wa-interjektion: #d0c9c4;
-    --wa-interjektion-flaeche: #393431;
+    --kat-blau: #90c9ff;
+    --kat-blau-flaeche: #243554;
+    --kat-rot: #ff9789;
+    --kat-rot-flaeche: #502824;
+    --kat-gruen: #8fe386;
+    --kat-gruen-flaeche: #223d20;
+    --kat-hellblau: #80d8fe;
+    --kat-hellblau-flaeche: #073b4d;
+    --kat-lila: #e1b0ff;
+    --kat-lila-flaeche: #3d2d4e;
+    --kat-orange: #ffae64;
+    --kat-orange-flaeche: #4d2c15;
+    --kat-senf: #e3ca69;
+    --kat-senf-flaeche: #3f350a;
+    --kat-pink: #ffa0d8;
+    --kat-pink-flaeche: #4c283a;
+    --kat-tuerkis: #73dfdf;
+    --kat-tuerkis-flaeche: #003f3f;
+    --kat-grau: #d0c9c4;
+    --kat-grau-flaeche: #393431;
   }
 }
 @media (prefers-contrast: more) {
   :root {
-    --wa-nomen: #03328f;
-    --wa-nomen-flaeche: #d9ecff;
-    --wa-verb: #830000;
-    --wa-verb-flaeche: #ffdfd9;
-    --wa-adjektiv: #004e00;
-    --wa-adjektiv-flaeche: #d9f4d5;
-    --wa-artikel: #005374;
-    --wa-artikel-flaeche: #c9f3ff;
-    --wa-pronomen: #501d7a;
-    --wa-pronomen-flaeche: #f3e3ff;
-    --wa-adverb: #731700;
-    --wa-adverb-flaeche: #ffe3cc;
-    --wa-praeposition: #513a00;
-    --wa-praeposition-flaeche: #f5ecc6;
-    --wa-konjunktion: #700048;
-    --wa-konjunktion-flaeche: #ffdef0;
-    --wa-numerale: #004c4d;
-    --wa-numerale-flaeche: #c5f6f5;
-    --wa-interjektion: #413c38;
-    --wa-interjektion-flaeche: #efeae6;
+    --kat-blau: #03328f;
+    --kat-blau-flaeche: #d9ecff;
+    --kat-rot: #830000;
+    --kat-rot-flaeche: #ffdfd9;
+    --kat-gruen: #004e00;
+    --kat-gruen-flaeche: #d9f4d5;
+    --kat-hellblau: #005374;
+    --kat-hellblau-flaeche: #c9f3ff;
+    --kat-lila: #501d7a;
+    --kat-lila-flaeche: #f3e3ff;
+    --kat-orange: #731700;
+    --kat-orange-flaeche: #ffe3cc;
+    --kat-senf: #513a00;
+    --kat-senf-flaeche: #f5ecc6;
+    --kat-pink: #700048;
+    --kat-pink-flaeche: #ffdef0;
+    --kat-tuerkis: #004c4d;
+    --kat-tuerkis-flaeche: #c5f6f5;
+    --kat-grau: #413c38;
+    --kat-grau-flaeche: #efeae6;
   }
 }
 @media (prefers-color-scheme: dark) and (prefers-contrast: more) {
   :root {
-    --wa-nomen: #a9e4ff;
-    --wa-nomen-flaeche: #132341;
-    --wa-verb: #ffb1a2;
-    --wa-verb-flaeche: #3c1714;
-    --wa-adjektiv: #a9fea0;
-    --wa-adjektiv-flaeche: #112b0e;
-    --wa-artikel: #9af2ff;
-    --wa-artikel-flaeche: #00293b;
-    --wa-pronomen: #fccaff;
-    --wa-pronomen-flaeche: #2b1c3b;
-    --wa-adverb: #ffc87e;
-    --wa-adverb-flaeche: #391b03;
-    --wa-praeposition: #fee484;
-    --wa-praeposition-flaeche: #2d2300;
-    --wa-konjunktion: #ffbaf3;
-    --wa-konjunktion-flaeche: #391628;
-    --wa-numerale: #8efaf9;
-    --wa-numerale-flaeche: #002c2d;
-    --wa-interjektion: #eae3de;
-    --wa-interjektion-flaeche: #272320;
+    --kat-blau: #a9e4ff;
+    --kat-blau-flaeche: #132341;
+    --kat-rot: #ffb1a2;
+    --kat-rot-flaeche: #3c1714;
+    --kat-gruen: #a9fea0;
+    --kat-gruen-flaeche: #112b0e;
+    --kat-hellblau: #9af2ff;
+    --kat-hellblau-flaeche: #00293b;
+    --kat-lila: #fccaff;
+    --kat-lila-flaeche: #2b1c3b;
+    --kat-orange: #ffc87e;
+    --kat-orange-flaeche: #391b03;
+    --kat-senf: #fee484;
+    --kat-senf-flaeche: #2d2300;
+    --kat-pink: #ffbaf3;
+    --kat-pink-flaeche: #391628;
+    --kat-tuerkis: #8efaf9;
+    --kat-tuerkis-flaeche: #002c2d;
+    --kat-grau: #eae3de;
+    --kat-grau-flaeche: #272320;
   }
 }
 /* WORTARTEN-ENDE */

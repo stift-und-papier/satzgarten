@@ -72,7 +72,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   padding: var(--space-xs) var(--space-lg);
   border-radius: var(--radius-pille);
   border: var(--kontur) solid var(--color-holz);
-  background: var(--color-papier-2);
+  background: var(--color-papier);
   color: var(--color-tinte);
   font: 800 var(--text-body)/1.2 var(--font-body);
   box-shadow: 0 var(--kante) 0 var(--color-holz-schatten);
@@ -80,14 +80,12 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   transition: transform var(--dur-micro) var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
-.knopf:hover { background: var(--color-papier); }
+.knopf:hover { background: var(--color-papier-2); }
 .knopf:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--color-holz-schatten); }
+/* Gesperrt: gleiche Pillenform, nur blasser – nie gestrichelt (gestrichelt heißt „hier schreiben“, siehe .luecke) */
 .knopf:disabled, .knopf[aria-disabled='true'] {
   cursor: not-allowed;
-  color: var(--color-tinte-leise);
-  box-shadow: none;
-  transform: translateY(var(--kante));
-  border-style: dashed;
+  opacity: 0.45;
 }
 .knopf--haupt {
   background: var(--color-aktion);
@@ -202,7 +200,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .chip:active { transform: translateY(2px); }
 .chip[aria-pressed='true'] { background: var(--color-aktion); border-color: var(--color-holz-schatten); color: var(--color-aktion-text); font-weight: 800; }
 .chip[aria-pressed='true']::before { content: '✓ '; }
-.chip:disabled { cursor: not-allowed; border-style: dashed; color: var(--color-tinte-leise); }
+.chip:disabled { cursor: not-allowed; opacity: 0.45; }
 
 .wort {
   font: inherit;
@@ -218,31 +216,36 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .wort:hover { border-color: var(--color-holz); border-style: dashed; }
 .wort[aria-pressed='true'] { background: var(--color-papier-2); border-color: var(--color-aktion); border-style: solid; box-shadow: 0 2px 0 var(--color-holz-schatten); }
 
-/* ---------- Wortarten: jede Wortart hat ihre Farbe (Werte in tokens.css, Zuordnung in src/lib/wortarten.ts) ----------
-   data-wortart setzt --wa/--wa-flaeche; die Regeln darunter nutzen nur diese zwei.
-   Bedeutung nie nur über Farbe: im Kästchen steht immer der Name der Wortart. */
-[data-wortart='nomen'] { --wa: var(--wa-nomen); --wa-flaeche: var(--wa-nomen-flaeche); }
-[data-wortart='verb'] { --wa: var(--wa-verb); --wa-flaeche: var(--wa-verb-flaeche); }
-[data-wortart='adjektiv'] { --wa: var(--wa-adjektiv); --wa-flaeche: var(--wa-adjektiv-flaeche); }
-[data-wortart='artikel'] { --wa: var(--wa-artikel); --wa-flaeche: var(--wa-artikel-flaeche); }
-[data-wortart='pronomen'] { --wa: var(--wa-pronomen); --wa-flaeche: var(--wa-pronomen-flaeche); }
-[data-wortart='adverb'] { --wa: var(--wa-adverb); --wa-flaeche: var(--wa-adverb-flaeche); }
-[data-wortart='praeposition'] { --wa: var(--wa-praeposition); --wa-flaeche: var(--wa-praeposition-flaeche); }
-[data-wortart='konjunktion'] { --wa: var(--wa-konjunktion); --wa-flaeche: var(--wa-konjunktion-flaeche); }
-[data-wortart='numerale'] { --wa: var(--wa-numerale); --wa-flaeche: var(--wa-numerale-flaeche); }
-[data-wortart='interjektion'] { --wa: var(--wa-interjektion); --wa-flaeche: var(--wa-interjektion-flaeche); }
+/* ---------- Fachbegriffe in Farbe: Wortarten, Satzglieder, Zeitformen ----------
+   Zuordnung Begriff → Farbe in src/lib/kategorien.ts, Farbwerte in tokens.css (--kat-*).
+   data-farbe setzt --kat/--kat-flaeche; die Regeln darunter nutzen nur diese zwei.
+   Bedeutung nie nur über Farbe: im Kästchen steht immer der Name des Begriffs. */
+[data-farbe='blau'] { --kat: var(--kat-blau); --kat-flaeche: var(--kat-blau-flaeche); }
+[data-farbe='rot'] { --kat: var(--kat-rot); --kat-flaeche: var(--kat-rot-flaeche); }
+[data-farbe='gruen'] { --kat: var(--kat-gruen); --kat-flaeche: var(--kat-gruen-flaeche); }
+[data-farbe='hellblau'] { --kat: var(--kat-hellblau); --kat-flaeche: var(--kat-hellblau-flaeche); }
+[data-farbe='lila'] { --kat: var(--kat-lila); --kat-flaeche: var(--kat-lila-flaeche); }
+[data-farbe='orange'] { --kat: var(--kat-orange); --kat-flaeche: var(--kat-orange-flaeche); }
+[data-farbe='senf'] { --kat: var(--kat-senf); --kat-flaeche: var(--kat-senf-flaeche); }
+[data-farbe='pink'] { --kat: var(--kat-pink); --kat-flaeche: var(--kat-pink-flaeche); }
+[data-farbe='tuerkis'] { --kat: var(--kat-tuerkis); --kat-flaeche: var(--kat-tuerkis-flaeche); }
+[data-farbe='grau'] { --kat: var(--kat-grau); --kat-flaeche: var(--kat-grau-flaeche); }
 
-/* Wort im Text in der Farbe seiner Wortart (z. B. in Erklärungen und Beispielen) */
-.wa-text { color: var(--wa); font-weight: 800; }
+/* Fachbegriff oder Beispielwort im Text in seiner Farbe (Anweisungen, Erklärungen) */
+.fach-text { color: var(--kat); font-weight: 800; }
 
-/* Markiertes Wort: Kästchen in der Farbe der Wortart, Name darunter */
-.wort[data-wortart] { background: var(--wa-flaeche); border-color: var(--wa); border-style: solid; color: var(--wa); }
+/* Markiertes Wort: Kästchen in der Farbe des Begriffs (ohne data-farbe bleibt es neutral) */
+.wort[data-farbe] { background: var(--kat-flaeche); border-color: var(--kat); border-style: solid; color: var(--kat); }
 .wort-mit-name { display: inline-grid; justify-items: center; vertical-align: top; }
-.wort-mit-name__name { font-size: var(--text-klein); line-height: 1.2; color: var(--wa, var(--color-tinte-leise)); }
+.wort-mit-name__name { font-size: var(--text-klein); line-height: 1.2; color: var(--kat, var(--color-tinte-leise)); }
 
-/* Stifte zum Markieren: Chip in der Farbe der Wortart; der gewählte Stift hat einen dicken Rand und ✓ */
-.stift[data-wortart] { background: var(--wa-flaeche); border-color: var(--wa); color: var(--wa); font-weight: 800; }
-.stift[data-wortart][aria-pressed='true'] { background: var(--wa-flaeche); color: var(--wa); border-width: 4px; box-shadow: 0 var(--kante) 0 var(--wa); }
+/* Stifte zum Markieren: Chip in der Farbe des Begriffs; der gewählte Stift hat einen dicken Rand und ✓ */
+.stift[data-farbe] { background: var(--kat-flaeche); border-color: var(--kat); color: var(--kat); font-weight: 800; }
+.stift[data-farbe][aria-pressed='true'] { background: var(--kat-flaeche); color: var(--kat); border-width: 4px; box-shadow: 0 var(--kante) 0 var(--kat); }
+
+/* Legende (nicht antippbar) */
+.legende { display: flex; flex-wrap: wrap; gap: var(--space-xs); list-style: none; margin: 0; padding: 0; }
+.legende li { padding: var(--space-2xs) var(--space-sm); border-radius: var(--radius-feld); border: var(--kontur) solid var(--kat); background: var(--kat-flaeche); color: var(--kat); font-weight: 800; font-size: var(--text-klein); }
 
 /* ---------- Rückmeldung (✓ grün, ! Pfirsich – nie rot) ---------- */
 .rueckmeldung {

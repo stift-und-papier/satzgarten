@@ -46,10 +46,16 @@
   Neue Farben in allen vier Blöcken ergänzen und Kontrast nachrechnen.
 - **Farbe im Hintergrund nur für die EINE Hauptaktion** (Apple): runde Knöpfe hell mit farbigem Rand/Symbol
   (Holz = Pfeile/Navigation, Himmelblau = Hilfe), Menü ohne Farbfläche. Linienfarbe nie als Schrift.
-- **Wortarten-Farben** (Lehrkraft): Nomen blau, Verb rot, Adjektiv grün, Artikel hellblau, Pronomen lila; Vorschlag Claude:
-  Adverb orange, Präposition senfgelb, Konjunktion/Subjunktion pink, Numerale türkis, Interjektion/Partikel grau.
-  Werte erzeugt `node scripts/wortarten-farben.mjs` (prüft Kontrast) in tokens.css; Namen → Wortart `src/lib/wortarten.ts` (getestet).
-  Kästchen markierter Wörter nehmen die Farbe der Wortart an, immer mit Namen; Wörter in Texten per `.wa-text` + `data-wortart`.
+- **Fachbegriff-Farben** (eine Palette mit 10 Farben, , erzeugt + kontrastgeprüft von Wortarten-Farben geschrieben, alle Kontraste ≥ 4,5:1.;
+  Begriff → Farbe in , getestet). Gruppen dürfen Farben teilen (nie gleichzeitig abgefragt).
+  Wortarten (Lehrkraft): Nomen blau, Verb rot, Adjektiv grün, Artikel hellblau, Pronomen lila; Claude: Adverb orange,
+  Präposition senf, Konjunktion/Subjunktion pink, Numerale türkis, Interjektion/Partikel grau.
+  Satzglieder (Claude): Subjekt blau, Prädikat rot, Akkusativobjekt grün, Dativobjekt senf, Genitivobjekt türkis,
+  Präpositionalobjekt lila, Adverbiale orange, Attribut pink. Zeitformen (Claude, Zeitstrahl kühl → warm):
+  Plusquamperfekt lila, Präteritum blau, Perfekt hellblau, Präsens grün, Futur I orange, Futur II pink.
+  Fachbegriffe in Anweisungen färben sich automatisch (, je Aufgabe abschaltbar: ).
+  Markierte Wörter nehmen die Farbe an (); ohne Farbe bleiben sie neutral (Antippen ohne Fachbegriff).
+  Gestrichelt heißt immer „hier schreiben“ (Lücken) – gesperrte Knöpfe sind nur blasser.
 - Leseschrift für LRS: OpenDyslexic (lokal, OFL), Umschalter `useLeseschrift` (`src/lib/leseschrift.ts`), gespeichert auf dem Gerät.
 - Prüfen: `node ~/.claude/skills/hallmark/scripts/sloplint.mjs src --genre playful --scope app`.
 
@@ -71,3 +77,6 @@
   noch „richtig“, Hauptknöpfe und Auswahl sind Holz. Umschalter auf OpenDyslexic für Schüler:innen mit LRS.
 - 2026-11-09 (Lehrkraft): Keine Wellenlinie bei markierten Wörtern (wirkt wie „falsch“). Wortarten mit festen Farben
   (s. Design). Apple-Farbregeln angewendet: Farbe im Hintergrund nur für die Hauptaktion, Rollen der Farben nie vertauschen.
+- 2026-11-09 (Lehrkraft): Hilfe-Farbe bleibt. Fachbegriffe in Anweisungen in ihrer Farbe statt Erklärsatz.
+  Antippen auch farblos möglich. Eigene Farben für Satzglieder und Zeitformen (Überschneidung mit Wortarten erlaubt).
+  „Lösung ansehen“ (gesperrt) nicht mehr gestrichelt, damit es nicht wie eine Lücke aussieht.

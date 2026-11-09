@@ -1,21 +1,22 @@
-// Erzeugt die Wortarten-Farben in src/design/tokens.css (zwischen den Markierungen WORTARTEN-START/-ENDE)
+// Erzeugt die Fachbegriff-Farben (Wortarten, Satzglieder, Zeitformen) in src/design/tokens.css (zwischen WORTARTEN-START/-ENDE)
 // für hell, dunkel, mehr Kontrast und dunkel + mehr Kontrast – und prüft jeden Kontrast.
 // Aufruf: node scripts/wortarten-farben.mjs   (bricht ab, wenn ein Kontrast zu niedrig ist)
 import fs from 'node:fs'
 
-// Farbton (OKLCH-Winkel) und Sättigung je Wortart. Vorgaben der Lehrkraft: Nomen blau, Verb rot, Adjektiv grün,
-// Artikel hellblau, Pronomen lila. Die übrigen hat Claude vorgeschlagen.
+// Zehn Farbplätze (OKLCH-Farbton und Sättigung). Welche Wortart, welches Satzglied, welche Zeitform welchen Platz
+// bekommt, steht in src/lib/kategorien.ts. Vorgaben der Lehrkraft: Nomen blau, Verb rot, Adjektiv grün,
+// Artikel hellblau, Pronomen lila.
 const WORTARTEN = {
-  nomen: { h: 262, c: 0.16 },        // blau
-  verb: { h: 27, c: 0.18 },          // rot
-  adjektiv: { h: 142, c: 0.15 },     // grün
-  artikel: { h: 228, c: 0.10, hell: true }, // hellblau
-  pronomen: { h: 305, c: 0.15 },     // lila
-  adverb: { h: 55, c: 0.15 },        // orange
-  praeposition: { h: 95, c: 0.12 },  // senfgelb
-  konjunktion: { h: 350, c: 0.15 },  // pink (auch Subjunktion)
-  numerale: { h: 195, c: 0.10 },     // türkis
-  interjektion: { h: 60, c: 0.01 },  // grau (auch Partikel)
+  blau: { h: 262, c: 0.16 },
+  rot: { h: 27, c: 0.18 },
+  gruen: { h: 142, c: 0.15 },
+  hellblau: { h: 228, c: 0.10, hell: true },
+  lila: { h: 305, c: 0.15 },
+  orange: { h: 55, c: 0.15 },
+  senf: { h: 95, c: 0.12 },
+  pink: { h: 350, c: 0.15 },
+  tuerkis: { h: 195, c: 0.10 },
+  grau: { h: 60, c: 0.01 },
 }
 
 // [Text-Helligkeit, Flächen-Helligkeit, Flächen-Sättigung] je Modus
@@ -49,12 +50,12 @@ function block(modus) {
       const k = kontrast(tinte, grund)
       if (k < 4.5) fehler.push(`${modus} ${name} auf ${was}: ${k.toFixed(2)}`)
     }
-    return `    --wa-${name}: ${hex(...tinte)};\n    --wa-${name}-flaeche: ${hex(...flaeche)};`
+    return `    --kat-${name}: ${hex(...tinte)};\n    --kat-${name}-flaeche: ${hex(...flaeche)};`
   }).join('\n')
 }
 
 const css = `/* WORTARTEN-START – erzeugt von scripts/wortarten-farben.mjs, nicht von Hand ändern.
-   --wa-<wortart> = Schrift und Rahmen (mind. 4,5:1 auf Papier und auf der eigenen Fläche), --wa-<wortart>-flaeche = Kästchen. */
+   --kat-<farbe> = Schrift und Rahmen (mind. 4,5:1 auf Papier und auf der eigenen Fläche), --kat-<farbe>-flaeche = Kästchen. */
 :root {
 ${block('hell').replaceAll('\n    ', '\n  ').replace(/^ {4}/, '  ')}
 }
