@@ -98,7 +98,10 @@ export default function Stilblatt() {
               Abendgarten (dunkel)
             </button>
           </div>
-          <a className="knopf" href="#/stil/maskottchen" style={{ justifySelf: 'start' }}>Maskottchen ansehen</a>
+          <div className="knopf-reihe">
+            <a className="knopf" href="#/stil/maskottchen">Maskottchen ansehen</a>
+            <a className="knopf" href="#/stil/garten">Garten ansehen</a>
+          </div>
         </header>
 
         <section className="karte" aria-labelledby="t-aufgabe">

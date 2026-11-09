@@ -58,6 +58,20 @@
   --color-geist-wange: #f6bfae;
   --color-geist-blatt: #8cc070;
   --color-geist-blatt-tief: #4f7d3b;
+  /* Garten (nur Bilder, nie Schrift; mehr-Kontrast-Modi übernehmen diese Werte) */
+  --color-erde: #b98a64;
+  --color-erde-tief: #8f6545;
+  --color-erde-hell: #cfa47e;
+  --color-garten-kontur: #5b3d28;
+  --color-pflanze: #6fae5a;
+  --color-pflanze-tief: #3f7a34;
+  --color-bluete: #f2c230;
+  --color-bluete-mitte: #7a4a24;
+  --color-tuete: #f3e6c8;
+  --color-stein: #c9c6b8;
+  --color-stein-tief: #a9a596;
+  --color-deko: #c08a5a;
+  --color-deko-tief: #94643c;
 
   /* Rückmeldung */
   --color-richtig-flaeche: #cdf0cd;
@@ -142,6 +156,19 @@
   --color-geist-wange: #e8a996;
   --color-geist-blatt: #7cad62;
   --color-geist-blatt-tief: #3f6a2e;
+  --color-erde: #6e4f38;
+  --color-erde-tief: #4f3624;
+  --color-erde-hell: #80604a;
+  --color-garten-kontur: #1a100a;
+  --color-pflanze: #5f9a4c;
+  --color-pflanze-tief: #356a2b;
+  --color-bluete: #e0b02a;
+  --color-bluete-mitte: #5c3518;
+  --color-tuete: #d9ccb0;
+  --color-stein: #8f8c80;
+  --color-stein-tief: #6f6c62;
+  --color-deko: #9c6e46;
+  --color-deko-tief: #6f4a2c;
   --color-richtig-flaeche: #193c1b;
   --color-richtig-tinte: #b9eeba;
   --color-nochmal-flaeche: #512e1a;

@@ -46,7 +46,7 @@ läuft `npm run test:datenbank` mit dem Ergebnis „ALLE TESTS BESTANDEN“.
   - Prüfen: Lehrkraft sieht die Seite am iPad und am Laptop, gibt frei oder nennt Änderungen.
   - Dateien: `src/design/tokens.css`, `src/design/bausteine.css`, `src/design/lehrkraft.css`, `src/entwicklung/Vorschau.tsx`
 
-- [ ] **5 Maskottchen** (M) – hängt an 4
+- [x] **5 Maskottchen** (M) – hängt an 4
   - Akzeptanz: 3 eigene Entwürfe eines Gartengeists (SVG, keine Kopie der Referenz); Lehrkraft wählt einen
     (und klärt Name, eine Figur oder Auswahl); danach 4 Ausdrücke (freundlich, nachdenklich, freut sich, zeigt);
     Sprechblasen-Baustein; `aria-hidden` für die Figur.
