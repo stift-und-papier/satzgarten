@@ -9,7 +9,7 @@ läuft `npm run test:datenbank` mit dem Ergebnis „ALLE TESTS BESTANDEN“.
 
 ## Phase 1: Grundgerüst
 
-- [ ] **1 Projekt anlegen und veröffentlichen** (M)
+- [x] **1 Projekt anlegen und veröffentlichen** (M)
   - Akzeptanz: Ordner `C:\Users\jrkug\Projekte\satzgarten`, Vite + React + TS (Safari 15, Basis `/satzgarten/`),
     Repo `stift-und-papier/satzgarten`, GitHub Actions veröffentlicht bei Push auf `main`; `.gitignore` schließt
     `refrences/`, `docs/*.pdf`, `.env*`, `supabase/.temp` aus; neues `CLAUDE.md` mit den Regeln aus der Spec;
@@ -26,7 +26,7 @@ läuft `npm run test:datenbank` mit dem Ergebnis „ALLE TESTS BESTANDEN“.
   - Dateien: `supabase/migrations/…_start.sql`, `supabase/tests/zugriffsregeln.sql`, `supabase/tests/netzwerk.test.ts`,
     `src/lib/supabase.ts`
 
-- [ ] **3 Navigation und Versionsprüfung** (S) – hängt an 1
+- [x] **3 Navigation und Versionsprüfung** (S) – hängt an 1
   - Akzeptanz: Hash-Navigation (`#/s/<token>/…`, `#/lehrkraft/…`, `#/vorschau/…` nur im Entwicklungsmodus);
     Versionsprüfung lädt beim Öffnen einmal neu und zeigt sonst „Neu laden“.
   - Prüfen: Tests für den Router; nach einer Veröffentlichung zeigt das iPad die neue Version.
