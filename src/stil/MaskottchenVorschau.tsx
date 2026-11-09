@@ -2,7 +2,7 @@ import { gehe } from '../lib/router'
 import { Symbol } from '../gemeinsam/Symbol'
 import { Maskottchen, MaskottchenSagt, type Ausdruck } from '../gemeinsam/Maskottchen'
 
-// Aufgabe 5: das gewählte Maskottchen (Blatthut) mit vier Ausdrücken und Sprechblase (Adresse #/stil/maskottchen).
+// Aufgabe 5: das Maskottchen Albert mit vier Ausdrücken und Sprechblase (Adresse #/stil/maskottchen).
 // Wird mit dem Stilblatt nach der Design-Freigabe entfernt.
 
 const AUSDRUECKE: { ausdruck: Ausdruck; name: string; wann: string }[] = [
@@ -22,9 +22,9 @@ export default function MaskottchenVorschau() {
           </button>
         </div>
         <div className="karte">
-          <h1>Maskottchen: Blatthut</h1>
+          <h1>Das ist Albert</h1>
           <MaskottchenSagt ausdruck="zeigt">
-            <p>Hallo! Ich begleite dich durch die Aufgaben. Wenn du Hilfe brauchst, tippe auf die Glühbirne.</p>
+            <p>Hallo, ich bin Albert! Ich begleite dich durch die Aufgaben. Wenn du Hilfe brauchst, tippe auf die Glühbirne.</p>
           </MaskottchenSagt>
         </div>
         <div className="karte">

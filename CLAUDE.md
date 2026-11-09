@@ -88,5 +88,7 @@
   Stilblatt freigegeben (Aufgabe 4).
 - 2026-11-09 (Lehrkraft): Dunkelmodus auch von Hand umschaltbar (`useDunkel`, `src/lib/thema.ts`; ohne eigene Wahl
   folgt er dem Gerät; tokens.css nutzt `:root[data-thema='dunkel']` statt `prefers-color-scheme`).
-  Maskottchen: Entwurf B „Blatthut“ gewählt (`src/gemeinsam/Maskottchen.tsx`, Ausdrücke freundlich, nachdenklich,
+  Maskottchen: Entwurf B „Blatthut“ gewählt, heißt **Albert** (`src/gemeinsam/Maskottchen.tsx`, Ausdrücke freundlich, nachdenklich,
   freut-sich, zeigt; `MaskottchenSagt` mit Sprechblase, Rand Himmelblau).
+- 2026-11-09 (Lehrkraft): Albert bewegt sich ruhig, nicht ablenkend: blinzelt etwa alle 6 s, atmet langsam;
+  aus bei „Bewegung reduzieren“. Nur eine Figur (keine Auswahl für Schüler:innen).
