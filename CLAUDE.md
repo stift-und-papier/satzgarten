@@ -1,14 +1,15 @@
-# CLAUDE.md – Projektregeln Satzgarten
+# CLAUDE.md – Projektregeln Wortsalat
 
 ## Für wen und wie
 - Nutzerin/Nutzer ist eine Deutschlehrkraft (KGS Niedersachsen) **ohne Programmiererfahrung**.
   Jeden Schritt kurz in einfachem Deutsch erklären, Fachwörter vermeiden oder erklären.
 - Git, Installationen, Konfiguration selbst übernehmen. Was im Browser selbst zu tun ist: Schritt für Schritt anleiten.
-- Arbeiten nach `tasks/todo.md` (Plan: `tasks/plan.md`, Spec: `docs/SPEC.md`). **Nach jeder Phase (Haltepunkt) stoppen**
-  und testen lassen. Erledigte Aufgaben dort abhaken.
-- Fachlich-didaktische und Design-Entscheidungen **erfragen**, nicht raten. Entscheidungen unten protokollieren.
-- Vorgänger-Projekt: `C:\Users\jrkug\Projekte\deutsch-uebungen` („Übungswiese“) – Quelle für übernommene Dateien
-  (in `tasks/todo.md` mit „alt“ markiert). Übergabe: `docs/uebergabe-neustart.md`.
+- Arbeiten nach `tasks/todo.md` (Plan: `tasks/plan.md`, Spec: `docs/SPEC.md`, je Baustein `docs/SPEC-<kennung>.md`).
+  **Nach jeder Phase (Haltepunkt) stoppen** und testen lassen. Erledigte Aufgaben dort abhaken.
+- Fachlich-didaktische, Spiel- und Design-Entscheidungen **erfragen**, nicht raten. Entscheidungen unten protokollieren.
+- Vorgänger: „Satzgarten“ (dieses Repo bis 11. November 2026, Übergabe `docs/uebergabe-wortsalat.md`) und
+  „Übungswiese“ (`C:\Users\jrkug\Projekte\deutsch-uebungen`, Übergabe `docs/uebergabe-neustart.md`) – Quelle für
+  übernommene Dateien (in `tasks/todo.md` mit „alt“ markiert).
 
 ## Feste Regeln
 - Alle Texte der Oberfläche auf Deutsch, einfache Sprache (Jg. 5–10). Code-Kommentare auf Deutsch.
@@ -17,32 +18,39 @@
 - **Keine Klarnamen** von Schüler:innen, nur Pseudonyme (z. B. „Fuchs-07“).
 - **Keine Geheimnisse ins Repo** (Repo ist öffentlich). Supabase-`anon`/publishable Key darf in den Code,
   `service_role`-Schlüssel und DB-Passwort **nie**.
-- KC-PDFs (`docs/*.pdf`), Referenzbilder (`refrences/`) und Referenz-Texte (`Erklärungen referenz/`) nie ins Repo. Grafiken immer **selbst neu zeichnen**.
+- **Nie ins Repo:** KC-PDFs (`docs/*.pdf`), Referenzbilder (`refrences/`), Referenz-Texte (`Erklärungen referenz/`),
+  die gekauften Asset-Pakete (`assets/`, Lizenz verbietet Weitergabe).
+- **Grafiken:** Sprout Lands (gekauft, Cup Nooble) und TastenHeld (Erlaubnis für Ideen, Code, Grafiken).
+  Nur benutzte Einzelbilder nach `src/grafik/` mit `LIZENZ.md`; Namensnennung in der App
+  („Assets – From: Sprout Lands – By: Cup Nooble“). Übernommenen TastenHeld-Code mit Herkunft kennzeichnen.
 - Kompetenzen **nicht erfinden** – nur aus `docs/kompetenzen.csv` bzw. durch die Lehrkraft.
-- Schüler:innen sehen **nie** absolute Lernstände (kein `--` bis `++`, keine Prozente, Punkte, Noten) und **keine
-  Belohnungszahlen** (Samen) – abgesichert in der Datenbank, nicht nur in der Oberfläche.
+- Schüler:innen sehen **nie** absolute Lernstände (kein `--` bis `++`, keine Prozente, Punkte, Noten) – abgesichert in
+  der Datenbank. **Münzen** dürfen als Zahl erscheinen; Münzen, Käufe und Wachstum rechnet nur der Server. Keine Ranglisten.
 - Lösungen nur in `aufgaben.loesung`; Schüler-Funktionen geben sie nie heraus (DB-Test je Format).
-- Gesichter/Figuren nur beim Maskottchen. Fehler nie rot (Pfirsich). Bedeutung nie nur über Farbe.
-  Kontrast ≥ 4,5:1, Tippflächen ≥ 48 px, Fließtext ≥ 17 px.
+- **Eingabefelder der Schüler:innen ohne Rechtschreibkorrektur** (Autokorrektur, Rechtschreibprüfung, Wortvorschläge,
+  automatische Großschreibung aus). iPads haben feste QWERTZ-Tastaturen.
+- Figuren erlaubt (Einstein, Spielfigur, Tiere). Fehler nie rot (Pfirsich). Bedeutung nie nur über Farbe.
+  Kontrast ≥ 4,5:1, Tippflächen ≥ 48 px, Fließtext ≥ 17 px. Bewegung aus bei „Bewegung reduzieren“.
 - Einsatz mit echten Klassen erst nach Datenschutz-Freigabe durch Schulleitung/DSB.
 
 ## Technik
-- Vite + React + TypeScript, statisch, Bau-Ziel Safari 15. Pfad-Basis `/satzgarten/`.
-- GitHub Pages: Repo `stift-und-papier/satzgarten` (öffentlich), Adresse https://stift-und-papier.github.io/satzgarten/,
+- Vite + React + TypeScript, statisch, Bau-Ziel Safari 15. Pfad-Basis `/wortsalat/`.
+- GitHub Pages: Repo `stift-und-papier/wortsalat` (öffentlich), Adresse https://stift-und-papier.github.io/wortsalat/,
   Veröffentlichung per GitHub Actions bei Push auf `main`.
-- Supabase-Projekt `diwpqkxhmuetdpxxcoar` („satzgarten“, kostenlos, Frankfurt `eu-central-1`), RLS überall. Änderungen nur als Migration in `supabase/migrations/`,
+- Supabase-Projekt `diwpqkxhmuetdpxxcoar` (kostenlos, Frankfurt `eu-central-1`), RLS überall. Änderungen nur als Migration in `supabase/migrations/`,
   dann `npm run db:push`. CLI per `npx supabase` (v2), Anmeldung per Token (Lehrkraft trägt ihn selbst ein:
-  `npx.cmd --prefix C:/Users/jrkug/Projekte/satzgarten supabase login --token …`, `npx.ps1` ist gesperrt); Befehle aus Claudes Shell
+  `npx.cmd --prefix <Projektordner> supabase login --token …`, `npx.ps1` ist gesperrt); Befehle aus Claudes Shell
   (im Terminal der Lehrkraft scheitert die CLI, vermutlich Avast).
 - Schüler:innen: kein Konto, Link-Token (192 Bit) hinter `#`; Zugriff nur über Datenbankfunktionen mit Token-Prüfung.
-- Bibliotheken: supabase-js, @dnd-kit, qrcode. Neue nur nach Rückfrage.
+- Bibliotheken: supabase-js, @dnd-kit, qrcode. Neue nur nach Rückfrage (auch für Farm/Spielfigur).
 
-## Design „Gartenheft“ (Stilblatt `#/stil`, wird nach Freigabe entfernt)
+## Design (Übergang: Stilblatt „Gartenheft“ unter `#/stil`, wird in Phase 2 zum Pixel-Look)
+- Schüleransicht wird Pixel-Art (Sprout Lands, ganzzahlig vergrößert); Lehrkraft-Ansicht bleibt „ruhig“.
 - Einzige Token-Datei `src/design/tokens.css` (Farben als Hex wegen Safari 15.0–15.3, aus OKLCH berechnet),
   Bausteine `src/design/bausteine.css` (Schüler:innen), `src/design/lehrkraft.css` (Thema „ruhig“). Symbole: `src/gemeinsam/Symbol.tsx`.
 - **Eine Farbe = eine Bedeutung** (Apple-Richtlinien): Holz = bedienen (Knöpfe, Pfeile, Auswahl, aktuelle Seite),
-  Himmelblau = Hilfe (Tipp, Hilfe, Maskottchen), Blattgrün = richtig/geschafft (nie Knöpfe), Pfirsich = nochmal, Sonne = Sterne.
-- Jede Farbe in vier Varianten: hell, dunkel („Abendgarten“, folgt der iPad-Einstellung), mehr Kontrast, dunkel + mehr Kontrast.
+  Himmelblau = Hilfe (Tipp, Hilfe, Einstein), Blattgrün = richtig/geschafft (nie Knöpfe), Pfirsich = nochmal, Sonne = Sterne.
+- Jede Farbe in vier Varianten: hell, dunkel (folgt der iPad-Einstellung), mehr Kontrast, dunkel + mehr Kontrast.
   Neue Farben in allen vier Blöcken ergänzen und Kontrast nachrechnen.
 - **Farbe im Hintergrund nur für die EINE Hauptaktion** (Apple): runde Knöpfe hell mit farbigem Rand/Symbol
   (Holz = Pfeile/Navigation, Himmelblau = Hilfe), Menü ohne Farbfläche. Linienfarbe nie als Schrift.
@@ -57,7 +65,7 @@
   Markierte Wörter nehmen die Farbe an (`data-farbe`); ohne Farbe bleiben sie neutral (Antippen ohne Fachbegriff).
   Gestrichelt heißt immer „hier schreiben“ (Lücken) – gesperrte Knöpfe sind nur blasser.
 - Leseschrift für LRS: OpenDyslexic (lokal, OFL), Umschalter `useLeseschrift` (`src/lib/leseschrift.ts`), gespeichert auf dem Gerät.
-- Abendgarten (dunkel): folgt dem Gerät, von Hand umschaltbar mit `useDunkel` (`src/lib/thema.ts`), gespeichert auf dem Gerät.
+- Dunkler Modus: folgt dem Gerät, von Hand umschaltbar mit `useDunkel` (`src/lib/thema.ts`), gespeichert auf dem Gerät.
 - Prüfen: `node ~/.claude/skills/hallmark/scripts/sloplint.mjs src --genre playful --scope app`.
 
 ## Befehle
@@ -65,7 +73,7 @@
 - `npm run test:datenbank` → Erfolg = „ALLE TESTS BESTANDEN“. **Nach jeder Migration ausführen und erweitern.**
 
 ## Rechner der Lehrkraft (Windows 11)
-- Projektordner `C:\Users\jrkug\Projekte\satzgarten` (nicht in OneDrive).
+- Projektordner `C:\Users\jrkug\Projekte\satzgarten` (nicht in OneDrive; wird nach Haltepunkt 1 in `wortsalat` umbenannt).
 - Git, Node.js LTS, GitHub CLI (`gh`, angemeldet als `stift-und-papier`); Git-Identität mit GitHub-noreply-Adresse.
 
 ## Entscheidungen (Protokoll)
@@ -95,3 +103,9 @@
 - 2026-11-09 (Lehrkraft): Garten-Entwurf freigegeben (`src/gemeinsam/Garten.tsx`, `src/design/garten.css`) – Haltepunkt 2 erreicht.
   12 Pflanzen = verschiedene Blumen, je Beet eine Blume, vorerst kein Ernten. Deko z. B. Bank, Wimpelkette, Lampe,
   Gartengeräte. Vorschlagslisten in `docs/SPEC.md` (Garten), Bestätigung bei Aufgabe 32.
+- 2026-11-11 (Lehrkraft): **Neustart als „Wortsalat“** im selben Repo (umbenannt; Spec `docs/SPEC.md`, Plan `tasks/plan.md`).
+  Erst Lernplattform, dann Farm-Spiel (ersetzt den Garten): Münzen für gelöste Aufgaben (als Zahl erlaubt), Shop,
+  Spielfigur, Felder mit Ernte, Tiere füttern (Sprechblase mit Herz, keine Fress-Animation), Üben = Gießen.
+  Neues Format Diktat (Abschreiben, Merkdiktat mit „gemerkt“) nach TastenHeld. Alle 7 Formate + Diktat, alle drei Zweige.
+  Pixel-Look (Sprout Lands, gekauft) für Schüler:innen, Lehrkraft-Ansicht ruhig. Figuren erlaubt. Maskottchen heißt
+  **Einstein** (Pixel-Figur nach eigener Vorlage). Rechtschreibkorrektur überall aus. Garten-Entwurf und Albert entfernt.

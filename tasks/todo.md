@@ -10,17 +10,17 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 
 ## Phase 1: Umbenennen (`umbenennen`)
 
-- [ ] **1 Repo und Adresse umbenennen** (M)
+- [x] **1 Repo und Adresse umbenennen** (M)
   - Akzeptanz: GitHub-Repo `stift-und-papier/wortsalat` (per `gh repo rename`), `git remote` angepasst;
     Pfad-Basis `/wortsalat/` in `vite.config.ts`; Paketname, Seitentitel, README; Veröffentlichung läuft.
   - Prüfen: `https://stift-und-papier.github.io/wortsalat/` zeigt die App; Lauf in GitHub Actions grün.
   - Dateien: `vite.config.ts`, `package.json`, `index.html`, `README.md`
 
-- [ ] **2 Texte, Regeln und Aufräumen** (M) – hängt an 1
+- [x] **2 Texte, Regeln und Aufräumen** (M) – hängt an 1
   - Akzeptanz: „Satzgarten“ → „Wortsalat“ in allen Oberflächentexten; `CLAUDE.md` neu gefasst (Name, Einstein,
     Pixel-Look, Figuren erlaubt, Münzen als Zahlen, Tastatur, Korrektur aus, Lizenzen, Entscheidungsprotokoll fortgeführt);
     Garten-Entwurf (`Garten.tsx`, `garten.css`, `GartenVorschau.tsx`, Garten-Tokens) und Albert-Vorschau entfernt;
-    `Maskottchen.tsx` bleibt vorerst als Platzhalter, bis Einstein fertig ist.
+    Albert (`Maskottchen.tsx`) ebenfalls entfernt; die Sprechblase bleibt für Einstein.
   - Prüfen: `grep -ri satzgarten src` findet nichts mehr außer im Protokoll; Bauen, Tests und Hallmark-Prüfung grün.
   - Dateien: `CLAUDE.md`, `src/App.tsx`, `src/stil/*`, `src/design/tokens.css`, `src/lehrkraft/LehrkraftRahmen.tsx`
 

@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 
-// Verbindung zur Datenbank (Supabase-Projekt "satzgarten", Region Frankfurt).
+// Verbindung zur Datenbank (Supabase-Projekt „wortsalat“, Region Frankfurt).
 // Adresse und "publishable"-Schlüssel sind öffentlich und dürfen im Code stehen:
 // Was gelesen oder geschrieben werden darf, regeln allein die Zugriffsregeln (Row Level Security) in der Datenbank.
 // Der geheime "secret"/"service_role"-Schlüssel gehört NIE in diesen Code.

@@ -300,26 +300,9 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 /* aktuelle Seite: wie Apples Tab-Leiste ohne Farbfläche – fett, mit hellem Feld hinter dem Symbol und Strich darunter */
 .menue a[aria-current='page'] .symbol { background: var(--color-papier-2); box-shadow: inset 0 -3px 0 var(--color-aktion); }
 
-/* ---------- Maskottchen (Gartengeist) ----------
-   Nur Figur (aria-hidden). Kontur rund wie bei den Symbolen; Farben aus --color-geist-*. */
-.geist { width: 160px; height: auto; flex: none; overflow: visible; }
-.geist__koerper { fill: var(--color-geist); stroke: var(--color-geist-kontur); stroke-width: 2.5; stroke-linejoin: round; }
-.geist__schatten { fill: var(--color-geist-schatten); }
-.geist__glanz { fill: var(--color-geist-glanz); }
-.geist__boden { fill: var(--color-holz-schatten); opacity: 0.18; }
-.geist__auge { fill: var(--color-geist-auge); }
-.geist__wange { fill: var(--color-geist-wange); }
-.geist__mund { fill: none; stroke: var(--color-geist-auge); stroke-width: 2.2; stroke-linecap: round; }
-.geist__blatt { fill: var(--color-geist-blatt); stroke: var(--color-geist-kontur); stroke-width: 2.5; stroke-linejoin: round; }
-.geist__stiel { fill: none; stroke: var(--color-geist-blatt-tief); stroke-width: 3; stroke-linecap: round; }
-.geist__ader { fill: none; stroke: var(--color-geist-blatt-tief); stroke-width: 1.6; stroke-linecap: round; }
-.geist__pusteknopf { fill: var(--color-geist-glanz); stroke: var(--color-geist-kontur); stroke-width: 1.6; }
-.geist__mund--offen { fill: var(--color-geist-auge); }
-
-/* Maskottchen mit Sprechblase: Figur links, Blase rechts (Spitze zeigt zur Figur), immer nebeneinander.
+/* Maskottchen Einstein mit Sprechblase: Figur links, Blase rechts (Spitze zeigt zur Figur), immer nebeneinander.
    Blase hell mit blauem Rand: Blau = Hilfe. */
 .maskottchen-sagt { display: flex; align-items: center; gap: var(--space-lg); }
-.maskottchen-sagt .geist { width: clamp(84px, 22vw, 120px); }
 .sprechblase {
   position: relative;
   flex: 1 1 auto;
@@ -343,30 +326,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   border-bottom: var(--kontur) solid var(--color-hilfe);
   transform: rotate(45deg);
 }
-.geist-raster { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); gap: var(--space-lg); }
-.geist-raster li { display: grid; align-content: start; justify-items: center; text-align: center; gap: var(--space-xs); }
-.geist-raster .geist { width: 130px; }
-
-/* Albert bewegt sich ruhig, damit er nicht ablenkt: blinzelt etwa alle 6 s, atmet langsam (nur transform). */
-/* Drehpunkt fest in Zeichnungs-Einheiten (Augenmitte 60|96, Fußboden 60|134): transform-box: fill-box
-   ist in Safari bei verschobenen Gruppen unzuverlässig (Augen sprangen beim zeigenden Albert). */
-.geist__augen { transform-origin: 60px 96px; animation: geist-blinzeln 6s ease-in-out infinite; }
-.geist__atmen { transform-origin: 60px 134px; animation: geist-atmen 4.5s ease-in-out infinite; }
-/* mehrere Figuren auf einer Seite blinzeln nicht gleichzeitig */
-.geist[data-ausdruck='nachdenklich'] .geist__augen { animation-delay: -2.1s; }
-.geist[data-ausdruck='zeigt'] .geist__augen { animation-delay: -4.3s; }
-.geist[data-ausdruck='nachdenklich'] .geist__atmen { animation-delay: -1.5s; }
-.geist[data-ausdruck='freut-sich'] .geist__atmen { animation-delay: -3s; }
-@keyframes geist-blinzeln {
-  0%, 93%, 100% { transform: scaleY(1); }
-  95% { transform: scaleY(0.1); }
-}
-@keyframes geist-atmen {
-  0%, 100% { transform: scale(1, 1); }
-  50% { transform: scale(1.015, 0.98); }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .knopf, .holzknopf, .schalter__knopf { transition: none; }
-  .geist__augen, .geist__atmen { animation: none; }
 }

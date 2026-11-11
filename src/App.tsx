@@ -6,8 +6,6 @@ import { useNeueVersion } from './lib/version'
 const Vorschau = import.meta.env.DEV ? lazy(() => import('./entwicklung/Vorschau')) : null
 // Stilblatt zum Prüfen des Designs am iPad (ohne Daten). Wird nach der Design-Freigabe entfernt.
 const Stilblatt = lazy(() => import('./stil/Stilblatt'))
-const MaskottchenVorschau = lazy(() => import('./stil/MaskottchenVorschau'))
-const GartenVorschau = lazy(() => import('./stil/GartenVorschau'))
 // Lehrkraft-Bereich eigenständig nachladen: Schüler:innen laden ihn nie.
 const LehrkraftBereich = lazy(() => import('./lehrkraft/LehrkraftRahmen').then((m) => ({ default: m.LehrkraftBereich })))
 
@@ -27,7 +25,7 @@ function Platzhalter({ titel, children }: { titel: string; children: ReactNode }
 
 function Seite() {
   const pfad = usePfad()
-  const [bereich, teil] = pfad
+  const [bereich] = pfad
 
   if (bereich === 'vorschau' && Vorschau)
     return (
@@ -38,13 +36,13 @@ function Seite() {
   if (bereich === 'stil')
     return (
       <Suspense fallback={null}>
-        {teil === 'maskottchen' ? <MaskottchenVorschau /> : teil === 'garten' ? <GartenVorschau /> : <Stilblatt />}
+        <Stilblatt />
       </Suspense>
     )
   if (bereich === 's')
     return (
-      <Platzhalter titel="Satzgarten">
-        <p>Hier entsteht dein Garten. Bald kannst du hier üben.</p>
+      <Platzhalter titel="Wortsalat">
+        <p>Hier entsteht deine Farm. Bald kannst du hier üben.</p>
       </Platzhalter>
     )
   if (bereich === 'lehrkraft')
@@ -54,8 +52,8 @@ function Seite() {
       </Suspense>
     )
   return (
-    <Platzhalter titel="Satzgarten">
-      <p>Hier entsteht der Satzgarten. Bald kannst du hier üben.</p>
+    <Platzhalter titel="Wortsalat">
+      <p>Hier entsteht Wortsalat. Bald kannst du hier üben.</p>
     </Platzhalter>
   )
 }

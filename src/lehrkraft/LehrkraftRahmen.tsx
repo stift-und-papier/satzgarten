@@ -55,7 +55,7 @@ export function LehrkraftRahmen({ bereich, email, children }: { bereich: string;
   return (
     <div className="lehrkraft lk-rahmen">
       <nav className="lk-nav" aria-label="Hauptmenü">
-        <p className="lk-nav__name">Satzgarten</p>
+        <p className="lk-nav__name">Wortsalat</p>
         {MENUE.map(([ziel, text]) => (
           <a key={ziel} className="lk-nav__punkt" href={`#/lehrkraft/${ziel}`} aria-current={bereich === ziel ? 'page' : undefined}>
             {text}

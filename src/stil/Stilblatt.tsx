@@ -87,7 +87,7 @@ export default function Stilblatt() {
               <Symbol name="hilfe" />
             </button>
           </div>
-          <p>So sollen die Seiten für Schüler:innen aussehen. Alles hier lässt sich antippen und ausprobieren. Der Abendgarten (dunkel) folgt der iPad-Einstellung, bis du ihn selbst umschaltest.</p>
+          <p>So sollen die Seiten für Schüler:innen aussehen. Alles hier lässt sich antippen und ausprobieren. Der dunkle Modus folgt der iPad-Einstellung, bis du ihn selbst umschaltest.</p>
           <div className="knopf-reihe">
             <button type="button" role="switch" aria-checked={lrs} className="schalter" onClick={() => setLrs(!lrs)}>
               <span className="schalter__bahn" aria-hidden="true"><span className="schalter__knopf" /></span>
@@ -95,12 +95,8 @@ export default function Stilblatt() {
             </button>
             <button type="button" role="switch" aria-checked={dunkel} className="schalter" onClick={() => setDunkel(!dunkel)}>
               <span className="schalter__bahn" aria-hidden="true"><span className="schalter__knopf" /></span>
-              Abendgarten (dunkel)
+              Dunkler Modus
             </button>
-          </div>
-          <div className="knopf-reihe">
-            <a className="knopf" href="#/stil/maskottchen">Maskottchen ansehen</a>
-            <a className="knopf" href="#/stil/garten">Garten ansehen</a>
           </div>
         </header>
 

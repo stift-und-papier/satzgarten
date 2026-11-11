@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-// Hell oder dunkel („Abendgarten“). Ohne eigene Wahl folgt die App der Geräte-Einstellung;
+// Hell oder dunkel. Ohne eigene Wahl folgt die App der Geräte-Einstellung;
 // wer umschaltet, behält die Wahl auf diesem Gerät (localStorage). tokens.css liest <html data-thema="dunkel">.
 const SCHLUESSEL = 'thema'
 const geraet = () => window.matchMedia('(prefers-color-scheme: dark)')
