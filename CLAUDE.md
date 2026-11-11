@@ -56,13 +56,14 @@
   Neue Farben in allen vier Blöcken ergänzen und Kontrast nachrechnen.
 - **Farbe im Hintergrund nur für die EINE Hauptaktion** (Apple): runde Knöpfe hell mit farbigem Rand/Symbol
   (Holz = Pfeile/Navigation, Himmelblau = Hilfe), Menü ohne Farbfläche. Linienfarbe nie als Schrift.
-- **Fachbegriff-Farben** (eine Palette mit 10 Farben, `--kat-*`, erzeugt + kontrastgeprüft von `node scripts/fachbegriff-farben.mjs`;
+- **Fachbegriff-Farben** (eine Palette mit 11 Farben, `--kat-*`, erzeugt + kontrastgeprüft von `node scripts/fachbegriff-farben.mjs`;
   Begriff → Farbe in `src/lib/kategorien.ts`, getestet). Gruppen dürfen Farben teilen (nie gleichzeitig abgefragt).
   Wortarten (Lehrkraft): Nomen blau, Verb rot, Adjektiv grün, Artikel hellblau, Pronomen lila; Claude: Adverb weinrot,
-  Präposition senf, Konjunktion/Subjunktion pink, Numerale petrol, Interjektion/Partikel grau.
-  Satzglieder (Claude): Subjekt blau, Prädikat rot, Akkusativobjekt grün, Dativobjekt senf, Genitivobjekt petrol,
+  Präposition gelb, Konjunktion/Subjunktion pink, Numerale petrol, Interjektion/Partikel grau.
+  Fälle (Lehrkraft): Nominativ blau, Genitiv gelb, Dativ grün, Akkusativ orange.
+  Satzglieder: Subjekt blau, Prädikat rot, Objekte in der Farbe ihres Falls (Akkusativobjekt orange, Dativobjekt grün, Genitivobjekt gelb),
   Präpositionalobjekt lila, Adverbiale weinrot, Attribut pink. Zeitformen (Claude, Zeitstrahl kühl → warm):
-  Plusquamperfekt lila, Präteritum blau, Perfekt hellblau, Präsens grün, Futur I weinrot, Futur II pink.
+  Plusquamperfekt lila, Präteritum blau, Perfekt hellblau, Präsens grün, Futur I weinrot, Futur II orange.
   Fachbegriffe in Anweisungen färben sich automatisch (`src/gemeinsam/Anweisung.tsx`, je Aufgabe abschaltbar: `farbig={false}`).
   Markierte Wörter nehmen die Farbe an (`data-farbe`); ohne Farbe bleiben sie neutral (Antippen ohne Fachbegriff).
   Gestrichelt heißt immer „hier schreiben“ (Lücken) – gesperrte Knöpfe sind nur blasser.
@@ -127,3 +128,7 @@
 - 2026-11-11 (Lehrkraft): **Einstein** aus eigener Vorlage: Posen freundlich (Begrüßung), lob, freut-sich (Paket geschafft/Monster besiegt),
   huch (Monster taucht auf), erklaert (Tipps und „nochmal versuchen“). Traurige Pose wird **nicht** verwendet (wirkt bestrafend).
   `src/gemeinsam/Einstein.tsx` (`Einstein`, `EinsteinSagt`), Sprechblase im Pixel-Look mit blauem Rand.
+- 2026-11-11 (Lehrkraft): Einstein: nur freundlich und erklaert blinzeln, **kein Atmen**; lob winkt (Bild mit geneigtem Arm),
+  freut-sich springt, huch zittert (kurz, dann Pause); Größe bleibt (2-fach). Fälle mit Farben: Nominativ blau, Genitiv gelb,
+  Dativ grün, Akkusativ orange; Objekte in der Farbe ihres Falls. „Senf“ heißt jetzt „Gelb“ (Fläche kräftiger), Orange neu
+  (Fläche kräftig, damit es nicht wie Pfirsich wirkt). Futur II orange statt pink (zu ähnlich zu Futur I).

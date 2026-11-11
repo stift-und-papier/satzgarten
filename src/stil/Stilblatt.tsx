@@ -41,6 +41,7 @@ const GRUPPEN: { gruppe: Gruppe; titel: string }[] = [
   { gruppe: 'wortart', titel: 'Wortarten' },
   { gruppe: 'satzglied', titel: 'Satzglieder' },
   { gruppe: 'zeitform', titel: 'Zeitformen' },
+  { gruppe: 'kasus', titel: 'Fälle' },
 ]
 const k = (name: string) => kategorieAus(name) as Kategorie
 

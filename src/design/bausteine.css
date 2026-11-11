@@ -219,7 +219,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 [data-farbe='hellblau'] { --kat: var(--kat-hellblau); --kat-flaeche: var(--kat-hellblau-flaeche); }
 [data-farbe='lila'] { --kat: var(--kat-lila); --kat-flaeche: var(--kat-lila-flaeche); }
 [data-farbe='weinrot'] { --kat: var(--kat-weinrot); --kat-flaeche: var(--kat-weinrot-flaeche); }
-[data-farbe='senf'] { --kat: var(--kat-senf); --kat-flaeche: var(--kat-senf-flaeche); }
+[data-farbe='gelb'] { --kat: var(--kat-gelb); --kat-flaeche: var(--kat-gelb-flaeche); }
+[data-farbe='orange'] { --kat: var(--kat-orange); --kat-flaeche: var(--kat-orange-flaeche); }
 [data-farbe='pink'] { --kat: var(--kat-pink); --kat-flaeche: var(--kat-pink-flaeche); }
 [data-farbe='petrol'] { --kat: var(--kat-petrol); --kat-flaeche: var(--kat-petrol-flaeche); }
 [data-farbe='grau'] { --kat: var(--kat-grau); --kat-flaeche: var(--kat-grau-flaeche); }
@@ -308,11 +309,29 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 /* ---------- Einstein mit Sprechblase (src/gemeinsam/Einstein.tsx) ----------
    Figur links, Blase rechts (Spitze zeigt zur Figur), immer nebeneinander. Blase hell mit blauem Rand: Blau = Hilfe. */
 .einstein-sagt { display: flex; align-items: center; gap: calc(5 * var(--px)); }
-.einstein { display: inline-block; flex-shrink: 0; animation: einstein-atmen 4s steps(1) infinite; }
-/* Blinzeln etwa alle 6 Sekunden (nur in der freundlichen Pose, dafür gibt es das Bild mit geschlossenen Augen) */
-.einstein--freundlich .sprite { animation: einstein-blinzeln 6s steps(1) infinite; }
-@keyframes einstein-atmen { 0% { transform: none; } 50% { transform: translateY(calc(-1 * var(--px))); } }
-@keyframes einstein-blinzeln { 0% { background-position: 0 0; } 96% { background-position: var(--zu) 0; } 98% { background-position: 0 0; } }
+.einstein { display: inline-block; flex-shrink: 0; }
+/* Bewegungen in ganzen Pixeln (steps), ruhig; --bild/--bild2 setzt Einstein.tsx */
+.einstein--freundlich .sprite, .einstein--erklaert .sprite { animation: einstein-blinzeln 6s steps(1) infinite; }
+.einstein--lob .sprite { animation: einstein-winken 0.8s steps(1) infinite; }
+.einstein--freut-sich { animation: einstein-springen 1.6s steps(1) infinite; }
+.einstein--huch { animation: einstein-zittern 2s steps(1) infinite; }
+@keyframes einstein-blinzeln { 0% { background-position: var(--bild); } 96% { background-position: var(--bild2); } 98% { background-position: var(--bild); } }
+@keyframes einstein-winken { 0% { background-position: var(--bild); } 50% { background-position: var(--bild2); } }
+@keyframes einstein-springen {
+  0% { transform: none; }
+  10% { transform: translateY(calc(-2 * var(--px))); }
+  20% { transform: translateY(calc(-4 * var(--px))); }
+  30% { transform: translateY(calc(-2 * var(--px))); }
+  40% { transform: none; }
+}
+/* kurz zittern, dann Pause */
+@keyframes einstein-zittern {
+  0% { transform: translateX(var(--px)); }
+  5% { transform: translateX(calc(-1 * var(--px))); }
+  10% { transform: translateX(var(--px)); }
+  15% { transform: translateX(calc(-1 * var(--px))); }
+  20% { transform: none; }
+}
 .sprechblase {
   position: relative;
   flex: 1 1 auto;

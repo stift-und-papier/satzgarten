@@ -2,24 +2,27 @@ import type { CSSProperties, ReactNode } from 'react'
 import { GRAFIK } from '../grafik'
 import { Sprite } from './Sprite'
 
-// Einstein, das Maskottchen (eigene Zeichnung der Lehrkraft). Nummer = Bild im Streifen src/grafik/einstein.png;
-// Bild 1 (Augen zu) nutzt nur das Blinzeln. Eine traurige Pose gibt es bewusst nicht (Entscheidung 2026-11-11).
+// Einstein, das Maskottchen (eigene Zeichnung der Lehrkraft). bild = Bild im Streifen src/grafik/einstein.png,
+// zweites = Bild für die Bewegung (Augen zu bzw. Arm geneigt). Eine traurige Pose gibt es bewusst nicht (Entscheidung 2026-11-11).
+// Bewegungen (Lehrkraft 2026-11-11): freundlich und erklaert blinzeln, lob winkt, freut-sich springt, huch zittert.
 const POSEN = {
-  freundlich: 0, // Begrüßung, normaler Zustand
-  lob: 2, // „Super, alles richtig!“
-  'freut-sich': 3, // Paket geschafft, Monster besiegt
-  huch: 4, // erschrocken, z. B. wenn ein Monster auftaucht
-  erklaert: 5, // Erklären, Tipps, „nochmal versuchen“
+  freundlich: { bild: 0, zweites: 1 }, // Begrüßung, normaler Zustand
+  lob: { bild: 2, zweites: 7 }, // „Super, alles richtig!“
+  'freut-sich': { bild: 3 }, // Paket geschafft, Monster besiegt
+  huch: { bild: 4 }, // erschrocken, z. B. wenn ein Monster auftaucht
+  erklaert: { bild: 5, zweites: 6 }, // Erklären, Tipps, „nochmal versuchen“
 } as const
 export type Pose = keyof typeof POSEN
 
-/** Die Figur allein; reine Verzierung, für Vorlesehilfen unsichtbar. Blinzelt und atmet ruhig (aus bei „Bewegung reduzieren“). */
+/** Die Figur allein; reine Verzierung, für Vorlesehilfen unsichtbar. Bewegung aus bei „Bewegung reduzieren“. */
 export function Einstein({ pose = 'freundlich', mal = 2 }: { pose?: Pose; mal?: number }) {
-  // --zu: Lage des Blinzel-Bilds (Bild 1) für die Animation in bausteine.css
-  const stil = { '--zu': `${-GRAFIK.einstein.bildBreite * mal}px` } as CSSProperties
+  const p: { bild: number; zweites?: number } = POSEN[pose]
+  const lage = (n: number) => `${-GRAFIK.einstein.bildBreite * mal * n}px 0`
+  // --bild / --bild2: Lage der beiden Bilder für die Animationen in bausteine.css
+  const stil = { '--bild': lage(p.bild), '--bild2': lage(p.zweites ?? p.bild) } as CSSProperties
   return (
     <span className={`einstein einstein--${pose}`} style={stil}>
-      <Sprite grafik={GRAFIK.einstein} nummer={POSEN[pose]} mal={mal} />
+      <Sprite grafik={GRAFIK.einstein} nummer={p.bild} mal={mal} />
     </span>
   )
 }

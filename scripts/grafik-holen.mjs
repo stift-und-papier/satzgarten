@@ -16,8 +16,9 @@ const UI = 'assets/entpackt/Sprout Lands - UI Pack - Premium pack/UI Sprites/'
 const BILDER = [
   { name: 'muenze', datei: UI + 'Icons/special icons/coins.png', x: 36, y: 20, breite: 24, hoehe: 24 },
   // Einstein: eigene Zeichnung der Lehrkraft (assets/1794384222202.jpg), am 2026-11-11 auf ihr Pixelraster
-  // (6,715 Bildpunkte je Pixel) verkleinert, Hintergrund entfernt. Bilder: freundlich, blinzelt, lob, freut sich, huch, erklärt.
-  { name: 'einstein', datei: 'assets/einstein-blatt.png', bildBreite: 52, bildHoehe: 47 },
+  // (6,715 Bildpunkte je Pixel) verkleinert, Hintergrund entfernt. Bilder: freundlich, blinzelt, lob, freut sich, huch, erklärt,
+  // erklärt mit Augen zu, lob mit geneigtem Arm (Winken).
+  { name: 'einstein', datei: 'assets/einstein-blatt.png', bildBreite: 52, bildHoehe: 47 }, // 8 Bilder
 ]
 
 mkdirSync('src/grafik', { recursive: true })

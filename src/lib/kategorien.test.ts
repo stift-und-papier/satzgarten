@@ -33,6 +33,22 @@ describe('kategorieAus', () => {
     expect(kategorieAus('Futur 1')?.name).toBe('Futur I')
     expect(kategorieAus('Plusquamperfekt')?.name).toBe('Plusquamperfekt')
   })
+  it('Fälle (Vorgabe der Lehrkraft) und Objekte in der Farbe ihres Falls', () => {
+    expect(farbe('Nominativ')).toBe('blau')
+    expect(farbe('Genitiv')).toBe('gelb')
+    expect(farbe('Dativ')).toBe('gruen')
+    expect(farbe('Akkusativ')).toBe('orange')
+    expect(kategorieAus('3. Fall')?.name).toBe('Dativ')
+    expect(kategorieAus('4.Fall')?.name).toBe('Akkusativ')
+    expect(kategorieAus('Wem-Fall')?.name).toBe('Dativ')
+    expect(farbe('Subjekt')).toBe(farbe('Nominativ'))
+    expect(farbe('Genitivobjekt')).toBe(farbe('Genitiv'))
+    expect(farbe('Dativobjekt')).toBe(farbe('Dativ'))
+    expect(farbe('Akkusativobjekte')).toBe(farbe('Akkusativ'))
+  })
+  it('Futur I und Futur II haben verschiedene Farben', () => {
+    expect(farbe('Futur I')).not.toBe(farbe('Futur II'))
+  })
   it('lässt andere Wörter ohne Farbe', () => {
     expect(kategorieAus('Verbgruppe')).toBe(null)
     expect(kategorieAus('Haus')).toBe(null)
@@ -49,6 +65,10 @@ describe('fachbegriffeFaerben', () => {
   it('erkennt Begriffe aus zwei Wörtern', () => {
     const teile = fachbegriffeFaerben('Setze den Satz ins Futur II und markiere die adverbiale Bestimmung.')
     expect(teile.filter((t) => t.kategorie).map((t) => t.text)).toEqual(['Futur II', 'adverbiale Bestimmung'])
+  })
+  it('erkennt Fälle mit Zahl oder Fragewort', () => {
+    const teile = fachbegriffeFaerben('Setze das Nomen in den 3. Fall (Wem-Fall).')
+    expect(teile.filter((t) => t.kategorie).map((t) => t.text)).toEqual(['Nomen', '3. Fall', 'Wem-Fall'])
   })
   it('lässt Texte ohne Fachbegriffe unverändert', () => {
     expect(fachbegriffeFaerben('Lies den Text.')).toEqual([{ text: 'Lies den Text.' }])

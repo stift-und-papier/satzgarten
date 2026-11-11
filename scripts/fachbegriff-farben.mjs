@@ -3,9 +3,9 @@
 // Aufruf: node scripts/wortarten-farben.mjs   (bricht ab, wenn ein Kontrast zu niedrig ist)
 import fs from 'node:fs'
 
-// Zehn Farbplätze (OKLCH-Farbton und Sättigung). Welche Wortart, welches Satzglied, welche Zeitform welchen Platz
+// Elf Farbplätze (OKLCH-Farbton und Sättigung). Welche Wortart, welches Satzglied, welche Zeitform welchen Platz
 // bekommt, steht in src/lib/kategorien.ts. Vorgaben der Lehrkraft: Nomen blau, Verb rot, Adjektiv grün,
-// Artikel hellblau, Pronomen lila.
+// Artikel hellblau, Pronomen lila; Fälle: Nominativ blau, Genitiv gelb, Dativ grün, Akkusativ orange.
 const WORTARTEN = {
   blau: { h: 262, c: 0.16 },
   rot: { h: 27, c: 0.18 },
@@ -13,7 +13,8 @@ const WORTARTEN = {
   hellblau: { h: 228, c: 0.10, hell: true },
   lila: { h: 305, c: 0.15 },
   weinrot: { h: 8, c: 0.13, dunkel: true }, // dunkler als Rot (Adverb gehört zum Verb), weit weg von Pfirsich
-  senf: { h: 95, c: 0.12 },
+  gelb: { h: 92, c: 0.13, fc: 0.09 },        // als Schrift nur dunkles Gelb lesbar; Fläche kräftig gelb
+  orange: { h: 55, c: 0.16, fc: 0.08 },      // Fläche kräftig orange, damit es nicht wie Pfirsich („nochmal“) wirkt
   pink: { h: 350, c: 0.15 },
   petrol: { h: 180, c: 0.10 },               // zwischen Grün und Hellblau
   grau: { h: 60, c: 0.01 },
@@ -48,7 +49,7 @@ function block(modus) {
     // Hellblau heller als Blau; Weinrot dunkler als Rot (Schrift dunkler, Fläche etwas kräftiger)
     const L = w.hell && lichtModus ? m.tinte + 0.05 : w.dunkel && lichtModus ? m.tinte - 0.1 : w.dunkel ? m.tinte + 0.04 : m.tinte
     const fL = w.dunkel ? (lichtModus ? m.flaeche - 0.04 : m.flaeche - 0.06) : m.flaeche
-    const tinte = [L, w.c, w.h], flaeche = [fL, w.c < 0.05 ? 0.008 : m.fc, w.h]
+    const tinte = [L, w.c, w.h], flaeche = [fL, w.c < 0.05 ? 0.008 : w.fc ?? m.fc, w.h]
     for (const [was, grund] of [['Papier', m.papier], ['Fläche', flaeche]]) {
       const k = kontrast(tinte, grund)
       if (k < 4.5) fehler.push(`${modus} ${name} auf ${was}: ${k.toFixed(2)}`)
