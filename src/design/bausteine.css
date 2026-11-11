@@ -330,3 +330,11 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 @media (prefers-reduced-motion: reduce) {
   .knopf, .holzknopf, .schalter__knopf { transition: none; }
 }
+
+/* Pixel-Grafik (src/gemeinsam/Sprite.tsx): scharfe Kanten beim Vergrößern */
+.sprite {
+  display: inline-block;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}

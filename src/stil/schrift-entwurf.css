@@ -1,0 +1,15 @@
+/* Hallmark · shape: app screen · genre: playful · theme: custom · idea: "Schrift-Entwürfe für Wortsalat" · scope: app · Stamp und Kritik: siehe tokens.css */
+/* Schrift-Entwürfe (Aufgabe 5). Nur auf der Entwurfsseite geladen; die gewählte Schrift wandert danach in tokens.css. */
+@font-face{font-family:'Pixelify Sans';src:url('../design/fonts/pixelify-sans-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Pixelify Sans';src:url('../design/fonts/pixelify-sans-latin-700-normal.woff2') format('woff2');font-weight:700 800;font-style:normal;font-display:swap}
+@font-face{font-family:'Silkscreen';src:url('../design/fonts/silkscreen-latin-400-normal.woff2') format('woff2');font-weight:400 800;font-style:normal;font-display:swap}
+
+/* Die Leseschrift für LRS hat immer Vorrang (deshalb :not). */
+:root:not([data-leseschrift='lrs']) .entwurf--a { --font-display: 'Pixelify Sans', system-ui, sans-serif; --font-body: 'Pixelify Sans', system-ui, sans-serif; }
+:root:not([data-leseschrift='lrs']) .entwurf--b { --font-display: 'Pixelify Sans', system-ui, sans-serif; }
+:root:not([data-leseschrift='lrs']) .entwurf--c { --font-display: 'Silkscreen', system-ui, sans-serif; }
+/* Silkscreen ist für 8 Pixel gezeichnet: nur Vielfache davon bleiben scharf. */
+:root:not([data-leseschrift='lrs']) .entwurf--c :is(h2, h3) { font-size: 32px; font-weight: 400; letter-spacing: 0; }
+.entwurf { font-family: var(--font-body); }
+.entwurf :is(h2, h3) { font-family: var(--font-display); }
+.entwurf h2 { text-wrap: balance; }

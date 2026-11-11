@@ -39,7 +39,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 
 ## Phase 2: Design (`design`)
 
-- [ ] **4 Grafik-Ordner und Sprite-Baustein** (M) – hängt an 2
+- [x] **4 Grafik-Ordner und Sprite-Baustein** (M) – hängt an 2
   - Akzeptanz: Skript `scripts/grafik-holen.mjs` schneidet benannte Bilder aus `assets/` (lokal) nach `src/grafik/`;
     `src/grafik/LIZENZ.md` (Sprout Lands, Cup Nooble; TastenHeld); Baustein `Sprite` zeigt ein Bild bzw. Einzelbild
     eines Spritesheets ganzzahlig vergrößert und scharf (`image-rendering: pixelated`); nur benutzte Bilder im Repo.
@@ -50,7 +50,8 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
   - Akzeptanz: 2–3 Entwürfe nebeneinander (z. B. Pixel-Schrift mit selbst gezeichneten Ä Ö Ü ä ö ü ß, eine lokale,
     frei lizenzierte Pixel-Schrift mit Umlauten, eine ruhige Textschrift zu Pixel-Überschriften); Lehrkraft wählt;
     Lesbarkeit für LRS (Leseschrift bleibt umschaltbar).
-  - Prüfen: Entwurfsseite am iPad; Satz mit allen Umlauten und ß; Freigabe.
+  - Prüfen: Entwurfsseite am iPad (`#/stil/schrift`); Satz mit allen Umlauten und ß; Freigabe.
+  - Stand 2026-11-11: Paket-Schrift (Sprout Lands) hat nur Großbuchstaben, keine Umlaute/ß. Entwürfe A–C mit Pixelify Sans und Silkscreen (OFL, lokal).
   - Dateien: `src/design/fonts/*`, `src/design/tokens.css`, Entwurfsseite
 
 - [ ] **6 Pixel-Stilblatt** (M) – hängt an 4, 5

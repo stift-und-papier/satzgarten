@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Anweisung } from '../gemeinsam/Anweisung'
 import { Sterne, SterneText } from '../gemeinsam/Sterne'
+import { Sprite } from '../gemeinsam/Sprite'
 import { Symbol, type SymbolName } from '../gemeinsam/Symbol'
+import { GRAFIK } from '../grafik'
 import { KATEGORIEN, kategorieAus, type Gruppe, type Kategorie } from '../lib/kategorien'
 import { useLeseschrift } from '../lib/leseschrift'
 import { useDunkel } from '../lib/thema'
@@ -230,6 +232,16 @@ export default function Stilblatt() {
               Wird gesendet …
             </button>
           </div>
+        </section>
+
+        <section className="karte" aria-labelledby="t-pixel">
+          <h2 id="t-pixel">Pixel-Grafik</h2>
+          <p>Dieselbe Münze, 2-, 3- und 4-mal so groß. Die Kanten bleiben scharf.</p>
+          <p style={{ display: 'flex', gap: 'var(--space-md)', alignItems: 'center' }}>
+            <Sprite grafik={GRAFIK.muenze} mal={2} />
+            <Sprite grafik={GRAFIK.muenze} mal={3} />
+            <Sprite grafik={GRAFIK.muenze} mal={4} titel="Münze" />
+          </p>
         </section>
 
         <section className="karte" aria-labelledby="t-farben">
