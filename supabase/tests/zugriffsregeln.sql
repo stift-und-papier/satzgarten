@@ -153,7 +153,7 @@ begin
   -- je Format eine Aufgabe, so wie der Editor sie speichert (nur loesung, inhalt macht die Datenbank)
   insert into public.aufgaben (typ, titel, loesung) values
     ('lueckentext', 'T-lueckentext', '{"gross_klein_beachten":true,"text":"Ich weiß, [dass] du kommst.","teile":[
-      {"t":"text","v":"Ich weiß, "},{"t":"luecke","id":0,"loesungen":["dass"]},{"t":"text","v":" du kommst."}]}'),
+      {"t":"text","v":"Ich weiß, "},{"t":"luecke","id":0,"loesungen":["dass"],"hinweis":"Konjunktion"},{"t":"text","v":" du kommst."}]}'),
     ('auswahl', 'T-auswahl', '{"teile":[{"t":"auswahl","id":0,"optionen":["das","dass"],"richtig":[1]},
       {"t":"auswahl","id":1,"optionen":["Hund","laufen","Baum"],"richtig":[0,2]}]}'),
     ('zuordnen', 'T-zuordnen', '{"kategorien":["Subjekt","Prädikat"],"teile":[
@@ -226,6 +226,7 @@ begin
      or (select (inhalt ->> 'anzahl_fehler')::int from public.aufgaben where titel = 'T-fehler') <> 1
      or (select inhalt -> 'teile' -> 0 -> 'bausteine' -> 0 ->> 'k' from public.aufgaben where titel = 'T-reihenfolge') <> 'aaa'
      or (select (inhalt -> 'teile' -> 1 ->> 'mehrfach')::boolean from public.aufgaben where titel = 'T-auswahl') is not true
+     or (select inhalt -> 'teile' -> 1 ->> 'hinweis' from public.aufgaben where titel = 'T-lueckentext') is distinct from 'Konjunktion'
      or (select inhalt -> 'erklaerung' ->> 'merke' from public.aufgaben where titel = 'T-erklaerung') <> 'Merke' then
     raise exception 'Block 4.9: Schüler-Fassung ist unvollständig oder verrät etwas';
   end if;

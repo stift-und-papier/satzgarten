@@ -179,6 +179,7 @@ export function LueckentextAnzeige({ inhalt, antworten, onAntwort, ergebnis, loe
                 onChange={(e) => onAntwort(teil.id, e.target.value)}
                 enterKeyHint="next"
               />
+              {teil.hinweis && <span className="luecke-hinweis">({teil.hinweis})</span>}
               {zeichen}
             </span>
           )

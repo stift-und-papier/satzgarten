@@ -66,12 +66,15 @@ export function textZuTeilen(text: string, woerterAntippbar: boolean | 'fehler' 
         teile.push({ t: 'auswahl', id: id++, optionen, richtig })
       } else {
         // Lücke – auch leere bleiben erhalten, damit man sie im Formular ausfüllen kann.
-        const loesungen = innen
+        // Hinweis nach Doppelpunkt: [Rad fahren : Rad + fahren] (Lehrkraft 2026-11-11), nicht bei Uhrzeiten wie 12:30
+        const [vorne, ...hinten] = innen.split(/:(?!\d)/)
+        const hinweis = hinten.join(':').trim()
+        const loesungen = vorne
           .split('/')
           .map((l) => l.trim())
           .filter((l) => l !== '')
         if (loesungen.length === 0) fehler.push(`Lücke ${id + 1} ist noch leer. Bitte die Lösung in die Klammern schreiben.`)
-        teile.push({ t: 'luecke', id: id++, loesungen })
+        teile.push(hinweis ? { t: 'luecke', id: id++, loesungen, hinweis } : { t: 'luecke', id: id++, loesungen })
       }
       i = ende + 1
     } else {
@@ -365,7 +368,7 @@ export function stelleZuText(t: Exclude<LueckentextTeil, { t: 'text' }>): string
         versionen: t.optionen.map((o, i) => ({ text: o, hinweis: t.hinweise[i] ?? '', besser: t.richtig.includes(i) })),
       },
     ])
-  if (t.t === 'luecke') return t.loesungen.join('/')
+  if (t.t === 'luecke') return t.loesungen.join('/') + (t.hinweis ? ` : ${t.hinweis}` : '')
   if (t.t === 'einheit') return `${t.v} = ${t.kategorie ?? ''}`
   if (t.t === 'wort') return `${t.v} -> ${(t.korrekturen ?? []).join('/')}`
   return t.optionen.map((o, nr) => (t.richtig.includes(nr) ? `*${o}` : o)).join(' | ')
@@ -402,7 +405,7 @@ export function ohneLoesung(
     anzahl_fehler: fehlerOptionen?.anzahl_zeigen ? teile.filter((t) => t.t === 'wort' && t.korrekturen).length : null,
     teile: teile.map((t) =>
       t.t === 'luecke'
-        ? { t: 'luecke', id: t.id }
+        ? { t: 'luecke', id: t.id, ...(t.hinweis ? { hinweis: t.hinweis } : {}) }
         : t.t === 'auswahl'
           ? { t: 'auswahl', id: t.id, optionen: t.optionen, mehrfach: t.richtig.length > 1 }
           : t.t === 'einheit'

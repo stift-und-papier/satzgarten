@@ -410,3 +410,4 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 @media (prefers-reduced-motion: reduce) {
   .baustein { transition: none !important; }
 }
+.luecke-hinweis { color: var(--color-tinte-leise); }

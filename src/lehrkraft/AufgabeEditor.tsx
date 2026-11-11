@@ -35,7 +35,7 @@ export const FORMATE: Record<AufgabenTyp, { name: string; kurz: string; mini: st
     kurz: 'Schüler:innen tippen fehlende Wörter ein.',
     mini: 'Ich weiß, ____ du kommst.',
     anweisung: 'Ergänze die Lücken.',
-    beispiel: 'Ich weiß, [dass] du heute [Rad fährst/radfährst].',
+    beispiel: 'Ich weiß, [dass] du heute [Rad fährst/radfährst : Rad + fahren].',
   },
   auswahl: {
     name: 'Auswahl',
@@ -382,8 +382,10 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                   ) : (
                     <p>
                       Schreiben Sie den Text und setzen Sie jedes gesuchte Wort in <strong>[eckige Klammern]</strong>. Gibt es
-                      mehrere richtige Lösungen, trennen Sie sie mit <strong>/</strong>. Eine Auswahl zum Antippen schreiben
-                      Sie so: <code>[das | *dass]</code>.
+                      mehrere richtige Lösungen, trennen Sie sie mit <strong>/</strong>. Einen <strong>Hinweis</strong> für
+                      die Schüler:innen schreiben Sie nach einem <strong>Doppelpunkt</strong>:{' '}
+                      <code>[Rad fahren : Rad + fahren]</code> – er erscheint in Klammern hinter der Lücke. Eine Auswahl zum
+                      Antippen schreiben Sie so: <code>[das | *dass]</code>.
                     </p>
                   )}
                   <p>
@@ -626,7 +628,7 @@ function FormularModus({ teile, onChange }: { teile: LueckentextTeil[]; onChange
             </label>
           ) : z.art === 'luecke' ? (
             <label>
-              Lücke {++stellenNr}: richtige Lösung(en), mehrere mit / trennen
+              Lücke {++stellenNr}: richtige Lösung(en), mehrere mit / trennen; Hinweis nach : (z. B. Rad fahren : Rad + fahren)
               <input className="lk-feld" value={z.roh} onChange={(e) => aendern(i, { art: 'luecke', roh: e.target.value })} spellCheck={false} />
             </label>
           ) : z.art === 'wort' ? (

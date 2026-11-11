@@ -143,3 +143,5 @@
   Neu: `aufgaben.loesung` = Eingabe der Lehrkraft mit Lösungen; `aufgaben.inhalt` (Schüler-Fassung) erzeugt **nur die Datenbank**
   per Trigger (`inhalt_ohne_loesung`), die App darf `inhalt` nicht schreiben. Stufe als Zahl 1–3 (`stufe`), Lehrkraft sieht ★/☆.
   Fachbegriff-Farben je Aufgabe abschaltbar (`aufgaben.farbig`). Zuordnen-Stifte: Fachbegriffe in ihrer Farbe, eigene Kategorien neutral.
+- 2026-11-11 (Lehrkraft, Haltepunkt 4): Lücken bekommen auf Wunsch einen **Hinweis** nach Doppelpunkt (`[Rad fahren : Rad + fahren]`),
+  Schüler:innen sehen ihn in Klammern hinter der Lücke wie auf Arbeitsblättern. Fehler „permission denied“ beim erneuten Speichern behoben.

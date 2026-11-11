@@ -300,3 +300,19 @@ describe('Sätze verbessern', () => {
     expect(teileZuText(versionenZuTeilen(text).teile)).toBe(text)
   })
 })
+
+describe('Hinweis in der Lücke (Lehrkraft 2026-11-11)', () => {
+  it('trennt den Hinweis nach dem Doppelpunkt ab', () => {
+    const { teile, fehler } = textZuTeilen('Wir wollen [Rad fahren/radfahren : Rad + fahren].')
+    expect(fehler).toEqual([])
+    expect(teile[1]).toEqual({ t: 'luecke', id: 0, loesungen: ['Rad fahren', 'radfahren'], hinweis: 'Rad + fahren' })
+    expect(teileZuText(teile)).toBe('Wir wollen [Rad fahren/radfahren : Rad + fahren].')
+  })
+  it('Schüler:innen bekommen den Hinweis, aber keine Lösung', () => {
+    const { teile } = textZuTeilen('[Rad fahren : Rad + fahren]')
+    expect(ohneLoesung(teile).teile[0]).toEqual({ t: 'luecke', id: 0, hinweis: 'Rad + fahren' })
+  })
+  it('Uhrzeiten bleiben Lösung', () => {
+    expect(textZuTeilen('um [12:30] Uhr').teile[1]).toEqual({ t: 'luecke', id: 0, loesungen: ['12:30'] })
+  })
+})

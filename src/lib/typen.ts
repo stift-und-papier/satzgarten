@@ -36,7 +36,8 @@ export type AufgabenTyp = 'lueckentext' | 'auswahl' | 'zuordnen' | 'fehler' | 'r
 export type Erklaerung = { text: string; merke: string; beispiele: string[] }
 
 export type TextTeil = { t: 'text'; v: string }
-export type LueckenTeil = { t: 'luecke'; id: number; loesungen: string[] }
+/** hinweis: erscheint in Klammern hinter der Lücke, z. B. „(Rad + fahren)“ */
+export type LueckenTeil = { t: 'luecke'; id: number; loesungen: string[]; hinweis?: string }
 /** Auswahl-Stelle: Möglichkeiten und die Nummern der richtigen (mehrere = Mehrfachauswahl) */
 export type AuswahlTeil = { t: 'auswahl'; id: number; optionen: string[]; richtig: number[] }
 /** Antippbare Einheit beim Zuordnen (Wort oder Wortgruppe); kategorie null = gehört zu keiner Kategorie */
@@ -81,7 +82,7 @@ export type LueckentextInhaltSchueler = {
   erklaerung?: Erklaerung
   teile: (
     | TextTeil
-    | { t: 'luecke'; id: number }
+    | { t: 'luecke'; id: number; hinweis?: string }
     | AuswahlTeilOhneLoesung
     | { t: 'einheit'; id: number; v: string }
     | { t: 'wort'; id: number; v: string }
