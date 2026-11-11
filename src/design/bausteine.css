@@ -433,3 +433,4 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .luecke.diktat__feld { width: 100%; text-align: left; }
 .diktat__wort--nochmal { color: var(--color-nochmal-tinte); text-decoration: underline dotted; text-underline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) { .diktat__z[data-wackeln] { animation: none; } }
+.diktat__loesung { display: grid; gap: var(--space-xs); }

@@ -67,3 +67,9 @@ Wort nicht alles danach „falsch“ macht). Ergebnis je Satz: `richtig` und die
   wie „z. B.“ nicht teilen), Vergleich Abschreiben und Merkdiktat.
 - DB-Test: `inhalt` enthält nur den Text/die Sätze, `pruefe_diktat` bewertet wie die TypeScript-Fassung.
 - iPad: falsch getipptes Wort bleibt falsch, Satzanfang bleibt klein, Anführungszeichen „ lässt sich als " tippen.
+
+## 7. Nachtrag (Lehrkraft, 11. November 2026)
+
+- Die Rückmeldung nennt die **Zahl der Fehler** („Du hast 2 Fehler gemacht.“), bei „Geschafft“ und bei „Nochmal üben“.
+  Abschreiben: falsch getippte Zeichen; Merkdiktat: Wörter, die im ersten Versuch fehlten oder anders geschrieben waren.
+- Beim **Merkdiktat** steht danach der **richtige Text**; die Wörter mit Fehlern sind markiert (Pfirsich, gepunktet, ↻).

@@ -154,3 +154,4 @@
 - 2026-11-11 (Claude, Phase 5): Diktat gebaut (`src/lib/diktat.ts`, `src/gemeinsam/DiktatAnzeige.tsx`, Migration `diktat`).
   Vergleich in TS und SQL gleich (`vereinheitliche`/`diktat_norm`, `abstand`/`diktat_abstand`). Merkdiktat: nach 2 Fehlversuchen
   darf man zum nächsten Satz weiter (sonst kein Ausweg). Übungsaufgaben „Übung: Diktat abschreiben“ und „Übung: Merkdiktat“ angelegt.
+- 2026-11-11 (Lehrkraft): Diktat-Rückmeldung nennt die Zahl der Fehler; Merkdiktat zeigt danach den richtigen Text mit markierten Fehlerwörtern.

@@ -19,10 +19,18 @@ export function DiktatAufgabe({ aufgabe, pruefen, weiter }: Props) {
   const [durchgang, setDurchgang] = useState(0)
   const [ergebnis, setErgebnis] = useState<PruefAntwort | null>(null)
   const [meldung, setMeldung] = useState<string | null>(null)
+  const [abgabe, setAbgabe] = useState<Antworten | null>(null)
   const saetze = aufgabe.inhalt.saetze ?? []
+  const merken = aufgabe.inhalt.modus === 'merken'
+  // Rückmeldung (Lehrkraft 2026-11-11): Zahl der Fehler; Merkdiktat zusätzlich richtiger Text mit markierten Wörtern.
+  // Abschreiben: falsche Zeichen; Merkdiktat: Wörter des Originals, die im ersten Versuch fehlten oder anders waren.
+  const markiert = merken && abgabe ? saetze.map((s, i) => falscheWoerter(s, typeof abgabe[i] === 'string' ? (abgabe[i] as string) : '')) : []
+  const anzahlFehler = !abgabe ? 0 : merken ? markiert.reduce((n, m) => n + m.length, 0) : Array.isArray(abgabe.fehler) ? abgabe.fehler.length : 0
+  const fehlerSatz = `Du hast ${anzahlFehler === 1 ? 'einen Fehler' : `${anzahlFehler} Fehler`} gemacht.`
 
   async function fertig(antworten: Antworten) {
     setMeldung(null)
+    setAbgabe(antworten)
     try {
       const a = await pruefen(antworten)
       if (a) setErgebnis(a)
@@ -65,17 +73,40 @@ export function DiktatAufgabe({ aufgabe, pruefen, weiter }: Props) {
         <div className="rueckmeldung rueckmeldung--richtig" role="status">
           <span className="rueckmeldung__zeichen" aria-hidden="true">✓</span>
           <p>
-            <strong>Geschafft!</strong> Wenn du es noch genauer schaffst, bekommst du nochmal Münzen.
+            <strong>Geschafft!</strong> {fehlerSatz} Wenn du es noch genauer schaffst, bekommst du nochmal Münzen.
           </p>
         </div>
       ) : e ? (
         <div className="rueckmeldung rueckmeldung--nochmal" role="status">
           <span className="rueckmeldung__zeichen" aria-hidden="true">!</span>
           <p>
-            <strong>Nochmal üben – du schaffst das!</strong> {ergebnis?.rueckmeldung ?? 'Lass dir Zeit und schau genau hin.'}
+            <strong>Nochmal üben – du schaffst das!</strong> {fehlerSatz} {ergebnis?.rueckmeldung ?? 'Lass dir Zeit und schau genau hin.'}
           </p>
         </div>
       ) : null}
+      {e && merken && !e.fehlerfrei && (
+        <div className="diktat__loesung">
+          <h3>So ist es richtig</h3>
+          <p className="leise">Die Wörter mit ↻ hast du beim ersten Versuch anders geschrieben.</p>
+          {saetze.map((s, i) => (
+            <p key={i} className="diktat__satz">
+              {s.split(' ').map((w, j) => (
+                <span key={j}>
+                  {j > 0 && ' '}
+                  {markiert[i]?.includes(j) ? (
+                    <span className="diktat__wort--nochmal">
+                      {w}
+                      <span className="marke marke--nochmal" aria-label="hier war ein Fehler">↻</span>
+                    </span>
+                  ) : (
+                    w
+                  )}
+                </span>
+              ))}
+            </p>
+          ))}
+        </div>
+      )}
       {meldung && <p role="alert">{meldung}</p>}
 
       {e && (
