@@ -145,3 +145,5 @@
   Fachbegriff-Farben je Aufgabe abschaltbar (`aufgaben.farbig`). Zuordnen-Stifte: Fachbegriffe in ihrer Farbe, eigene Kategorien neutral.
 - 2026-11-11 (Lehrkraft, Haltepunkt 4): Lücken bekommen auf Wunsch einen **Hinweis** nach Doppelpunkt (`[Rad fahren : Rad + fahren]`),
   Schüler:innen sehen ihn in Klammern hinter der Lücke wie auf Arbeitsblättern. Fehler „permission denied“ beim erneuten Speichern behoben.
+- 2026-11-11 (Lehrkraft): Aufgabenliste zeigt und sortiert auch nach **Kompetenz** (Kurzname) und **KC**; ohne Zuordnung immer am Ende.
+  7 Übungsaufgaben (je Format eine, „Übung: …“/„Erklärung: …“) zum Testen angelegt. Phase 4 getestet – **Haltepunkt 4 erreicht**. Weiter mit Phase 5.

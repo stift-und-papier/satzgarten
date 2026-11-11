@@ -49,3 +49,16 @@ describe('Sortierung der Aufgabenliste', () => {
     expect(naechsteSortierung({ spalte: 'stufe', absteigend: true }, 'titel')).toEqual({ spalte: 'titel', absteigend: false })
   })
 })
+
+describe('Sortieren nach Kompetenz und KC', () => {
+  const zeilen = [
+    { titel: 'B', typ: 'lueckentext' as const, stufe: 1 as const, kompetenz: 'Satzglieder', kc: 'Realschule' },
+    { titel: 'A', typ: 'auswahl' as const, stufe: 1 as const, kompetenz: '', kc: '' },
+    { titel: 'C', typ: 'fehler' as const, stufe: 1 as const, kompetenz: 'das oder dass', kc: 'Gymnasium' },
+  ]
+  it('alphabetisch, ohne Zuordnung am Ende – auch absteigend', () => {
+    expect(sortiere(zeilen, { spalte: 'kompetenz', absteigend: false }, String).map((z) => z.titel)).toEqual(['C', 'B', 'A'])
+    expect(sortiere(zeilen, { spalte: 'kompetenz', absteigend: true }, String).map((z) => z.titel)).toEqual(['B', 'C', 'A'])
+    expect(sortiere(zeilen, { spalte: 'kc', absteigend: false }, String).map((z) => z.titel)).toEqual(['C', 'B', 'A'])
+  })
+})

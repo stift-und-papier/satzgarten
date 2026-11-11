@@ -13,6 +13,8 @@ const SPALTEN: { spalte: Spalte; name: string }[] = [
   { spalte: 'titel', name: 'Titel' },
   { spalte: 'format', name: 'Format' },
   { spalte: 'stufe', name: 'Stufe' },
+  { spalte: 'kompetenz', name: 'Kompetenz' },
+  { spalte: 'kc', name: 'KC' },
 ]
 
 type AufgabeMitKompetenzen = Pick<Aufgabe, 'id' | 'typ' | 'titel' | 'stufe' | 'geaendert_am'> & { aufgabe_kompetenzen: { kompetenz_id: string }[] }
@@ -38,7 +40,16 @@ export function AufgabenListe() {
   const gefiltert = aufgaben?.filter(
     (a) => !(filter.jahrgang === 'ohne' && a.typ === 'erklaerung') && passt(a.titel, ids(a), filter, kompetenzen),
   )
-  const sortiert = gefiltert && sortiere(gefiltert, sortierung, (typ) => TYP_NAMEN[typ])
+  // Kurznamen und Kerncurricula der zugeordneten Kompetenzen (zum Anzeigen und Sortieren)
+  const zeilen = gefiltert?.map((a) => {
+    const ks = ids(a).flatMap((id) => kompetenzen.get(id) ?? [])
+    return {
+      ...a,
+      kompetenz: ks.map((k) => k.kurzname?.trim() || k.kompetenz).join(', '),
+      kc: [...new Set(ks.map((k) => k.kerncurriculum))].join(', '),
+    }
+  })
+  const sortiert = zeilen && sortiere(zeilen, sortierung, (typ) => TYP_NAMEN[typ])
   const verwendet = [...new Set((aufgaben ?? []).flatMap(ids))].flatMap((id) => kompetenzen.get(id) ?? [])
 
   return (
@@ -67,6 +78,7 @@ export function AufgabenListe() {
       ) : gefiltert.length === 0 ? (
         <p>Keine Aufgabe passt zu diesem Filter.</p>
       ) : (
+        <div className="lk-rollen">
         <table className="lk-tabelle">
           <thead>
             <tr>
@@ -94,10 +106,13 @@ export function AufgabenListe() {
                 </td>
                 <td>{TYP_NAMEN[a.typ]}</td>
                 <td>{a.typ !== 'erklaerung' && <span aria-label={`Stufe ${a.stufe} von 3`}>{'★'.repeat(a.stufe) + '☆'.repeat(3 - a.stufe)}</span>}</td>
+                <td>{a.kompetenz || <span className="lk-leise">{a.typ === 'erklaerung' ? '–' : 'keine'}</span>}</td>
+                <td>{a.kc || <span className="lk-leise">–</span>}</td>
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </>
   )

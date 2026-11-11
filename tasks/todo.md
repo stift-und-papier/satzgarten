@@ -118,7 +118,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 - [x] **12 Format Auswahl** (S) – hängt an 11 · `[das | *dass]`, Einfach- und Mehrfachauswahl. Prüfen: Parser-Tests, DB-Test „keine Lösung“, Vorschau.
 - [x] **13 Format Fehler finden** (S) – hängt an 11 · `[weis -> weiß]`, nur finden oder finden + eintippen. Prüfen: wie 12.
 - [x] **14 Format Zuordnen** (S) – hängt an 11 · `[Der kleine Hund = Subjekt]`, Textmarker-Bedienung. Prüfen: wie 12.
-- [ ] **15 Format Reihenfolge** (M) – hängt an 11 · Bausteine mit `|`, Varianten, antippen und ziehen (dnd-kit). Prüfen: wie 12 + Ziehen am iPad. · Antippen getestet, **Ziehen am iPad noch offen** (Haltepunkt 4).
+- [x] **15 Format Reihenfolge** (M) – hängt an 11 · Bausteine mit `|`, Varianten, antippen und ziehen (dnd-kit). Prüfen: wie 12 + Ziehen am iPad. · am iPad getestet (Haltepunkt 4).
 - [x] **16 Format Sätze verbessern** (S) – hängt an 11 · 2–4 Versionen, Hinweise erst nach dem Prüfen. Prüfen: wie 12; DB-Test Hinweise.
 - [ ] **17 Erklärseite** (S) – hängt an 11 · Text, Merkkasten, Beispiele; zählt nie für Lernstand. Prüfen: DB-Test `zaehlt_fuer_lernstand = false`. · Seite fertig; der DB-Test `zaehlt_fuer_lernstand = false` folgt mit der Tabelle `versuche` in Aufgabe 25.
 
@@ -132,7 +132,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
   - Prüfen: vorhandene Tests `kategorien.test.ts`; Vorschau.
 
 ### Haltepunkt 4
-- [ ] Lehrkraft erstellt je Format eine Aufgabe und prüft sie in der Vorschau; iPad korrigiert nichts.
+- [x] Lehrkraft erstellt je Format eine Aufgabe und prüft sie in der Vorschau; iPad korrigiert nichts.
 
 ---
 
