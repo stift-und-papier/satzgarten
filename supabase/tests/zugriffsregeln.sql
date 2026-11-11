@@ -185,6 +185,13 @@ begin
   end;
   insert into public.aufgabe_kompetenzen (aufgabe_id, kompetenz_id)
   select a.id, k.id from public.aufgaben a, public.kompetenzen k where a.titel = 'T-auswahl' and k.code = 'T-2';
+  -- erneutes Speichern wie im Editor (alle Felder, auch typ)
+  update public.aufgaben set typ = 'lueckentext', titel = 'T-lueckentext', anweisung = 'Ergänze.', farbig = true, hinweis = null,
+    rueckmeldung_fehler = null, stufe = 1, loesung = loesung where titel = 'T-lueckentext';
+  if (select stufe from public.aufgaben where titel = 'T-lueckentext') <> 1 then
+    raise exception 'Block 4.12: A kann die eigene Aufgabe nicht erneut speichern';
+  end if;
+  n := n + 1;
   reset role;
   begin
     perform set_config('request.jwt.claims', json_build_object('sub', c_lk_a, 'role', 'authenticated')::text, true);
