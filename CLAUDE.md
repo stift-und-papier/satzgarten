@@ -117,4 +117,6 @@
   in zugewiesenen Paketen trifft jede richtige Aufgabe, falsch = verfehlt; Münzen unverändert nach Erfolg; niedliche Monster
   (Sprout, Schleime), Orks für schwerere Stufen. Dazu ein **Buch** mit Freigeschaltetem (Humble Gift – Paper UI).
   Neue Grafik-Pakete: Humble Gift (Weitergabe verboten, Nennung freiwillig), craftpix Orks/Schleime (Lizenz noch prüfen).
-  Offene Fragen 17–22 in `docs/SPEC.md`.
+  Einzelheiten `docs/SPEC-monster.md`: Figur passiert nie etwas; Lebensbalken ohne Zahlen; Treffer auch im 2. Versuch, nicht nach
+  „Lösung ansehen“; besiegt erst wenn alle Aufgaben richtig; ★ Sprout, ★★ Schleim, ★★★ Ork; Buch nur Pflanzen, Tiere, Deko.
+  `chomp_idle.png` und Sprechblasen-Emotes: frei von itch.io (Urheber/Lizenz noch klären).

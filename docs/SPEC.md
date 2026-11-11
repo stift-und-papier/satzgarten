@@ -122,10 +122,10 @@ muenzen → shop → felder → tiere, spielfigur → uebernahme
   bei falscher Eingabe **verfehlt** man es (nie rot, nie bestrafend).
 - **Münzen** hängen wie gehabt vom Erfolg beim Erledigen der Aufgabe ab (Kampf ändert daran nichts).
 - Monster: niedlich (Sprout-Rübchen, Schleime) und für **schwerere Stufen** auch Orks (craftpix).
-- Keine Blut- oder Todes-Animation (ruhig, Jg. 5); Bewegung aus bei „Bewegung reduzieren“. Offene Fragen 17–22.
+- Keine Blut- oder Todes-Animation (ruhig, Jg. 5); Bewegung aus bei „Bewegung reduzieren“. Einzelheiten: `docs/SPEC-monster.md`.
 
 ### Buch (Sammlung)
-- Ein Buch zeigt, was man schon freigeschaltet hat (Grafiken: Humble Gift – Paper UI). Was genau hineinkommt: offene Frage 21.
+- Ein Buch zeigt, was man schon freigeschaltet hat (Grafiken: Humble Gift – Paper UI): Pflanzen, Tiere, Deko. Keine Monster.
 
 ### Nicht in der ersten Version
 Mehrere Lehrkräfte, Aufgabenbibliothek, PDF/Word-Import, Elternansicht, automatisches Löschen, CSV-Import über die Oberfläche.
@@ -253,15 +253,7 @@ Oberfläche: Lehrkraft „Sie“, Schüler:innen „du“, einfache Sprache.
 11. ~~`design`: Welche Textschrift?~~ Entschieden 2026-11-11: keine Pixel-Schrift (Fraunces + Nunito).
 12. `lernstand`: Hängt das Wachstum nur vom Üben ab (Fleiß) oder auch vom Lernfortschritt?
 
-**Monster-Kampf** (Spec `docs/SPEC-monster.md`)
-17. Greift das Monster die Figur auch an? Hat die Figur Herzen, die sie verlieren kann – oder passiert ihr nie etwas?
-18. Wann ist ein Monster besiegt: nach allen Aufgaben des Pakets oder nach einer festen Zahl Treffer?
-    Was passiert, wenn das Paket fertig ist, das Monster aber noch nicht besiegt (geht weg, bleibt bis zum nächsten Mal)?
-19. **Regel-Konflikt:** Sichtbare Treffer je Paket (z. B. 7 von 10) wirken wie Punkte. Schüler:innen dürfen aber keine
-    absoluten Lernstände sehen. Wie zeigen wir den Kampf, ohne dass daraus eine Punktzahl wird?
-20. Was heißt „schwerere Stufe“: die Sterne-Stufe der Schülerin/des Schülers oder eine Stufe, die die Lehrkraft je Paket einstellt?
-21. Zählt ein Treffer auch beim zweiten Versuch? Und nach „Lösung ansehen“?
-22. Kommen besiegte Monster ins Buch? Was kommt sonst ins Buch (Pflanzen, Tiere, Monster, Pakete)?
+**Monster-Kampf** – 17–22 beantwortet am 2026-11-11, siehe `docs/SPEC-monster.md`.
 
 **Mit Schulleitung/DSB (vor dem Einsatz mit echten Klassen)**
 13. Supabase/GitHub (US-Firmen, Server Frankfurt) zulässig? Auftragsverarbeitungsvertrag?
