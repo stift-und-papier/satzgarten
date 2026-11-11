@@ -147,3 +147,7 @@
   Schüler:innen sehen ihn in Klammern hinter der Lücke wie auf Arbeitsblättern. Fehler „permission denied“ beim erneuten Speichern behoben.
 - 2026-11-11 (Lehrkraft): Aufgabenliste zeigt und sortiert auch nach **Kompetenz** (Kurzname) und **KC**; ohne Zuordnung immer am Ende.
   7 Übungsaufgaben (je Format eine, „Übung: …“/„Erklärung: …“) zum Testen angelegt. Phase 4 getestet – **Haltepunkt 4 erreicht**. Weiter mit Phase 5.
+- 2026-11-11 (Lehrkraft): **Diktat** (`docs/SPEC-diktat.md`): Abschreiben – Cursor wartet auf das richtige Zeichen; Merkdiktat – Rückmeldung
+  am Satzende, Satz mit Fehlern wird neu gemerkt und getippt (erster Versuch zählt). Teilung automatisch nach . ? !, Lehrkraft teilt mit |.
+  „Nochmal ansehen“ beliebig oft, löscht die Eingabe. Fehler: Buchstaben, Groß/klein, Satzzeichen (nicht Leerzeichen-Anzahl).
+  Geschafft nur ohne Fehler. Zählt für den Lernstand mit Kompetenzen.
