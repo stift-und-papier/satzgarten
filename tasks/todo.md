@@ -54,13 +54,13 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
   - Stand 2026-11-11: Paket-Schrift (Sprout Lands) hat nur Großbuchstaben, keine Umlaute/ß. Entwürfe A–C mit Pixelify Sans und Silkscreen (OFL, lokal). Entschieden: keine Pixel-Schrift. Überschriften Fraunces, Anweisungen (h3) und Texte Nunito.
   - Dateien: `src/design/fonts/*`, `src/design/tokens.css`, Entwurfsseite
 
-- [ ] **6 Pixel-Stilblatt** (M) – hängt an 4, 5
+- [x] **6 Pixel-Stilblatt** (M) – hängt an 4, 5
   - Akzeptanz: Farben aus der Sprout-Lands-Palette in `tokens.css` (hell, dunkel, mehr Kontrast, dunkel + mehr Kontrast;
     Kontrast ≥ 4,5:1 nachgerechnet); Bausteine im Pixel-Look: Fenster/Karte, Hauptknopf, runder Knopf, Menüleiste unten,
     Lücke, Auswahl, Rückmeldung ✓/↻ (nie rot), Münzanzeige; Fachbegriff-Farben eingebunden; Lehrkraft-Thema bleibt.
   - Prüfen: Seite `#/stil` am iPad (quer, hochkant) und Laptop; Hallmark-Prüfung; Freigabe.
   - Dateien: `src/design/tokens.css`, `src/design/bausteine.css`, `src/stil/Stilblatt.tsx`
-  - Stand 2026-11-11: gebaut (`scripts/pixel-rahmen.mjs`, Rahmen nach Sprout-Lands-Knöpfen, alle Kontraste geprüft), wartet auf Freigabe am iPad.
+  - Stand 2026-11-11: gebaut (`scripts/pixel-rahmen.mjs`, Rahmen nach Sprout-Lands-Knöpfen, alle Kontraste geprüft), freigegeben.
 
 - [ ] **7 Einstein** (M) – hängt an 4
   - Akzeptanz: aus den eigenen Vorlagen (`assets/*.jpg`) ein Pixel-Spritesheet mit durchsichtigem Hintergrund

@@ -122,3 +122,5 @@
   Einzelheiten `docs/SPEC-monster.md`: Figur passiert nie etwas; Lebensbalken ohne Zahlen; Treffer auch im 2. Versuch, nicht nach
   „Lösung ansehen“; besiegt erst wenn alle Aufgaben richtig; ★ Sprout, ★★ Schleim, ★★★ Ork; Buch nur Pflanzen, Tiere, Deko.
   Buch zeigt Noch-nicht-Freigeschaltetes als „?“-Platzhalter. `chomp_idle.png` und Sprechblasen-Emotes sind eigene Werke der Lehrkraft.
+- 2026-11-11 (Lehrkraft): **Pixel-Stilblatt freigegeben** (Aufgabe 6): Holzrahmen nach Sprout-Lands-Knöpfen, Farben aus der Palette,
+  gewählt = gedrückter Knopf, Münzanzeige, Menü „Farm“ und „Buch“. Stifte behalten einfachen farbigen Rand.
