@@ -14,6 +14,7 @@ import {
   versionenZuTeilen,
   type VersionenBlock,
 } from '../lib/lueckentext'
+import { saetzeTeilen } from '../lib/diktat'
 import { gehe } from '../lib/router'
 import { supabase } from '../lib/supabase'
 import {
@@ -81,6 +82,13 @@ export const FORMATE: Record<AufgabenTyp, { name: string; kurz: string; mini: st
     anweisung: '',
     beispiel: '',
   },
+  diktat: {
+    name: 'Diktat',
+    kurz: 'Schüler:innen tippen einen Text ab – oder merken sich Satz für Satz und schreiben ihn aus dem Gedächtnis.',
+    mini: 'Gestern war ich im Zoo. → abtippen',
+    anweisung: 'Tippe den Text genau ab.',
+    beispiel: 'Gestern war ich mit meiner Klasse im Zoo. Die Affen turnten in den Bäumen, | während die Löwen schliefen. Wann gehen wir wieder hin?',
+  },
 }
 
 /** Aufgabenformat aus der Adresse („neu-auswahl“ → auswahl), sonst null */
@@ -132,6 +140,8 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
   const [kompetenzIdsAlt, setKompetenzIdsAlt] = useState<Set<string>>(new Set())
   // Erklärseite: Erklärtext, Merkkasten, Beispiele (eine Zeile je Beispiel)
   const [erkl, setErkl] = useState({ text: '', merke: '', beispiele: '' })
+  // Diktat: Abschreiben oder Merkdiktat (docs/SPEC-diktat.md)
+  const [diktatModus, setDiktatModus] = useState<'abschreiben' | 'merken'>('abschreiben')
 
   useEffect(() => {
     if (!aufgabeId) return
@@ -166,6 +176,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
         setFarbig(a.farbig)
         setGrossKlein(l.gross_klein_beachten ?? true)
         setText(l.text ?? teileZuText(l.teile))
+        if (l.modus) setDiktatModus(l.modus)
         if (l.erklaerung)
           setErkl({ text: l.erklaerung.text, merke: l.erklaerung.merke, beispiele: l.erklaerung.beispiele.join('\n') })
         setGeladen(true)
@@ -190,6 +201,8 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
     () =>
       typ === 'erklaerung'
         ? { teile: [], fehler: [] }
+        : typ === 'diktat'
+          ? { teile: [], fehler: saetzeTeilen(text).length ? [] : ['Bitte fügen Sie einen Text ein.'] }
         : typ === 'reihenfolge'
           ? reihenZuTeilen(text)
           : typ === 'ueberarbeiten'
@@ -200,8 +213,12 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
   const kategorien = typ === 'zuordnen' ? kategorienAus(teile, kategorienText.split(',')) : undefined
   const fehlerOptionen = typ === 'fehler' ? { korrigieren, anzahl_zeigen: anzahlZeigen } : {}
   // Spalte loesung (mit Lösungen); die Schüler-Fassung (inhalt) erzeugt die Datenbank daraus
+  const istDiktat = typ === 'diktat'
+  const saetze = istDiktat ? saetzeTeilen(text) : []
   const loesung = istErklaerung
     ? { text: '', gross_klein_beachten: true, teile: [], erklaerung }
+    : istDiktat
+    ? { text, gross_klein_beachten: true, teile: [], modus: diktatModus, saetze }
     : { text, gross_klein_beachten: grossKlein, darstellung, kategorien, ...fehlerOptionen, teile }
   const erklaerungLeer = !erklaerung.text && !erklaerung.merke
   const format = FORMATE[typ]
@@ -329,6 +346,16 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
 
           <fieldset>
             <legend>Aufgabentext</legend>
+            {istDiktat ? (
+              <div className="lk-reiter" role="group" aria-label="Art des Diktats">
+                <button type="button" className="lk-knopf" aria-pressed={diktatModus === 'abschreiben'} onClick={() => setDiktatModus('abschreiben')}>
+                  Abschreiben
+                </button>
+                <button type="button" className="lk-knopf" aria-pressed={diktatModus === 'merken'} onClick={() => setDiktatModus('merken')}>
+                  Merkdiktat
+                </button>
+              </div>
+            ) : (
             <div className="lk-reiter" role="group">
               <button type="button" className="lk-knopf" aria-pressed={modus === 'text'} onClick={() => setModus('text')}>
                 Als Text mit [Klammern]
@@ -337,11 +364,20 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                 Per Formular
               </button>
             </div>
+            )}
 
             {modus === 'text' ? (
               <>
                 <Erklaerung offen={!text}>
-                  {typ === 'ueberarbeiten' ? (
+                  {istDiktat ? (
+                    <p>
+                      Fügen Sie den Text ein. Beim <strong>Abschreiben</strong> steht er die ganze Zeit da; bei einem falschen
+                      Zeichen wartet der Cursor auf das richtige. Beim <strong>Merkdiktat</strong> erscheint immer ein Satz,
+                      nach „gemerkt“ verschwindet er und wird aus dem Gedächtnis getippt. Sätze werden nach <strong>. ? !</strong>{' '}
+                      geteilt; lange Sätze teilen Sie selbst mit <strong>|</strong> (z. B. nach einem Komma). Es zählen Buchstaben,
+                      Groß-/Kleinschreibung und Satzzeichen; „ “ und – gelten wie " und -. Geschafft ab 90 % richtig.
+                    </p>
+                  ) : typ === 'ueberarbeiten' ? (
                     <p>
                       Schreiben Sie jede Version eines Satzes in eine <strong>eigene Zeile</strong> (2 bis 4 Versionen) und
                       markieren Sie die bessere mit <strong>*</strong>. Unter jede Version gehört eine Zeile{' '}
@@ -427,7 +463,10 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                 erkannt.
               </p>
             )}
-            {text && textFehler.length === 0 && typ !== 'reihenfolge' && typ !== 'ueberarbeiten' && (
+            {text && textFehler.length === 0 && istDiktat && (
+              <p className="lk-leise">✓ {saetze.length === 1 ? '1 Satz' : `${saetze.length} Sätze`} erkannt.</p>
+            )}
+            {text && textFehler.length === 0 && typ !== 'reihenfolge' && typ !== 'ueberarbeiten' && !istDiktat && (
               <p className="lk-leise">
                 ✓ {teile.filter((t) => t.t === 'luecke').length} Lücke(n) und {teile.filter((t) => t.t === 'auswahl').length}{' '}
                 Auswahl-Stelle(n) erkannt.
@@ -493,7 +532,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
               {(istErklaerung ? !erklaerungLeer : text && textFehler.length === 0) ? (
                 <div className="lk-vorschau">
                   <AufgabeBearbeiten
-                    key={JSON.stringify([loesung, anweisung, hinweis, farbig])}
+                    key={JSON.stringify([loesung, anweisung, hinweis, farbig, diktatModus])}
                     aufgabe={{
                       id: aufgabeId ?? 'vorschau',
                       typ,
@@ -502,7 +541,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                       farbig,
                       hinweis: hinweis || null,
                       stufe,
-                      inhalt: istErklaerung ? { teile: [], erklaerung } : ohneLoesung(teile, darstellung, kategorien, fehlerOptionen),
+                      inhalt: istErklaerung ? { teile: [], erklaerung } : istDiktat ? { teile: [], modus: diktatModus, saetze } : ohneLoesung(teile, darstellung, kategorien, fehlerOptionen),
                       versuche: 0,
                       geloest: false,
                       loesung_angesehen: false,

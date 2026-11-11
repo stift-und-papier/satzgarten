@@ -30,7 +30,7 @@ export interface Kompetenz {
 // ---- Aufgaben (alt: Übungswiese, src/lib/typen.ts) ----
 
 export type Stufe = 1 | 2 | 3
-export type AufgabenTyp = 'lueckentext' | 'auswahl' | 'zuordnen' | 'fehler' | 'reihenfolge' | 'ueberarbeiten' | 'erklaerung'
+export type AufgabenTyp = 'lueckentext' | 'auswahl' | 'zuordnen' | 'fehler' | 'reihenfolge' | 'ueberarbeiten' | 'erklaerung' | 'diktat'
 
 /** Erklärseite: Erklärtext (Absätze durch Leerzeile), Merkkasten, Beispielsätze ([Wort] = hervorgehoben) */
 export type Erklaerung = { text: string; merke: string; beispiele: string[] }
@@ -68,6 +68,9 @@ export type LueckentextInhalt = {
   anzahl_zeigen?: boolean
   teile: LueckentextTeil[]
   erklaerung?: Erklaerung
+  /** nur beim Diktat: Art und (Teil-)Sätze (docs/SPEC-diktat.md) */
+  modus?: 'abschreiben' | 'merken'
+  saetze?: string[]
 }
 
 /** Spalte aufgaben.inhalt: Schüler-Fassung ohne Lösungen (erzeugt die Datenbank; Vorschau: ohneLoesung) */
@@ -80,6 +83,9 @@ export type LueckentextInhaltSchueler = {
   korrigieren?: boolean
   anzahl_fehler?: number | null
   erklaerung?: Erklaerung
+  /** nur beim Diktat: Art und (Teil-)Sätze (docs/SPEC-diktat.md) */
+  modus?: 'abschreiben' | 'merken'
+  saetze?: string[]
   teile: (
     | TextTeil
     | { t: 'luecke'; id: number; hinweis?: string }
@@ -113,6 +119,8 @@ export type Pruefergebnis = {
   /** id null = nicht gefundener Fehler (Stelle wird bewusst nicht verraten) */
   luecken: { id: number | null; richtig: boolean; positionen?: boolean[]; variante?: number; hinweise?: string[] }[]
   anteil: number
+  /** Diktat: ohne einen Fehler (besonders belohnt) */
+  fehlerfrei?: boolean
   richtig: boolean
 }
 

@@ -7,7 +7,7 @@ import { supabase } from '../lib/supabase'
 import type { Aufgabe } from '../lib/typen'
 import { ListenFilter, useKompetenzen } from './ListenFilter'
 
-export const TYP_NAMEN: Record<Aufgabe['typ'], string> = { lueckentext: 'Lückentext', auswahl: 'Auswahl', zuordnen: 'Zuordnen', fehler: 'Fehler finden', reihenfolge: 'Reihenfolge', ueberarbeiten: 'Sätze verbessern', erklaerung: 'Erklärung' }
+export const TYP_NAMEN: Record<Aufgabe['typ'], string> = { lueckentext: 'Lückentext', auswahl: 'Auswahl', zuordnen: 'Zuordnen', fehler: 'Fehler finden', reihenfolge: 'Reihenfolge', ueberarbeiten: 'Sätze verbessern', erklaerung: 'Erklärung', diktat: 'Diktat' }
 
 const SPALTEN: { spalte: Spalte; name: string }[] = [
   { spalte: 'titel', name: 'Titel' },

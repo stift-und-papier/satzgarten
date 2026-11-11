@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Antwort, Antworten, Pruefergebnis, SchuelerAufgabe } from '../lib/typen'
 import { Anweisung } from './Anweisung'
+import { DiktatAufgabe } from './DiktatAnzeige'
 import { LueckentextAnzeige } from './LueckentextAnzeige'
 import { Sterne } from './Sterne'
 
@@ -18,6 +19,7 @@ type Props = {
 // alt (Übungswiese), im Pixel-Look: Bearbeitung einer Aufgabe – für Schüler:innen und für die Vorschau der Lehrkraft.
 // Erklärseiten haben eine eigene Darstellung (lesen, „Verstanden“).
 export function AufgabeBearbeiten(props: Props) {
+  if (props.aufgabe.typ === 'diktat') return <DiktatAufgabe {...props} />
   return props.aufgabe.typ === 'erklaerung' ? <ErklaerSeite {...props} /> : <AufgabeUeben {...props} />
 }
 

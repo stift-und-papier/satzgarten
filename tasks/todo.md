@@ -143,13 +143,13 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
     Teilung in Sätze, was als Fehler zählt, Lernstand); Blick in den Code von TastenHeld (Modus „Rennen“), was übernommen wird.
   - Prüfen: Freigabe durch die Lehrkraft.
 
-- [ ] **21 Diktat Abschreiben** (M) – hängt an 20, 11
+- [x] **21 Diktat Abschreiben** (M) – hängt an 20, 11
   - Akzeptanz: Lehrkraft fügt Text ein (Editor-Kachel „Diktat“); Schüler:innen tippen ihn ab; Prüfung und Rückmeldung
     nach der Spec; Eingabe ohne Korrektur; übernommene Teile aus TastenHeld mit Herkunft gekennzeichnet.
   - Prüfen: Tests für den Textvergleich; DB-Test; iPad mit Tastatur.
   - Dateien: Migration `pruefe_diktat`, `src/lib/diktat.ts` + Test, `src/gemeinsam/DiktatAnzeige.tsx`
 
-- [ ] **22 Merkdiktat** (M) – hängt an 21
+- [x] **22 Merkdiktat** (M) – hängt an 21
   - Akzeptanz: Text erscheint (Teil-)Satz für (Teil-)Satz; nach „gemerkt“ verschwindet er und wird eingetippt;
     Regeln zum erneuten Ansehen nach der Spec.
   - Prüfen: Tests der Satzteilung; iPad mit Tastatur.

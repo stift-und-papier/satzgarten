@@ -151,3 +151,6 @@
   am Satzende, Satz mit Fehlern wird neu gemerkt und getippt (erster Versuch zählt). Teilung automatisch nach . ? !, Lehrkraft teilt mit |.
   „Nochmal ansehen“ beliebig oft, löscht die Eingabe. Fehler: Buchstaben, Groß/klein, Satzzeichen (nicht Leerzeichen-Anzahl).
   Geschafft ab 90 % (Hinweis: Verbessern bringt nochmal Münzen), fehlerfrei besonders belohnt. Zählt für den Lernstand mit Kompetenzen.
+- 2026-11-11 (Claude, Phase 5): Diktat gebaut (`src/lib/diktat.ts`, `src/gemeinsam/DiktatAnzeige.tsx`, Migration `diktat`).
+  Vergleich in TS und SQL gleich (`vereinheitliche`/`diktat_norm`, `abstand`/`diktat_abstand`). Merkdiktat: nach 2 Fehlversuchen
+  darf man zum nächsten Satz weiter (sonst kein Ausweg). Übungsaufgaben „Übung: Diktat abschreiben“ und „Übung: Merkdiktat“ angelegt.

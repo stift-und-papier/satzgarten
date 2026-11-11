@@ -263,6 +263,35 @@ begin
   end if;
   n := n + 1;
 
+  -- ---------- 5 Diktat (Phase 5) ----------
+  insert into public.aufgaben (owner, typ, titel, loesung) values
+    (c_lk_a, 'diktat', 'D-ab', '{"modus":"abschreiben","text":"„Hallo“, sagte er. Wir gehen.","saetze":["„Hallo“, sagte er.","Wir gehen."]}'),
+    (c_lk_a, 'diktat', 'D-merk', '{"modus":"merken","text":"„Hallo“, sagte er. Wir gehen.","saetze":["„Hallo“, sagte er.","Wir gehen."]}');
+  if (select inhalt ? 'text' or inhalt -> 'saetze' ->> 1 <> 'Wir gehen.' or inhalt ->> 'modus' <> 'merken'
+      from public.aufgaben where titel = 'D-merk') then
+    raise exception 'Block 5.1: Schüler-Fassung des Diktats falsch';
+  end if;
+  n := n + 1;
+  declare
+    l_ab jsonb := (select loesung from public.aufgaben where titel = 'D-ab');
+    l_merk jsonb := (select loesung from public.aufgaben where titel = 'D-merk');
+    e jsonb;
+  begin
+    e := public.pruefe_aufgabe('diktat', l_ab, '{"fehler":[]}');
+    if not ((e ->> 'fehlerfrei')::boolean and (e ->> 'richtig')::boolean) then raise exception 'Block 5.2: Abschreiben ohne Fehler: %', e; end if;
+    e := public.pruefe_aufgabe('diktat', l_ab, '{"fehler":[0, 0, 999]}');
+    if (e ->> 'fehlerfrei')::boolean or not (e ->> 'richtig')::boolean then raise exception 'Block 5.3: ein Fehler = geschafft, nicht fehlerfrei: %', e; end if;
+    e := public.pruefe_aufgabe('diktat', l_ab, '{"fehler":[0,1,2,3,4,5,6,7,8,9]}');
+    if (e ->> 'richtig')::boolean then raise exception 'Block 5.4: viele Fehler gelten als geschafft: %', e; end if;
+    e := public.pruefe_aufgabe('diktat', l_merk, '{"0":"\"Hallo\",  sagte er. ","1":"Wir gehen."}');
+    if not (e ->> 'fehlerfrei')::boolean then raise exception 'Block 5.5: Typografie/Leerzeichen zählen als Fehler: %', e; end if;
+    e := public.pruefe_aufgabe('diktat', l_merk, '{"0":"\"Hallo\", sagte er.","1":"wir gehen."}');
+    if (e -> 'luecken' -> 1 ->> 'richtig')::boolean or not (e ->> 'richtig')::boolean or (e ->> 'fehlerfrei')::boolean then
+      raise exception 'Block 5.6: Merkdiktat mit einem Fehler falsch bewertet: %', e;
+    end if;
+    n := n + 5;
+  end;
+
   raise exception 'ALLE TESTS BESTANDEN (%)', n;
 end
 $test$;
