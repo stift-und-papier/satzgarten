@@ -51,7 +51,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
     frei lizenzierte Pixel-Schrift mit Umlauten, eine ruhige Textschrift zu Pixel-Überschriften); Lehrkraft wählt;
     Lesbarkeit für LRS (Leseschrift bleibt umschaltbar).
   - Prüfen: Entwurfsseite am iPad (`#/stil/schrift`); Satz mit allen Umlauten und ß; Freigabe.
-  - Stand 2026-11-11: Paket-Schrift (Sprout Lands) hat nur Großbuchstaben, keine Umlaute/ß. Entwürfe A–C mit Pixelify Sans und Silkscreen (OFL, lokal). Gewählt: B (Pixelify Sans nur für h1/h2), Entwurfsseite und Silkscreen entfernt.
+  - Stand 2026-11-11: Paket-Schrift (Sprout Lands) hat nur Großbuchstaben, keine Umlaute/ß. Entwürfe A–C mit Pixelify Sans und Silkscreen (OFL, lokal). Entschieden: keine Pixel-Schrift. Überschriften Fraunces, Anweisungen (h3) und Texte Nunito.
   - Dateien: `src/design/fonts/*`, `src/design/tokens.css`, Entwurfsseite
 
 - [ ] **6 Pixel-Stilblatt** (M) – hängt an 4, 5

@@ -64,7 +64,7 @@
   Fachbegriffe in Anweisungen färben sich automatisch (`src/gemeinsam/Anweisung.tsx`, je Aufgabe abschaltbar: `farbig={false}`).
   Markierte Wörter nehmen die Farbe an (`data-farbe`); ohne Farbe bleiben sie neutral (Antippen ohne Fachbegriff).
   Gestrichelt heißt immer „hier schreiben“ (Lücken) – gesperrte Knöpfe sind nur blasser.
-- Schriften: Pixelify Sans (h1/h2 Schüler:innen), Nunito (Text, h3), Fraunces (Lehrkraft-Überschriften).
+- Schriften: Fraunces (h1/h2), Nunito (Text und h3/Anweisungen). Keine Pixel-Schrift.
 - Leseschrift für LRS: OpenDyslexic (lokal, OFL), Umschalter `useLeseschrift` (`src/lib/leseschrift.ts`), gespeichert auf dem Gerät.
 - Dunkler Modus: folgt dem Gerät, von Hand umschaltbar mit `useDunkel` (`src/lib/thema.ts`), gespeichert auf dem Gerät.
 - Prüfen: `node ~/.claude/skills/hallmark/scripts/sloplint.mjs src --genre playful --scope app`.
@@ -111,6 +111,5 @@
   Pixel-Look (Sprout Lands, gekauft) für Schüler:innen, Lehrkraft-Ansicht ruhig. Figuren erlaubt. Maskottchen heißt
   **Einstein** (Pixel-Figur nach eigener Vorlage). Rechtschreibkorrektur überall aus. Garten-Entwurf und Albert entfernt.
 - 2026-11-11 (Lehrkraft): Lehrkraft-Konto angelegt (Selbst-Registrierung aus), Anmeldung unter /wortsalat/ getestet – Haltepunkt 1 erreicht.
-- 2026-11-11 (Lehrkraft): Schrift Entwurf B: Überschriften h1/h2 in **Pixelify Sans** 700 (OFL, lokal), alle Texte und
-  Anweisungen (auch h3, z. B. „Schreibe die Wörter ab.“) in Nunito. Lehrkraft-Ansicht bleibt bei Fraunces.
-  Die Pixel-Schrift aus Sprout Lands scheidet aus (nur Großbuchstaben, keine Umlaute/ß).
+- 2026-11-11 (Lehrkraft): Keine Pixel-Schrift: Überschriften bleiben in Fraunces, Anweisungen (h3, z. B. „Schreibe die Wörter ab.“)
+  und Texte in Nunito. Pixel-Schrift aus Sprout Lands hat ohnehin nur Großbuchstaben, keine Umlaute/ß.

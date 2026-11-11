@@ -1,5 +1,5 @@
 /* Hallmark · shape: app screen · genre: playful · theme: custom · idea: "Ein Gartenheft auf der Wiese" · vibe: "warm, handgezeichnet, ruhig, freundlich, zum Anfassen" · scope: app
- * paper: Creme-Karten (--color-papier) auf Wiesengrün (--color-wiese) · ink: Holzbraun (--color-tinte) · accent: Holz = „hier kann man tippen“ (--color-aktion) · display: Pixelify Sans 700 (nur h1/h2; Lehrkraft: Fraunces 600) · body: Nunito 400/800, umschaltbar auf OpenDyslexic
+ * paper: Creme-Karten (--color-papier) auf Wiesengrün (--color-wiese) · ink: Holzbraun (--color-tinte) · accent: Holz = „hier kann man tippen“ (--color-aktion) · display: Fraunces 600 · body: Nunito 400/800, umschaltbar auf OpenDyslexic
  * posture: Full palette, jede Farbe EINE Bedeutung (Holz bedienen, Himmelblau Hilfe, Grün richtig, Pfirsich nochmal, Sonne Sterne) · modes: hell, dunkel, mehr Kontrast
  * axes: light/soft-serif/chromatic-brown · contrast: pass (nachgerechnet je Modus, siehe Kommentare) · signature: die Aufgabenkarte als Heftseite mit Holzknöpfen und Pillen · hero: keiner (App-Ansicht) · v2.0.0 */
 /* Hallmark · pre-emit critique: P3 H3 E3 S2 R3 V3 · weakest: S, Creme auf Grün ist die Vorgabe der Lehrkraft (Referenzbilder), nicht frei gewählt */
@@ -21,7 +21,6 @@
    Farbraum: alle Farben sRGB (sicher auf jedem Bildschirm); Grafiken sind SVG ohne eingebettete Farbprofile.
    Schriften liegen in fonts/ (kein CDN). Kontraste am 2026-11-09 nachgerechnet (WCAG). */
 @font-face{font-family:'Fraunces';src:url('fonts/fraunces-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:'Pixelify Sans';src:url('fonts/pixelify-sans-latin-700-normal.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
 @font-face{font-family:'Nunito';src:url('fonts/nunito-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'Nunito';src:url('fonts/nunito-latin-800-normal.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
 @font-face{font-family:'OpenDyslexic';src:url('fonts/OpenDyslexic-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
@@ -74,7 +73,7 @@
   --muster-wiese: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg stroke='%23acc188' stroke-width='2.5' stroke-linecap='round' fill='none'%3E%3Cpath d='M18 30l2-6M24 31l1-5'/%3E%3Cpath d='M78 74l2-6M84 75l1-5'/%3E%3Cpath d='M40 100l2-5'/%3E%3Cpath d='M98 18l1-5'/%3E%3C/g%3E%3C/svg%3E");
 
   /* Schriften (Umschalter Leseschrift: siehe unten) */
-  --font-display: 'Pixelify Sans', system-ui, sans-serif; /* Schüler:innen: nur h1/h2 (Lehrkraft 2026-11-11) */
+  --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Nunito', system-ui, sans-serif;
   --zeilenhoehe: 1.55;
   --buchstabenabstand: 0;

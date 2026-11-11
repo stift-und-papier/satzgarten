@@ -9,8 +9,6 @@
   font-size: 1.0625rem;
 }
 .lehrkraft h1, .lehrkraft h2, .lehrkraft h3 { color: var(--color-lk-tinte); }
-/* Lehrkraft-Ansicht bleibt ruhig: Fraunces statt Pixel-Schrift */
-.lehrkraft { --font-display: 'Fraunces', Georgia, serif; }
 .lehrkraft h3 { font-family: var(--font-display); font-weight: 600; }
 .lehrkraft .lk-leise { color: var(--color-lk-leise); font-size: var(--text-klein); }
 

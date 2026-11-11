@@ -255,7 +255,7 @@ export default function Stilblatt() {
               </li>
             ))}
           </ul>
-          <h2>Überschriften in Pixel-Schrift</h2>
+          <h2>Überschriften in Fraunces</h2>
           <h3>Anweisungen in Nunito</h3>
           <p>Texte ebenfalls in Nunito, mindestens 18 Pixel groß, damit man sie auf dem iPad gut lesen kann.</p>
         </section>
