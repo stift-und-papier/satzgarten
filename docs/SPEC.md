@@ -116,6 +116,17 @@ muenzen → shop → felder → tiere, spielfigur → uebernahme
 - Regeln zu Preisen, Wachstumsdauer, Folgen von Nicht-Üben usw.: offene Fragen 1–2 und 7–10, festgelegt in den
   Specs von `muenzen`, `shop`, `felder`, `tiere`, `spielfigur`.
 
+### Monster-Kampf (neu, Lehrkraft 2026-11-11) – Wünsche im Wortlaut bzw. sinngemäß
+- „Das Monster erscheint über der Aufgabe und kämpft gegen die Figur der Schüler“ (die Spielfigur, Katzen-Bauer aus Sprout Lands).
+- Gekämpft wird beim Bearbeiten **zugewiesener Aufgabenpakete**. **Jede richtige Aufgabe trifft** das Monster,
+  bei falscher Eingabe **verfehlt** man es (nie rot, nie bestrafend).
+- **Münzen** hängen wie gehabt vom Erfolg beim Erledigen der Aufgabe ab (Kampf ändert daran nichts).
+- Monster: niedlich (Sprout-Rübchen, Schleime) und für **schwerere Stufen** auch Orks (craftpix).
+- Keine Blut- oder Todes-Animation (ruhig, Jg. 5); Bewegung aus bei „Bewegung reduzieren“. Offene Fragen 17–22.
+
+### Buch (Sammlung)
+- Ein Buch zeigt, was man schon freigeschaltet hat (Grafiken: Humble Gift – Paper UI). Was genau hineinkommt: offene Frage 21.
+
 ### Nicht in der ersten Version
 Mehrere Lehrkräfte, Aufgabenbibliothek, PDF/Word-Import, Elternansicht, automatisches Löschen, CSV-Import über die Oberfläche.
 
@@ -239,8 +250,18 @@ Oberfläche: Lehrkraft „Sie“, Schüler:innen „du“, einfache Sprache.
 8. `felder`: Wie viele Übungen bis zur Ernte? Wächst etwas auch ohne Üben? Was passiert ohne Üben (Ferien, Krankheit)?
 9. `tiere`: Was bringt Füttern sonst noch (Eier, Milch …)? Was passiert ohne Füttern?
 10. `spielfigur`: Steuerung – Antippen eines Ziels, Pfeiltasten der Tastatur oder beides?
-11. `design`: Welche Textschrift (Pixel-Schrift mit selbst ergänzten Umlauten oder normale Schrift)?
+11. ~~`design`: Welche Textschrift?~~ Entschieden 2026-11-11: keine Pixel-Schrift (Fraunces + Nunito).
 12. `lernstand`: Hängt das Wachstum nur vom Üben ab (Fleiß) oder auch vom Lernfortschritt?
+
+**Monster-Kampf** (Spec `docs/SPEC-monster.md`)
+17. Greift das Monster die Figur auch an? Hat die Figur Herzen, die sie verlieren kann – oder passiert ihr nie etwas?
+18. Wann ist ein Monster besiegt: nach allen Aufgaben des Pakets oder nach einer festen Zahl Treffer?
+    Was passiert, wenn das Paket fertig ist, das Monster aber noch nicht besiegt (geht weg, bleibt bis zum nächsten Mal)?
+19. **Regel-Konflikt:** Sichtbare Treffer je Paket (z. B. 7 von 10) wirken wie Punkte. Schüler:innen dürfen aber keine
+    absoluten Lernstände sehen. Wie zeigen wir den Kampf, ohne dass daraus eine Punktzahl wird?
+20. Was heißt „schwerere Stufe“: die Sterne-Stufe der Schülerin/des Schülers oder eine Stufe, die die Lehrkraft je Paket einstellt?
+21. Zählt ein Treffer auch beim zweiten Versuch? Und nach „Lösung ansehen“?
+22. Kommen besiegte Monster ins Buch? Was kommt sonst ins Buch (Pflanzen, Tiere, Monster, Pakete)?
 
 **Mit Schulleitung/DSB (vor dem Einsatz mit echten Klassen)**
 13. Supabase/GitHub (US-Firmen, Server Frankfurt) zulässig? Auftragsverarbeitungsvertrag?

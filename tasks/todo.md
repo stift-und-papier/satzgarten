@@ -190,8 +190,14 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 - [ ] **40 Spec Spielfigur** (S) – `docs/SPEC-spielfigur.md`: offene Frage 10 (Steuerung per Antippen, Pfeiltasten oder beides). Prüfen: Freigabe.
 - [ ] **41 Spielfigur** (M) – hängt an 40, 38 · Figur aus dem Sprout-Lands-Spritesheet, 4 Richtungen, Bewegung nach der Spec; alles bleibt auch ohne Figur bedienbar; ruhig bei „Bewegung reduzieren“. Prüfen: iPad (flüssig?).
 
+- [ ] **41a Spec Monster-Kampf und Buch** (S) – `docs/SPEC-monster.md`: offene Fragen 17–22. Prüfen: Freigabe.
+- [ ] **41b Monster über der Aufgabe** (M) – hängt an 41a, 41, 25 · Figur gegen Monster über jeder Paket-Aufgabe; richtig = Treffer,
+  falsch = verfehlt; Monsterwahl nach Stufe; Treffer rechnet der Server; keine Blut-/Todes-Animation; ruhig bei „Bewegung reduzieren“.
+  Prüfen: DB-Test (Treffer nicht erschummelbar, nie Punkte/Prozente für Schüler:innen); iPad.
+- [ ] **41c Buch** (M) – hängt an 41a · Freigeschaltetes im Papier-Look (Humble Gift). Prüfen: iPad.
+
 ### Haltepunkt 8
-- [ ] **iPad-Test Farm:** Münzen verdienen, kaufen, pflanzen, durch Üben wachsen sehen, ernten, füttern, Figur bewegen.
+- [ ] **iPad-Test Farm:** Münzen verdienen, kaufen, pflanzen, durch Üben wachsen sehen, ernten, füttern, Figur bewegen, Monster bekämpfen, Buch ansehen.
 
 ---
 

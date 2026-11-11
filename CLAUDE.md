@@ -20,7 +20,7 @@
   `service_role`-Schlüssel und DB-Passwort **nie**.
 - **Nie ins Repo:** KC-PDFs (`docs/*.pdf`), Referenzbilder (`refrences/`), Referenz-Texte (`Erklärungen referenz/`),
   die gekauften Asset-Pakete (`assets/`, Lizenz verbietet Weitergabe).
-- **Grafiken:** Sprout Lands (gekauft, Cup Nooble) und TastenHeld (Erlaubnis für Ideen, Code, Grafiken).
+- **Grafiken:** Sprout Lands (gekauft, Cup Nooble), Humble Gift Paper UI, craftpix Orks/Schleime und TastenHeld (Erlaubnis für Ideen, Code, Grafiken).
   Nur benutzte Einzelbilder nach `src/grafik/` mit `LIZENZ.md`; Namensnennung in der App
   („Assets – From: Sprout Lands – By: Cup Nooble“). Übernommenen TastenHeld-Code mit Herkunft kennzeichnen.
 - Kompetenzen **nicht erfinden** – nur aus `docs/kompetenzen.csv` bzw. durch die Lehrkraft.
@@ -113,3 +113,8 @@
 - 2026-11-11 (Lehrkraft): Lehrkraft-Konto angelegt (Selbst-Registrierung aus), Anmeldung unter /wortsalat/ getestet – Haltepunkt 1 erreicht.
 - 2026-11-11 (Lehrkraft): Keine Pixel-Schrift: Überschriften bleiben in Fraunces, Anweisungen (h3, z. B. „Schreibe die Wörter ab.“)
   und Texte in Nunito. Pixel-Schrift aus Sprout Lands hat ohnehin nur Großbuchstaben, keine Umlaute/ß.
+- 2026-11-11 (Lehrkraft): **Monster-Kampf** neu: Monster über der Aufgabe kämpft gegen die Spielfigur (Katzen-Bauer, Sprout Lands);
+  in zugewiesenen Paketen trifft jede richtige Aufgabe, falsch = verfehlt; Münzen unverändert nach Erfolg; niedliche Monster
+  (Sprout, Schleime), Orks für schwerere Stufen. Dazu ein **Buch** mit Freigeschaltetem (Humble Gift – Paper UI).
+  Neue Grafik-Pakete: Humble Gift (Weitergabe verboten, Nennung freiwillig), craftpix Orks/Schleime (Lizenz noch prüfen).
+  Offene Fragen 17–22 in `docs/SPEC.md`.
