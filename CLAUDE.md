@@ -157,3 +157,4 @@
 - 2026-11-11 (Lehrkraft): Diktat-Rückmeldung nennt die Zahl der Fehler; Merkdiktat zeigt danach den richtigen Text mit markierten Fehlerwörtern.
 - 2026-11-11 (Lehrkraft): Merkdiktat wird **nur dort geteilt, wo die Lehrkraft es angibt** (`|` oder Klick zwischen Wörter im Editor);
   Knopf „Nach jedem Satz trennen“ als Hilfe. Schüleransicht zählt „Teil 1 von 3“.
+- 2026-11-11 (Lehrkraft): Abschreiben zeigt den Text als **Laufband** in einer Zeile (aktuelles Zeichen bei einem Drittel der Breite, wie TastenHeld).

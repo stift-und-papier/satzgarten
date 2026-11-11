@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { falscheWoerter, vereinheitliche } from '../lib/diktat'
 import type { Antworten, SchuelerAufgabe } from '../lib/typen'
 import type { PruefAntwort } from './AufgabeBearbeiten'
@@ -139,6 +139,15 @@ function Abschreiben({ text, onFertig }: { text: string; onFertig: (a: Antworten
   const schreibt = useRef(false) // Tottasten (^ ´) setzen erst nach dem zweiten Tastendruck ein Zeichen
   // aktueller Stand auch zwischen zwei Neuzeichnungen (sehr schnelles Tippen)
   const stand = useRef({ p: 0, f: [] as number[] })
+  // Laufband (Lehrkraft 2026-11-11, wie TastenHeld textline.js „ticker“): aktuelles Zeichen bei etwa einem Drittel der Breite
+  const zeile = useRef<HTMLDivElement>(null)
+  const band = useRef<HTMLSpanElement>(null)
+  useLayoutEffect(() => {
+    const aktuell = band.current?.children[Math.min(pos, zeichen.length - 1)] as HTMLElement | undefined
+    if (!aktuell || !zeile.current || !band.current) return
+    const x = Math.max(0, aktuell.offsetLeft - zeile.current.clientWidth * 0.33)
+    band.current.style.transform = `translateX(${-x}px)`
+  }, [pos, zeichen.length])
 
   function tippen(eingabe: string) {
     let p = stand.current.p
@@ -164,7 +173,8 @@ function Abschreiben({ text, onFertig }: { text: string; onFertig: (a: Antworten
   return (
     <div className="diktat" onClick={() => feld.current?.focus()}>
       <p className="leise">Tippe los – der Text läuft mit. Bei einem falschen Zeichen wartet der Cursor, bis es stimmt.</p>
-      <p className="diktat__zeile" aria-label={text}>
+      <div className="diktat__zeile" ref={zeile} role="img" aria-label={text}>
+        <span className="diktat__band" ref={band}>
         {zeichen.map((z, i) => (
           <span
             key={i}
@@ -175,7 +185,8 @@ function Abschreiben({ text, onFertig }: { text: string; onFertig: (a: Antworten
             {z}
           </span>
         ))}
-      </p>
+        </span>
+      </div>
       <p className="leise" aria-live="polite">
         {pos} von {zeichen.length} Zeichen
       </p>

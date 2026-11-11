@@ -53,9 +53,9 @@ Wort nicht alles danach „falsch“ macht). Ergebnis je Satz: `richtig` und die
 
 ## 5. Bedienung (iPad mit fester QWERTZ-Tastatur)
 
-- **Abschreiben:** Textzeile wie TastenHeld (erledigt = Tinte, aktuelles Zeichen umrandet, Rest blass); bei falschem Zeichen
-  wackelt das aktuelle Zeichen kurz (aus bei „Bewegung reduzieren“) und es erscheint ↻ – kein Ton, nie rot. Lange Texte
-  laufen zeilenweise mit. Eingabe über ein unsichtbares `Eingabe`-Feld (`input`-Ereignisse, damit Tottasten wie `^` `´` gehen).
+- **Abschreiben:** Laufband in einer Zeile wie TastenHeld (erledigt = Tinte, aktuelles Zeichen umrandet, Rest blass); bei falschem Zeichen
+  wackelt das aktuelle Zeichen kurz (aus bei „Bewegung reduzieren“) – kein Ton, nie rot. Der Text
+  läuft mit, das aktuelle Zeichen bleibt bei einem Drittel der Breite. Eingabe über ein unsichtbares `Eingabe`-Feld (`input`-Ereignisse, damit Tottasten wie `^` `´` gehen).
 - **Merkdiktat:** Satz → „gemerkt“ → leeres Eingabefeld → „Fertig“ (oder Enter) → Rückmeldung → nächster Satz.
   Anzeige „Satz 2 von 5“. „Nochmal ansehen“ löscht die Eingabe.
 - Übernommen aus TastenHeld (mit Herkunft gekennzeichnet): Idee der Textzeile (`textline.js`), Regel „ein Fehler je Zeichen“
