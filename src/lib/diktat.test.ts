@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { abstand, falscheWoerter, saetzeTeilen, satzAnteil, vereinheitliche } from './diktat'
+import { abstand, falscheWoerter, nachSaetzenTrennen, saetzeTeilen, satzAnteil, textAusTrennungen, vereinheitliche, woerterUndTrennungen } from './diktat'
 
 describe('vereinheitliche', () => {
   it('typografische Zeichen wie auf der Tastatur, Leerraum zusammengefasst', () => {
@@ -11,17 +11,21 @@ describe('vereinheitliche', () => {
   })
 })
 
-describe('saetzeTeilen', () => {
-  it('teilt nach . ? ! und an |', () => {
-    expect(saetzeTeilen('Ich gehe. Kommst du? Ja! Wir laufen, | weil es regnet.')).toEqual([
-      'Ich gehe.', 'Kommst du?', 'Ja!', 'Wir laufen,', 'weil es regnet.',
-    ])
+describe('Teilung (nur dort, wo die Lehrkraft trennt)', () => {
+  it('saetzeTeilen teilt nur an |', () => {
+    expect(saetzeTeilen('Ich gehe. Kommst du? | Wir laufen, | weil es regnet.')).toEqual(['Ich gehe. Kommst du?', 'Wir laufen,', 'weil es regnet.'])
+    expect(saetzeTeilen('Ein Satz. Noch einer.')).toEqual(['Ein Satz. Noch einer.'])
   })
-  it('nicht nach Abkürzungen, Ordnungszahlen und einzelnen Buchstaben', () => {
-    expect(saetzeTeilen('Wir essen z. B. Äpfel usw. am 3. Mai. Dann gehen wir.')).toEqual(['Wir essen z. B. Äpfel usw. am 3. Mai.', 'Dann gehen wir.'])
+  it('nachSaetzenTrennen: nach . ? !, nicht nach Abkürzungen, Ordnungszahlen, einzelnen Buchstaben', () => {
+    expect(nachSaetzenTrennen('Ich gehe. Kommst du? Ja! Wir laufen, | weil es regnet.')).toBe('Ich gehe. | Kommst du? | Ja! | Wir laufen, | weil es regnet.')
+    expect(nachSaetzenTrennen('Wir essen z. B. Äpfel usw. am 3. Mai. Dann gehen wir.')).toBe('Wir essen z. B. Äpfel usw. am 3. Mai. | Dann gehen wir.')
+    expect(nachSaetzenTrennen('Er rief: „Komm her!“ Dann ging er.')).toBe('Er rief: "Komm her!" | Dann ging er.')
   })
-  it('Anführungszeichen hinter dem Satzende gehören zum Satz', () => {
-    expect(saetzeTeilen('Er rief: „Komm her!“ Dann ging er.')).toEqual(['Er rief: "Komm her!"', 'Dann ging er.'])
+  it('Klick-Ansicht: Wörter und Trennungen hin und zurück', () => {
+    const { woerter, trennungen } = woerterUndTrennungen('Das Buch,|das hier liegt. | Gut.')
+    expect(woerter).toEqual(['Das', 'Buch,', 'das', 'hier', 'liegt.', 'Gut.'])
+    expect(trennungen).toEqual([false, true, false, false, true, false])
+    expect(textAusTrennungen(woerter, trennungen)).toBe('Das Buch, | das hier liegt. | Gut.')
   })
 })
 

@@ -237,7 +237,7 @@ function Merkdiktat({ saetze, onFertig }: { saetze: string[]; onFertig: (a: Antw
   return (
     <div className="diktat">
       <p className="leise">
-        Satz {nr + 1} von {saetze.length}
+        Teil {nr + 1} von {saetze.length}
       </p>
       {phase === 'merken' && (
         <>
@@ -257,7 +257,7 @@ function Merkdiktat({ saetze, onFertig }: { saetze: string[]; onFertig: (a: Antw
             absenden()
           }}
         >
-          <Eingabe className="luecke diktat__feld" aria-label={`Satz ${nr + 1} aus dem Gedächtnis`} autoFocus value={eingabe} onChange={(e) => setEingabe(e.target.value)} />
+          <Eingabe className="luecke diktat__feld" aria-label={`Teil ${nr + 1} aus dem Gedächtnis`} autoFocus value={eingabe} onChange={(e) => setEingabe(e.target.value)} />
           <div className="knopf-reihe">
             <button
               type="button"
@@ -304,7 +304,7 @@ function Merkdiktat({ saetze, onFertig }: { saetze: string[]; onFertig: (a: Antw
           <div className="knopf-reihe">
             {versuche >= 2 && (
               <button type="button" className="knopf" onClick={() => naechster(erste)}>
-                Weiter zum nächsten Satz
+                Weiter zum nächsten Teil
               </button>
             )}
             <button

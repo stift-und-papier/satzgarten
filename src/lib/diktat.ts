@@ -19,8 +19,13 @@ export function vereinheitliche(text: string): string {
 // Abkürzungen, nach denen kein Satz endet (klein geschrieben, ohne Punkt); einzelne Buchstaben („z. B.“) ebenso
 const ABKUERZUNGEN = new Set(['usw', 'bzw', 'ca', 'nr', 'dr', 'hr', 'fr', 'etc', 'vgl', 'evtl', 'ggf', 'inkl', 'bspw', 'str'])
 
-/** Merkdiktat: Text in (Teil-)Sätze teilen – nach . ? ! (auch mit Anführungszeichen dahinter) und an jedem |. */
+/** Merkdiktat: Text in (Teil-)Sätze teilen – nur dort, wo die Lehrkraft ein | gesetzt hat (Lehrkraft 2026-11-11). */
 export function saetzeTeilen(text: string): string[] {
+  return text.split('|').map(vereinheitliche).filter(Boolean)
+}
+
+/** Hilfe im Editor: ein | nach jedem Satzende (. ? !, auch mit Anführungszeichen dahinter) setzen. Vorhandene | bleiben. */
+export function nachSaetzenTrennen(text: string): string {
   const saetze: string[] = []
   for (const block of text.split('|')) {
     let start = 0
@@ -36,7 +41,27 @@ export function saetzeTeilen(text: string): string[] {
     }
     saetze.push(t.slice(start))
   }
-  return saetze.map(vereinheitliche).filter(Boolean)
+  return saetze.map(vereinheitliche).filter(Boolean).join(' | ')
+}
+
+/** Klick-Ansicht: Text als Wörter; trennungen[i] = nach Wort i wird getrennt */
+export function woerterUndTrennungen(text: string): { woerter: string[]; trennungen: boolean[] } {
+  const woerter: string[] = []
+  const trennungen: boolean[] = []
+  for (const stueck of text.replaceAll('|', ' | ').split(/\s+/).filter(Boolean)) {
+    if (stueck === '|') {
+      if (woerter.length) trennungen[woerter.length - 1] = true
+    } else {
+      woerter.push(stueck)
+      trennungen.push(false)
+    }
+  }
+  return { woerter, trennungen }
+}
+
+/** Umkehrung von woerterUndTrennungen (Zeilenumbrüche des Originals gehen dabei verloren) */
+export function textAusTrennungen(woerter: string[], trennungen: boolean[]): string {
+  return woerter.map((w, i) => (i < woerter.length - 1 ? w + (trennungen[i] ? ' | ' : ' ') : w)).join('')
 }
 
 /** Levenshtein-Abstand (Zeichen einfügen, löschen, ersetzen) */

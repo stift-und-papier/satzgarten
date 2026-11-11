@@ -14,7 +14,7 @@ import {
   versionenZuTeilen,
   type VersionenBlock,
 } from '../lib/lueckentext'
-import { saetzeTeilen } from '../lib/diktat'
+import { nachSaetzenTrennen, saetzeTeilen, textAusTrennungen, woerterUndTrennungen } from '../lib/diktat'
 import { gehe } from '../lib/router'
 import { supabase } from '../lib/supabase'
 import {
@@ -87,7 +87,7 @@ export const FORMATE: Record<AufgabenTyp, { name: string; kurz: string; mini: st
     kurz: 'Schüler:innen tippen einen Text ab – oder merken sich Satz für Satz und schreiben ihn aus dem Gedächtnis.',
     mini: 'Gestern war ich im Zoo. → abtippen',
     anweisung: 'Tippe den Text genau ab.',
-    beispiel: 'Gestern war ich mit meiner Klasse im Zoo. Die Affen turnten in den Bäumen, | während die Löwen schliefen. Wann gehen wir wieder hin?',
+    beispiel: 'Gestern war ich mit meiner Klasse im Zoo. | Die Affen turnten in den Bäumen, | während die Löwen schliefen. | Wann gehen wir wieder hin?',
   },
 }
 
@@ -372,9 +372,9 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                   {istDiktat ? (
                     <p>
                       Fügen Sie den Text ein. Beim <strong>Abschreiben</strong> steht er die ganze Zeit da; bei einem falschen
-                      Zeichen wartet der Cursor auf das richtige. Beim <strong>Merkdiktat</strong> erscheint immer ein Satz,
-                      nach „gemerkt“ verschwindet er und wird aus dem Gedächtnis getippt. Sätze werden nach <strong>. ? !</strong>{' '}
-                      geteilt; lange Sätze teilen Sie selbst mit <strong>|</strong> (z. B. nach einem Komma). Es zählen Buchstaben,
+                      Zeichen wartet der Cursor auf das richtige. Beim <strong>Merkdiktat</strong> erscheint immer ein Teil,
+                      nach „gemerkt“ verschwindet er und wird aus dem Gedächtnis getippt. <strong>Sie bestimmen, wo getrennt wird:</strong>{' '}
+                      mit <strong>|</strong> im Text oder per Klick zwischen zwei Wörter in der Ansicht unter dem Textfeld. Es zählen Buchstaben,
                       Groß-/Kleinschreibung und Satzzeichen; „ “ und – gelten wie " und -. Geschafft ab 90 % richtig.
                     </p>
                   ) : typ === 'ueberarbeiten' ? (
@@ -439,6 +439,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                   spellCheck={false}
                   aria-label="Aufgabentext"
                 />
+                {istDiktat && diktatModus === 'merken' && text.trim() && <TrennAnsicht text={text} onChange={setText} />}
               </>
             ) : (
               typ === 'reihenfolge' ? (
@@ -464,7 +465,9 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
               </p>
             )}
             {text && textFehler.length === 0 && istDiktat && (
-              <p className="lk-leise">✓ {saetze.length === 1 ? '1 Satz' : `${saetze.length} Sätze`} erkannt.</p>
+              <p className="lk-leise">
+                {diktatModus === 'merken' ? `✓ ${saetze.length === 1 ? '1 Teil' : `${saetze.length} Teile`} zum Merken.` : '✓ Text erkannt.'}
+              </p>
             )}
             {text && textFehler.length === 0 && typ !== 'reihenfolge' && typ !== 'ueberarbeiten' && !istDiktat && (
               <p className="lk-leise">
@@ -914,4 +917,39 @@ function vorschauPruefen(typ: AufgabenTyp, loesung: object, rueckmeldung: string
     versuche++
     return { ergebnis, rueckmeldung: ergebnis.richtig ? null : rueckmeldung || null, versuche }
   }
+}
+
+// Merkdiktat: Trennstellen per Klick setzen (Lehrkraft 2026-11-11). Zwischen zwei Wörtern liegt je ein Knopf;
+// gesetzt = blauer Strich. Die Striche im Textfeld passen sich an.
+function TrennAnsicht({ text, onChange }: { text: string; onChange: (text: string) => void }) {
+  const { woerter, trennungen } = woerterUndTrennungen(text)
+  const umschalten = (i: number) => onChange(textAusTrennungen(woerter, trennungen.map((t, j) => (j === i ? !t : t))))
+  return (
+    <div className="lk-trennen">
+      <div className="lk-zeile">
+        <p className="lk-leise">Klicken Sie zwischen zwei Wörter, um dort zu trennen – noch einmal klicken hebt die Trennung auf.</p>
+        <button type="button" className="lk-knopf" onClick={() => onChange(nachSaetzenTrennen(text))}>
+          Nach jedem Satz trennen
+        </button>
+      </div>
+      <p className="lk-trennen__text">
+        {woerter.map((w, i) => (
+          <span key={i}>
+            {w}
+            {i < woerter.length - 1 && (
+              <button
+                type="button"
+                className="lk-trenner"
+                aria-pressed={trennungen[i]}
+                aria-label={`Nach „${w}“ ${trennungen[i] ? 'nicht mehr trennen' : 'trennen'}`}
+                onClick={() => umschalten(i)}
+              >
+                <span aria-hidden="true">{trennungen[i] ? '|' : '·'}</span>
+              </button>
+            )}
+          </span>
+        ))}
+      </p>
+    </div>
+  )
 }
