@@ -24,14 +24,14 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
   - Prüfen: `grep -ri satzgarten src` findet nichts mehr außer im Protokoll; Bauen, Tests und Hallmark-Prüfung grün.
   - Dateien: `CLAUDE.md`, `src/App.tsx`, `src/stil/*`, `src/design/tokens.css`, `src/lehrkraft/LehrkraftRahmen.tsx`
 
-- [ ] **3 Lehrkraft-Konto und Anmeldung testen** (S) – hängt an 1
+- [x] **3 Lehrkraft-Konto und Anmeldung testen** (S) – hängt an 1
   - Akzeptanz: Lehrkraft legt ihr Konto im Supabase-Dashboard an (Selbst-Registrierung aus, „Auto Confirm User“),
     Anzeigename des Supabase-Projekts „wortsalat“; Anmelden und Abmelden unter der neuen Adresse klappt.
   - Prüfen: Lehrkraft meldet sich am Laptop und am iPad an.
   - Dateien: keine (Anleitung Schritt für Schritt)
 
 ### Haltepunkt 1
-- [ ] Seite läuft unter `/wortsalat/`, Anmeldung klappt, nirgends steht mehr „Satzgarten“.
+- [x] Seite läuft unter `/wortsalat/`, Anmeldung klappt, nirgends steht mehr „Satzgarten“.
   Danach (am Ende einer Sitzung): Projektordner in `C:\Users\jrkug\Projekte\wortsalat` umbenennen.
 
 ---

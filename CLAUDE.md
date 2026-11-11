@@ -109,3 +109,4 @@
   Neues Format Diktat (Abschreiben, Merkdiktat mit „gemerkt“) nach TastenHeld. Alle 7 Formate + Diktat, alle drei Zweige.
   Pixel-Look (Sprout Lands, gekauft) für Schüler:innen, Lehrkraft-Ansicht ruhig. Figuren erlaubt. Maskottchen heißt
   **Einstein** (Pixel-Figur nach eigener Vorlage). Rechtschreibkorrektur überall aus. Garten-Entwurf und Albert entfernt.
+- 2026-11-11 (Lehrkraft): Lehrkraft-Konto angelegt (Selbst-Registrierung aus), Anmeldung unter /wortsalat/ getestet – Haltepunkt 1 erreicht.
