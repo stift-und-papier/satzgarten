@@ -62,7 +62,7 @@
   Präposition gelb, Konjunktion/Subjunktion pink, Numerale petrol, Interjektion/Partikel grau.
   Fälle (Lehrkraft): Nominativ blau, Genitiv gelb, Dativ grün, Akkusativ orange.
   Satzglieder: Subjekt blau, Prädikat rot, Objekte in der Farbe ihres Falls (Akkusativobjekt orange, Dativobjekt grün, Genitivobjekt gelb),
-  Präpositionalobjekt lila, Adverbiale weinrot, Attribut pink. Zeitformen (Claude, Zeitstrahl kühl → warm):
+  Adverbiale weinrot, Attribut pink. Zeitformen (Claude, Zeitstrahl kühl → warm):
   Plusquamperfekt lila, Präteritum blau, Perfekt hellblau, Präsens grün, Futur I weinrot, Futur II orange.
   Fachbegriffe in Anweisungen färben sich automatisch (`src/gemeinsam/Anweisung.tsx`, je Aufgabe abschaltbar: `farbig={false}`).
   Markierte Wörter nehmen die Farbe an (`data-farbe`); ohne Farbe bleiben sie neutral (Antippen ohne Fachbegriff).
@@ -132,3 +132,4 @@
   freut-sich springt, huch zittert (kurz, dann Pause); Größe bleibt (2-fach). Fälle mit Farben: Nominativ blau, Genitiv gelb,
   Dativ grün, Akkusativ orange; Objekte in der Farbe ihres Falls. „Senf“ heißt jetzt „Gelb“ (Fläche kräftiger), Orange neu
   (Fläche kräftig, damit es nicht wie Pfirsich wirkt). Futur II orange statt pink (zu ähnlich zu Futur I).
+- 2026-11-11 (Lehrkraft): **Präpositionalobjekt** als Fachbegriff-Farbe entfernt (hat keinen festen Fall); Präposition bleibt gelb.

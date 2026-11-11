@@ -31,7 +31,6 @@ export const KATEGORIEN: Kategorie[] = [
   { name: 'Akkusativobjekt', gruppe: 'satzglied', farbe: 'orange', formen: ['akkusativobjekt', 'objekt'] },
   { name: 'Dativobjekt', gruppe: 'satzglied', farbe: 'gruen', formen: ['dativobjekt'] },
   { name: 'Genitivobjekt', gruppe: 'satzglied', farbe: 'gelb', formen: ['genitivobjekt'] },
-  { name: 'Präpositionalobjekt', gruppe: 'satzglied', farbe: 'lila', formen: ['praepositionalobjekt'] },
   {
     name: 'Adverbiale',
     gruppe: 'satzglied',

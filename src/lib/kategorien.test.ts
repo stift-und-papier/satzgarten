@@ -74,3 +74,10 @@ describe('fachbegriffeFaerben', () => {
     expect(fachbegriffeFaerben('Lies den Text.')).toEqual([{ text: 'Lies den Text.' }])
   })
 })
+
+describe('entfernte Begriffe', () => {
+  it('Präpositionalobjekt hat keine Farbe (Lehrkraft 2026-11-11)', () => {
+    expect(kategorieAus('Präpositionalobjekt')).toBe(null)
+    expect(fachbegriffeFaerben('Markiere das Präpositionalobjekt.').some((t) => t.kategorie)).toBe(false)
+  })
+})
