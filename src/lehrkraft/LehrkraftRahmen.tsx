@@ -2,7 +2,10 @@ import type { Session } from '@supabase/supabase-js'
 import { useEffect, useState, type ReactNode } from 'react'
 import { supabase } from '../lib/supabase'
 import { useDunkel } from '../lib/thema'
+import { AufgabeEditor, formatAusAdresse } from './AufgabeEditor'
+import { AufgabenListe } from './AufgabenListe'
 import { Anmeldung } from './Anmeldung'
+import { FormatWahl } from './FormatWahl'
 import { KlasseDetail } from './KlasseDetail'
 import { KlassenListe } from './KlassenListe'
 import { Kompetenzen } from './Kompetenzen'
@@ -21,7 +24,6 @@ const MENUE: [string, string][] = [
 
 // Platzhalter, bis die Seiten in den nächsten Aufgaben entstehen
 const KOMMT: Record<string, string> = {
-  aufgaben: 'Hier erstellen Sie bald Aufgaben (Phase 4).',
   pakete: 'Hier stellen Sie bald Aufgabenpakete zusammen (Phase 5).',
   einstellungen: 'Hier stellen Sie bald zum Beispiel ein, wie oft eine Pflanze gegossen werden muss.',
 }
@@ -33,6 +35,9 @@ function Inhalt({ pfad }: { pfad: string[] }) {
   if (bereich === 'klassen' && id) return <KlasseDetail klasseId={id} />
   if (bereich === 'klassen') return <KlassenListe />
   if (bereich === 'kompetenzen') return <Kompetenzen />
+  if (bereich === 'aufgaben' && id === 'neu') return <FormatWahl />
+  if (bereich === 'aufgaben' && id) return <AufgabeEditor key={id} aufgabeId={id.startsWith('neu-') ? null : id} neuerTyp={formatAusAdresse(id) ?? undefined} />
+  if (bereich === 'aufgaben') return <AufgabenListe />
   const titel = MENUE.find(([ziel]) => ziel === bereich)?.[1] ?? 'Seite nicht gefunden'
   return (
     <>

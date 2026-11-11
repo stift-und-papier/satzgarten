@@ -14,7 +14,7 @@ async function holen(pfad: string, optionen: RequestInit = {}) {
 }
 
 describe('Zugriff ohne Anmeldung über das Netzwerk', () => {
-  const tabellen = ['einstellungen', 'klassen', 'schueler', 'kompetenzen']
+  const tabellen = ['einstellungen', 'klassen', 'schueler', 'kompetenzen', 'aufgaben', 'aufgabe_kompetenzen']
 
   it.each(tabellen)('Tabelle %s ist nicht lesbar', async (tabelle) => {
     const { status } = await holen(`/rest/v1/${tabelle}?select=*`)

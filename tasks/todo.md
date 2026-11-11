@@ -107,7 +107,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 
 ## Phase 4: Aufgaben (`aufgaben`)
 
-- [ ] **11 Aufgaben-Grundlage, Lückentext, Eingabe ohne Korrektur** (M) – hängt an 10, Haltepunkt 2
+- [x] **11 Aufgaben-Grundlage, Lückentext, Eingabe ohne Korrektur** (M) – hängt an 10, Haltepunkt 2
   - Akzeptanz: Tabelle `aufgaben` mit getrennten Feldern `inhalt` und `loesung`, `aufgabe_kompetenzen`;
     Verteiler `pruefe_aufgabe` + `pruefe_lueckentext`; Editor mit Format-Kacheln und Live-Vorschau; Parser `[Lösung]`;
     **gemeinsames Eingabefeld** mit `autocorrect="off"`, `autocapitalize="off"`, `spellcheck="false"`, `autocomplete="off"`.
@@ -115,19 +115,19 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
     getipptes Wort bleibt falsch, Satzanfang bleibt klein.**
   - Dateien: Migration, `src/lib/lueckentext.ts` (alt), `src/lehrkraft/AufgabeEditor.tsx`, `src/gemeinsam/Eingabe.tsx`, `src/gemeinsam/LueckentextAnzeige.tsx`
 
-- [ ] **12 Format Auswahl** (S) – hängt an 11 · `[das | *dass]`, Einfach- und Mehrfachauswahl. Prüfen: Parser-Tests, DB-Test „keine Lösung“, Vorschau.
-- [ ] **13 Format Fehler finden** (S) – hängt an 11 · `[weis -> weiß]`, nur finden oder finden + eintippen. Prüfen: wie 12.
-- [ ] **14 Format Zuordnen** (S) – hängt an 11 · `[Der kleine Hund = Subjekt]`, Textmarker-Bedienung. Prüfen: wie 12.
-- [ ] **15 Format Reihenfolge** (M) – hängt an 11 · Bausteine mit `|`, Varianten, antippen und ziehen (dnd-kit). Prüfen: wie 12 + Ziehen am iPad.
-- [ ] **16 Format Sätze verbessern** (S) – hängt an 11 · 2–4 Versionen, Hinweise erst nach dem Prüfen. Prüfen: wie 12; DB-Test Hinweise.
-- [ ] **17 Erklärseite** (S) – hängt an 11 · Text, Merkkasten, Beispiele; zählt nie für Lernstand. Prüfen: DB-Test `zaehlt_fuer_lernstand = false`.
+- [x] **12 Format Auswahl** (S) – hängt an 11 · `[das | *dass]`, Einfach- und Mehrfachauswahl. Prüfen: Parser-Tests, DB-Test „keine Lösung“, Vorschau.
+- [x] **13 Format Fehler finden** (S) – hängt an 11 · `[weis -> weiß]`, nur finden oder finden + eintippen. Prüfen: wie 12.
+- [x] **14 Format Zuordnen** (S) – hängt an 11 · `[Der kleine Hund = Subjekt]`, Textmarker-Bedienung. Prüfen: wie 12.
+- [ ] **15 Format Reihenfolge** (M) – hängt an 11 · Bausteine mit `|`, Varianten, antippen und ziehen (dnd-kit). Prüfen: wie 12 + Ziehen am iPad. · Antippen getestet, **Ziehen am iPad noch offen** (Haltepunkt 4).
+- [x] **16 Format Sätze verbessern** (S) – hängt an 11 · 2–4 Versionen, Hinweise erst nach dem Prüfen. Prüfen: wie 12; DB-Test Hinweise.
+- [ ] **17 Erklärseite** (S) – hängt an 11 · Text, Merkkasten, Beispiele; zählt nie für Lernstand. Prüfen: DB-Test `zaehlt_fuer_lernstand = false`. · Seite fertig; der DB-Test `zaehlt_fuer_lernstand = false` folgt mit der Tabelle `versuche` in Aufgabe 25.
 
-- [ ] **18 Aufgabenliste mit Filter und Sortierung** (M) – hängt an 11
+- [x] **18 Aufgabenliste mit Filter und Sortierung** (M) – hängt an 11
   - Akzeptanz: Titelsuche, Jahrgang, Bereich, Kompetenz; Sortieren nach Titel/Format/Stufe.
   - Prüfen: Tests Filter und Sortierung (alt).
   - Dateien: `src/lib/filter.ts` (alt), `src/lib/sortierung.ts` (alt), `src/lehrkraft/AufgabenListe.tsx`
 
-- [ ] **19 Fachbegriff-Farben in Anweisungen** (S) – hängt an 11
+- [x] **19 Fachbegriff-Farben in Anweisungen** (S) – hängt an 11
   - Akzeptanz: `Anweisung.tsx` färbt Fachbegriffe in Aufgaben automatisch, je Aufgabe abschaltbar.
   - Prüfen: vorhandene Tests `kategorien.test.ts`; Vorschau.
 

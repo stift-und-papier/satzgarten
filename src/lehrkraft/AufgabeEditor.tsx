@@ -1,0 +1,876 @@
+// alt (Übungswiese), auf die Lehrkraft-Ansicht „ruhig“ (lk-*) umgestellt
+import { useEffect, useMemo, useState } from 'react'
+import { AufgabeBearbeiten } from '../gemeinsam/AufgabeBearbeiten'
+import { fehlerText } from '../lib/fehler'
+import {
+  bloeckeZuText,
+  kategorienAus,
+  ohneLoesung,
+  reihenZuTeilen,
+  stelleZuText,
+  teileZuText,
+  textZuTeilen,
+  versionenBloecke,
+  versionenZuTeilen,
+  type VersionenBlock,
+} from '../lib/lueckentext'
+import { gehe } from '../lib/router'
+import { supabase } from '../lib/supabase'
+import {
+  type Antworten,
+  type Aufgabe,
+  type AufgabenTyp,
+  type Darstellung,
+  type LueckentextTeil,
+  type Pruefergebnis,
+  type Stufe,
+} from '../lib/typen'
+import { KompetenzAuswahl } from './KompetenzAuswahl'
+
+// Je Format: Name, kurze Beschreibung und Mini-Beispiel (Format-Kacheln), Standard-Arbeitsanweisung und
+// Beispiel für den Texteingabe-Modus. Die Reihenfolge hier ist die Reihenfolge der Kacheln.
+export const FORMATE: Record<AufgabenTyp, { name: string; kurz: string; mini: string; anweisung: string; beispiel: string }> = {
+  lueckentext: {
+    name: 'Lückentext',
+    kurz: 'Schüler:innen tippen fehlende Wörter ein.',
+    mini: 'Ich weiß, ____ du kommst.',
+    anweisung: 'Ergänze die Lücken.',
+    beispiel: 'Ich weiß, [dass] du heute [Rad fährst/radfährst].',
+  },
+  auswahl: {
+    name: 'Auswahl',
+    kurz: 'Schüler:innen tippen die richtige Möglichkeit an – auch mehrere.',
+    mini: 'Ich weiß, [das | dass] du kommst.',
+    anweisung: 'Tippe die richtige Antwort an.',
+    beispiel: 'Ich weiß, [das | *dass] du kommst.\n\nWelche Wörter sind Nomen?\n[*Hund | laufen | *Baum | schnell]',
+  },
+  zuordnen: {
+    name: 'Zuordnen',
+    kurz: 'Schüler:innen markieren Wörter mit einem Kategorie-„Stift“.',
+    mini: 'Hund → Nomen · läuft → Verb',
+    anweisung: 'Wähle oben eine Kategorie und tippe die passenden Wörter an.',
+    beispiel: 'Der [Hund = Nomen] [läuft = Verb] [schnell = Adjektiv] über die [Wiese = Nomen].',
+  },
+  fehler: {
+    name: 'Fehler finden',
+    kurz: 'Schüler:innen tippen Fehlerwörter an und verbessern sie auf Wunsch.',
+    mini: 'Ich weis nicht … → weiß',
+    anweisung: 'Finde die Fehler im Text.',
+    beispiel: 'Ich [weis -> weiß] nicht, ob mein Bruder heute [komt -> kommt]. Wir wollen [radfahren -> Rad fahren].',
+  },
+  reihenfolge: {
+    name: 'Reihenfolge',
+    kurz: 'Schüler:innen bringen Satzbausteine in eine richtige Reihenfolge.',
+    mini: 'ins Kino · gestern · gegangen · bin ich',
+    anweisung: 'Bring die Bausteine in die richtige Reihenfolge.',
+    beispiel:
+      'Varianten: 2\ngestern | bin ich | ins Kino | gegangen.\nins Kino | bin ich | gestern | gegangen.\n\nder Hund | bellt | laut.',
+  },
+  ueberarbeiten: {
+    name: 'Sätze verbessern',
+    kurz: 'Schüler:innen wählen die bessere Version eines Satzes und lesen danach die Begründung.',
+    mini: 'Version A oder Version B?',
+    anweisung: 'Welche Version ist besser? Tippe sie an.',
+    beispiel:
+      'Kontext: Gestern war ich im Zoo.\nDann sah ich die Löwen und dann sah ich die Affen.\nHinweis: Hier steht zweimal „dann sah ich“. Das klingt eintönig.\n*Zuerst sah ich die Löwen, danach die Affen.\nHinweis: Die Wiederholung ist vermieden, der Satz ist kürzer.',
+  },
+  erklaerung: {
+    name: 'Erklärung',
+    kurz: 'Eine Seite, die ein Thema erklärt – mit Merkkasten und Beispielen. Steht im Paket zwischen den Aufgaben.',
+    mini: 'Merke: „dass“ lässt sich nicht durch „dieses“ ersetzen.',
+    anweisung: '',
+    beispiel: '',
+  },
+}
+
+/** Aufgabenformat aus der Adresse („neu-auswahl“ → auswahl), sonst null */
+export function formatAusAdresse(id: string): AufgabenTyp | null {
+  const typ = id.replace(/^neu-/, '')
+  return id.startsWith('neu-') && typ in FORMATE ? (typ as AufgabenTyp) : null
+}
+
+// Aufklappbarer Bereich: Anfangszustand einmal festgelegt (z. B. Erklärung offen, solange noch kein Text da ist),
+// danach klappt die Lehrkraft selbst auf und zu.
+function Aufklappbar(p: { offen: boolean; titel: string; klasse: string; titelKlasse: string; children: React.ReactNode }) {
+  const [auf, setAuf] = useState(p.offen)
+  return (
+    <details className={p.klasse} open={auf} onToggle={(e) => setAuf(e.currentTarget.open)}>
+      <summary className={p.titelKlasse}>{p.titel}</summary>
+      {p.children}
+    </details>
+  )
+}
+
+const Erklaerung = ({ offen, children }: { offen: boolean; children: React.ReactNode }) => (
+  <Aufklappbar offen={offen} titel="So schreiben Sie die Aufgabe" klasse="lk-erklaerung" titelKlasse="lk-aufklapp">
+    {children}
+  </Aufklappbar>
+)
+
+// Aufgabe anlegen oder bearbeiten (alle Formate) – wahlweise als Text mit [Klammern] oder per Formular.
+export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabeId: string | null; neuerTyp?: AufgabenTyp }) {
+  const [typ, setTyp] = useState<AufgabenTyp>(neuerTyp)
+  const [darstellung, setDarstellung] = useState<Darstellung>('antippen')
+  // Zuordnen: selbst eingetragene Kategorien (z. B. zusätzliche „Ablenker-Kategorien“), mit Komma getrennt
+  const [kategorienText, setKategorienText] = useState('')
+  // Fehler finden: auch die richtige Form eintippen lassen? Anzahl der Fehler anzeigen?
+  const [korrigieren, setKorrigieren] = useState(false)
+  const [anzahlZeigen, setAnzahlZeigen] = useState(true)
+  const [titel, setTitel] = useState('')
+  const [anweisung, setAnweisung] = useState(FORMATE[neuerTyp].anweisung)
+  const [hinweis, setHinweis] = useState('')
+  const [rueckmeldung, setRueckmeldung] = useState('')
+  const [stufe, setStufe] = useState<Stufe>(2)
+  const [farbig, setFarbig] = useState(true)
+  const [grossKlein, setGrossKlein] = useState(true)
+  const [text, setText] = useState('')
+  const [modus, setModus] = useState<'text' | 'formular'>('text')
+  const [fehler, setFehler] = useState<string | null>(null)
+  const [gespeichert, setGespeichert] = useState(false)
+  const [geladen, setGeladen] = useState(aufgabeId === null)
+  const [kompetenzIds, setKompetenzIds] = useState<Set<string>>(new Set())
+  const [kompetenzIdsAlt, setKompetenzIdsAlt] = useState<Set<string>>(new Set())
+  // Erklärseite: Erklärtext, Merkkasten, Beispiele (eine Zeile je Beispiel)
+  const [erkl, setErkl] = useState({ text: '', merke: '', beispiele: '' })
+
+  useEffect(() => {
+    if (!aufgabeId) return
+    void supabase
+      .from('aufgabe_kompetenzen')
+      .select('kompetenz_id')
+      .eq('aufgabe_id', aufgabeId)
+      .then(({ data }) => {
+        const ids = new Set((data ?? []).map((z) => z.kompetenz_id as string))
+        setKompetenzIds(ids)
+        setKompetenzIdsAlt(ids)
+      })
+    void supabase
+      .from('aufgaben')
+      .select('id, typ, titel, anweisung, farbig, hinweis, rueckmeldung_fehler, stufe, loesung, geaendert_am')
+      .eq('id', aufgabeId)
+      .single()
+      .then(({ data, error }) => {
+        if (error) return setFehler(fehlerText(error))
+        const a = data as Aufgabe
+        setTyp(a.typ)
+        const l = a.loesung
+        setDarstellung(l.darstellung ?? 'antippen')
+        setKategorienText((l.kategorien ?? []).join(', '))
+        setKorrigieren(l.korrigieren ?? false)
+        setAnzahlZeigen(l.anzahl_zeigen ?? true)
+        setTitel(a.titel)
+        setAnweisung(a.anweisung)
+        setHinweis(a.hinweis ?? '')
+        setRueckmeldung(a.rueckmeldung_fehler ?? '')
+        setStufe(a.stufe)
+        setFarbig(a.farbig)
+        setGrossKlein(l.gross_klein_beachten ?? true)
+        setText(l.text ?? teileZuText(l.teile))
+        if (l.erklaerung)
+          setErkl({ text: l.erklaerung.text, merke: l.erklaerung.merke, beispiele: l.erklaerung.beispiele.join('\n') })
+        setGeladen(true)
+      })
+  }, [aufgabeId])
+
+  // Format wechseln (nur neue Aufgaben): Standard-Anweisung mitwechseln, wenn sie nicht selbst geändert wurde.
+  // Der Text bleibt stehen; ein leerer Text bekommt so die passende Erklärung.
+  function formatWechseln(neu: AufgabenTyp) {
+    if (anweisung === FORMATE[typ].anweisung) setAnweisung(FORMATE[neu].anweisung)
+    setModus('text')
+    setTyp(neu)
+  }
+
+  const istErklaerung = typ === 'erklaerung'
+  const erklaerung = {
+    text: erkl.text.trim(),
+    merke: erkl.merke.trim(),
+    beispiele: erkl.beispiele.split('\n').map((b) => b.trim()).filter(Boolean),
+  }
+  const { teile, fehler: textFehler } = useMemo(
+    () =>
+      typ === 'erklaerung'
+        ? { teile: [], fehler: [] }
+        : typ === 'reihenfolge'
+          ? reihenZuTeilen(text)
+          : typ === 'ueberarbeiten'
+            ? versionenZuTeilen(text)
+            : textZuTeilen(text, typ === 'fehler' ? 'fehler' : typ === 'zuordnen'),
+    [text, typ],
+  )
+  const kategorien = typ === 'zuordnen' ? kategorienAus(teile, kategorienText.split(',')) : undefined
+  const fehlerOptionen = typ === 'fehler' ? { korrigieren, anzahl_zeigen: anzahlZeigen } : {}
+  // Spalte loesung (mit Lösungen); die Schüler-Fassung (inhalt) erzeugt die Datenbank daraus
+  const loesung = istErklaerung
+    ? { text: '', gross_klein_beachten: true, teile: [], erklaerung }
+    : { text, gross_klein_beachten: grossKlein, darstellung, kategorien, ...fehlerOptionen, teile }
+  const erklaerungLeer = !erklaerung.text && !erklaerung.merke
+  const format = FORMATE[typ]
+  const BEISPIEL = format.beispiel
+  const hatLuecke = teile.some((t) => t.t === 'luecke') || (typ === 'fehler' && korrigieren)
+  const hatAuswahl = teile.some((t) => t.t === 'auswahl')
+
+  async function speichern() {
+    setFehler(null)
+    if (!titel.trim()) return setFehler('Bitte einen Titel eingeben.')
+    if (textFehler.length) return setFehler('Der Aufgabentext hat noch Fehler (siehe oben).')
+    if (istErklaerung && erklaerungLeer) return setFehler('Bitte einen Erklärtext oder einen Merksatz schreiben.')
+    const datensatz = {
+      typ,
+      titel: titel.trim(),
+      anweisung: anweisung.trim(),
+      hinweis: hinweis.trim() || null,
+      rueckmeldung_fehler: rueckmeldung.trim() || null,
+      farbig,
+      stufe,
+      loesung,
+    }
+    const { data, error } = aufgabeId
+      ? await supabase.from('aufgaben').update(datensatz).eq('id', aufgabeId).select('id').single()
+      : await supabase.from('aufgaben').insert(datensatz).select('id').single()
+    if (error) return setFehler(fehlerText(error))
+
+    // Kompetenz-Zuordnung angleichen
+    const entfernt = [...kompetenzIdsAlt].filter((id) => !kompetenzIds.has(id))
+    const neu = [...kompetenzIds].filter((id) => !kompetenzIdsAlt.has(id))
+    if (entfernt.length) {
+      const r = await supabase.from('aufgabe_kompetenzen').delete().eq('aufgabe_id', data.id).in('kompetenz_id', entfernt)
+      if (r.error) return setFehler(fehlerText(r.error))
+    }
+    if (neu.length) {
+      const r = await supabase.from('aufgabe_kompetenzen').insert(neu.map((kompetenz_id) => ({ aufgabe_id: data.id, kompetenz_id })))
+      if (r.error) return setFehler(fehlerText(r.error))
+    }
+    setKompetenzIdsAlt(new Set(kompetenzIds))
+    setGespeichert(true)
+    window.setTimeout(() => setGespeichert(false), 2500)
+    if (!aufgabeId) gehe(`/lehrkraft/aufgaben/${data.id}`)
+  }
+
+  async function loeschen() {
+    if (!aufgabeId) return
+    const ok = window.confirm(
+      'Diese Aufgabe endgültig löschen?\n\nSie verschwindet aus allen Paketen, und alle Versuche der Schüler:innen zu dieser Aufgabe werden gelöscht.',
+    )
+    if (!ok) return
+    const { error } = await supabase.from('aufgaben').delete().eq('id', aufgabeId)
+    if (error) setFehler(fehlerText(error))
+    else gehe('/lehrkraft/aufgaben')
+  }
+
+  if (!geladen) return fehler ? <p className="lk-hinweis" role="alert">{fehler}</p> : <p>Lädt …</p>
+
+  return (
+    <>
+      <a className="lk-zurueck" href="#/lehrkraft/aufgaben">
+        ← Alle Aufgaben
+      </a>
+      <div className="lk-zeile">
+        <h1>{aufgabeId ? `${format.name} bearbeiten` : 'Neue Aufgabe'}</h1>
+        {/* Format nur bei neuen Aufgaben umschaltbar – gespeicherte Antworten passen sonst nicht mehr */}
+        {!aufgabeId && (
+          <label>
+            Format
+            <select className="lk-feld" value={typ} onChange={(e) => formatWechseln(e.target.value as AufgabenTyp)}>
+              {(Object.keys(FORMATE) as AufgabenTyp[]).map((t) => (
+                <option key={t} value={t}>
+                  {FORMATE[t].name}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+      </div>
+
+      <div className="lk-formular">
+        <section className="lk-abschnitt">
+          <h2>1 · Inhalt</h2>
+          <div className="lk-editor">
+            <div className="lk-formular">
+          {istErklaerung ? (
+            <>
+              <label>
+                Erklärtext (Leerzeile = neuer Absatz; [Wort] wird hervorgehoben)
+                <textarea className="lk-feld"
+                  rows={6}
+                  value={erkl.text}
+                  onChange={(e) => setErkl({ ...erkl, text: e.target.value })}
+                  placeholder="„das“ ist ein Artikel oder ein Pronomen. „dass“ ist eine Konjunktion: Es leitet einen Nebensatz ein."
+                />
+              </label>
+              <label>
+                Merkkasten (erscheint als „Merke“-Kasten)
+                <textarea className="lk-feld"
+                  rows={3}
+                  value={erkl.merke}
+                  onChange={(e) => setErkl({ ...erkl, merke: e.target.value })}
+                  placeholder="Kannst du „dieses“, „jenes“ oder „welches“ einsetzen, schreibst du „das“."
+                />
+              </label>
+              <label>
+                Beispiele (ein Beispielsatz pro Zeile; [Wort] wird hervorgehoben)
+                <textarea className="lk-feld"
+                  rows={4}
+                  value={erkl.beispiele}
+                  onChange={(e) => setErkl({ ...erkl, beispiele: e.target.value })}
+                  placeholder={'Ich hoffe, [dass] du kommst.\n[Das] Buch ist spannend.'}
+                />
+              </label>
+            </>
+          ) : (
+          <>
+          <label>
+            Arbeitsanweisung (sehen die Schüler:innen über der Aufgabe)
+            <input className="lk-feld" value={anweisung} onChange={(e) => setAnweisung(e.target.value)} />
+          </label>
+          <label className="lk-haken">
+            <input type="checkbox" checked={farbig} onChange={(e) => setFarbig(e.target.checked)} />
+            Fachbegriffe in der Anweisung farbig zeigen (z. B. „Verben“ rot)
+          </label>
+
+          <fieldset>
+            <legend>Aufgabentext</legend>
+            <div className="lk-reiter" role="group">
+              <button type="button" className="lk-knopf" aria-pressed={modus === 'text'} onClick={() => setModus('text')}>
+                Als Text mit [Klammern]
+              </button>
+              <button type="button" className="lk-knopf" aria-pressed={modus === 'formular'} onClick={() => setModus('formular')}>
+                Per Formular
+              </button>
+            </div>
+
+            {modus === 'text' ? (
+              <>
+                <Erklaerung offen={!text}>
+                  {typ === 'ueberarbeiten' ? (
+                    <p>
+                      Schreiben Sie jede Version eines Satzes in eine <strong>eigene Zeile</strong> (2 bis 4 Versionen) und
+                      markieren Sie die bessere mit <strong>*</strong>. Unter jede Version gehört eine Zeile{' '}
+                      <code>Hinweis: …</code> mit der Begründung – Schüler:innen sehen die Hinweise erst nach dem Prüfen.
+                      Optional steht darüber <code>Kontext: …</code> (z. B. der Satz davor). Eine <strong>Leerzeile</strong>{' '}
+                      beginnt einen neuen Satz. Die Versionen erscheinen in der Reihenfolge, in der Sie sie schreiben.
+                    </p>
+                  ) : typ === 'reihenfolge' ? (
+                    <p>
+                      Schreiben Sie jeden Satz in die richtige Reihenfolge und trennen Sie die Bausteine mit <strong>|</strong>.
+                      Gibt es weitere richtige Reihenfolgen, schreiben Sie sie in die Zeilen <strong>direkt darunter</strong>.
+                      Eine <strong>Leerzeile</strong> beginnt einen neuen Satz. Schreiben Sie das erste Wort so, wie es mitten
+                      im Satz stünde (z. B. <code>gestern</code>), und setzen Sie das Satzzeichen ans Ende. Schüler:innen
+                      sehen Bausteine gemischt, ohne großen Satzanfang und ohne Satzzeichen – beides erscheint erst, wenn der
+                      Satz richtig ist. Die Satzart wird aus dem Satzzeichen erkannt (. ? !); sonst eine Zeile{' '}
+                      <code>Satzart: Ausrufesatz</code> darüber schreiben. Sollen mehrere richtige Sätze gebildet werden,
+                      schreiben Sie z. B. <code>Varianten: 2</code> darüber.
+                    </p>
+                  ) : typ === 'fehler' ? (
+                    <p>
+                      Schreiben Sie den Text und setzen Sie jedes Fehlerwort so in Klammern:{' '}
+                      <strong>[Fehlerwort -&gt; Verbesserung]</strong>, z. B. <code>[weis -&gt; weiß]</code>. Mehrere richtige
+                      Verbesserungen trennen Sie mit <strong>/</strong>. Für Zeichensetzung markieren Sie das Wort davor, z. B.{' '}
+                      <code>[weiß -&gt; weiß,]</code>. Alle übrigen Wörter sind ebenfalls antippbar, aber fehlerfrei.
+                    </p>
+                  ) : typ === 'zuordnen' ? (
+                    <p>
+                      Schreiben Sie den Satz und setzen Sie jedes Wort oder jede Wortgruppe, die zugeordnet werden soll, so in
+                      Klammern: <strong>[Wort = Kategorie]</strong>, z. B. <code>[Der kleine Hund = Subjekt]</code>. Alle
+                      übrigen Wörter sind für Schüler:innen ebenfalls antippbar, gehören aber zu keiner Kategorie.
+                    </p>
+                  ) : typ === 'auswahl' ? (
+                    <p>
+                      Setzen Sie jede Auswahl in <strong>[eckige Klammern]</strong>, trennen Sie die Möglichkeiten mit{' '}
+                      <strong>|</strong> und markieren Sie die richtige mit <strong>*</strong>. Mehrere <strong>*</strong> ergeben
+                      eine Mehrfachauswahl. Lücken zum Eintippen (<code>[Lösung]</code>) können Sie dazwischen mischen.
+                    </p>
+                  ) : (
+                    <p>
+                      Schreiben Sie den Text und setzen Sie jedes gesuchte Wort in <strong>[eckige Klammern]</strong>. Gibt es
+                      mehrere richtige Lösungen, trennen Sie sie mit <strong>/</strong>. Eine Auswahl zum Antippen schreiben
+                      Sie so: <code>[das | *dass]</code>.
+                    </p>
+                  )}
+                  <p>
+                    Beispiel: <code>{BEISPIEL}</code>{' '}
+                    <button type="button" className="lk-knopf" onClick={() => setText(BEISPIEL)}>
+                      Beispiel einfügen
+                    </button>
+                  </p>
+                </Erklaerung>
+                <textarea className="lk-feld"
+                  rows={7}
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  placeholder={BEISPIEL}
+                  spellCheck={false}
+                  aria-label="Aufgabentext"
+                />
+              </>
+            ) : (
+              typ === 'reihenfolge' ? (
+                <ReihenFormular text={text} onChange={setText} />
+              ) : typ === 'ueberarbeiten' ? (
+                <VersionenFormular text={text} onChange={setText} />
+              ) : (
+                <FormularModus teile={teile} onChange={setText} />
+              )
+            )}
+
+            {text && textFehler.length > 0 && (
+              <ul className="lk-hinweis" role="alert">
+                {textFehler.map((f) => (
+                  <li key={f}>{f}</li>
+                ))}
+              </ul>
+            )}
+            {text && textFehler.length === 0 && (typ === 'reihenfolge' || typ === 'ueberarbeiten') && (
+              <p className="lk-leise">
+                ✓ {teile.length === 1 ? '1 Satz' : `${teile.length} Sätze`} {typ === 'reihenfolge' ? 'zum Ordnen' : 'mit Versionen'}{' '}
+                erkannt.
+              </p>
+            )}
+            {text && textFehler.length === 0 && typ !== 'reihenfolge' && typ !== 'ueberarbeiten' && (
+              <p className="lk-leise">
+                ✓ {teile.filter((t) => t.t === 'luecke').length} Lücke(n) und {teile.filter((t) => t.t === 'auswahl').length}{' '}
+                Auswahl-Stelle(n) erkannt.
+              </p>
+            )}
+
+            {hatLuecke && (
+              <label className="lk-haken">
+                <input type="checkbox" checked={grossKlein} onChange={(e) => setGrossKlein(e.target.checked)} />
+                Groß-/Kleinschreibung wird bewertet
+              </label>
+            )}
+            {typ === 'fehler' && (
+              <div>
+                <div className="lk-reiter" role="group">
+                  <button type="button" className="lk-knopf" aria-pressed={!korrigieren} onClick={() => setKorrigieren(false)}>
+                    Nur Fehler finden
+                  </button>
+                  <button type="button" className="lk-knopf" aria-pressed={korrigieren} onClick={() => setKorrigieren(true)}>
+                    Finden und verbessern (eintippen)
+                  </button>
+                </div>
+                <label className="lk-haken">
+                  <input type="checkbox" checked={anzahlZeigen} onChange={(e) => setAnzahlZeigen(e.target.checked)} />
+                  Anzahl der Fehler anzeigen („Finde {teile.filter((t) => t.t === 'wort' && t.korrekturen).length} Fehler“)
+                </label>
+              </div>
+            )}
+            {typ === 'zuordnen' && (
+              <label>
+                Kategorien („Stifte“) – die im Text verwendeten kommen automatisch dazu. Weitere als Ablenker mit Komma trennen:
+                <input className="lk-feld"
+                  value={kategorienText}
+                  onChange={(e) => setKategorienText(e.target.value)}
+                  placeholder="z. B. Nomen, Verb, Adjektiv, Artikel"
+                />
+                {kategorien && kategorien.length > 0 && <span className="lk-leise">Schüler:innen sehen: {kategorien.join(' · ')}</span>}
+              </label>
+            )}
+            {hatAuswahl && (
+              <div>
+                <p className="lk-leise" style={{ margin: 0 }}>
+                  So wählen Schüler:innen aus (Mehrfachauswahl immer per Antippen):
+                </p>
+                <div className="lk-reiter" role="group">
+                  <button type="button" className="lk-knopf" aria-pressed={darstellung === 'antippen'} onClick={() => setDarstellung('antippen')}>
+                    Antippen
+                  </button>
+                  <button type="button" className="lk-knopf" aria-pressed={darstellung === 'dropdown'} onClick={() => setDarstellung('dropdown')}>
+                    Dropdown in der Lücke
+                  </button>
+                </div>
+              </div>
+            )}
+          </fieldset>
+          </>
+          )}
+            </div>
+
+            {/* Live-Vorschau: so sehen es Schüler:innen; „Prüfen“ prüft wie echt, speichert aber nichts */}
+            <div className="lk-editor__vorschau">
+              <h3>So sehen es Schüler:innen</h3>
+              {(istErklaerung ? !erklaerungLeer : text && textFehler.length === 0) ? (
+                <div className="lk-vorschau">
+                  <AufgabeBearbeiten
+                    key={JSON.stringify([loesung, anweisung, hinweis, farbig])}
+                    aufgabe={{
+                      id: aufgabeId ?? 'vorschau',
+                      typ,
+                      titel: titel || format.name,
+                      anweisung,
+                      farbig,
+                      hinweis: hinweis || null,
+                      stufe,
+                      inhalt: istErklaerung ? { teile: [], erklaerung } : ohneLoesung(teile, darstellung, kategorien, fehlerOptionen),
+                      versuche: 0,
+                      geloest: false,
+                      loesung_angesehen: false,
+                    }}
+                    pruefen={vorschauPruefen(typ, loesung, rueckmeldung)}
+                  />
+                  <p className="lk-leise">Probieren Sie die Aufgabe hier aus – in der Vorschau wird nichts gespeichert.</p>
+                </div>
+              ) : (
+                <p className="lk-leise">
+                  {text ? 'Die Vorschau erscheint, sobald der Aufgabentext keine Fehler mehr hat.' : 'Hier erscheint die Aufgabe, sobald Sie Text eingeben.'}
+                </p>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <section className="lk-abschnitt">
+          <h2>2 · Einordnen</h2>
+          <label>
+            Titel (sehen auch die Schüler:innen)
+            <input className="lk-feld" value={titel} onChange={(e) => setTitel(e.target.value)} maxLength={120} placeholder="z. B. das oder dass?" />
+          </label>
+          {istErklaerung ? (
+            <p className="lk-leise">
+              Erklärseiten zählen im Paket als erledigt, sobald Schüler:innen „Verstanden“ antippen – aber nie für den
+              Lernstand. Darum gibt es hier keine Stufe und keine Kompetenzen.
+            </p>
+          ) : (
+            <>
+          <fieldset>
+            <legend>Stufe</legend>
+            <div className="lk-reiter" role="group">
+              {([1, 2, 3] as const).map((s) => (
+                <button type="button" key={s} className="lk-knopf" aria-pressed={stufe === s} onClick={() => setStufe(s)} aria-label={`Stufe ${s} von 3`}>
+                  {'★'.repeat(s) + '☆'.repeat(3 - s)}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+          <KompetenzAuswahl ausgewaehlt={kompetenzIds} onChange={setKompetenzIds} />
+            </>
+          )}
+        </section>
+
+        {!istErklaerung && (
+        <Aufklappbar
+          offen={Boolean(hinweis || rueckmeldung)}
+          titel="3 · Extras (freiwillig): Tipp und Rückmeldung"
+          klasse="editor-abschnitt"
+          titelKlasse="editor-abschnitt__titel"
+        >
+          <label>
+            Tipp (Schüler:innen können ihn aufklappen)
+            <input className="lk-feld" value={hinweis} onChange={(e) => setHinweis(e.target.value)} placeholder="z. B. Kannst du „dieses“ oder „welches“ einsetzen?" />
+          </label>
+          <label>
+            Rückmeldung bei Fehlern (erscheint nach falschem Prüfen)
+            <input className="lk-feld"
+              value={rueckmeldung}
+              onChange={(e) => setRueckmeldung(e.target.value)}
+              placeholder="z. B. Denk an die Ersatzprobe: „das“ kann man durch „dieses“ ersetzen."
+            />
+          </label>
+        </Aufklappbar>
+        )}
+
+        {fehler && <p className="lk-hinweis" role="alert">{fehler}</p>}
+        <div className="lk-knopfreihe">
+          <button type="button" className="lk-knopf lk-knopf--haupt" onClick={() => void speichern()}>
+            {gespeichert ? '✓ Gespeichert' : 'Speichern'}
+          </button>
+          {aufgabeId && (
+            <button type="button" className="lk-knopf" onClick={() => void loeschen()}>
+              Aufgabe löschen
+            </button>
+          )}
+        </div>
+      </div>
+    </>
+  )
+}
+
+// Formular: Textstücke, Lücken, Auswahl-Stellen und Zuordnungen nacheinander.
+// Sie werden als Rohtext gehalten (z. B. "a/", "das | *dass", "Hund = Nomen"), damit man beim Tippen nichts verliert.
+type Zeile = { art: 'text'; v: string } | { art: 'luecke' | 'auswahl' | 'einheit' | 'wort'; roh: string }
+
+// Wörter ohne Kategorie (Ablenker) gehören im Formular zum normalen Text; benachbarte Textstücke werden zusammengefasst.
+function zeilenAus(teile: LueckentextTeil[]): Zeile[] {
+  const zeilen: Zeile[] = []
+  for (const t of teile) {
+    const text = t.t === 'text' ? t.v : (t.t === 'einheit' && !t.kategorie) || (t.t === 'wort' && !t.korrekturen) ? t.v : null
+    const letzte = zeilen[zeilen.length - 1]
+    if (text !== null) {
+      if (letzte && letzte.art === 'text') zeilen[zeilen.length - 1] = { art: 'text', v: letzte.v + text }
+      else zeilen.push({ art: 'text', v: text })
+    } else if (t.t !== 'text' && t.t !== 'reihe' && t.t !== 'versionen') {
+      zeilen.push({ art: t.t, roh: stelleZuText(t) })
+    }
+  }
+  return zeilen
+}
+
+function FormularModus({ teile, onChange }: { teile: LueckentextTeil[]; onChange: (text: string) => void }) {
+  const [zeilen, setZeilen] = useState<Zeile[]>(() => zeilenAus(teile))
+
+  function setzen(neu: Zeile[]) {
+    setZeilen(neu)
+    onChange(neu.map((z) => (z.art === 'text' ? z.v : `[${z.roh}]`)).join(''))
+  }
+  const aendern = (index: number, neu: Zeile) => setzen(zeilen.map((z, i) => (i === index ? neu : z)))
+  let stellenNr = 0
+
+  return (
+    <div className="lk-formular">
+      {zeilen.length === 0 && <p className="lk-leise">Fügen Sie unten abwechselnd Text, Lücken und Auswahl-Stellen hinzu.</p>}
+      {zeilen.map((z, i) => (
+        <div key={i} className="lk-teil">
+          {z.art === 'text' ? (
+            <label>
+              Text
+              <textarea className="lk-feld" rows={2} value={z.v} onChange={(e) => aendern(i, { art: 'text', v: e.target.value })} spellCheck={false} />
+            </label>
+          ) : z.art === 'luecke' ? (
+            <label>
+              Lücke {++stellenNr}: richtige Lösung(en), mehrere mit / trennen
+              <input className="lk-feld" value={z.roh} onChange={(e) => aendern(i, { art: 'luecke', roh: e.target.value })} spellCheck={false} />
+            </label>
+          ) : z.art === 'wort' ? (
+            <label>
+              Fehler {++stellenNr}: Fehlerwort -&gt; Verbesserung (mehrere Verbesserungen mit / trennen)
+              <input className="lk-feld"
+                value={z.roh}
+                onChange={(e) => aendern(i, { art: 'wort', roh: e.target.value })}
+                spellCheck={false}
+                placeholder="weis -> weiß"
+              />
+            </label>
+          ) : z.art === 'einheit' ? (
+            <label>
+              Zuordnung {++stellenNr}: Wort oder Wortgruppe = Kategorie
+              <input className="lk-feld"
+                value={z.roh}
+                onChange={(e) => aendern(i, { art: 'einheit', roh: e.target.value })}
+                spellCheck={false}
+                placeholder="Der kleine Hund = Subjekt"
+              />
+            </label>
+          ) : (
+            <label>
+              Auswahl {++stellenNr}: Möglichkeiten mit | trennen, richtige mit * markieren
+              <input className="lk-feld"
+                value={z.roh}
+                onChange={(e) => aendern(i, { art: 'auswahl', roh: e.target.value })}
+                spellCheck={false}
+                placeholder="das | *dass"
+              />
+            </label>
+          )}
+          <button type="button" className="lk-knopf" onClick={() => setzen(zeilen.filter((_, j) => j !== i))} aria-label="Entfernen">
+            ✕
+          </button>
+        </div>
+      ))}
+      <div className="lk-knopfreihe">
+        <button type="button" className="lk-knopf" onClick={() => setzen([...zeilen, { art: 'text', v: ' ' }])}>
+          + Text
+        </button>
+        <button type="button" className="lk-knopf" onClick={() => setzen([...zeilen, { art: 'luecke', roh: '' }])}>
+          + Lücke
+        </button>
+        <button type="button" className="lk-knopf" onClick={() => setzen([...zeilen, { art: 'auswahl', roh: '' }])}>
+          + Auswahl
+        </button>
+        <button type="button" className="lk-knopf" onClick={() => setzen([...zeilen, { art: 'einheit', roh: '' }])}>
+          + Zuordnung
+        </button>
+        <button type="button" className="lk-knopf" onClick={() => setzen([...zeilen, { art: 'wort', roh: '' }])}>
+          + Fehler
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// Formular für „Reihenfolge“: je Satz Satzart, Anzahl Varianten und ein Feld mit den Reihenfolgen.
+type SatzFeld = { satzart: string; varianten: number; zeilen: string }
+const SATZARTEN = ['Aussagesatz', 'Fragesatz', 'Aufforderungssatz', 'Ausrufesatz']
+
+function satzFeldAus(block: string): SatzFeld {
+  const feld: SatzFeld = { satzart: '', varianten: 1, zeilen: '' }
+  const zeilen: string[] = []
+  for (const z of block.split('\n')) {
+    const art = /^\s*satzart\s*:\s*(.*)$/i.exec(z)
+    const anzahl = /^\s*varianten\s*:\s*(.*)$/i.exec(z)
+    if (art) feld.satzart = art[1].trim()
+    else if (anzahl) feld.varianten = Number(anzahl[1]) || 1
+    else zeilen.push(z)
+  }
+  feld.zeilen = zeilen.join('\n')
+  return feld
+}
+
+function satzFeldZuText(f: SatzFeld): string {
+  return [...(f.varianten > 1 ? [`Varianten: ${f.varianten}`] : []), ...(f.satzart ? [`Satzart: ${f.satzart}`] : []), f.zeilen.trim()]
+    .join('\n')
+    .trim()
+}
+
+function ReihenFormular({ text, onChange }: { text: string; onChange: (text: string) => void }) {
+  const [saetze, setSaetze] = useState<SatzFeld[]>(() => {
+    const liste = text.split(/\n\s*\n/).map((b) => b.trim()).filter(Boolean)
+    return (liste.length ? liste : ['']).map(satzFeldAus)
+  })
+  function setzen(neu: SatzFeld[]) {
+    setSaetze(neu)
+    onChange(neu.filter((s) => s.zeilen.trim()).map(satzFeldZuText).join('\n\n'))
+  }
+  const aendern = (i: number, teil: Partial<SatzFeld>) => setzen(saetze.map((x, j) => (j === i ? { ...x, ...teil } : x)))
+  return (
+    <div className="lk-formular">
+      {saetze.map((s, i) => (
+        <div key={i} className="lk-teil">
+          <label>
+            Satz {i + 1}: Satzart
+            <select className="lk-feld" value={s.satzart} onChange={(e) => aendern(i, { satzart: e.target.value })}>
+              <option value="">automatisch (aus . ? !)</option>
+              {[...SATZARTEN, ...(s.satzart && !SATZARTEN.includes(s.satzart) ? [s.satzart] : [])].map((a) => (
+                <option key={a} value={a}>
+                  {a}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Wie viele verschiedene richtige Sätze sollen gebildet werden?
+            <input className="lk-feld"
+              type="number"
+              min={1}
+              max={10}
+              value={s.varianten}
+              onChange={(e) => aendern(i, { varianten: Math.min(10, Math.max(1, Number(e.target.value) || 1)) })}
+            />
+          </label>
+          <label>
+            Bausteine in richtiger Reihenfolge, mit | getrennt, Satzzeichen ans Ende. Weitere richtige Reihenfolgen in neue Zeilen.
+            <textarea className="lk-feld"
+              rows={2}
+              value={s.zeilen}
+              onChange={(e) => aendern(i, { zeilen: e.target.value.replace(/\n\s*\n/g, '\n') })}
+              spellCheck={false}
+              placeholder="gestern | bin ich | ins Kino | gegangen."
+            />
+          </label>
+          <button
+            type="button"
+            className="lk-knopf"
+            onClick={() => setzen(saetze.filter((_, j) => j !== i))}
+            aria-label={`Satz ${i + 1} entfernen`}
+          >
+            ✕
+          </button>
+        </div>
+      ))}
+      <div className="lk-knopfreihe">
+        <button type="button" className="lk-knopf" onClick={() => setSaetze([...saetze, satzFeldAus('')])}>
+          + Satz
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// Formular für „Sätze verbessern“: je Satz Kontext und 2–4 Versionen mit Hinweis; die bessere per Auswahlknopf.
+const leereVersion = () => ({ text: '', hinweis: '', besser: false })
+
+function VersionenFormular({ text, onChange }: { text: string; onChange: (text: string) => void }) {
+  const [bloecke, setBloecke] = useState<VersionenBlock[]>(() => {
+    const liste = versionenBloecke(text)
+    return liste.length ? liste : [{ kontext: '', versionen: [leereVersion(), leereVersion()] }]
+  })
+  function setzen(neu: VersionenBlock[]) {
+    setBloecke(neu)
+    onChange(bloeckeZuText(neu))
+  }
+  const blockAendern = (i: number, b: VersionenBlock) => setzen(bloecke.map((x, j) => (j === i ? b : x)))
+  return (
+    <div className="lk-formular">
+      {bloecke.map((b, i) => (
+        <fieldset key={i} className="lk-teil">
+          <legend>Satz {i + 1}</legend>
+          <label>
+            Kontext (optional, z. B. der Satz davor)
+            <input className="lk-feld" value={b.kontext} onChange={(e) => blockAendern(i, { ...b, kontext: e.target.value })} />
+          </label>
+          {b.versionen.map((v, j) => {
+            const versionAendern = (neu: Partial<typeof v>) =>
+              blockAendern(i, { ...b, versionen: b.versionen.map((x, k) => (k === j ? { ...x, ...neu } : x)) })
+            return (
+              <div key={j} className="lk-formular">
+                <label className="lk-haken">
+                  <input
+                    type="radio"
+                    name={`besser-${i}`}
+                    checked={v.besser}
+                    onChange={() => blockAendern(i, { ...b, versionen: b.versionen.map((x, k) => ({ ...x, besser: k === j })) })}
+                  />
+                  Version {j + 1} ist die bessere
+                </label>
+                <label>
+                  Version {j + 1}
+                  <input className="lk-feld" value={v.text} onChange={(e) => versionAendern({ text: e.target.value })} />
+                </label>
+                <label>
+                  Hinweis zu Version {j + 1} (erscheint nach dem Prüfen)
+                  <input className="lk-feld" value={v.hinweis} onChange={(e) => versionAendern({ hinweis: e.target.value })} />
+                </label>
+                {b.versionen.length > 2 && (
+                  <button
+                    type="button"
+                    className="lk-knopf"
+                    onClick={() => blockAendern(i, { ...b, versionen: b.versionen.filter((_, k) => k !== j) })}
+                  >
+                    Version {j + 1} entfernen
+                  </button>
+                )}
+              </div>
+            )
+          })}
+          <div className="lk-knopfreihe">
+            {b.versionen.length < 4 && (
+              <button
+                type="button"
+                className="lk-knopf"
+                onClick={() => blockAendern(i, { ...b, versionen: [...b.versionen, leereVersion()] })}
+              >
+                + Version
+              </button>
+            )}
+            <button
+              type="button"
+              className="lk-knopf"
+              onClick={() => setzen(bloecke.filter((_, j) => j !== i))}
+            >
+              Satz {i + 1} entfernen
+            </button>
+          </div>
+        </fieldset>
+      ))}
+      <div className="lk-knopfreihe">
+        <button
+          type="button"
+          className="lk-knopf"
+          onClick={() => setBloecke([...bloecke, { kontext: '', versionen: [leereVersion(), leereVersion()] }])}
+        >
+          + Satz
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// In der Vorschau prüft die Datenbank mit derselben Logik wie bei Schüler:innen – ohne zu speichern.
+function vorschauPruefen(typ: AufgabenTyp, loesung: object, rueckmeldung: string) {
+  let versuche = 0
+  return async (antworten: Antworten) => {
+    const { data, error } = await supabase.rpc('pruefe_aufgabe', { p_typ: typ, p_loesung: loesung, p_antworten: antworten })
+    if (error) throw new Error(fehlerText(error))
+    const ergebnis = data as Pruefergebnis
+    versuche++
+    return { ergebnis, rueckmeldung: ergebnis.richtig ? null : rueckmeldung || null, versuche }
+  }
+}

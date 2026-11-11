@@ -139,3 +139,7 @@
   Lehrkraft-Ansicht in **Schulblau #003466** (Menüleiste blau, Hauptknöpfe blau, `--color-lk-*` in allen vier Varianten)
   und mit Schalter „Dunkler Modus“ im Menü (`useDunkel`).
 - 2026-11-11 (Lehrkraft): Phase 3 freigegeben – **Haltepunkt 3 erreicht**. Weiter mit Phase 4.
+- 2026-11-11 (Claude, Phase 4): Aufgabenformate aus der Übungswiese übernommen (Parser, Prüffunktion, Editor, Liste, Tests).
+  Neu: `aufgaben.loesung` = Eingabe der Lehrkraft mit Lösungen; `aufgaben.inhalt` (Schüler-Fassung) erzeugt **nur die Datenbank**
+  per Trigger (`inhalt_ohne_loesung`), die App darf `inhalt` nicht schreiben. Stufe als Zahl 1–3 (`stufe`), Lehrkraft sieht ★/☆.
+  Fachbegriff-Farben je Aufgabe abschaltbar (`aufgaben.farbig`). Zuordnen-Stifte: Fachbegriffe in ihrer Farbe, eigene Kategorien neutral.
