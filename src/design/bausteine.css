@@ -48,13 +48,29 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   gap: var(--space-lg);
 }
 
-/* ---------- Karte: Heftseite mit Holzkontur ---------- */
+/* ---------- Pixel-Rahmen (Bilder aus tokens.css, PIXEL-Block): 4 Pixel oben und seitlich, 6 Pixel unten ---------- */
+.karte, .knopf, .chip, .rueckmeldung, .muenzen {
+  border-style: solid;
+  border-width: calc(4 * var(--px)) calc(4 * var(--px)) calc(6 * var(--px));
+  border-image-source: var(--rahmen-knopf);
+  border-image-slice: 4 4 6 fill;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+/* Gewählt oder gerade gedrückt: dunklere Fläche, ohne Schattenkante, eine Pixelreihe tiefer */
+.knopf:active, .chip:active, .chip[aria-pressed='true'] {
+  border-image-source: var(--rahmen-gewaehlt);
+  border-image-slice: 4 4 5 fill;
+  border-width: calc(4 * var(--px)) calc(4 * var(--px)) calc(5 * var(--px));
+  transform: translateY(var(--px));
+}
+
+/* ---------- Karte: Holzbrett mit hellem Papier ---------- */
 .karte {
-  background: var(--color-papier);
-  border: var(--kontur) solid var(--color-holz);
-  border-radius: var(--radius-karte);
-  box-shadow: 0 var(--kante) 0 var(--color-holz-schatten);
-  padding: var(--space-lg);
+  border-image-source: var(--rahmen-karte);
+  padding: var(--space-sm);
   display: grid;
   gap: var(--space-md);
   min-width: 0;
@@ -67,34 +83,23 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   align-items: center;
   justify-content: center;
   gap: var(--space-xs);
-  min-height: var(--tipp-min);
+  min-height: calc(20 * var(--px)); /* 60 px: dicker Rahmen + Platz für die Schrift */
   min-width: var(--tipp-min);
-  padding: var(--space-xs) var(--space-lg);
-  border-radius: var(--radius-pille);
-  border: var(--kontur) solid var(--color-holz);
-  background: var(--color-papier);
+  padding: 0 var(--space-md);
   color: var(--color-tinte);
   font: 800 var(--text-body)/1.2 var(--font-body);
-  box-shadow: 0 var(--kante) 0 var(--color-holz-schatten);
   cursor: pointer;
   transition: transform var(--dur-micro) var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
-.knopf:hover { background: var(--color-papier-2); }
-.knopf:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--color-holz-schatten); }
 /* Gesperrt: gleiche Pillenform, nur blasser – nie gestrichelt (gestrichelt heißt „hier schreiben“, siehe .luecke) */
 .knopf:disabled, .knopf[aria-disabled='true'] {
   cursor: not-allowed;
   opacity: 0.45;
 }
-.knopf--haupt {
-  background: var(--color-aktion);
-  border-color: var(--color-holz-schatten);
-  color: var(--color-aktion-text);
-  box-shadow: 0 var(--kante) 0 var(--color-holz-schatten);
-}
-.knopf--haupt:hover { background: var(--color-aktion-2); }
-.knopf--haupt:active { box-shadow: 0 1px 0 var(--color-holz-schatten); }
+/* Hauptknopf: einziger Knopf mit farbiger Fläche (Holz) */
+.knopf--haupt { border-image-source: var(--rahmen-haupt); }
+.knopf--haupt:active { border-image-source: var(--rahmen-haupt); border-image-slice: 4 4 6 fill; border-width: calc(4 * var(--px)) calc(4 * var(--px)) calc(6 * var(--px)); }
 .knopf[aria-busy='true'] { cursor: progress; opacity: 0.8; }
 .knopf-reihe { display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: center; }
 
@@ -104,29 +109,22 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .holzknopf {
   display: inline-grid;
   place-items: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: var(--kontur) solid var(--color-aktion);
-  background: var(--color-papier);
+  width: calc(18 * var(--px));
+  height: calc(20 * var(--px));
+  padding: 0 0 calc(3 * var(--px));
+  border: 0;
+  background: var(--rund-knopf) center / 100% 100% no-repeat;
   color: var(--color-aktion);
-  box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 var(--kante) 0 var(--color-holz-schatten);
   cursor: pointer;
   transition: transform var(--dur-micro) var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
 .holzknopf .symbol { width: 28px; height: 28px; }
-.holzknopf:hover { background: var(--color-papier-2); }
-.holzknopf:active { transform: translateY(3px); box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 1px 0 var(--color-holz-schatten); }
+.holzknopf:active { transform: translateY(var(--px)); }
 .holzknopf:disabled { cursor: not-allowed; opacity: 0.55; }
 
 /* Hilfe-Knöpfe (Tipp, Hilfe): Himmelblau statt Holz – Blau bedeutet überall „Hilfe“ */
-.holzknopf--hilfe {
-  color: var(--color-hilfe);
-  border-color: var(--color-hilfe);
-  box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 var(--kante) 0 var(--color-hilfe-kante);
-}
-.holzknopf--hilfe:active { box-shadow: inset 0 0 0 4px var(--color-papier-2), 0 1px 0 var(--color-hilfe-kante); }
+.holzknopf--hilfe { color: var(--color-hilfe); background-image: var(--rund-hilfe); }
 
 /* Umschalter (z. B. Leseschrift) */
 .schalter {
@@ -185,19 +183,14 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 /* ---------- Auswahl-Chips und antippbare Wörter ---------- */
 .chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 .chip {
-  min-height: var(--tipp-min);
+  min-height: calc(20 * var(--px));
   min-width: var(--tipp-min);
-  padding: var(--space-xs) var(--space-lg);
-  border-radius: var(--radius-pille);
-  border: var(--kontur) solid var(--color-holz);
-  background: var(--color-papier);
+  padding: 0 var(--space-md);
   color: var(--color-tinte);
   font: 400 var(--text-body)/1.2 var(--font-body);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.chip:hover { background: var(--color-papier-2); }
-.chip:active { transform: translateY(2px); }
 .chip:disabled { cursor: not-allowed; opacity: 0.45; }
 
 .wort {
@@ -213,7 +206,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 }
 .wort:hover { border-color: var(--color-holz); border-style: dashed; }
 /* Markiert/gewählt – gleich für Auswahl-Chips und angetippte Wörter: helles Feld, Holzrand, Kante darunter */
-.chip[aria-pressed='true'], .wort[aria-pressed='true'] { background: var(--color-papier-2); border-color: var(--color-aktion); border-style: solid; box-shadow: 0 3px 0 var(--color-holz-schatten); }
+.chip[aria-pressed='true'] { font-weight: 800; }
+.wort[aria-pressed='true'] { background: var(--color-papier-2); border-color: var(--color-aktion); border-style: solid; box-shadow: 0 3px 0 var(--color-holz-schatten); }
 
 /* ---------- Fachbegriffe in Farbe: Wortarten, Satzglieder, Zeitformen ----------
    Zuordnung Begriff → Farbe in src/lib/kategorien.ts, Farbwerte in tokens.css (--kat-*).
@@ -239,6 +233,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .wort-mit-name__name { font-size: var(--text-klein); line-height: 1.2; color: var(--kat, var(--color-tinte-leise)); }
 
 /* Stifte zum Markieren: Chip in der Farbe des Begriffs; der gewählte Stift hat einen dicken Rand und ✓ */
+/* Stifte behalten einen einfachen Rand in ihrer Farbe (kein Holzrahmen, sonst schaut die Farbe an den Ecken hervor) */
+.chip.stift, .chip.stift:active, .chip.stift[aria-pressed='true'] { border-image: none; border: var(--kontur) solid; transform: none; }
 .stift[data-farbe] { background: var(--kat-flaeche); border-color: var(--kat); color: var(--kat); font-weight: 800; }
 .stift[data-farbe][aria-pressed='true'] { background: var(--kat-flaeche); color: var(--kat); border-width: 4px; box-shadow: 0 var(--kante) 0 var(--kat); }
 
@@ -251,8 +247,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   display: flex;
   gap: var(--space-sm);
   align-items: flex-start;
-  padding: var(--space-md);
-  border-radius: var(--radius-feld);
+  padding: var(--space-2xs) var(--space-xs);
   font-weight: 400;
 }
 .rueckmeldung__zeichen {
@@ -260,8 +255,18 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   width: 32px; height: 32px; border-radius: 50%;
   font-weight: 800; border: var(--kontur) solid currentColor;
 }
-.rueckmeldung--richtig { background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); }
-.rueckmeldung--nochmal { background: var(--color-nochmal-flaeche); color: var(--color-nochmal-tinte); }
+.rueckmeldung--richtig { border-image-source: var(--rahmen-richtig); color: var(--color-richtig-tinte); }
+.rueckmeldung--nochmal { border-image-source: var(--rahmen-nochmal); color: var(--color-nochmal-tinte); }
+
+/* ---------- Münzanzeige (Zahl erlaubt) ---------- */
+.muenzen {
+  --px: 2px; /* schmalerer Rahmen, passt neben die Sterne */
+  display: inline-flex; align-items: center; gap: var(--space-xs);
+  padding: 0 var(--space-xs);
+  border-image-source: var(--rahmen-karte);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
 
 /* ---------- Sterne (Arbeitsstufe, kein Lernstand) ---------- */
 .sterne { display: inline-flex; align-items: center; gap: 2px; }
@@ -278,7 +283,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   left: 0; right: 0; bottom: 0;
   z-index: 300;
   background: var(--color-papier);
-  border-top: var(--kontur) solid var(--color-holz);
+  border-top: calc(2 * var(--px)) solid var(--color-holz);
   padding: var(--space-2xs) var(--space-xs) max(var(--space-2xs), env(safe-area-inset-bottom));
 }
 .menue ul {
@@ -328,7 +333,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .knopf, .holzknopf, .schalter__knopf { transition: none; }
+  .knopf, .chip, .holzknopf, .schalter__knopf { transition: none; transform: none !important; }
 }
 
 /* Pixel-Grafik (src/gemeinsam/Sprite.tsx): scharfe Kanten beim Vergrößern */

@@ -46,6 +46,8 @@
 
 ## Design (Übergang: Stilblatt „Gartenheft“ unter `#/stil`, wird in Phase 2 zum Pixel-Look)
 - Schüleransicht wird Pixel-Art (Sprout Lands, ganzzahlig vergrößert); Lehrkraft-Ansicht bleibt „ruhig“.
+- Pixel-Rahmen (Karte, Knöpfe, gewählt, Rückmeldung, runde Knöpfe) nach den Sprout-Lands-Knöpfen als SVG, dazu Papier/Tinte/Holz/
+  Rückmeldung in vier Varianten: erzeugt + kontrastgeprüft von `node scripts/pixel-rahmen.mjs` (Block PIXEL in tokens.css). `--px: 3px` = ein Grafik-Pixel.
 - Einzige Token-Datei `src/design/tokens.css` (Farben als Hex wegen Safari 15.0–15.3, aus OKLCH berechnet),
   Bausteine `src/design/bausteine.css` (Schüler:innen), `src/design/lehrkraft.css` (Thema „ruhig“). Symbole: `src/gemeinsam/Symbol.tsx`.
 - **Eine Farbe = eine Bedeutung** (Apple-Richtlinien): Holz = bedienen (Knöpfe, Pfeile, Auswahl, aktuelle Seite),

@@ -60,6 +60,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
     Lücke, Auswahl, Rückmeldung ✓/↻ (nie rot), Münzanzeige; Fachbegriff-Farben eingebunden; Lehrkraft-Thema bleibt.
   - Prüfen: Seite `#/stil` am iPad (quer, hochkant) und Laptop; Hallmark-Prüfung; Freigabe.
   - Dateien: `src/design/tokens.css`, `src/design/bausteine.css`, `src/stil/Stilblatt.tsx`
+  - Stand 2026-11-11: gebaut (`scripts/pixel-rahmen.mjs`, Rahmen nach Sprout-Lands-Knöpfen, alle Kontraste geprüft), wartet auf Freigabe am iPad.
 
 - [ ] **7 Einstein** (M) – hängt an 4
   - Akzeptanz: aus den eigenen Vorlagen (`assets/*.jpg`) ein Pixel-Spritesheet mit durchsichtigem Hintergrund

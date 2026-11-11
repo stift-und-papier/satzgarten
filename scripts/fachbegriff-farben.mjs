@@ -21,8 +21,8 @@ const WORTARTEN = {
 
 // [Text-Helligkeit, Flächen-Helligkeit, Flächen-Sättigung] je Modus
 const MODI = {
-  hell: { tinte: 0.45, flaeche: 0.93, fc: 0.045, papier: [0.97, 0.025, 90] },
-  dunkel: { tinte: 0.84, flaeche: 0.33, fc: 0.06, papier: [0.25, 0.025, 60] },
+  hell: { tinte: 0.45, flaeche: 0.93, fc: 0.045, papier: [0.925, 0.045, 85] },
+  dunkel: { tinte: 0.84, flaeche: 0.33, fc: 0.06, papier: [0.26, 0.015, 50] },
   mehr: { tinte: 0.36, flaeche: 0.94, fc: 0.05, papier: [0.99, 0.01, 90] },
   dunkelMehr: { tinte: 0.92, flaeche: 0.26, fc: 0.06, papier: [0.16, 0.02, 60] },
 }

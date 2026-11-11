@@ -21,10 +21,10 @@ const FARBEN: { name: string; wofuer: string; variable: string }[] = [
 ]
 
 const MENUE: { name: SymbolName; text: string }[] = [
-  { name: 'garten', text: 'Garten' },
+  { name: 'garten', text: 'Farm' },
   { name: 'uebungen', text: 'Übungen' },
   { name: 'lernweg', text: 'Lernweg' },
-  { name: 'sammelbuch', text: 'Sammelbuch' },
+  { name: 'sammelbuch', text: 'Buch' },
   { name: 'hilfe', text: 'Hilfe' },
 ]
 
@@ -105,7 +105,10 @@ export default function Stilblatt() {
         <section className="karte" aria-labelledby="t-aufgabe">
           <div className="knopf-reihe" style={{ justifyContent: 'space-between' }}>
             <h2 id="t-aufgabe">Das oder dass?</h2>
-            <Sterne stufe={2} />
+            <span className="knopf-reihe">
+              <span className="muenzen" role="img" aria-label="12 Münzen"><Sprite grafik={GRAFIK.muenze} mal={2} /> 12</span>
+              <Sterne stufe={2} />
+            </span>
           </div>
           <p>Setze das richtige Wort ein.</p>
           <p className="satz">
