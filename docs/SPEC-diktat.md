@@ -21,7 +21,8 @@ Formaten. Eingabe immer über `src/gemeinsam/Eingabe.tsx` (keine Autokorrektur, 
 | 4 Nochmal ansehen | Ja, beliebig oft mit „Nochmal ansehen“. Dabei wird das bisher Getippte **gelöscht** (sonst könnte man abschreiben). |
 | 5 Fehler | Es zählen **Buchstaben, Groß-/Kleinschreibung und Satzzeichen**. Nicht zählen: die Anzahl der Leerzeichen und Leerzeichen am Anfang/Ende. |
 | Satz mit Fehlern (Merkdiktat) | Fehlerstellen werden markiert (Pfirsich, nie rot), der Satz erscheint **wieder zum Merken** und wird neu getippt. **Gewertet wird der erste Versuch** je Satz. |
-| Geschafft | Ein Diktat ist **geschafft nur ohne Fehler** (Abschreiben: kein falsches Zeichen; Merkdiktat: jeder Satz im ersten Versuch richtig). Schüler:innen sehen nie Prozente, nur „Geschafft“ bzw. „Nochmal üben“. |
+| Geschafft | **Geschafft ab 90 % richtiger Zeichen** (`anteil >= 0.9`; Merkdiktat: erster Versuch je Satz). Schüler:innen sehen nie Prozente. Unter 100 % erscheint ein Hinweis: „Geschafft! Wenn du es noch genauer schaffst, bekommst du nochmal Münzen.“ **Fehlerfrei (100 %)** wird besonders belohnt: eigene Rückmeldung („Fehlerfrei – super!“, Einstein freut sich) und Extra-Münzen. Unter 90 %: „Nochmal üben“. |
+| Münzen (für Phase 8, `docs/SPEC-muenzen.md`) | Münzen beim ersten Geschafft; **erneut Münzen, wenn man sich verbessert** (höherer Anteil als das bisher beste Ergebnis dieses Diktats); **Extra-Münzen für fehlerfrei** (nur einmal je Diktat). Höhe legt Aufgabe 34 fest. |
 | 6 Lernstand | **Ja, mit Kompetenzen** wie die anderen Formate. Für den Lernstand zählt der Anteil richtiger Zeichen (`anteil`), nur intern. |
 
 ## 3. Vergleich (eine Funktion, gleich in TypeScript und SQL)
@@ -34,7 +35,7 @@ Vor dem Vergleich werden beide Texte **vereinheitlicht** (wie `normalisiere`, ab
 
 **Abschreiben:** Zeichen für Zeichen; das erwartete Zeichen ist erst „erledigt“, wenn es richtig getippt ist.
 Ein Fehler je Zeichenstelle. Leerzeichen: Ein zusätzliches Leerzeichen wird ignoriert (zählt nicht als Fehler).
-Ergebnis: `fehler` (Anzahl Stellen mit Fehler), `anteil = 1 - fehler / Zeichen`, `richtig = fehler = 0`.
+Ergebnis: `fehler` (Anzahl Stellen mit Fehler), `anteil = 1 - fehler / Zeichen`, `richtig = anteil >= 0.9`, `fehlerfrei = fehler = 0`.
 
 **Merkdiktat:** je Satz Vergleich des getippten Satzes mit dem Original (Wort-für-Wort-Abgleich, damit ein fehlendes
 Wort nicht alles danach „falsch“ macht). Ergebnis je Satz: `richtig` und die Stellen (Wörter) mit Fehlern zum Markieren.

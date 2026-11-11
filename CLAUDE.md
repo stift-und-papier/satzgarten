@@ -150,4 +150,4 @@
 - 2026-11-11 (Lehrkraft): **Diktat** (`docs/SPEC-diktat.md`): Abschreiben – Cursor wartet auf das richtige Zeichen; Merkdiktat – Rückmeldung
   am Satzende, Satz mit Fehlern wird neu gemerkt und getippt (erster Versuch zählt). Teilung automatisch nach . ? !, Lehrkraft teilt mit |.
   „Nochmal ansehen“ beliebig oft, löscht die Eingabe. Fehler: Buchstaben, Groß/klein, Satzzeichen (nicht Leerzeichen-Anzahl).
-  Geschafft nur ohne Fehler. Zählt für den Lernstand mit Kompetenzen.
+  Geschafft ab 90 % (Hinweis: Verbessern bringt nochmal Münzen), fehlerfrei besonders belohnt. Zählt für den Lernstand mit Kompetenzen.
