@@ -2,6 +2,10 @@ import type { Session } from '@supabase/supabase-js'
 import { useEffect, useState, type ReactNode } from 'react'
 import { supabase } from '../lib/supabase'
 import { Anmeldung } from './Anmeldung'
+import { KlasseDetail } from './KlasseDetail'
+import { KlassenListe } from './KlassenListe'
+import { Kompetenzen } from './Kompetenzen'
+import { Linkliste } from './Linkliste'
 
 // Bereich nur für angemeldete Lehrkräfte (#/lehrkraft/…). Ohne Anmeldung erscheint auf jeder dieser Adressen
 // die Anmeldung; danach geht es auf derselben Adresse weiter. Die Daten schützt zusätzlich die Datenbank (RLS).
@@ -16,11 +20,25 @@ const MENUE: [string, string][] = [
 
 // Platzhalter, bis die Seiten in den nächsten Aufgaben entstehen
 const KOMMT: Record<string, string> = {
-  klassen: 'Hier legen Sie bald Klassen und Pseudonyme an (Aufgabe 8).',
   aufgaben: 'Hier erstellen Sie bald Aufgaben (Phase 4).',
   pakete: 'Hier stellen Sie bald Aufgabenpakete zusammen (Phase 5).',
-  kompetenzen: 'Hier sehen Sie bald die Kompetenzen aus dem Kerncurriculum (Aufgabe 10).',
   einstellungen: 'Hier stellen Sie bald zum Beispiel ein, wie oft eine Pflanze gegossen werden muss.',
+}
+
+/** Inhalt zur Adresse #/lehrkraft/<bereich>/<id>/<unterseite> */
+function Inhalt({ pfad }: { pfad: string[] }) {
+  const [bereich = 'klassen', id, unterseite] = pfad
+  if (bereich === 'klassen' && id && unterseite === 'links') return <Linkliste klasseId={id} />
+  if (bereich === 'klassen' && id) return <KlasseDetail klasseId={id} />
+  if (bereich === 'klassen') return <KlassenListe />
+  if (bereich === 'kompetenzen') return <Kompetenzen />
+  const titel = MENUE.find(([ziel]) => ziel === bereich)?.[1] ?? 'Seite nicht gefunden'
+  return (
+    <>
+      <h1>{titel}</h1>
+      <p>{KOMMT[bereich] ?? 'Diese Seite gibt es nicht. Bitte wählen Sie einen Bereich im Menü.'}</p>
+    </>
+  )
 }
 
 export function LehrkraftBereich({ pfad }: { pfad: string[] }) {
@@ -40,12 +58,9 @@ export function LehrkraftBereich({ pfad }: { pfad: string[] }) {
     )
   if (!sitzung) return <Anmeldung />
 
-  const [bereich = 'klassen'] = pfad
-  const titel = MENUE.find(([ziel]) => ziel === bereich)?.[1] ?? 'Seite nicht gefunden'
   return (
-    <LehrkraftRahmen bereich={bereich} email={sitzung.user.email}>
-      <h1>{titel}</h1>
-      <p>{KOMMT[bereich] ?? 'Diese Seite gibt es nicht. Bitte wählen Sie einen Bereich im Menü.'}</p>
+    <LehrkraftRahmen bereich={pfad[0] ?? 'klassen'} email={sitzung.user.email}>
+      <Inhalt pfad={pfad} />
     </LehrkraftRahmen>
   )
 }

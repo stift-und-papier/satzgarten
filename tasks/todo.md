@@ -78,23 +78,25 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 
 ## Phase 3: Klassen und Kompetenzen (`klassen`, `kompetenzen`)
 
-- [ ] **8 Klassen und Pseudonyme** (M) – hängt an 3
+- [x] **8 Klassen und Pseudonyme** (M) – hängt an 3
   - Akzeptanz: Tabellen `klassen` (owner, name, kerncurriculum HS/RS/Gym), `schueler` (owner, klasse_id, pseudonym,
     token 192 Bit, stufe_manuell); RLS `owner = auth.uid()`; anlegen/umbenennen/löschen; Pseudonyme automatisch
     („Fuchs-07“) oder aus eigener Liste.
   - Prüfen: DB-Test (Lehrkraft B sieht Klassen von A nicht); Tests Pseudonyme (alt).
   - Dateien: Migration, `src/lehrkraft/KlassenListe.tsx`, `src/lehrkraft/KlasseDetail.tsx`, `src/lib/pseudonyme.ts` (alt)
 
-- [ ] **9 Linkliste mit QR-Codes** (S) – hängt an 8
+- [x] **9 Linkliste mit QR-Codes** (S) – hängt an 8
   - Akzeptanz: alle Links einer Klasse mit QR-Code, druckbar (A4, ohne Hintergrund).
   - Prüfen: Druckvorschau; QR-Code am iPad öffnet den richtigen Link.
   - Dateien: `src/lehrkraft/Linkliste.tsx`, Druck-CSS
 
-- [ ] **10 Kompetenzen** (M) – hängt an 3
+- [x] **10 Kompetenzen** (M) – hängt an 3
   - Akzeptanz: Tabelle `kompetenzen` (owner, code, kerncurriculum, bereich, stufe, kompetenz, hinweis, kurzname,
     ausgeblendet); Import der 154 Zeilen aus `docs/kompetenzen.csv`; Seite mit Kurzname ändern und Ausblenden.
   - Prüfen: 154 Kompetenzen (Gym 44, RS 56, HS 54); Tests CSV-Lesen (alt).
   - Dateien: Migration, `scripts/kompetenzen-sql.ts` (alt), `src/lehrkraft/Kompetenzen.tsx`, `src/lib/csvLesen.ts` (alt)
+
+  - Stand 2026-11-11: Aufgaben 8–10 gebaut (Migrationen `20261111120000`, `20261111120100`; DB-Test 15 Blöcke), im Browser geprüft.
 
 ### Haltepunkt 3
 - [ ] Lehrkraft legt eine Testklasse an, druckt die Linkliste, prüft Kompetenzen und Kurznamen.
