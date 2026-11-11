@@ -24,7 +24,7 @@ ohne Zahlen gewünscht; das ist mit der Regel „keine Punkte, Prozente, Noten�
 
 - Zeigt die **Pflanzen, Tiere und Dekorationsgegenstände**, die man schon freigeschaltet hat (Papier-Look, Humble Gift – Paper UI).
 - Keine Monster, keine Zahlen außer Münzen (falls Preise gezeigt werden).
-- Noch offen (klären bei Aufgabe 41c): Erscheinen noch nicht freigeschaltete Dinge als Platzhalter („?“)?
+- Noch nicht freigeschaltete Dinge erscheinen als **„?“-Platzhalter** (Lehrkraft 2026-11-11).
 
 ## Grafiken
 
@@ -33,4 +33,4 @@ ohne Zahlen gewünscht; das ist mit der Regel „keine Punkte, Prozente, Noten�
 | Sprout Lands | gekauft, Cup Nooble | Weitergabe des Pakets verboten, Namensnennung Pflicht |
 | Humble Gift – Paper UI | Humble Pixel (itch.io) | Weitergabe verboten, Nennung freiwillig (@Humblepixel) |
 | Orks, Schleime | craftpix.net (frei) | Lizenz-Seite craftpix.net/file-licenses – **vor Übernahme prüfen** |
-| `chomp_idle.png`, `bubble emotes july update.png` | frei, itch.io | **Urheber und Lizenz noch klären** (Link zur itch.io-Seite) |
+| `chomp_idle.png`, `bubble emotes july update.png` | **eigene Werke der Lehrkraft** | frei nutzbar im Projekt |

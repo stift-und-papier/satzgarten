@@ -18,6 +18,11 @@ Lizenzbedingungen (Zusammenfassung des `read_me.txt` der Pakete):
 Deshalb liegen hier nur einzelne, ausgeschnittene Bilder, die die App wirklich benutzt
 (erzeugt von `scripts/grafik-holen.mjs`), nie die Pakete.
 
+## Eigene Werke der Lehrkraft
+
+`chomp_idle.png` (Rübchen-Wesen) und `bubble emotes july update.png` (Sprechblasen) hat die Lehrkraft selbst gezeichnet.
+Ausschnitte daraus werden hier aufgeführt, sobald die App sie benutzt.
+
 ## TastenHeld
 
 Grafiken aus TastenHeld (https://github.com/ChalkJunkie/TastenHeld) werden hier aufgeführt, sobald welche benutzt

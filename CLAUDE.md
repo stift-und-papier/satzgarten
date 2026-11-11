@@ -119,4 +119,4 @@
   Neue Grafik-Pakete: Humble Gift (Weitergabe verboten, Nennung freiwillig), craftpix Orks/Schleime (Lizenz noch prüfen).
   Einzelheiten `docs/SPEC-monster.md`: Figur passiert nie etwas; Lebensbalken ohne Zahlen; Treffer auch im 2. Versuch, nicht nach
   „Lösung ansehen“; besiegt erst wenn alle Aufgaben richtig; ★ Sprout, ★★ Schleim, ★★★ Ork; Buch nur Pflanzen, Tiere, Deko.
-  `chomp_idle.png` und Sprechblasen-Emotes: frei von itch.io (Urheber/Lizenz noch klären).
+  Buch zeigt Noch-nicht-Freigeschaltetes als „?“-Platzhalter. `chomp_idle.png` und Sprechblasen-Emotes sind eigene Werke der Lehrkraft.
