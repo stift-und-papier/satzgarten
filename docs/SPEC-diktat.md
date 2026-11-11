@@ -17,7 +17,7 @@ Formaten. Eingabe immer über `src/gemeinsam/Eingabe.tsx` (keine Autokorrektur, 
 | Frage | Entscheidung |
 |---|---|
 | 3 Tippfehler | **Abschreiben:** Der Cursor wartet auf das richtige Zeichen (wie TastenHeld); je Zeichen zählt höchstens **ein** Fehler. **Merkdiktat:** freies Tippen (auch Löschen), Rückmeldung erst am Satzende – Warten würde die Schreibweise verraten. |
-| 4 Teilung | **Die Lehrkraft bestimmt die Trennstellen** (geändert 11.11.): mit `|` im Text oder per Klick zwischen zwei Wörter in der Ansicht unter dem Textfeld. Hilfe: Knopf „Nach jedem Satz trennen“ setzt `|` nach . ? ! (nicht nach Abkürzungen wie „z. B.“). Ohne Trennstelle ist der Text ein Teil. Das `|` sehen Schüler:innen nie. |
+| 4 Teilung | **Die Lehrkraft bestimmt die Trennstellen** (geändert 11.11.): mit `\|` im Text oder per Klick zwischen zwei Wörter in der Ansicht unter dem Textfeld. Hilfe: Knopf „Nach jedem Satz trennen“ setzt `\|` nach . ? ! (nicht nach Abkürzungen wie „z. B.“). Ohne Trennstelle ist der Text ein Teil. Das `\|` sehen Schüler:innen nie. |
 | 4 Nochmal ansehen | Ja, beliebig oft mit „Nochmal ansehen“. Dabei wird das bisher Getippte **gelöscht** (sonst könnte man abschreiben). |
 | 5 Fehler | Es zählen **Buchstaben, Groß-/Kleinschreibung und Satzzeichen**. Nicht zählen: die Anzahl der Leerzeichen und Leerzeichen am Anfang/Ende. |
 | Satz mit Fehlern (Merkdiktat) | Fehlerstellen werden markiert (Pfirsich, nie rot), der Satz erscheint **wieder zum Merken** und wird neu getippt. **Gewertet wird der erste Versuch** je Satz. |
