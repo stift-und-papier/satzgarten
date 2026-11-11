@@ -138,3 +138,4 @@
   (`docs/kurznamen.csv`, Migration per `node scripts/kompetenzen-sql.ts`); die Datenbank erlaubt Lehrkräften nur noch Ausblenden.
   Lehrkraft-Ansicht in **Schulblau #003466** (Menüleiste blau, Hauptknöpfe blau, `--color-lk-*` in allen vier Varianten)
   und mit Schalter „Dunkler Modus“ im Menü (`useDunkel`).
+- 2026-11-11 (Lehrkraft): Phase 3 freigegeben – **Haltepunkt 3 erreicht**. Weiter mit Phase 4.

@@ -101,7 +101,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
   - 2026-11-11 nach Rückmeldung: Kurznamen von Claude (docs/kurznamen.csv), Lehrkraft-Ansicht in Schulblau, Schalter „Dunkler Modus“.
 
 ### Haltepunkt 3
-- [ ] Lehrkraft legt eine Testklasse an, druckt die Linkliste, prüft Kompetenzen und Kurznamen.
+- [x] Lehrkraft legt eine Testklasse an, druckt die Linkliste, prüft Kompetenzen und Kurznamen. Freigegeben 2026-11-11.
 
 ---
 
