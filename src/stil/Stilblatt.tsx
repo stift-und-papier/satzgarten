@@ -255,8 +255,9 @@ export default function Stilblatt() {
               </li>
             ))}
           </ul>
-          <h3>Überschriften in Fraunces</h3>
-          <p>Aufgaben und Texte in Nunito, mindestens 18 Pixel groß, damit man sie auf dem iPad gut lesen kann.</p>
+          <h2>Überschriften in Pixel-Schrift</h2>
+          <h3>Anweisungen in Nunito</h3>
+          <p>Texte ebenfalls in Nunito, mindestens 18 Pixel groß, damit man sie auf dem iPad gut lesen kann.</p>
         </section>
 
         <section className="lehrkraft" aria-labelledby="t-lk" style={{ borderRadius: 'var(--radius-lk)', padding: 'var(--space-lg)', display: 'grid', gap: 'var(--space-md)' }}>

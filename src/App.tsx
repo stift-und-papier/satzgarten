@@ -6,8 +6,6 @@ import { useNeueVersion } from './lib/version'
 const Vorschau = import.meta.env.DEV ? lazy(() => import('./entwicklung/Vorschau')) : null
 // Stilblatt zum Prüfen des Designs am iPad (ohne Daten). Wird nach der Design-Freigabe entfernt.
 const Stilblatt = lazy(() => import('./stil/Stilblatt'))
-// Schrift-Entwürfe (Aufgabe 5), nach der Wahl wieder entfernen.
-const SchriftEntwurf = lazy(() => import('./stil/SchriftEntwurf'))
 // Lehrkraft-Bereich eigenständig nachladen: Schüler:innen laden ihn nie.
 const LehrkraftBereich = lazy(() => import('./lehrkraft/LehrkraftRahmen').then((m) => ({ default: m.LehrkraftBereich })))
 
@@ -38,7 +36,7 @@ function Seite() {
   if (bereich === 'stil')
     return (
       <Suspense fallback={null}>
-        {pfad[1] === 'schrift' ? <SchriftEntwurf /> : <Stilblatt />}
+        <Stilblatt />
       </Suspense>
     )
   if (bereich === 's')

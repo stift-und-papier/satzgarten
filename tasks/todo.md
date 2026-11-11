@@ -46,12 +46,12 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
   - Prüfen: Test für die Auswahl eines Einzelbilds; `git status` zeigt nichts aus `assets/`.
   - Dateien: `scripts/grafik-holen.mjs`, `src/grafik/LIZENZ.md`, `src/gemeinsam/Sprite.tsx`, `src/lib/sprite.ts` + Test
 
-- [ ] **5 Schrift mit Umlauten** (S) – hängt an 4
+- [x] **5 Schrift mit Umlauten** (S) – hängt an 4
   - Akzeptanz: 2–3 Entwürfe nebeneinander (z. B. Pixel-Schrift mit selbst gezeichneten Ä Ö Ü ä ö ü ß, eine lokale,
     frei lizenzierte Pixel-Schrift mit Umlauten, eine ruhige Textschrift zu Pixel-Überschriften); Lehrkraft wählt;
     Lesbarkeit für LRS (Leseschrift bleibt umschaltbar).
   - Prüfen: Entwurfsseite am iPad (`#/stil/schrift`); Satz mit allen Umlauten und ß; Freigabe.
-  - Stand 2026-11-11: Paket-Schrift (Sprout Lands) hat nur Großbuchstaben, keine Umlaute/ß. Entwürfe A–C mit Pixelify Sans und Silkscreen (OFL, lokal).
+  - Stand 2026-11-11: Paket-Schrift (Sprout Lands) hat nur Großbuchstaben, keine Umlaute/ß. Entwürfe A–C mit Pixelify Sans und Silkscreen (OFL, lokal). Gewählt: B (Pixelify Sans nur für h1/h2), Entwurfsseite und Silkscreen entfernt.
   - Dateien: `src/design/fonts/*`, `src/design/tokens.css`, Entwurfsseite
 
 - [ ] **6 Pixel-Stilblatt** (M) – hängt an 4, 5
