@@ -32,7 +32,8 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 
 ### Haltepunkt 1
 - [x] Seite läuft unter `/wortsalat/`, Anmeldung klappt, nirgends steht mehr „Satzgarten“.
-  Danach (am Ende einer Sitzung): Projektordner in `C:\Users\jrkug\Projekte\wortsalat` umbenennen.
+  Danach (am Ende einer Sitzung): Projektordner in `C:\Users\jrkug\Projekte\wortsalat` umbenennen (Lehrkraft im Explorer).
+  Erste Frage der nächsten Sitzung: Liegt das Projekt in `…\wortsalat`? Dann weiter mit Phase 2.
 
 ---
 

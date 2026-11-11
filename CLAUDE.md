@@ -73,7 +73,7 @@
 - `npm run test:datenbank` → Erfolg = „ALLE TESTS BESTANDEN“. **Nach jeder Migration ausführen und erweitern.**
 
 ## Rechner der Lehrkraft (Windows 11)
-- Projektordner `C:\Users\jrkug\Projekte\satzgarten` (nicht in OneDrive; wird nach Haltepunkt 1 in `wortsalat` umbenannt).
+- Projektordner `C:\Users\jrkug\Projekte\wortsalat` (nicht in OneDrive; bis 11. November 2026 hieß er `satzgarten`).
 - Git, Node.js LTS, GitHub CLI (`gh`, angemeldet als `stift-und-papier`); Git-Identität mit GitHub-noreply-Adresse.
 
 ## Entscheidungen (Protokoll)
