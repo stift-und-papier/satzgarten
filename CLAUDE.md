@@ -133,3 +133,4 @@
   Dativ grün, Akkusativ orange; Objekte in der Farbe ihres Falls. „Senf“ heißt jetzt „Gelb“ (Fläche kräftiger), Orange neu
   (Fläche kräftig, damit es nicht wie Pfirsich wirkt). Futur II orange statt pink (zu ähnlich zu Futur I).
 - 2026-11-11 (Lehrkraft): **Präpositionalobjekt** als Fachbegriff-Farbe entfernt (hat keinen festen Fall); Präposition bleibt gelb.
+- 2026-11-11 (Lehrkraft): Einstein mit Bewegungen und neue Fachbegriff-Farben freigegeben – **Haltepunkt 2 erreicht**. Weiter mit Phase 3.

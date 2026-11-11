@@ -62,17 +62,17 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
   - Dateien: `src/design/tokens.css`, `src/design/bausteine.css`, `src/stil/Stilblatt.tsx`
   - Stand 2026-11-11: gebaut (`scripts/pixel-rahmen.mjs`, Rahmen nach Sprout-Lands-Knöpfen, alle Kontraste geprüft), freigegeben.
 
-- [ ] **7 Einstein** (M) – hängt an 4
+- [x] **7 Einstein** (M) – hängt an 4
   - Akzeptanz: aus den eigenen Vorlagen (`assets/*.jpg`) ein Pixel-Spritesheet mit durchsichtigem Hintergrund
     (Posen nach Absprache, z. B. freundlich, freut sich, nachdenklich, zeigt, erschrocken, traurig); ruhige Bewegung
     (aus bei „Bewegung reduzieren“); Sprechblase aus dem UI-Paket; Figur `aria-hidden`, Sprechblase nicht.
   - Prüfen: Vorschauseite am iPad; Freigabe.
   - Dateien: `src/grafik/einstein.png`, `src/gemeinsam/Einstein.tsx` (ersetzt `Maskottchen.tsx`), `src/design/bausteine.css`
   - Stand 2026-11-11: gebaut aus der eigenen Vorlage (Posen 1–5, Pose 6 „traurig“ weggelassen), Pixel-Sprechblase mit blauem Rand,
-    Blinzeln alle 6 s, Atmen; Vorschau im Stilblatt. Wartet auf Freigabe am iPad.
+    Blinzeln alle 6 s, Atmen; Vorschau im Stilblatt. Freigegeben 2026-11-11.
 
 ### Haltepunkt 2
-- [ ] **Lehrkraft gibt Schrift, Pixel-Stil und Einstein frei.** Ohne Freigabe keine Schülerseiten.
+- [x] **Lehrkraft gibt Schrift, Pixel-Stil und Einstein frei.** Ohne Freigabe keine Schülerseiten.
 
 ---
 
