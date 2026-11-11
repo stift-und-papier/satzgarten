@@ -155,7 +155,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
   - Prüfen: Tests der Satzteilung; iPad mit Tastatur.
 
 ### Haltepunkt 5
-- [ ] Lehrkraft legt beide Diktat-Arten an und probiert sie am iPad mit Tastatur aus.
+- [x] Lehrkraft legt beide Diktat-Arten an und probiert sie am iPad mit Tastatur aus.
 
 ---
 
