@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Anweisung } from '../gemeinsam/Anweisung'
 import { Sterne, SterneText } from '../gemeinsam/Sterne'
+import { EinsteinSagt, type Pose } from '../gemeinsam/Einstein'
 import { Sprite } from '../gemeinsam/Sprite'
 import { Symbol, type SymbolName } from '../gemeinsam/Symbol'
 import { GRAFIK } from '../grafik'
@@ -18,6 +19,14 @@ const FARBEN: { name: string; wofuer: string; variable: string }[] = [
   { name: 'Pfirsich', wofuer: 'Nochmal versuchen', variable: '--color-nochmal-flaeche' },
   { name: 'Sonne', wofuer: 'Sterne', variable: '--color-sonne' },
   { name: 'Wiese und Papier', wofuer: 'Hintergrund und Karten', variable: '--color-papier' },
+]
+
+const EINSTEIN: [Pose, string][] = [
+  ['freundlich', 'Hallo! Schön, dass du da bist. Heute üben wir „das“ und „dass“.'],
+  ['lob', 'Super, alles richtig!'],
+  ['freut-sich', 'Geschafft! Du hast das ganze Paket gelöst.'],
+  ['huch', 'Huch! Da kommt ein Monster.'],
+  ['erklaert', 'Schau dir die Lücke mit ↻ nochmal an. Tipp: Kannst du „dieses“ einsetzen?'],
 ]
 
 const MENUE: { name: SymbolName; text: string }[] = [
@@ -101,6 +110,15 @@ export default function Stilblatt() {
             </button>
           </div>
         </header>
+
+        <section className="karte" aria-labelledby="t-einstein">
+          <h2 id="t-einstein">Einstein</h2>
+          {EINSTEIN.map(([pose, text]) => (
+            <EinsteinSagt key={pose} pose={pose}>
+              <p>{text}</p>
+            </EinsteinSagt>
+          ))}
+        </section>
 
         <section className="karte" aria-labelledby="t-aufgabe">
           <div className="knopf-reihe" style={{ justifyContent: 'space-between' }}>

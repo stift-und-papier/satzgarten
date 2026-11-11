@@ -68,6 +68,8 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
     (aus bei „Bewegung reduzieren“); Sprechblase aus dem UI-Paket; Figur `aria-hidden`, Sprechblase nicht.
   - Prüfen: Vorschauseite am iPad; Freigabe.
   - Dateien: `src/grafik/einstein.png`, `src/gemeinsam/Einstein.tsx` (ersetzt `Maskottchen.tsx`), `src/design/bausteine.css`
+  - Stand 2026-11-11: gebaut aus der eigenen Vorlage (Posen 1–5, Pose 6 „traurig“ weggelassen), Pixel-Sprechblase mit blauem Rand,
+    Blinzeln alle 6 s, Atmen; Vorschau im Stilblatt. Wartet auf Freigabe am iPad.
 
 ### Haltepunkt 2
 - [ ] **Lehrkraft gibt Schrift, Pixel-Stil und Einstein frei.** Ohne Freigabe keine Schülerseiten.

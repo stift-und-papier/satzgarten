@@ -20,8 +20,9 @@ Deshalb liegen hier nur einzelne, ausgeschnittene Bilder, die die App wirklich b
 
 ## Eigene Werke der Lehrkraft
 
-`chomp_idle.png` (Rübchen-Wesen) und `bubble emotes july update.png` (Sprechblasen) hat die Lehrkraft selbst gezeichnet.
-Ausschnitte daraus werden hier aufgeführt, sobald die App sie benutzt.
+- `einstein.png`: Maskottchen Einstein, Posen freundlich, blinzelt, lob, freut sich, huch, erklärt (aus der eigenen Vorlage
+  auf ihr Pixelraster verkleinert, Hintergrund entfernt).
+- `chomp_idle.png` (Rübchen-Wesen) und `bubble emotes july update.png` (Sprechblasen): noch nicht benutzt.
 
 ## TastenHeld
 

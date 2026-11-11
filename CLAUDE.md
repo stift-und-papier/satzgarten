@@ -124,3 +124,6 @@
   Buch zeigt Noch-nicht-Freigeschaltetes als „?“-Platzhalter. `chomp_idle.png` und Sprechblasen-Emotes sind eigene Werke der Lehrkraft.
 - 2026-11-11 (Lehrkraft): **Pixel-Stilblatt freigegeben** (Aufgabe 6): Holzrahmen nach Sprout-Lands-Knöpfen, Farben aus der Palette,
   gewählt = gedrückter Knopf, Münzanzeige, Menü „Farm“ und „Buch“. Stifte behalten einfachen farbigen Rand.
+- 2026-11-11 (Lehrkraft): **Einstein** aus eigener Vorlage: Posen freundlich (Begrüßung), lob, freut-sich (Paket geschafft/Monster besiegt),
+  huch (Monster taucht auf), erklaert (Tipps und „nochmal versuchen“). Traurige Pose wird **nicht** verwendet (wirkt bestrafend).
+  `src/gemeinsam/Einstein.tsx` (`Einstein`, `EinsteinSagt`), Sprechblase im Pixel-Look mit blauem Rand.

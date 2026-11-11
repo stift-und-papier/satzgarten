@@ -305,35 +305,38 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 /* aktuelle Seite: wie Apples Tab-Leiste ohne Farbfläche – fett, mit hellem Feld hinter dem Symbol und Strich darunter */
 .menue a[aria-current='page'] .symbol { background: var(--color-papier-2); box-shadow: inset 0 -3px 0 var(--color-aktion); }
 
-/* Maskottchen Einstein mit Sprechblase: Figur links, Blase rechts (Spitze zeigt zur Figur), immer nebeneinander.
-   Blase hell mit blauem Rand: Blau = Hilfe. */
-.maskottchen-sagt { display: flex; align-items: center; gap: var(--space-lg); }
+/* ---------- Einstein mit Sprechblase (src/gemeinsam/Einstein.tsx) ----------
+   Figur links, Blase rechts (Spitze zeigt zur Figur), immer nebeneinander. Blase hell mit blauem Rand: Blau = Hilfe. */
+.einstein-sagt { display: flex; align-items: center; gap: calc(5 * var(--px)); }
+.einstein { display: inline-block; flex-shrink: 0; animation: einstein-atmen 4s steps(1) infinite; }
+/* Blinzeln etwa alle 6 Sekunden (nur in der freundlichen Pose, dafür gibt es das Bild mit geschlossenen Augen) */
+.einstein--freundlich .sprite { animation: einstein-blinzeln 6s steps(1) infinite; }
+@keyframes einstein-atmen { 0% { transform: none; } 50% { transform: translateY(calc(-1 * var(--px))); } }
+@keyframes einstein-blinzeln { 0% { background-position: 0 0; } 96% { background-position: var(--zu) 0; } 98% { background-position: 0 0; } }
 .sprechblase {
   position: relative;
   flex: 1 1 auto;
   min-width: 0;
-  padding: var(--space-md);
-  background: var(--color-papier);
+  padding: var(--space-2xs) var(--space-xs);
   color: var(--color-tinte);
-  border: var(--kontur) solid var(--color-hilfe);
-  border-radius: var(--radius-karte);
+  border-style: solid;
+  border-width: calc(4 * var(--px)) calc(4 * var(--px)) calc(6 * var(--px));
+  border-image: var(--rahmen-blase) 4 4 6 fill;
 }
-/* Spitze: gedrehtes Quadrat mit zwei Rändern, liegt über dem Rand der Blase */
+/* Spitze: 4 × 7 Pixel, ihre rechte Spalte deckt den linken Rand der Blase ab */
 .sprechblase::before {
   content: '';
   position: absolute;
-  left: -9px;
-  top: calc(50% - 8px);
-  width: 16px;
-  height: 16px;
-  background: var(--color-papier);
-  border-left: var(--kontur) solid var(--color-hilfe);
-  border-bottom: var(--kontur) solid var(--color-hilfe);
-  transform: rotate(45deg);
+  left: calc(-7 * var(--px));
+  top: calc(50% - 3.5 * var(--px));
+  width: calc(4 * var(--px));
+  height: calc(7 * var(--px));
+  background: var(--blase-spitze) center / 100% 100% no-repeat;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .knopf, .chip, .holzknopf, .schalter__knopf { transition: none; transform: none !important; }
+  .einstein, .einstein .sprite { animation: none; }
 }
 
 /* Pixel-Grafik (src/gemeinsam/Sprite.tsx): scharfe Kanten beim Vergrößern */
