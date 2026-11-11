@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { Antwort, Antworten, Pruefergebnis, SchuelerAufgabe } from '../lib/typen'
 import { Anweisung } from './Anweisung'
 import { DiktatAufgabe } from './DiktatAnzeige'
+import { EinsteinSagt } from './Einstein'
 import { LueckentextAnzeige } from './LueckentextAnzeige'
 import { Sterne } from './Sterne'
 
@@ -14,13 +15,27 @@ type Props = {
   /** Lösung holen (erst nach 2 Versuchen erlaubt) */
   loesungHolen?: () => Promise<Record<number, string[]>>
   weiter?: { text: string; ziel: () => void }
+  /** Einstein erklärt das Format (beim ersten Mal) */
+  einstein?: string
+  /** Angefangene Antworten (Entwurf auf dem iPad) */
+  startAntworten?: Antworten
+  onAntwortenGeaendert?: (antworten: Antworten) => void
 }
 
 // alt (Übungswiese), im Pixel-Look: Bearbeitung einer Aufgabe – für Schüler:innen und für die Vorschau der Lehrkraft.
 // Erklärseiten haben eine eigene Darstellung (lesen, „Verstanden“).
 export function AufgabeBearbeiten(props: Props) {
-  if (props.aufgabe.typ === 'diktat') return <DiktatAufgabe {...props} />
-  return props.aufgabe.typ === 'erklaerung' ? <ErklaerSeite {...props} /> : <AufgabeUeben {...props} />
+  const typ = props.aufgabe.typ
+  return (
+    <>
+      {props.einstein && (
+        <EinsteinSagt pose="erklaert">
+          <p>{props.einstein}</p>
+        </EinsteinSagt>
+      )}
+      {typ === 'diktat' ? <DiktatAufgabe {...props} /> : typ === 'erklaerung' ? <ErklaerSeite {...props} /> : <AufgabeUeben {...props} />}
+    </>
+  )
 }
 
 function Kopf({ aufgabe }: { aufgabe: SchuelerAufgabe }) {
@@ -102,8 +117,8 @@ function ErklaerSeite({ aufgabe, pruefen, weiter }: Props) {
   )
 }
 
-function AufgabeUeben({ aufgabe, pruefen, loesungHolen, weiter }: Props) {
-  const [antworten, setAntworten] = useState<Antworten>({})
+function AufgabeUeben({ aufgabe, pruefen, loesungHolen, weiter, startAntworten, onAntwortenGeaendert }: Props) {
+  const [antworten, setAntworten] = useState<Antworten>(startAntworten ?? {})
   const [ergebnis, setErgebnis] = useState<PruefAntwort | null>(null)
   const [versuche, setVersuche] = useState(aufgabe.versuche)
   const [tippOffen, setTippOffen] = useState(false)
@@ -154,6 +169,7 @@ function AufgabeUeben({ aufgabe, pruefen, loesungHolen, weiter }: Props) {
     const neu: Antworten = { ...antworten, [id]: wert }
     if (wert === '' || wert === false || (Array.isArray(wert) && wert.length === 0)) delete neu[id]
     setAntworten(neu)
+    onAntwortenGeaendert?.(neu)
     // Sobald eine markierte Stelle geändert wird, verschwindet ihre Markierung; richtige bleiben gesperrt.
     setErgebnis((alt) => alt && { ...alt, ergebnis: { ...alt.ergebnis, luecken: alt.ergebnis.luecken.filter((l) => l.id !== id || l.richtig) } })
   }
@@ -253,10 +269,12 @@ function AufgabeUeben({ aufgabe, pruefen, loesungHolen, weiter }: Props) {
         ))}
 
       {aufgabe.hinweis && tippOffen && (
-        <aside className="tipp" aria-label="Tipp">
-          <strong>Tipp: </strong>
-          {aufgabe.hinweis}
-        </aside>
+        <EinsteinSagt pose="erklaert">
+          <p>
+            <strong>Tipp: </strong>
+            {aufgabe.hinweis}
+          </p>
+        </EinsteinSagt>
       )}
       {meldung && <p role="alert">{meldung}</p>}
 

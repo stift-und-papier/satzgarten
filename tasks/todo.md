@@ -120,7 +120,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 - [x] **14 Format Zuordnen** (S) – hängt an 11 · `[Der kleine Hund = Subjekt]`, Textmarker-Bedienung. Prüfen: wie 12.
 - [x] **15 Format Reihenfolge** (M) – hängt an 11 · Bausteine mit `|`, Varianten, antippen und ziehen (dnd-kit). Prüfen: wie 12 + Ziehen am iPad. · am iPad getestet (Haltepunkt 4).
 - [x] **16 Format Sätze verbessern** (S) – hängt an 11 · 2–4 Versionen, Hinweise erst nach dem Prüfen. Prüfen: wie 12; DB-Test Hinweise.
-- [ ] **17 Erklärseite** (S) – hängt an 11 · Text, Merkkasten, Beispiele; zählt nie für Lernstand. Prüfen: DB-Test `zaehlt_fuer_lernstand = false`. · Seite fertig; der DB-Test `zaehlt_fuer_lernstand = false` folgt mit der Tabelle `versuche` in Aufgabe 25.
+- [x] **17 Erklärseite** (S) – hängt an 11 · Text, Merkkasten, Beispiele; zählt nie für Lernstand. Prüfen: DB-Test `zaehlt_fuer_lernstand = false`. · Seite fertig; der DB-Test `zaehlt_fuer_lernstand = false` folgt mit der Tabelle `versuche` in Aufgabe 25. → erledigt (DB-Block 6.15).
 
 - [x] **18 Aufgabenliste mit Filter und Sortierung** (M) – hängt an 11
   - Akzeptanz: Titelsuche, Jahrgang, Bereich, Kompetenz; Sortieren nach Titel/Format/Stufe.
@@ -161,13 +161,13 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 
 ## Phase 6: Pakete und Üben (`pakete`, `ueben`)
 
-- [ ] **23 Pakete** (M) – hängt an 18, 8 · Tabellen `pakete`, `paket_aufgaben`, `zuweisungen`; Tags; anordnen; zuweisen; Schülervorschau. Prüfen: DB-Test.
-- [ ] **24 Schüler-Start und „Meine Übungen“** (M) – hängt an 23 · RPC `schueler_start`; Schülerrahmen mit Menüleiste unten; falscher Token → freundliche Meldung. Prüfen: DB-Test; am iPad per QR öffnen.
-- [ ] **25 Aufgabe bearbeiten und abgeben** (M) – hängt an 24 · RPCs `antwort_abgeben`, `loesung_anzeigen`; Tabellen `versuche`, `loesung_angesehen`; ✓ / ↻; Lösung erst nach 2 Versuchen. Prüfen: DB-Test; am iPad alle Formate.
-- [ ] **26 Offline-Warteschlange** (S) – hängt an 25 · Entwürfe und Antworten im localStorage; `client_id`. Prüfen: WLAN aus → abgeben → WLAN an → genau ein Versuch.
-- [ ] **27 Sterne-Stufen** (M) – hängt an 25, 10 · manuell (Vorrang) oder automatisch je Themenbereich. Prüfen: DB-Testfälle.
-- [ ] **28 Einstein in der Schüleransicht** (M) – hängt an 25, 7 · Begrüßung, Formaterklärung beim ersten Mal, Tipp der Lehrkraft; Texte aus `src/schueler/einstein.md`; nie „falsch“, keine Lösungen. Prüfen: Tests Textdatei; iPad.
-- [ ] **29 Hilfe-Seite** (S) – hängt an 24 · Fragen aus `src/schueler/hilfe.md` (alt, angepasst); **Namensnennung** Sprout Lands und TastenHeld. Prüfen: Test Parser (alt); iPad.
+- [x] **23 Pakete** (M) – hängt an 18, 8 · Tabellen `pakete`, `paket_aufgaben`, `zuweisungen`; Tags; anordnen; zuweisen; Schülervorschau. Prüfen: DB-Test.
+- [x] **24 Schüler-Start und „Meine Übungen“** (M) – hängt an 23 · RPC `schueler_start`; Schülerrahmen mit Menüleiste unten; falscher Token → freundliche Meldung. Prüfen: DB-Test; am iPad per QR öffnen.
+- [x] **25 Aufgabe bearbeiten und abgeben** (M) – hängt an 24 · RPCs `antwort_abgeben`, `loesung_anzeigen`; Tabellen `versuche`, `loesung_angesehen`; ✓ / ↻; Lösung erst nach 2 Versuchen. Prüfen: DB-Test; am iPad alle Formate.
+- [x] **26 Offline-Warteschlange** (S) – hängt an 25 · Entwürfe und Antworten im localStorage; `client_id`. Prüfen: WLAN aus → abgeben → WLAN an → genau ein Versuch. · Doppelt gesendet = ein Versuch (DB-Block 6.11); WLAN-Test am iPad im Haltepunkt.
+- [x] **27 Sterne-Stufen** (M) – hängt an 25, 10 · manuell (Vorrang) oder automatisch je Themenbereich. Prüfen: DB-Testfälle.
+- [x] **28 Einstein in der Schüleransicht** (M) – hängt an 25, 7 · Begrüßung, Formaterklärung beim ersten Mal, Tipp der Lehrkraft; Texte aus `src/schueler/einstein.md`; nie „falsch“, keine Lösungen. Prüfen: Tests Textdatei; iPad.
+- [x] **29 Hilfe-Seite** (S) – hängt an 24 · Fragen aus `src/schueler/hilfe.md` (alt, angepasst); **Namensnennung** Sprout Lands und TastenHeld. Prüfen: Test Parser (alt); iPad.
 
 ### Haltepunkt 6
 - [ ] **iPad-Test mit Testklasse:** Paket zuweisen, per QR öffnen, alle Formate inkl. Diktat, offline abgeben, Stufen prüfen.

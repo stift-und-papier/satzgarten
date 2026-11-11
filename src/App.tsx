@@ -7,6 +7,8 @@ const Vorschau = import.meta.env.DEV ? lazy(() => import('./entwicklung/Vorschau
 // Stilblatt zum Prüfen des Designs am iPad (ohne Daten). Wird nach der Design-Freigabe entfernt.
 const Stilblatt = lazy(() => import('./stil/Stilblatt'))
 // Lehrkraft-Bereich eigenständig nachladen: Schüler:innen laden ihn nie.
+// Schüleransicht ebenfalls eigenständig: Lehrkräfte laden sie nur bei Bedarf.
+const SchuelerBereich = lazy(() => import('./schueler/SchuelerBereich').then((m) => ({ default: m.SchuelerBereich })))
 const LehrkraftBereich = lazy(() => import('./lehrkraft/LehrkraftRahmen').then((m) => ({ default: m.LehrkraftBereich })))
 
 // Platzhalter, bis die echten Seiten da sind.
@@ -39,11 +41,11 @@ function Seite() {
         <Stilblatt />
       </Suspense>
     )
-  if (bereich === 's')
+  if (bereich === 's' && pfad[1])
     return (
-      <Platzhalter titel="Wortsalat">
-        <p>Hier entsteht deine Farm. Bald kannst du hier üben.</p>
-      </Platzhalter>
+      <Suspense fallback={null}>
+        <SchuelerBereich key={pfad[1]} token={pfad[1]} pfad={pfad.slice(2)} />
+      </Suspense>
     )
   if (bereich === 'lehrkraft')
     return (

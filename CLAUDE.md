@@ -159,3 +159,8 @@
   Knopf „Nach jedem Satz trennen“ als Hilfe. Schüleransicht zählt „Teil 1 von 3“.
 - 2026-11-11 (Lehrkraft): Abschreiben zeigt den Text als **Laufband** in einer Zeile (aktuelles Zeichen bei einem Drittel der Breite, wie TastenHeld).
 - 2026-11-11 (Lehrkraft): Diktate am iPad getestet und freigegeben – **Haltepunkt 5 erreicht**. Weiter mit Phase 6 (Pakete und Üben).
+- 2026-11-11 (Claude, Phase 6): Pakete, Zuweisungen, Versuche, „Lösung ansehen“, Sterne-Stufen und Schüler-Funktionen aus der Übungswiese
+  übernommen (Migration `pakete_ueben`, Regel für den Aufstieg unverändert: 80 % im ersten Versuch bei mindestens 5 Aufgaben je Bereich und Stufe).
+  Schüleransicht `src/schueler/` mit Menüleiste unten (Farm, Übungen, Hilfe; Lernweg und Buch kommen in Phase 7/8). Einstein begrüßt,
+  erklärt ein Format, solange es noch nie abgegeben wurde, und sagt den Tipp der Lehrkraft (Texte in `src/schueler/einstein.md`).
+  Hilfe-Seite mit Namensnennung (Sprout Lands, TastenHeld). Übungspaket „Übung: alle Formate“ der Klasse „Test“ zugewiesen.

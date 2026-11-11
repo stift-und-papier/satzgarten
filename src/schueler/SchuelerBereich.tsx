@@ -1,0 +1,349 @@
+// alt (Übungswiese), im Pixel-Look: alles, was Schüler:innen sehen. Zugriff nur über die Datenbank-Funktionen
+// mit dem Link-Token (#/s/<token>/…). Antworten ohne Internet warten im Speicher des iPads (speicher.ts).
+import { useCallback, useEffect, useState, type ReactNode } from 'react'
+import { AufgabeBearbeiten, type PruefAntwort } from '../gemeinsam/AufgabeBearbeiten'
+import { EinsteinSagt } from '../gemeinsam/Einstein'
+import { Sterne } from '../gemeinsam/Sterne'
+import { Symbol, type SymbolName } from '../gemeinsam/Symbol'
+import { einsteinTexte, formatKennung } from '../lib/einstein'
+import { fehlerText, istNetzwerkfehler } from '../lib/fehler'
+import { gehe } from '../lib/router'
+import { supabase } from '../lib/supabase'
+import type { Loesung, SchuelerAufgabe, SchuelerPaket, SchuelerStart } from '../lib/typen'
+import { neueId } from '../lib/zufall'
+import einsteinMd from './einstein.md?raw'
+import { Hilfe } from './Hilfe'
+import { entwurfLesen, entwurfSpeichern, warteschlangeLesen, warteschlangeSpeichern, type WartenderVersuch } from './speicher'
+
+const EINSTEIN = einsteinTexte(einsteinMd)
+
+type Props = { token: string; pfad: string[] }
+
+export function SchuelerBereich({ token, pfad }: Props) {
+  const [daten, setDaten] = useState<SchuelerStart | null>(null)
+  const [fehler, setFehler] = useState<string | null>(null)
+  const [wartend, setWartend] = useState(() => warteschlangeLesen(token).length)
+
+  const laden = useCallback(async () => {
+    const { data, error } = await supabase.rpc('schueler_start', { p_token: token })
+    if (error) setFehler(fehlerText(error))
+    else {
+      setDaten(data as SchuelerStart)
+      setFehler(null)
+    }
+  }, [token])
+
+  // Wartende Antworten senden, sobald wieder Internet da ist. client_id sorgt dafür, dass jede genau einmal zählt.
+  const warteschlangeSenden = useCallback(async () => {
+    const liste = warteschlangeLesen(token)
+    if (liste.length === 0) return
+    const rest: WartenderVersuch[] = []
+    for (const v of liste) {
+      const { error } = await supabase.rpc('antwort_abgeben', {
+        p_token: token,
+        p_paket_id: v.paket_id,
+        p_aufgabe_id: v.aufgabe_id,
+        p_antworten: v.antworten,
+        p_client_id: v.client_id,
+        p_bearbeitet_am: v.bearbeitet_am,
+      })
+      // Nur bei Netzwerkproblemen behalten; andere Fehler (z. B. Aufgabe gelöscht) verwerfen.
+      if (error && istNetzwerkfehler(error)) rest.push(v)
+    }
+    warteschlangeSpeichern(token, rest)
+    setWartend(rest.length)
+    if (rest.length < liste.length) void laden()
+  }, [token, laden])
+
+  useEffect(() => {
+    void laden()
+    void warteschlangeSenden()
+    const beiOnline = () => void warteschlangeSenden()
+    window.addEventListener('online', beiOnline)
+    const timer = window.setInterval(() => void warteschlangeSenden(), 20000)
+    return () => {
+      window.removeEventListener('online', beiOnline)
+      window.clearInterval(timer)
+    }
+  }, [laden, warteschlangeSenden])
+
+  const basis = `/s/${token}`
+  const [bereich, paketId, , aufgabeId] = pfad
+
+  if (!daten) {
+    return (
+      <Rahmen basis={basis} aktiv="start" menue={false}>
+        {fehler ? (
+          <div className="karte">
+            <h1>Hallo!</h1>
+            <p role="alert">{fehler}</p>
+            <p>Wenn das so bleibt, frag deine Lehrkraft nach deinem Link.</p>
+            <div className="knopf-reihe">
+              <button type="button" className="knopf knopf--haupt" onClick={() => void laden()}>
+                Noch einmal versuchen
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p className="karte" role="status">
+            Einen Moment …
+          </p>
+        )}
+      </Rahmen>
+    )
+  }
+
+  const paket = bereich === 'p' ? daten.pakete.find((p) => p.id === paketId) : undefined
+  const wartendHinweis = wartend > 0 && (
+    <p className="karte" role="status">
+      {wartend === 1 ? '1 Antwort wartet' : `${wartend} Antworten warten`} auf Internet und {wartend === 1 ? 'wird' : 'werden'} von selbst gesendet.
+    </p>
+  )
+
+  if (paket && aufgabeId) {
+    const index = paket.aufgaben.findIndex((a) => a.id === aufgabeId)
+    const aufgabe = paket.aufgaben[index]
+    return (
+      <Rahmen basis={basis} aktiv="uebungen">
+        {wartendHinweis}
+        <div className="knopf-reihe">
+          <a className="holzknopf" href={`#${basis}/p/${paket.id}`} aria-label={`Zurück zu ${paket.titel}`}>
+            <Symbol name="zurueck" />
+          </a>
+          <span className="ort">
+            {paket.titel}
+            {aufgabe && ` · Aufgabe ${index + 1} von ${paket.aufgaben.length}`}
+          </span>
+        </div>
+        {aufgabe ? (
+          <AufgabeSeite
+            key={aufgabe.id}
+            token={token}
+            paket={paket}
+            aufgabe={aufgabe}
+            neuesFormat={!daten.formate_geuebt.includes(aufgabe.typ)}
+            nachAbgabe={() => void laden()}
+            onWartend={setWartend}
+            weiter={
+              paket.aufgaben[index + 1]
+                ? { text: 'Weiter', ziel: () => gehe(`${basis}/p/${paket.id}/a/${paket.aufgaben[index + 1].id}`) }
+                : { text: 'Fertig', ziel: () => gehe(`${basis}/p/${paket.id}`) }
+            }
+          />
+        ) : (
+          <p className="karte">Diese Aufgabe gibt es nicht mehr.</p>
+        )}
+      </Rahmen>
+    )
+  }
+
+  if (paket) {
+    return (
+      <Rahmen basis={basis} aktiv="uebungen">
+        {wartendHinweis}
+        <header className="karte">
+          <div className="knopf-reihe">
+            <a className="holzknopf" href={`#${basis}/uebungen`} aria-label="Zurück zu allen Übungen">
+              <Symbol name="zurueck" />
+            </a>
+            <h1>{paket.titel}</h1>
+          </div>
+          {paket.beschreibung && <p>{paket.beschreibung}</p>}
+        </header>
+        <ol className="paket-liste">
+          {paket.aufgaben.map((a, i) => (
+            <li key={a.id}>
+              <a className="karte paket-liste__eintrag" href={`#${basis}/p/${paket.id}/a/${a.id}`}>
+                <span className="paket-liste__nr" aria-hidden="true">
+                  {a.geloest ? '✓' : i + 1}
+                </span>
+                <span>
+                  <strong>{a.titel}</strong> {a.typ !== 'erklaerung' && <Sterne stufe={a.stufe} />}
+                  <br />
+                  <span className="leise">{aufgabeStand(a)}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </Rahmen>
+    )
+  }
+
+  if (bereich === 'hilfe') {
+    return (
+      <Rahmen basis={basis} aktiv="hilfe">
+        <Hilfe />
+      </Rahmen>
+    )
+  }
+
+  if (bereich === 'uebungen') {
+    return (
+      <Rahmen basis={basis} aktiv="uebungen">
+        {wartendHinweis}
+        <header className="karte">
+          <h1>Meine Übungen</h1>
+          <p>{daten.pakete.length === 0 ? 'Für dich gibt es gerade keine Übungen. Schau später noch einmal vorbei.' : 'Such dir eine Übung aus.'}</p>
+        </header>
+        <PaketListe pakete={daten.pakete} basis={basis} />
+      </Rahmen>
+    )
+  }
+
+  // Startseite (später mit der Farm): Einstein begrüßt, nächster Schritt
+  const naechstesPaket = daten.pakete.find((p) => p.aufgaben.some((a) => !a.geloest))
+  const naechste = naechstesPaket?.aufgaben.find((a) => !a.geloest)
+  const gruss = naechste ? 'begruessung' : daten.pakete.length ? 'begruessung-fertig' : 'begruessung-leer'
+  return (
+    <Rahmen basis={basis} aktiv="start">
+      {wartendHinweis}
+      <EinsteinSagt pose="freundlich">
+        <p>{EINSTEIN[gruss]?.replaceAll('{name}', daten.pseudonym)}</p>
+      </EinsteinSagt>
+      {naechstesPaket && naechste && (
+        <section className="karte">
+          <h2>Dein nächster Schritt</h2>
+          <p>
+            {naechstesPaket.titel}: {naechste.titel} {naechste.typ !== 'erklaerung' && <Sterne stufe={naechste.stufe} />}
+          </p>
+          <div className="knopf-reihe">
+            <a className="knopf knopf--haupt" href={`#${basis}/p/${naechstesPaket.id}/a/${naechste.id}`}>
+              Weiter üben
+            </a>
+            <a className="knopf" href={`#${basis}/uebungen`}>
+              Alle Übungen
+            </a>
+          </div>
+        </section>
+      )}
+      <p className="karte leise">Hier entsteht bald deine Farm.</p>
+    </Rahmen>
+  )
+}
+
+function aufgabeStand(a: SchuelerAufgabe): string {
+  if (a.typ === 'erklaerung') return a.geloest ? 'Erklärung – gelesen. Du kannst sie jederzeit noch einmal lesen.' : 'Erklärung – lies sie dir in Ruhe durch.'
+  return a.geloest ? 'Geschafft – du kannst sie noch einmal üben.' : a.versuche > 0 ? 'Angefangen' : 'Neu'
+}
+
+function PaketListe({ pakete, basis }: { pakete: SchuelerPaket[]; basis: string }) {
+  return (
+    <ul className="paket-liste">
+      {pakete.map((p) => {
+        const geschafft = p.aufgaben.filter((a) => a.geloest).length
+        const fertig = geschafft === p.aufgaben.length && p.aufgaben.length > 0
+        return (
+          <li key={p.id}>
+            <a className="karte paket-liste__eintrag" href={`#${basis}/p/${p.id}`}>
+              <span className="paket-liste__nr" aria-hidden="true">
+                {fertig ? '✓' : <Symbol name="uebungen" />}
+              </span>
+              <span>
+                <strong>{p.titel}</strong>
+                {p.beschreibung && (
+                  <>
+                    <br />
+                    {p.beschreibung}
+                  </>
+                )}
+                <br />
+                <span className="leise">{fertig ? 'Alle Aufgaben geschafft' : `${geschafft} von ${p.aufgaben.length} Aufgaben geschafft`}</span>
+              </span>
+            </a>
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
+type AufgabeSeiteProps = {
+  token: string
+  paket: SchuelerPaket
+  aufgabe: SchuelerAufgabe
+  neuesFormat: boolean
+  nachAbgabe: () => void
+  onWartend: (anzahl: number) => void
+  weiter: { text: string; ziel: () => void }
+}
+
+function AufgabeSeite({ token, paket, aufgabe, neuesFormat, nachAbgabe, onWartend, weiter }: AufgabeSeiteProps) {
+  // Beim Öffnen festhalten, ob das Format neu ist – sonst verschwände Einsteins Erklärung nach der ersten Abgabe
+  const [erklaerung] = useState(() => (neuesFormat ? EINSTEIN[formatKennung(aufgabe.typ, aufgabe.inhalt.modus)] : undefined))
+  const [start] = useState(() => entwurfLesen(token, aufgabe.id))
+
+  return (
+    <AufgabeBearbeiten
+      aufgabe={aufgabe}
+      einstein={erklaerung}
+      startAntworten={start}
+      onAntwortenGeaendert={(antworten) => entwurfSpeichern(token, aufgabe.id, antworten)}
+      pruefen={async (antworten) => {
+        const versuch: WartenderVersuch = {
+          client_id: neueId(),
+          paket_id: paket.id,
+          aufgabe_id: aufgabe.id,
+          antworten,
+          bearbeitet_am: new Date().toISOString(),
+        }
+        const { data, error } = await supabase.rpc('antwort_abgeben', {
+          p_token: token,
+          p_paket_id: versuch.paket_id,
+          p_aufgabe_id: versuch.aufgabe_id,
+          p_antworten: versuch.antworten,
+          p_client_id: versuch.client_id,
+          p_bearbeitet_am: versuch.bearbeitet_am,
+        })
+        if (error) {
+          if (istNetzwerkfehler(error)) {
+            const liste = [...warteschlangeLesen(token), versuch]
+            warteschlangeSpeichern(token, liste)
+            onWartend(liste.length)
+            return null
+          }
+          throw new Error(fehlerText(error))
+        }
+        const antwort = data as PruefAntwort
+        if (antwort.ergebnis.richtig) entwurfSpeichern(token, aufgabe.id, null)
+        nachAbgabe()
+        return antwort
+      }}
+      loesungHolen={async () => {
+        const { data, error } = await supabase.rpc('loesung_anzeigen', { p_token: token, p_paket_id: paket.id, p_aufgabe_id: aufgabe.id })
+        if (error) throw new Error(fehlerText(error))
+        return Object.fromEntries((data as Loesung).luecken.map((l) => [l.id, l.loesungen]))
+      }}
+      weiter={weiter}
+    />
+  )
+}
+
+const MENUE: { id: 'start' | 'uebungen' | 'hilfe'; symbol: SymbolName; text: string; ziel: string }[] = [
+  { id: 'start', symbol: 'garten', text: 'Farm', ziel: '' },
+  { id: 'uebungen', symbol: 'uebungen', text: 'Übungen', ziel: '/uebungen' },
+  { id: 'hilfe', symbol: 'hilfe', text: 'Hilfe', ziel: '/hilfe' },
+]
+
+// Seite mit Wiese im Hintergrund und Menüleiste unten (Lernweg und Buch kommen in Phase 7 und 8 dazu)
+function Rahmen({ basis, aktiv, menue = true, children }: { basis: string; aktiv: string; menue?: boolean; children: ReactNode }) {
+  return (
+    <div className="garten-seite">
+      <main className="garten-seite__inhalt">{children}</main>
+      {menue && (
+        <nav className="menue" aria-label="Hauptmenü">
+          <ul>
+            {MENUE.map((m) => (
+              <li key={m.id}>
+                <a href={`#${basis}${m.ziel}`} aria-current={aktiv === m.id ? 'page' : undefined}>
+                  <Symbol name={m.symbol} />
+                  {m.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+    </div>
+  )
+}

@@ -290,7 +290,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .menue ul {
   list-style: none; margin: 0 auto; padding: 0;
   max-width: var(--breite-inhalt);
-  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-2xs);
+  /* so viele Spalten wie Einträge (Lernweg und Buch kommen später dazu) */
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--space-2xs);
 }
 .menue a {
   display: grid; justify-items: center; gap: 2px;
@@ -441,3 +442,27 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .diktat__wort--nochmal { color: var(--color-nochmal-tinte); text-decoration: underline dotted; text-underline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) { .diktat__z[data-wackeln] { animation: none; } .diktat__band { transition: none; } }
 .diktat__loesung { display: grid; gap: var(--space-xs); }
+
+/* ---------- Schüleransicht: Pakete und Aufgaben (src/schueler) ---------- */
+.paket-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-sm); }
+.paket-liste__eintrag {
+  grid-template-columns: auto minmax(0, 1fr); align-items: center;
+  min-height: var(--tipp-min);
+  color: var(--color-tinte); text-decoration: none;
+}
+.paket-liste__nr {
+  display: inline-grid; place-items: center;
+  min-width: 2.5rem; height: 2.5rem;
+  font-weight: 800; color: var(--color-aktion);
+}
+.garten-seite__inhalt h1, .garten-seite__inhalt h2 { margin: 0; }
+/* Hilfe: Fragen zum Aufklappen */
+.hilfe-eintrag { border-top: calc(var(--px)) solid var(--color-holz); padding: var(--space-xs) 0; }
+.hilfe-eintrag summary { cursor: pointer; min-height: var(--tipp-min); display: flex; align-items: center; font-weight: 800; }
+.hilfe-eintrag p, .hilfe-eintrag ul { margin: var(--space-xs) 0; }
+/* Ortsangabe neben dem Zurück-Knopf: auf Papier, damit sie auf der Wiese lesbar bleibt */
+.ort { background: var(--color-papier); padding: var(--space-2xs) var(--space-xs); border-radius: var(--radius-feld); }
+.hilfe-eintrag summary { list-style: none; gap: var(--space-xs); }
+.hilfe-eintrag summary::-webkit-details-marker { display: none; }
+.hilfe-eintrag summary::before { content: '▸'; color: var(--color-aktion); }
+.hilfe-eintrag[open] summary::before { content: '▾'; }

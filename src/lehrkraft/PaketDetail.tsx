@@ -358,10 +358,10 @@ function PaketVorschau({ daten }: { daten: Daten }) {
       </div>
       <div className="lk-knopfreihe">
         <button type="button" className="lk-knopf" disabled={index === 0} onClick={() => setIndex(index - 1)}>
-          ← Vorherige
+          Vorherige Aufgabe
         </button>
         <button type="button" className="lk-knopf" disabled={index + 1 >= daten.inhalt.length} onClick={() => setIndex(index + 1)}>
-          Überspringen →
+          Überspringen
         </button>
       </div>
     </>
