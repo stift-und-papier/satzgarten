@@ -1,94 +1,94 @@
-# Aufgabenliste: Satzgarten
+# Aufgabenliste: Wortsalat
 
 Grundlage: `docs/SPEC.md`, `tasks/plan.md`. Größe: S = 1–2 Dateien, M = 3–5 Dateien.
-Für **jede** Aufgabe gilt zusätzlich: `npm test` und `npm run build` laufen fehlerfrei, und nach jeder Migration
-läuft `npm run test:datenbank` mit dem Ergebnis „ALLE TESTS BESTANDEN“.
-„Alt:“ = Datei aus dem alten Projekt, die übernommen und angepasst wird.
+Für **jede** Aufgabe gilt zusätzlich: `npm test`, `npm run lint` und `npm run build` laufen fehlerfrei, und nach jeder
+Migration läuft `npm run test:datenbank` mit dem Ergebnis „ALLE TESTS BESTANDEN“.
+„Alt:“ = Datei aus der Übungswiese (`C:\Users\jrkug\Projekte\deutsch-uebungen`), die übernommen und angepasst wird.
+Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigten Aufgaben 1–6 sind die Grundlage.
 
 ---
 
-## Phase 1: Grundgerüst
+## Phase 1: Umbenennen (`umbenennen`)
 
-- [x] **1 Projekt anlegen und veröffentlichen** (M)
-  - Akzeptanz: Ordner `C:\Users\jrkug\Projekte\satzgarten`, Vite + React + TS (Safari 15, Basis `/satzgarten/`),
-    Repo `stift-und-papier/satzgarten`, GitHub Actions veröffentlicht bei Push auf `main`; `.gitignore` schließt
-    `refrences/`, `docs/*.pdf`, `.env*`, `supabase/.temp` aus; neues `CLAUDE.md` mit den Regeln aus der Spec;
-    Spec und Plan liegen in `docs/` bzw. `tasks/`.
-  - Prüfen: Seite „Satzgarten“ ist unter `https://stift-und-papier.github.io/satzgarten/` erreichbar.
-  - Dateien: `package.json`, `vite.config.ts`, `.github/workflows/veroeffentlichen.yml`, `.gitignore`, `CLAUDE.md`
+- [ ] **1 Repo und Adresse umbenennen** (M)
+  - Akzeptanz: GitHub-Repo `stift-und-papier/wortsalat` (per `gh repo rename`), `git remote` angepasst;
+    Pfad-Basis `/wortsalat/` in `vite.config.ts`; Paketname, Seitentitel, README; Veröffentlichung läuft.
+  - Prüfen: `https://stift-und-papier.github.io/wortsalat/` zeigt die App; Lauf in GitHub Actions grün.
+  - Dateien: `vite.config.ts`, `package.json`, `index.html`, `README.md`
 
-- [x] **2 Datenbank anlegen mit Test-Gerüst** (M) – hängt an 1
-  - Akzeptanz: neues Supabase-Projekt in Frankfurt (Region mit `npx supabase projects list` geprüft), CLI verknüpft,
-    erste Migration mit Tabelle `einstellungen` (owner, RLS an) als Probe für das Test-Gerüst; `supabase/tests/zugriffsregeln.sql`
-    (Aufbau wie alt: anon / Lehrkraft A / Lehrkraft B / Token, macht alles rückgängig) mit **kurzer Ausgabe**;
-    Netzwerktest ohne Anmeldung.
-  - Prüfen: `npm run test:datenbank` → „ALLE TESTS BESTANDEN“; `npm test` grün.
-  - Dateien: `supabase/migrations/…_start.sql`, `supabase/tests/zugriffsregeln.sql`, `supabase/tests/netzwerk.test.ts`,
-    `src/lib/supabase.ts`
+- [ ] **2 Texte, Regeln und Aufräumen** (M) – hängt an 1
+  - Akzeptanz: „Satzgarten“ → „Wortsalat“ in allen Oberflächentexten; `CLAUDE.md` neu gefasst (Name, Einstein,
+    Pixel-Look, Figuren erlaubt, Münzen als Zahlen, Tastatur, Korrektur aus, Lizenzen, Entscheidungsprotokoll fortgeführt);
+    Garten-Entwurf (`Garten.tsx`, `garten.css`, `GartenVorschau.tsx`, Garten-Tokens) und Albert-Vorschau entfernt;
+    `Maskottchen.tsx` bleibt vorerst als Platzhalter, bis Einstein fertig ist.
+  - Prüfen: `grep -ri satzgarten src` findet nichts mehr außer im Protokoll; Bauen, Tests und Hallmark-Prüfung grün.
+  - Dateien: `CLAUDE.md`, `src/App.tsx`, `src/stil/*`, `src/design/tokens.css`, `src/lehrkraft/LehrkraftRahmen.tsx`
 
-- [x] **3 Navigation und Versionsprüfung** (S) – hängt an 1
-  - Akzeptanz: Hash-Navigation (`#/s/<token>/…`, `#/lehrkraft/…`, `#/vorschau/…` nur im Entwicklungsmodus);
-    Versionsprüfung lädt beim Öffnen einmal neu und zeigt sonst „Neu laden“.
-  - Prüfen: Tests für den Router; nach einer Veröffentlichung zeigt das iPad die neue Version.
-  - Dateien: `src/lib/router.ts` (alt), `src/lib/version.ts` (alt), `src/App.tsx`
+- [ ] **3 Lehrkraft-Konto und Anmeldung testen** (S) – hängt an 1
+  - Akzeptanz: Lehrkraft legt ihr Konto im Supabase-Dashboard an (Selbst-Registrierung aus, „Auto Confirm User“),
+    Anzeigename des Supabase-Projekts „wortsalat“; Anmelden und Abmelden unter der neuen Adresse klappt.
+  - Prüfen: Lehrkraft meldet sich am Laptop und am iPad an.
+  - Dateien: keine (Anleitung Schritt für Schritt)
 
 ### Haltepunkt 1
-- [ ] Seite online, DB-Test grün, Lehrkraft hat die Adresse am iPad geöffnet.
+- [ ] Seite läuft unter `/wortsalat/`, Anmeldung klappt, nirgends steht mehr „Satzgarten“.
+  Danach (am Ende einer Sitzung): Projektordner in `C:\Users\jrkug\Projekte\wortsalat` umbenennen.
 
 ---
 
-## Phase 2: Design (vor allen Schülerseiten)
+## Phase 2: Design (`design`)
 
-- [x] **4 Stilblatt** (M) – hängt an 3
-  - Akzeptanz: `src/design/tokens.css` (Creme, Wiesengrün, Holzbraun, Pfirsich; Kontrast ≥ 4,5:1 nachgerechnet),
-    Bausteine Karte, Pillenknopf, runder Holzknopf, Menüleiste unten, Lücke, Auswahl, Rückmeldung ✓/↻;
-    nur lokale Schriften; Vorschauseite `#/vorschau/stil` mit allen Bausteinen; Lehrkraft-Thema „ruhig“.
-  - Prüfen: Lehrkraft sieht die Seite am iPad und am Laptop, gibt frei oder nennt Änderungen.
-  - Dateien: `src/design/tokens.css`, `src/design/bausteine.css`, `src/design/lehrkraft.css`, `src/entwicklung/Vorschau.tsx`
+- [ ] **4 Grafik-Ordner und Sprite-Baustein** (M) – hängt an 2
+  - Akzeptanz: Skript `scripts/grafik-holen.mjs` schneidet benannte Bilder aus `assets/` (lokal) nach `src/grafik/`;
+    `src/grafik/LIZENZ.md` (Sprout Lands, Cup Nooble; TastenHeld); Baustein `Sprite` zeigt ein Bild bzw. Einzelbild
+    eines Spritesheets ganzzahlig vergrößert und scharf (`image-rendering: pixelated`); nur benutzte Bilder im Repo.
+  - Prüfen: Test für die Auswahl eines Einzelbilds; `git status` zeigt nichts aus `assets/`.
+  - Dateien: `scripts/grafik-holen.mjs`, `src/grafik/LIZENZ.md`, `src/gemeinsam/Sprite.tsx`, `src/lib/sprite.ts` + Test
 
-- [x] **5 Maskottchen** (M) – hängt an 4
-  - Akzeptanz: 3 eigene Entwürfe eines Gartengeists (SVG, keine Kopie der Referenz); Lehrkraft wählt einen
-    (und klärt Name, eine Figur oder Auswahl); danach 4 Ausdrücke (freundlich, nachdenklich, freut sich, zeigt);
-    Sprechblasen-Baustein; `aria-hidden` für die Figur.
-  - Prüfen: Vorschauseite `#/vorschau/maskottchen`; Freigabe der Lehrkraft.
-  - Dateien: `src/design/maskottchen/*.svg`, `src/gemeinsam/Maskottchen.tsx`, `src/design/bausteine.css`
+- [ ] **5 Schrift mit Umlauten** (S) – hängt an 4
+  - Akzeptanz: 2–3 Entwürfe nebeneinander (z. B. Pixel-Schrift mit selbst gezeichneten Ä Ö Ü ä ö ü ß, eine lokale,
+    frei lizenzierte Pixel-Schrift mit Umlauten, eine ruhige Textschrift zu Pixel-Überschriften); Lehrkraft wählt;
+    Lesbarkeit für LRS (Leseschrift bleibt umschaltbar).
+  - Prüfen: Entwurfsseite am iPad; Satz mit allen Umlauten und ß; Freigabe.
+  - Dateien: `src/design/fonts/*`, `src/design/tokens.css`, Entwurfsseite
 
-- [x] **6 Garten-Entwurf** (M) – hängt an 4
-  - Akzeptanz: Szene von oben (Wiese, Zaun, Weg, 6 Beete), 1 Pflanze in 4 Stufen (Samen, Spross, Pflanze, Blüte),
-    Korb mit Samentüten-Bildern, 1 Deko-Ding, 1 Sammelbuch-Seite mit „?“-Platzhaltern; keine Gesichter.
-    Nur Anzeige mit Beispieldaten, noch ohne Datenbank.
-  - Prüfen: `#/vorschau/garten` am iPad (quer und hochkant); Freigabe der Lehrkraft.
-  - Dateien: `src/design/garten/*.svg`, `src/gemeinsam/Garten.tsx`, `src/design/garten.css`
+- [ ] **6 Pixel-Stilblatt** (M) – hängt an 4, 5
+  - Akzeptanz: Farben aus der Sprout-Lands-Palette in `tokens.css` (hell, dunkel, mehr Kontrast, dunkel + mehr Kontrast;
+    Kontrast ≥ 4,5:1 nachgerechnet); Bausteine im Pixel-Look: Fenster/Karte, Hauptknopf, runder Knopf, Menüleiste unten,
+    Lücke, Auswahl, Rückmeldung ✓/↻ (nie rot), Münzanzeige; Fachbegriff-Farben eingebunden; Lehrkraft-Thema bleibt.
+  - Prüfen: Seite `#/stil` am iPad (quer, hochkant) und Laptop; Hallmark-Prüfung; Freigabe.
+  - Dateien: `src/design/tokens.css`, `src/design/bausteine.css`, `src/stil/Stilblatt.tsx`
+
+- [ ] **7 Einstein** (M) – hängt an 4
+  - Akzeptanz: aus den eigenen Vorlagen (`assets/*.jpg`) ein Pixel-Spritesheet mit durchsichtigem Hintergrund
+    (Posen nach Absprache, z. B. freundlich, freut sich, nachdenklich, zeigt, erschrocken, traurig); ruhige Bewegung
+    (aus bei „Bewegung reduzieren“); Sprechblase aus dem UI-Paket; Figur `aria-hidden`, Sprechblase nicht.
+  - Prüfen: Vorschauseite am iPad; Freigabe.
+  - Dateien: `src/grafik/einstein.png`, `src/gemeinsam/Einstein.tsx` (ersetzt `Maskottchen.tsx`), `src/design/bausteine.css`
 
 ### Haltepunkt 2
-- [x] **Lehrkraft gibt Stil, Maskottchen und Garten frei.** Ohne Freigabe keine Schülerseiten.
+- [ ] **Lehrkraft gibt Schrift, Pixel-Stil und Einstein frei.** Ohne Freigabe keine Schülerseiten.
 
 ---
 
-## Phase 3: Klassen und Kompetenzen
+## Phase 3: Klassen und Kompetenzen (`klassen`, `kompetenzen`)
 
-- [ ] **7 Login der Lehrkraft** (M) – hängt an 2, 4
-  - Akzeptanz: Anmelden/Abmelden per E-Mail und Passwort, Seitenrahmen Lehrkraft (Seitenleiste, Leiste unten ≤ 900 px),
-    geschützte Seiten leiten zur Anmeldung.
-  - Prüfen: Anmelden mit dem Konto der Lehrkraft; DB-Test: anon sieht nichts.
-  - Dateien: `src/lehrkraft/Anmeldung.tsx`, `src/lehrkraft/LehrkraftRahmen.tsx`, `src/App.tsx`
-
-- [ ] **8 Klassen und Pseudonyme** (M) – hängt an 7
+- [ ] **8 Klassen und Pseudonyme** (M) – hängt an 3
   - Akzeptanz: Tabellen `klassen` (owner, name, kerncurriculum HS/RS/Gym), `schueler` (owner, klasse_id, pseudonym,
-    token 192 Bit, stufe_manuell); RLS `owner = auth.uid()`; Klasse anlegen/umbenennen/löschen; Pseudonyme
-    automatisch („Fuchs-07“) oder aus eigener Liste.
+    token 192 Bit, stufe_manuell); RLS `owner = auth.uid()`; anlegen/umbenennen/löschen; Pseudonyme automatisch
+    („Fuchs-07“) oder aus eigener Liste.
   - Prüfen: DB-Test (Lehrkraft B sieht Klassen von A nicht); Tests Pseudonyme (alt).
   - Dateien: Migration, `src/lehrkraft/KlassenListe.tsx`, `src/lehrkraft/KlasseDetail.tsx`, `src/lib/pseudonyme.ts` (alt)
 
 - [ ] **9 Linkliste mit QR-Codes** (S) – hängt an 8
-  - Akzeptanz: Liste aller Links einer Klasse mit QR-Code, druckbar (A4, ohne Hintergrund).
-  - Prüfen: Druckvorschau im Browser; QR-Code am iPad scannen öffnet den richtigen Link.
+  - Akzeptanz: alle Links einer Klasse mit QR-Code, druckbar (A4, ohne Hintergrund).
+  - Prüfen: Druckvorschau; QR-Code am iPad öffnet den richtigen Link.
   - Dateien: `src/lehrkraft/Linkliste.tsx`, Druck-CSS
 
-- [ ] **10 Kompetenzen** (M) – hängt an 7
+- [ ] **10 Kompetenzen** (M) – hängt an 3
   - Akzeptanz: Tabelle `kompetenzen` (owner, code, kerncurriculum, bereich, stufe, kompetenz, hinweis, kurzname,
-    ausgeblendet); Import der 154 Zeilen aus `docs/kompetenzen.csv` per Skript; Seite mit Kurzname ändern und Ausblenden.
-  - Prüfen: 154 Kompetenzen (Gym 44, RS 56, HS 54) sichtbar; Tests CSV-Lesen (alt).
+    ausgeblendet); Import der 154 Zeilen aus `docs/kompetenzen.csv`; Seite mit Kurzname ändern und Ausblenden.
+  - Prüfen: 154 Kompetenzen (Gym 44, RS 56, HS 54); Tests CSV-Lesen (alt).
   - Dateien: Migration, `scripts/kompetenzen-sql.ts` (alt), `src/lehrkraft/Kompetenzen.tsx`, `src/lib/csvLesen.ts` (alt)
 
 ### Haltepunkt 3
@@ -96,184 +96,108 @@ läuft `npm run test:datenbank` mit dem Ergebnis „ALLE TESTS BESTANDEN“.
 
 ---
 
-## Phase 4: Aufgaben (ein Format nach dem anderen)
+## Phase 4: Aufgaben (`aufgaben`)
 
-- [ ] **11 Aufgaben-Grundlage + Lückentext** (M) – hängt an 10
+- [ ] **11 Aufgaben-Grundlage, Lückentext, Eingabe ohne Korrektur** (M) – hängt an 10, Haltepunkt 2
   - Akzeptanz: Tabelle `aufgaben` mit getrennten Feldern `inhalt` und `loesung`, `aufgabe_kompetenzen`;
-    Verteiler `pruefe_aufgabe` + `pruefe_lueckentext`; Editor mit Format-Kacheln, Abschnitten (Inhalt / Einordnen / Extras)
-    und Live-Vorschau; Parser `[Lösung]`, `/` für Alternativen.
-  - Prüfen: Parser-Tests (alt); DB-Test: Token bekommt Aufgabe **ohne** `loesung`; Prüfung liefert ✓/↻ je Lücke.
-  - Dateien: Migration, `src/lib/lueckentext.ts` (alt), `src/lehrkraft/AufgabeEditor.tsx`, `src/gemeinsam/LueckentextAnzeige.tsx`
+    Verteiler `pruefe_aufgabe` + `pruefe_lueckentext`; Editor mit Format-Kacheln und Live-Vorschau; Parser `[Lösung]`;
+    **gemeinsames Eingabefeld** mit `autocorrect="off"`, `autocapitalize="off"`, `spellcheck="false"`, `autocomplete="off"`.
+  - Prüfen: Parser-Tests (alt); DB-Test: Token bekommt Aufgabe ohne `loesung`; **iPad mit Tastatur: falsch
+    getipptes Wort bleibt falsch, Satzanfang bleibt klein.**
+  - Dateien: Migration, `src/lib/lueckentext.ts` (alt), `src/lehrkraft/AufgabeEditor.tsx`, `src/gemeinsam/Eingabe.tsx`, `src/gemeinsam/LueckentextAnzeige.tsx`
 
-- [ ] **12 Format Auswahl** (S) – hängt an 11
-  - Akzeptanz: `[das | *dass]`, Einfach- und Mehrfachauswahl, antippen oder Dropdown; Schüler:innen erfahren nur, ob mehrere richtig sind.
-  - Prüfen: Parser-Tests; DB-Test „keine Lösung“; Vorschau.
-  - Dateien: Migration `pruefe_auswahl`, Parser, Anzeige
-
-- [ ] **13 Format Fehler finden** (S) – hängt an 11
-  - Akzeptanz: `[weis -> weiß]`, „nur finden“ oder „finden + eintippen“, „Finde N Fehler“; nicht gefundene Fehler ohne Ort.
-  - Prüfen: wie 12.
-  - Dateien: Migration `pruefe_fehler`, Parser, Anzeige
-
-- [ ] **14 Format Zuordnen** (S) – hängt an 11
-  - Akzeptanz: `[Der kleine Hund = Subjekt]`, Bedienung wie Textmarker, Ablenker antippbar.
-  - Prüfen: wie 12.
-  - Dateien: Migration `pruefe_zuordnen`, Parser, Anzeige
-
-- [ ] **15 Format Reihenfolge** (M) – hängt an 11
-  - Akzeptanz: `Gestern | bin ich | ins Kino | gegangen.`, weitere Lösungen darunter, Satzart, Varianten, gemischte
-    Bausteine ohne verräterische Großschreibung/Schlusszeichen; antippen **und** ziehen (dnd-kit).
-  - Prüfen: wie 12, zusätzlich Ziehen am iPad.
-  - Dateien: Migration `pruefe_reihenfolge`, Parser, `src/gemeinsam/ReiheAnzeige.tsx` (alt)
-
-- [ ] **16 Format Sätze verbessern** (S) – hängt an 11
-  - Akzeptanz: Kontext, 2–4 Versionen, eine mit `*`, Hinweise erst nach dem Prüfen.
-  - Prüfen: wie 12; DB-Test: Hinweise nicht vor der Abgabe.
-  - Dateien: Migration `pruefe_ueberarbeiten`, Parser, `src/gemeinsam/VersionenAnzeige.tsx` (alt)
-
-- [ ] **17 Erklärseite** (S) – hängt an 11
-  - Akzeptanz: Text, Merkkasten, Beispiele mit `[Wort]`; „Verstanden – weiter“; zählt nie für Lernstand und gießt nie.
-  - Prüfen: Vorschau; DB-Test `zaehlt_fuer_lernstand = false`.
-  - Dateien: Migration, Editor-Teil, `src/gemeinsam/ErklaerSeite.tsx`
+- [ ] **12 Format Auswahl** (S) – hängt an 11 · `[das | *dass]`, Einfach- und Mehrfachauswahl. Prüfen: Parser-Tests, DB-Test „keine Lösung“, Vorschau.
+- [ ] **13 Format Fehler finden** (S) – hängt an 11 · `[weis -> weiß]`, nur finden oder finden + eintippen. Prüfen: wie 12.
+- [ ] **14 Format Zuordnen** (S) – hängt an 11 · `[Der kleine Hund = Subjekt]`, Textmarker-Bedienung. Prüfen: wie 12.
+- [ ] **15 Format Reihenfolge** (M) – hängt an 11 · Bausteine mit `|`, Varianten, antippen und ziehen (dnd-kit). Prüfen: wie 12 + Ziehen am iPad.
+- [ ] **16 Format Sätze verbessern** (S) – hängt an 11 · 2–4 Versionen, Hinweise erst nach dem Prüfen. Prüfen: wie 12; DB-Test Hinweise.
+- [ ] **17 Erklärseite** (S) – hängt an 11 · Text, Merkkasten, Beispiele; zählt nie für Lernstand. Prüfen: DB-Test `zaehlt_fuer_lernstand = false`.
 
 - [ ] **18 Aufgabenliste mit Filter und Sortierung** (M) – hängt an 11
-  - Akzeptanz: Titelsuche, Jahrgang (aus Kompetenzen), Bereich, Kompetenz; Sortieren nach Titel/Format/Stufe.
+  - Akzeptanz: Titelsuche, Jahrgang, Bereich, Kompetenz; Sortieren nach Titel/Format/Stufe.
   - Prüfen: Tests Filter und Sortierung (alt).
-  - Dateien: `src/lib/filter.ts` (alt), `src/lib/sortierung.ts` (alt), `src/lehrkraft/AufgabenListe.tsx`, `src/lehrkraft/ListenFilter.tsx` (alt)
+  - Dateien: `src/lib/filter.ts` (alt), `src/lib/sortierung.ts` (alt), `src/lehrkraft/AufgabenListe.tsx`
+
+- [ ] **19 Fachbegriff-Farben in Anweisungen** (S) – hängt an 11
+  - Akzeptanz: `Anweisung.tsx` färbt Fachbegriffe in Aufgaben automatisch, je Aufgabe abschaltbar.
+  - Prüfen: vorhandene Tests `kategorien.test.ts`; Vorschau.
 
 ### Haltepunkt 4
-- [ ] Lehrkraft erstellt je Format eine Aufgabe selbst und prüft sie in der Vorschau.
+- [ ] Lehrkraft erstellt je Format eine Aufgabe und prüft sie in der Vorschau; iPad korrigiert nichts.
 
 ---
 
-## Phase 5: Pakete und Üben
+## Phase 5: Diktat (`diktat`)
 
-- [ ] **19 Pakete** (M) – hängt an 18, 8
-  - Akzeptanz: Tabellen `pakete` (mit `jahrgaenge`, `zweige`), `paket_aufgaben`, `zuweisungen`; anlegen, Tags,
-    Aufgaben anordnen, an Klasse oder einzelne Schüler:innen zuweisen; Schülervorschau.
-  - Prüfen: DB-Test (Tags nur erlaubte Werte, fremde Pakete unsichtbar).
-  - Dateien: Migration, `src/lehrkraft/PaketListe.tsx`, `src/lehrkraft/PaketDetail.tsx`, `src/lehrkraft/PaketTags.tsx` (alt)
+- [ ] **20 Spec Diktat** (S)
+  - Akzeptanz: `docs/SPEC-diktat.md` beantwortet die offenen Fragen 3–6 der Spec (Rückmeldung bei Tippfehlern,
+    Teilung in Sätze, was als Fehler zählt, Lernstand); Blick in den Code von TastenHeld (Modus „Rennen“), was übernommen wird.
+  - Prüfen: Freigabe durch die Lehrkraft.
 
-- [ ] **20 Schüler-Start und „Meine Übungen“** (M) – hängt an 19, Haltepunkt 2
-  - Akzeptanz: RPC `schueler_start` (prüft Token, liefert Pseudonym und zugewiesene Pakete); Schülerrahmen mit
-    Menüleiste unten; Seite „Meine Übungen“; falscher Token → freundliche Meldung.
-  - Prüfen: DB-Test (Token A sieht nichts von B); am iPad per QR-Code öffnen.
-  - Dateien: Migration, `src/schueler/SchuelerRahmen.tsx`, `src/schueler/Uebungen.tsx`, `src/schueler/Start.tsx`
+- [ ] **21 Diktat Abschreiben** (M) – hängt an 20, 11
+  - Akzeptanz: Lehrkraft fügt Text ein (Editor-Kachel „Diktat“); Schüler:innen tippen ihn ab; Prüfung und Rückmeldung
+    nach der Spec; Eingabe ohne Korrektur; übernommene Teile aus TastenHeld mit Herkunft gekennzeichnet.
+  - Prüfen: Tests für den Textvergleich; DB-Test; iPad mit Tastatur.
+  - Dateien: Migration `pruefe_diktat`, `src/lib/diktat.ts` + Test, `src/gemeinsam/DiktatAnzeige.tsx`
 
-- [ ] **21 Aufgabe bearbeiten und abgeben** (M) – hängt an 20
-  - Akzeptanz: RPC `antwort_abgeben` und `loesung_anzeigen`; Tabelle `versuche`, `loesung_angesehen`;
-    Rückmeldung ✓ grün / ↻ Pfirsich; Lösung erst nach 2 Versuchen, danach zählt nichts mehr für den Lernstand.
-  - Prüfen: DB-Test (Lösung vor 2 Versuchen verweigert); am iPad alle Formate einmal abgeben.
-  - Dateien: Migration, `src/schueler/AufgabeSeite.tsx`, `src/gemeinsam/AufgabeBearbeiten.tsx`
-
-- [ ] **22 Offline-Warteschlange** (S) – hängt an 21
-  - Akzeptanz: Entwürfe und nicht gesendete Antworten im localStorage; `client_id` verhindert doppelte Abgaben.
-  - Prüfen: WLAN aus → abgeben → WLAN an → genau ein Versuch in der DB.
-  - Dateien: `src/schueler/speicher.ts` (alt), `src/schueler/AufgabeSeite.tsx`
-
-- [ ] **23 Sterne-Stufen** (M) – hängt an 21, 10
-  - Akzeptanz: `stufe_manuell` (Vorrang) oder Automatik je Themenbereich (`stufen_regel`: 80 %, mind. 5, nur Aufstieg);
-    `sichtbare_aufgaben`; Lehrkraft stellt Stufe je Schüler:in ein.
-  - Prüfen: DB-Testfälle für Aufstieg und Vorrang; Sterne in der Schüleransicht.
-  - Dateien: Migration, `src/gemeinsam/Sterne.tsx`, `src/lehrkraft/StufenFeld.tsx`
-
-- [ ] **24 Maskottchen in der Schüleransicht** (M) – hängt an 21, 5
-  - Akzeptanz: Begrüßung und nächster Schritt; Formaterklärung beim ersten Öffnen (gemerkt im localStorage), danach
-    per Knopf; Tipp der Lehrkraft auf Antippen; Satz zur Rückmeldung; Texte aus `src/schueler/maskottchen.md`;
-    sagt nie „falsch“, nie Punkte, keine Lösungen.
-  - Prüfen: Tests für das Lesen der Textdatei; am iPad jedes Format einmal ansehen.
-  - Dateien: `src/schueler/maskottchen.md`, `src/lib/maskottchenTexte.ts`, `src/gemeinsam/Maskottchen.tsx`, `src/schueler/AufgabeSeite.tsx`
-
-- [ ] **25 Hilfe-Seite** (S) – hängt an 20
-  - Akzeptanz: aufklappbare Fragen aus `src/schueler/hilfe.md` (alt, angepasst an Garten und Maskottchen).
-  - Prüfen: Test des Parsers (alt); Seite am iPad.
-  - Dateien: `src/schueler/hilfe.md`, `src/lib/hilfe.ts` (alt), `src/schueler/Hilfe.tsx`
+- [ ] **22 Merkdiktat** (M) – hängt an 21
+  - Akzeptanz: Text erscheint (Teil-)Satz für (Teil-)Satz; nach „gemerkt“ verschwindet er und wird eingetippt;
+    Regeln zum erneuten Ansehen nach der Spec.
+  - Prüfen: Tests der Satzteilung; iPad mit Tastatur.
 
 ### Haltepunkt 5
-- [ ] **iPad-Test mit Testklasse:** Paket zuweisen, per QR öffnen, alle Formate bearbeiten, offline abgeben, Stufen prüfen.
+- [ ] Lehrkraft legt beide Diktat-Arten an und probiert sie am iPad mit Tastatur aus.
 
 ---
 
-## Phase 6: Lernstand
+## Phase 6: Pakete und Üben (`pakete`, `ueben`)
 
-- [ ] **26 Berechnung und Einstellungen** (M) – hängt an 21
-  - Akzeptanz: `einstellungen` je Lehrkraft; SQL `gewertete_versuche`, `auswertung`, `stand_bis` (Verfahren wie alt);
-    Seite Einstellungen.
-  - Prüfen: DB-Testfälle mit festen Versuchen → erwartete Stufe und Trend.
-  - Dateien: Migration (alt: `lernstand.sql` als Vorlage), `src/lehrkraft/EinstellungenSeite.tsx`
-
-- [ ] **27 Lernstand der Klasse und Einzelansicht** (M) – hängt an 26
-  - Akzeptanz: Heatmap Schüler:innen × Kompetenzen (`--` bis `++` mit Symbol), Einzelansicht mit Verlauf und Trend,
-    „Entwicklung drucken“.
-  - Prüfen: mit Testdaten am Laptop; Druckvorschau.
-  - Dateien: `src/lehrkraft/KlassenLernstand.tsx`, `src/lehrkraft/SchuelerLernstand.tsx`, Druck-CSS
-
-- [ ] **28 „Mein Lernweg“** (M) – hängt an 26, Haltepunkt 2
-  - Akzeptanz: RPC `schueler_entwicklung` (nur Kategorien, Anzahl gelöster Aufgaben, nächster Schritt); Seite nach
-    Bereich gruppiert, nächster Schritt oben.
-  - Prüfen: **DB-Test: Token bekommt nie Punkte, Stufen oder Prozente.**
-  - Dateien: Migration, `src/schueler/Lernweg.tsx`
-
-- [ ] **29 Zurücksetzen und Löschen** (S) – hängt an 27
-  - Akzeptanz: RPC `ergebnisse_zuruecksetzen` je Schüler:in/Klasse (löscht Versuche, Lösungsansichten, Auto-Stufen –
-    später auch Garten); Schüler:in/Klasse löschen; Löschen-Knöpfe in Pflaume mit Rückfrage.
-  - Prüfen: DB-Test: danach keine Versuche mehr, Pseudonym und Link bleiben.
-  - Dateien: Migration, `src/lehrkraft/KlasseDetail.tsx`
+- [ ] **23 Pakete** (M) – hängt an 18, 8 · Tabellen `pakete`, `paket_aufgaben`, `zuweisungen`; Tags; anordnen; zuweisen; Schülervorschau. Prüfen: DB-Test.
+- [ ] **24 Schüler-Start und „Meine Übungen“** (M) – hängt an 23 · RPC `schueler_start`; Schülerrahmen mit Menüleiste unten; falscher Token → freundliche Meldung. Prüfen: DB-Test; am iPad per QR öffnen.
+- [ ] **25 Aufgabe bearbeiten und abgeben** (M) – hängt an 24 · RPCs `antwort_abgeben`, `loesung_anzeigen`; Tabellen `versuche`, `loesung_angesehen`; ✓ / ↻; Lösung erst nach 2 Versuchen. Prüfen: DB-Test; am iPad alle Formate.
+- [ ] **26 Offline-Warteschlange** (S) – hängt an 25 · Entwürfe und Antworten im localStorage; `client_id`. Prüfen: WLAN aus → abgeben → WLAN an → genau ein Versuch.
+- [ ] **27 Sterne-Stufen** (M) – hängt an 25, 10 · manuell (Vorrang) oder automatisch je Themenbereich. Prüfen: DB-Testfälle.
+- [ ] **28 Einstein in der Schüleransicht** (M) – hängt an 25, 7 · Begrüßung, Formaterklärung beim ersten Mal, Tipp der Lehrkraft; Texte aus `src/schueler/einstein.md`; nie „falsch“, keine Lösungen. Prüfen: Tests Textdatei; iPad.
+- [ ] **29 Hilfe-Seite** (S) – hängt an 24 · Fragen aus `src/schueler/hilfe.md` (alt, angepasst); **Namensnennung** Sprout Lands und TastenHeld. Prüfen: Test Parser (alt); iPad.
 
 ### Haltepunkt 6
+- [ ] **iPad-Test mit Testklasse:** Paket zuweisen, per QR öffnen, alle Formate inkl. Diktat, offline abgeben, Stufen prüfen.
+
+---
+
+## Phase 7: Lernstand (`lernstand`)
+
+- [ ] **30 Berechnung und Einstellungen** (M) – hängt an 25 · SQL `gewertete_versuche`, `auswertung`, `stand_bis` (Verfahren wie alt); Seite Einstellungen. Prüfen: DB-Testfälle.
+- [ ] **31 Lernstand der Klasse und Einzelansicht** (M) – hängt an 30 · Heatmap, Einzelansicht mit Verlauf, „Entwicklung drucken“. Prüfen: Testdaten; Druckvorschau.
+- [ ] **32 „Mein Lernweg“** (M) – hängt an 30 · RPC `schueler_entwicklung` (nur Kategorien). Prüfen: **DB-Test: nie Punkte, Stufen, Prozente.**
+- [ ] **33 Zurücksetzen und Löschen** (S) – hängt an 31 · RPC `ergebnisse_zuruecksetzen` (später auch Münzen und Farm). Prüfen: DB-Test.
+
+### Haltepunkt 7
 - [ ] Lehrkraft prüft Heatmap, Einzelansicht und Lernweg mit Testdaten.
 
 ---
 
-## Phase 7: Garten
+## Phase 8: Farm (`muenzen`, `shop`, `felder`, `tiere`, `spielfigur`)
 
-- [ ] **30 Samen verdienen** (M) – hängt an 28, 19
-  - Akzeptanz: Tabelle `samen` (schueler, grund, bezug, Zeitpunkt; eindeutig je Grund + Bezug); Samen bei
-    abgeschlossenem Paket und bei Verbesserung einer Kompetenz (Regel in **einer** Funktion); RPC `garten_lesen`
-    liefert nur Bildangaben.
-  - Prüfen: DB-Test: doppelte Abgabe ergibt keinen zweiten Samen; Token kann keine Samen schreiben.
-  - Dateien: Migration, `supabase/tests/zugriffsregeln.sql`
+- [ ] **34 Spec Münzen und Shop** (S) – `docs/SPEC-muenzen.md`: offene Fragen 1, 2, 7 (Münzen je Aufgabe, Schutz gegen Tempo und Raten, Preise, Angebot). Prüfen: Freigabe.
+- [ ] **35 Münzen** (M) – hängt an 34, 25 · Tabelle `muenz_ereignisse` (eindeutig je Grund + Bezug); Vergabe in **einer** Funktion; Kontostand gezählt; Münzanzeige. Prüfen: DB-Test: doppelte Abgabe → keine doppelten Münzen; Token kann nichts schreiben.
+- [ ] **36 Spec Felder und Tiere** (S) – `docs/SPEC-felder.md`: offene Fragen 8, 9, 12 (Wachstumsdauer, Folgen von Nicht-Üben, was Füttern bringt). Prüfen: Freigabe.
+- [ ] **37 Shop** (M) – hängt an 35 · Angebot aus Sprout-Lands-Grafiken; RPC `kaufen` (prüft Kontostand); Besitz als Liste. Prüfen: DB-Test (kein Kauf ohne Münzen); iPad.
+- [ ] **38 Felder: pflanzen, gießen, ernten** (M) – hängt an 36, 37 · Farm-Raster aus Kacheln; RPCs `pflanzen`, `ernten`; Wachstum = gelöste Aufgaben seit dem Pflanzen (Gießen), gegossene Kacheln aus dem Pflanzen-Paket. Prüfen: DB-Testfälle Wachstum; iPad.
+- [ ] **39 Tiere füttern** (M) – hängt an 38 · Tiere aufstellen; RPC `fuettern` (verbraucht Geerntetes); Sprechblase mit Herz über dem Tier. Prüfen: DB-Test; iPad.
+- [ ] **40 Spec Spielfigur** (S) – `docs/SPEC-spielfigur.md`: offene Frage 10 (Steuerung per Antippen, Pfeiltasten oder beides). Prüfen: Freigabe.
+- [ ] **41 Spielfigur** (M) – hängt an 40, 38 · Figur aus dem Sprout-Lands-Spritesheet, 4 Richtungen, Bewegung nach der Spec; alles bleibt auch ohne Figur bedienbar; ruhig bei „Bewegung reduzieren“. Prüfen: iPad (flüssig?).
 
-- [ ] **31 Pflanzen, Umsetzen, Entfernen** (M) – hängt an 30, 6
-  - Akzeptanz: Tabelle `beete` (schueler, platz, pflanze, gepflanzt_am); RPCs `pflanzen`, `umsetzen`, `entfernen`
-    (prüfen Token, freie Samen, freien Platz); Entferntes zurück in den Korb; Bedienung per Antippen.
-  - Prüfen: DB-Test (ohne Samen kein Pflanzen; fremder Token verboten); am iPad pflanzen.
-  - Dateien: Migration, `src/schueler/GartenSeite.tsx`, `src/gemeinsam/Garten.tsx`
-
-- [ ] **32 Wachsen durch Üben** (S) – hängt an 31
-  - Akzeptanz: Wachstumsstufe = erledigte Aufgaben seit dem Pflanzen ÷ Güsse je Stufe (Einstellung, Standard 3),
-    Erklärseiten zählen nicht; Garten welkt nie.
-  - Prüfen: DB-Testfälle (0, 3, 6, 9 Aufgaben → Stufe 0–3).
-  - Dateien: Migration, `src/gemeinsam/Garten.tsx`
-
-- [ ] **33 Sammelbuch und Freischalten** (M) – hängt an 31
-  - Akzeptanz: 12 Blumen + 6 Deko-Dinge (eigene SVGs; Liste in docs/SPEC.md, Garten); Regel zum Freischalten (offene Frage 1 im Plan);
-    Seite „Sammelbuch“ mit „?“-Platzhaltern; Menüpunkt; Zurücksetzen leert den Garten.
-  - Prüfen: am iPad; DB-Test Zurücksetzen.
-  - Dateien: `src/design/garten/*.svg`, `src/schueler/Sammelbuch.tsx`, Migration
-
-### Haltepunkt 7
-- [ ] **iPad-Test Garten:** Samen verdienen, pflanzen, wachsen sehen, Sammelbuch – nirgends eine Zahl.
+### Haltepunkt 8
+- [ ] **iPad-Test Farm:** Münzen verdienen, kaufen, pflanzen, durch Üben wachsen sehen, ernten, füttern, Figur bewegen.
 
 ---
 
-## Phase 8: Übernahme und Abschluss
+## Phase 9: Übernahme und Abschluss (`uebernahme`)
 
-- [ ] **34 Alte Aufgaben, Pakete und Kurznamen übernehmen** (M) – hängt an 33
-  - Akzeptanz: Export aus der alten Datenbank (nur Aufgaben, Pakete, Kompetenz-Kurznamen – **keine** Schülerdaten);
-    Skript wandelt `inhalt` in `inhalt` + `loesung` um; Probelauf, dann echter Lauf.
-  - Prüfen: Tests des Umwandlungsskripts; Anzahl alt = neu; Stichprobe je Format in der Vorschau.
-  - Dateien: `scripts/uebernahme.ts`, `scripts/uebernahme.test.ts`
+- [ ] **42 Alte Aufgaben, Pakete und Kurznamen übernehmen** (M) – Export aus der Übungswiese (keine Schülerdaten); Skript trennt `inhalt` und `loesung`; Probelauf, dann echter Lauf. Prüfen: Tests des Skripts; Anzahl alt = neu.
+- [ ] **43 Datenschutz und Texte** (S) – `DATENSCHUTZ.md` (alt) angepasst: Münzen, Farm, Diktat; Hilfe-Texte; README „Supabase wieder starten“. Prüfen: Lehrkraft liest gegen.
+- [ ] **44 Abnahme** (S) – alle 8 Erfolgskriterien der Spec (Abschnitt 11). Prüfen: Lehrkraft am Laptop und iPad.
 
-- [ ] **35 Datenschutz und Texte** (S) – hängt an 33
-  - Akzeptanz: `DATENSCHUTZ.md` (alt) angepasst: neue Tabellen (Samen, Beete), Maskottchen speichert nichts;
-    Hilfe-Text Teil B gleich halten; README mit „Supabase wieder starten“.
-  - Prüfen: Lehrkraft liest gegen.
-  - Dateien: `DATENSCHUTZ.md`, `src/schueler/hilfe.md`, `README.md`
-
-- [ ] **36 Abnahme** (S) – hängt an 34, 35
-  - Akzeptanz: alle 8 Erfolgskriterien der Spec (Abschnitt 10) nachweislich erfüllt.
-  - Prüfen: Lehrkraft geht die Liste am Laptop und iPad durch.
-
-### Haltepunkt 8
+### Haltepunkt 9
 - [ ] Version 1 abgenommen. Einsatz mit echten Klassen erst nach Datenschutz-Freigabe.
