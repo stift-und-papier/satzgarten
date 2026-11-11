@@ -1,6 +1,7 @@
 import type { Session } from '@supabase/supabase-js'
 import { useEffect, useState, type ReactNode } from 'react'
 import { supabase } from '../lib/supabase'
+import { useDunkel } from '../lib/thema'
 import { Anmeldung } from './Anmeldung'
 import { KlasseDetail } from './KlasseDetail'
 import { KlassenListe } from './KlassenListe'
@@ -67,6 +68,7 @@ export function LehrkraftBereich({ pfad }: { pfad: string[] }) {
 
 /** Seitenleiste links (breite Bildschirme) bzw. Leiste unten (bis 900 px), Inhalt auf einer ruhigen Karte. */
 export function LehrkraftRahmen({ bereich, email, children }: { bereich: string; email?: string; children: ReactNode }) {
+  const [dunkel, setDunkel] = useDunkel()
   return (
     <div className="lehrkraft lk-rahmen">
       <nav className="lk-nav" aria-label="Hauptmenü">
@@ -78,6 +80,10 @@ export function LehrkraftRahmen({ bereich, email, children }: { bereich: string;
         ))}
         <div className="lk-nav__fuss">
           {email && <p className="lk-leise lk-nav__email">{email}</p>}
+          {/* zeigt, wohin umgeschaltet wird; Wahl bleibt auf diesem Gerät gespeichert */}
+          <button type="button" className="lk-knopf" onClick={() => setDunkel(!dunkel)}>
+            {dunkel ? 'Heller Modus' : 'Dunkler Modus'}
+          </button>
           <button type="button" className="lk-knopf" onClick={() => void supabase.auth.signOut()}>
             Abmelden
           </button>

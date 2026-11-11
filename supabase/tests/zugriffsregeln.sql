@@ -89,14 +89,19 @@ begin
     raise exception 'Block 2.6: A konnte den Text einer Kompetenz ändern';
   exception when insufficient_privilege then n := n + 1;
   end;
-  update public.kompetenzen set kurzname = 'Test', ausgeblendet = true where code = 'T-1';
+  begin
+    update public.kompetenzen set kurzname = 'Test' where code = 'T-1';
+    raise exception 'Block 2.10: A konnte einen Kurznamen ändern (legt nur Claude fest)';
+  exception when insufficient_privilege then n := n + 1;
+  end;
+  update public.kompetenzen set ausgeblendet = true where code = 'T-1';
   insert into public.klassen (name, kerncurriculum) values ('Neu 5c', 'Hauptschule');
   delete from public.klassen where id = c_kl_b;
   update public.schueler set pseudonym = 'Gekapert' where klasse_id = c_kl_b;
-  update public.kompetenzen set kurzname = 'Gekapert' where owner = c_lk_b;
+  update public.kompetenzen set ausgeblendet = true where owner = c_lk_b;
   reset role;
-  if (select kurzname from public.kompetenzen where owner = c_lk_a and code = 'T-1') is distinct from 'Test' then
-    raise exception 'Block 2.7: A kann den Kurznamen nicht ändern';
+  if not (select ausgeblendet from public.kompetenzen where owner = c_lk_a and code = 'T-1') then
+    raise exception 'Block 2.7: A kann eine Kompetenz nicht ausblenden';
   end if;
   n := n + 1;
   if not exists (select 1 from public.klassen where owner = c_lk_a and name = 'Neu 5c') then
@@ -105,7 +110,7 @@ begin
   n := n + 1;
   if not exists (select 1 from public.klassen where id = c_kl_b)
      or exists (select 1 from public.schueler where pseudonym = 'Gekapert')
-     or exists (select 1 from public.kompetenzen where kurzname = 'Gekapert') then
+     or exists (select 1 from public.kompetenzen where owner = c_lk_b and ausgeblendet) then
     raise exception 'Block 2.9: A konnte Daten von B ändern oder löschen';
   end if;
   n := n + 1;

@@ -2,7 +2,7 @@
 // für jede vorhandene Lehrkraft anlegt. Vorhandene (gleicher Code) bleiben unverändert (Kurznamen gehen nicht verloren).
 // Aufruf: node scripts/kompetenzen-sql.ts  → danach npm run db:push
 import { readFileSync, writeFileSync } from 'node:fs'
-import { kompetenzenAusCsv } from '../src/lib/csv.ts'
+import { csvLesen, kompetenzenAusCsv } from '../src/lib/csv.ts'
 
 const { zeilen, fehler } = kompetenzenAusCsv(readFileSync('docs/kompetenzen.csv', 'utf8'))
 if (fehler.length) {
@@ -30,3 +30,24 @@ on conflict (owner, code) do nothing;
 `,
 )
 console.log(`${datei}: ${zeilen.length} Kompetenzen`)
+
+// Kurznamen (von Claude festgelegt, Lehrkraft 2026-11-11: nicht selbst eintragen) aus docs/kurznamen.csv
+const [, ...kurz] = csvLesen(readFileSync('docs/kurznamen.csv', 'utf8'))
+const fremd = kurz.filter(([code]) => !zeilen.some((z) => z.code === code))
+if (fremd.length || kurz.length !== zeilen.length) {
+  console.error('docs/kurznamen.csv passt nicht zu docs/kompetenzen.csv:', fremd.map(([c]) => c).join(', ') || 'Anzahl')
+  process.exit(1)
+}
+const kurzDatei = 'supabase/migrations/20261111130000_kurznamen.sql'
+writeFileSync(
+  kurzDatei,
+  `-- Automatisch erzeugt von scripts/kompetenzen-sql.ts aus docs/kurznamen.csv (${kurz.length} Kurznamen).
+-- Kurznamen legt nicht die Lehrkraft fest (Entscheidung 2026-11-11); sie darf nur noch ausblenden.
+revoke update (kurzname) on public.kompetenzen from authenticated;
+update public.kompetenzen k set kurzname = v.kurzname from (values
+${kurz.map(([code, name]) => `  (${sql(code.trim())}, ${sql(name.trim())})`).join(',\n')}
+) as v (code, kurzname)
+where k.code = v.code;
+`,
+)
+console.log(`${kurzDatei}: ${kurz.length} Kurznamen`)

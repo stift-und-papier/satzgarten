@@ -45,7 +45,7 @@
 - Bibliotheken: supabase-js, @dnd-kit, qrcode. Neue nur nach Rückfrage (auch für Farm/Spielfigur).
 
 ## Design (Übergang: Stilblatt „Gartenheft“ unter `#/stil`, wird in Phase 2 zum Pixel-Look)
-- Schüleransicht wird Pixel-Art (Sprout Lands, ganzzahlig vergrößert); Lehrkraft-Ansicht bleibt „ruhig“.
+- Schüleransicht wird Pixel-Art (Sprout Lands, ganzzahlig vergrößert); Lehrkraft-Ansicht bleibt „ruhig“, in Schulblau #003466 (`--color-lk-*`).
 - Pixel-Rahmen (Karte, Knöpfe, gewählt, Rückmeldung, runde Knöpfe) nach den Sprout-Lands-Knöpfen als SVG, dazu Papier/Tinte/Holz/
   Rückmeldung in vier Varianten: erzeugt + kontrastgeprüft von `node scripts/pixel-rahmen.mjs` (Block PIXEL in tokens.css). `--px: 3px` = ein Grafik-Pixel.
 - Einzige Token-Datei `src/design/tokens.css` (Farben als Hex wegen Safari 15.0–15.3, aus OKLCH berechnet),
@@ -134,3 +134,7 @@
   (Fläche kräftig, damit es nicht wie Pfirsich wirkt). Futur II orange statt pink (zu ähnlich zu Futur I).
 - 2026-11-11 (Lehrkraft): **Präpositionalobjekt** als Fachbegriff-Farbe entfernt (hat keinen festen Fall); Präposition bleibt gelb.
 - 2026-11-11 (Lehrkraft): Einstein mit Bewegungen und neue Fachbegriff-Farben freigegeben – **Haltepunkt 2 erreicht**. Weiter mit Phase 3.
+- 2026-11-11 (Lehrkraft): Phase 3 geprüft. **Kurznamen** trägt die Lehrkraft nicht selbst ein: Claude legt sie fest
+  (`docs/kurznamen.csv`, Migration per `node scripts/kompetenzen-sql.ts`); die Datenbank erlaubt Lehrkräften nur noch Ausblenden.
+  Lehrkraft-Ansicht in **Schulblau #003466** (Menüleiste blau, Hauptknöpfe blau, `--color-lk-*` in allen vier Varianten)
+  und mit Schalter „Dunkler Modus“ im Menü (`useDunkel`).

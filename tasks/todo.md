@@ -98,6 +98,8 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 
   - Stand 2026-11-11: Aufgaben 8–10 gebaut (Migrationen `20261111120000`, `20261111120100`; DB-Test 15 Blöcke), im Browser geprüft.
 
+  - 2026-11-11 nach Rückmeldung: Kurznamen von Claude (docs/kurznamen.csv), Lehrkraft-Ansicht in Schulblau, Schalter „Dunkler Modus“.
+
 ### Haltepunkt 3
 - [ ] Lehrkraft legt eine Testklasse an, druckt die Linkliste, prüft Kompetenzen und Kurznamen.
 

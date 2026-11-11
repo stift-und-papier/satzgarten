@@ -51,12 +51,19 @@
 
   --color-fokus: #3d281a;
 
-  /* Lehrkraft – Thema „ruhig“ */
-  --color-lk-papier: #fdfaf4;
-  --color-lk-papier-2: #f4f0e7;
-  --color-lk-tinte: #261d16;
-  --color-lk-leise: #665b53;
-  --color-lk-linie: #ddd7cd;
+  /* Lehrkraft – Thema „ruhig“ in Schulblau #003466 (Lehrkraft 2026-11-11); Kontraste alle ≥ 6,7:1 */
+  --color-lk-papier: #f7f9fc;
+  --color-lk-papier-2: #e9eff6;
+  --color-lk-tinte: #0f1c2b;
+  --color-lk-leise: #4a5a6c;
+  --color-lk-linie: #d0dae6;
+  --color-lk-aktion: #003466;         /* Hauptknopf, aktuelle Seite, Fokus */
+  --color-lk-aktion-2: #00264d;
+  --color-lk-aktion-text: #ffffff;
+  --color-lk-leiste: #003466;         /* Menüleiste */
+  --color-lk-leiste-text: #ffffff;
+  --color-lk-leiste-leise: #c2d3e6;
+  --color-lk-leiste-aktiv: #0e4c86;
 
   /* Muster: kurze Grashalme */
   --muster-wiese: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg stroke='%23a4c263' stroke-width='2.5' stroke-linecap='round' fill='none'%3E%3Cpath d='M18 30l2-6M24 31l1-5'/%3E%3Cpath d='M78 74l2-6M84 75l1-5'/%3E%3Cpath d='M40 100l2-5'/%3E%3Cpath d='M98 18l1-5'/%3E%3C/g%3E%3C/svg%3E");
@@ -114,11 +121,18 @@
   --color-stern-leer: #614731;
   --color-stern-rand: #bf9d7d;
   --color-fokus: #f1eadc;
-  --color-lk-papier: #17130f;
-  --color-lk-papier-2: #241e1a;
-  --color-lk-tinte: #eeebe4;
-  --color-lk-leise: #b6b0a7;
-  --color-lk-linie: #423c35;
+  --color-lk-papier: #0c1420;
+  --color-lk-papier-2: #16212f;
+  --color-lk-tinte: #e8edf3;
+  --color-lk-leise: #a8b5c4;
+  --color-lk-linie: #2c3a4d;
+  --color-lk-aktion: #a9c8ec;
+  --color-lk-aktion-2: #c6dbf3;
+  --color-lk-aktion-text: #001a33;
+  --color-lk-leiste: #0a1a2e;
+  --color-lk-leiste-text: #e8edf3;
+  --color-lk-leiste-leise: #a8b5c4;
+  --color-lk-leiste-aktiv: #1b3557;
   --muster-wiese: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg stroke='%23344226' stroke-width='2.5' stroke-linecap='round' fill='none'%3E%3Cpath d='M18 30l2-6M24 31l1-5'/%3E%3Cpath d='M78 74l2-6M84 75l1-5'/%3E%3Cpath d='M40 100l2-5'/%3E%3Cpath d='M98 18l1-5'/%3E%3C/g%3E%3C/svg%3E");
 }
 
@@ -131,9 +145,14 @@
     --color-aktion-2: #2c1302;
     --color-hilfe: #004776;
     --color-fokus: #1c0e05;
-    --color-lk-tinte: #0f0703;
-    --color-lk-leise: #362c24;
-    --color-lk-linie: #797065;
+    --color-lk-tinte: #050c14;
+    --color-lk-leise: #263445;
+    --color-lk-linie: #6d7d90;
+    --color-lk-aktion: #002347;
+    --color-lk-aktion-2: #00162e;
+    --color-lk-leiste: #002347;
+    --color-lk-leiste-leise: #e1e9f2;
+    --color-lk-leiste-aktiv: #003a75;
     --muster-wiese: none;
     --kontur: 3px;
   }
@@ -148,10 +167,16 @@
     --color-aktion-text: #0f0703;
     --color-hilfe: #8fd5fd;
     --color-fokus: #fffbf4;
-    --color-lk-papier: #080503;
-    --color-lk-tinte: #fdfcf8;
-    --color-lk-leise: #dbd7d0;
-    --color-lk-linie: #867f77;
+    --color-lk-papier: #04080d;
+    --color-lk-tinte: #fbfcfe;
+    --color-lk-leise: #d3dbe4;
+    --color-lk-linie: #7b8a9c;
+    --color-lk-aktion: #cfe2f8;
+    --color-lk-aktion-2: #e6f0fb;
+    --color-lk-aktion-text: #000c1a;
+    --color-lk-leiste: #000c1a;
+    --color-lk-leiste-text: #fbfcfe;
+    --color-lk-leiste-leise: #d3dbe4;
   }
 }
 

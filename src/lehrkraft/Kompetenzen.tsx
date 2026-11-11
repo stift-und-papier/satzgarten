@@ -6,7 +6,7 @@ import type { Kompetenz } from '../lib/typen'
 
 const STUFEN_TEXT: Record<Kompetenz['stufe'], string> = { '6': 'Ende Jg. 6', '8': 'Ende Jg. 8', '10': 'Ende Jg. 10', '6-10': 'Jg. 6–10' }
 
-// alt (Übungswiese), gekürzt: Kompetenzen aus dem Kerncurriculum ansehen, Kurznamen vergeben, ausblenden.
+// alt (Übungswiese), gekürzt: Kompetenzen aus dem Kerncurriculum ansehen und ausblenden. Kurznamen kommen aus docs/kurznamen.csv.
 // Eigene Kompetenzen gibt es nicht (nur aus docs/kompetenzen.csv, die Datenbank verbietet das Anlegen).
 export function Kompetenzen() {
   const [liste, setListe] = useState<Kompetenz[] | null>(null)
@@ -42,18 +42,18 @@ export function Kompetenzen() {
   const bereiche = [...new Set(gefiltert.map((k) => k.bereich))]
   const anzahl = (name: Kerncurriculum) => (liste ?? []).filter((k) => k.kerncurriculum === name && !k.ausgeblendet).length
 
-  async function speichern(k: Kompetenz, aenderung: Partial<Pick<Kompetenz, 'kurzname' | 'ausgeblendet'>>) {
-    const { error } = await supabase.from('kompetenzen').update(aenderung).eq('id', k.id)
+  async function speichern(k: Kompetenz, ausgeblendet: boolean) {
+    const { error } = await supabase.from('kompetenzen').update({ ausgeblendet }).eq('id', k.id)
     if (error) return setFehler(fehlerText(error))
     setFehler(null)
-    setListe((alt) => alt && alt.map((x) => (x.id === k.id ? { ...x, ...aenderung } : x)))
+    setListe((alt) => alt && alt.map((x) => (x.id === k.id ? { ...x, ausgeblendet } : x)))
   }
 
   return (
     <>
       <h1>Kompetenzen</h1>
       <p className="lk-leise">
-        Aus den Kerncurricula Deutsch Sek I. Der Kurzname erscheint später bei den Schüler:innen (z. B. „s-Laute“). Ausgeblendete
+        Aus den Kerncurricula Deutsch Sek I. Die fett gedruckten Kurznamen sehen später die Schüler:innen. Ausgeblendete
         Kompetenzen können Sie keinen Aufgaben mehr zuordnen.
       </p>
       {fehler && <p className="lk-hinweis" role="alert">{fehler}</p>}
@@ -101,32 +101,17 @@ export function Kompetenzen() {
                 .filter((k) => k.bereich === bereich)
                 .map((k) => (
                   <li key={k.id} className="lk-kompetenz" data-aus={k.ausgeblendet || undefined}>
-                    <p>
-                      <span className="lk-marke">{STUFEN_TEXT[k.stufe]}</span> {k.kompetenz}
-                      {k.ausgeblendet && <span className="lk-leise"> (ausgeblendet)</span>}
-                    </p>
-                    {k.hinweis && <p className="lk-leise">Hinweis: {k.hinweis}</p>}
-                    <div className="lk-zeile">
-                      <label>
-                        Kurzname
-                        {/* key setzt das Feld zurück, wenn sich der gespeicherte Wert ändert */}
-                        <input
-                          key={k.kurzname ?? ''}
-                          className="lk-feld"
-                          defaultValue={k.kurzname ?? ''}
-                          maxLength={60}
-                          placeholder="noch keiner"
-                          onBlur={(e) => {
-                            const neu = e.target.value.trim() || null
-                            if (neu !== k.kurzname) void speichern(k, { kurzname: neu })
-                          }}
-                          onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()}
-                        />
-                      </label>
-                      <button type="button" className="lk-knopf" onClick={() => void speichern(k, { ausgeblendet: !k.ausgeblendet })}>
+                    <div className="lk-kompetenz__kopf">
+                      <h3>
+                        {k.kurzname ?? k.bereich} <span className="lk-marke">{STUFEN_TEXT[k.stufe]}</span>
+                        {k.ausgeblendet && <span className="lk-leise"> (ausgeblendet)</span>}
+                      </h3>
+                      <button type="button" className="lk-knopf" onClick={() => void speichern(k, !k.ausgeblendet)}>
                         {k.ausgeblendet ? 'Einblenden' : 'Ausblenden'}
                       </button>
                     </div>
+                    <p>{k.kompetenz}</p>
+                    {k.hinweis && <p className="lk-leise">Hinweis: {k.hinweis}</p>}
                   </li>
                 ))}
             </ul>
