@@ -10,6 +10,8 @@ import { KlasseDetail } from './KlasseDetail'
 import { KlassenListe } from './KlassenListe'
 import { Kompetenzen } from './Kompetenzen'
 import { Linkliste } from './Linkliste'
+import { PaketDetail } from './PaketDetail'
+import { PaketListe } from './PaketListe'
 
 // Bereich nur für angemeldete Lehrkräfte (#/lehrkraft/…). Ohne Anmeldung erscheint auf jeder dieser Adressen
 // die Anmeldung; danach geht es auf derselben Adresse weiter. Die Daten schützt zusätzlich die Datenbank (RLS).
@@ -24,7 +26,6 @@ const MENUE: [string, string][] = [
 
 // Platzhalter, bis die Seiten in den nächsten Aufgaben entstehen
 const KOMMT: Record<string, string> = {
-  pakete: 'Hier stellen Sie bald Aufgabenpakete zusammen (Phase 5).',
   einstellungen: 'Hier stellen Sie bald zum Beispiel ein, wie oft eine Pflanze gegossen werden muss.',
 }
 
@@ -38,6 +39,8 @@ function Inhalt({ pfad }: { pfad: string[] }) {
   if (bereich === 'aufgaben' && id === 'neu') return <FormatWahl />
   if (bereich === 'aufgaben' && id) return <AufgabeEditor key={id} aufgabeId={id.startsWith('neu-') ? null : id} neuerTyp={formatAusAdresse(id) ?? undefined} />
   if (bereich === 'aufgaben') return <AufgabenListe />
+  if (bereich === 'pakete' && id) return <PaketDetail key={id} paketId={id} vorschau={unterseite === 'vorschau'} />
+  if (bereich === 'pakete') return <PaketListe />
   const titel = MENUE.find(([ziel]) => ziel === bereich)?.[1] ?? 'Seite nicht gefunden'
   return (
     <>

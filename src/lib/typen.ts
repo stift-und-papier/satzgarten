@@ -138,3 +138,41 @@ export type SchuelerAufgabe = {
   geloest: boolean
   loesung_angesehen: boolean
 }
+
+// ---- Pakete (alt: Übungswiese) ----
+
+// Tags eines Pakets (nur Lehrkraft): einzelne Jahrgänge und Schulzweige, je mehrere möglich
+export const JAHRGAENGE = [5, 6, 7, 8, 9, 10] as const
+export const ZWEIGE = ['Hauptschule', 'Realschule', 'Gymnasium'] as const
+export type Zweig = (typeof ZWEIGE)[number]
+
+export type Paket = {
+  id: string
+  titel: string
+  beschreibung: string | null
+  jahrgaenge: number[]
+  zweige: Zweig[]
+  erstellt_am: string
+}
+
+export type Zuweisung = {
+  id: string
+  paket_id: string
+  klasse_id: string | null
+  schueler_id: string | null
+  erstellt_am: string
+}
+
+// ---- Antworten der Schüler-Funktionen ----
+
+export type SchuelerPaket = {
+  id: string
+  titel: string
+  beschreibung: string | null
+  aufgaben: SchuelerAufgabe[]
+}
+
+/** formate_geuebt: Formate, die schon einmal abgegeben wurden (Einstein erklärt nur neue) */
+export type SchuelerStart = { pseudonym: string; formate_geuebt: AufgabenTyp[]; pakete: SchuelerPaket[] }
+
+export type Loesung = { luecken: { id: number; loesungen: string[] }[] }

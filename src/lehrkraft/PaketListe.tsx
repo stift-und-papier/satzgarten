@@ -1,0 +1,91 @@
+// alt (Übungswiese), auf die Lehrkraft-Ansicht „ruhig“ (lk-*) umgestellt
+import { useEffect, useState } from 'react'
+import { fehlerText } from '../lib/fehler'
+import { LEERER_FILTER, passt } from '../lib/filter'
+import { gehe } from '../lib/router'
+import { supabase } from '../lib/supabase'
+import type { Paket } from '../lib/typen'
+import { ListenFilter, useKompetenzen } from './ListenFilter'
+import { PaketTags, TagAuswahl } from './PaketTags'
+
+// Kompetenzen eines Pakets = die seiner Aufgaben
+type PaketMitAnzahl = Paket & {
+  paket_aufgaben: { aufgaben: { aufgabe_kompetenzen: { kompetenz_id: string }[] } | null }[]
+  zuweisungen: { count: number }[]
+}
+
+export function PaketListe() {
+  const [pakete, setPakete] = useState<PaketMitAnzahl[] | null>(null)
+  const [titel, setTitel] = useState('')
+  const [tags, setTags] = useState<Pick<Paket, 'jahrgaenge' | 'zweige'>>({ jahrgaenge: [], zweige: [] })
+  const [fehler, setFehler] = useState<string | null>(null)
+  const [filter, setFilter] = useState(LEERER_FILTER)
+  const kompetenzen = useKompetenzen(setFehler)
+
+  useEffect(() => {
+    void supabase
+      .from('pakete')
+      .select('*, paket_aufgaben(aufgaben(aufgabe_kompetenzen(kompetenz_id))), zuweisungen(count)')
+      .order('erstellt_am', { ascending: false })
+      .then(({ data, error }) => (error ? setFehler(fehlerText(error)) : setPakete(data as PaketMitAnzahl[])))
+  }, [])
+
+  const ids = (p: PaketMitAnzahl) => [...new Set(p.paket_aufgaben.flatMap((pa) => pa.aufgaben?.aufgabe_kompetenzen.map((z) => z.kompetenz_id) ?? []))]
+  const gefiltert = pakete?.filter((p) => passt(p.titel, ids(p), filter, kompetenzen))
+  const verwendet = [...new Set((pakete ?? []).flatMap(ids))].flatMap((id) => kompetenzen.get(id) ?? [])
+
+  return (
+    <>
+      <h1>Pakete</h1>
+      <p className="lk-leise">Ein Paket bündelt mehrere Aufgaben. Pakete weisen Sie Klassen oder einzelnen Schüler:innen zu.</p>
+      {fehler && <p className="lk-hinweis" role="alert">{fehler}</p>}
+      {pakete && pakete.length > 0 && (
+        <ListenFilter filter={filter} onChange={setFilter} verwendet={verwendet} treffer={gefiltert?.length ?? 0} gesamt={pakete.length} suchText="Paketname …" />
+      )}
+      {gefiltert === undefined ? (
+        <p className="lk-leise" role="status">Lädt …</p>
+      ) : pakete?.length === 0 ? (
+        <p>Noch keine Pakete. Legen Sie unten das erste an.</p>
+      ) : gefiltert.length === 0 ? (
+        <p>Kein Paket passt zu diesem Filter.</p>
+      ) : (
+        <ul className="lk-liste">
+          {gefiltert.map((p) => (
+            <li key={p.id}>
+              <a className="lk-eintrag" href={`#/lehrkraft/pakete/${p.id}`}>
+                <strong>{p.titel}</strong>
+                <span className="lk-leise">
+                  {p.paket_aufgaben.length} Aufgaben ·{' '}
+                  {(p.zuweisungen[0]?.count ?? 0) === 0 ? 'noch nicht zugewiesen' : `${p.zuweisungen[0].count}× zugewiesen`}
+                </span>
+                <PaketTags jahrgaenge={p.jahrgaenge} zweige={p.zweige} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <form
+        className="lk-abschnitt"
+        onSubmit={async (e) => {
+          e.preventDefault()
+          const { data, error } = await supabase.from('pakete').insert({ titel: titel.trim(), ...tags }).select('id').single()
+          if (error) setFehler(fehlerText(error))
+          else gehe(`/lehrkraft/pakete/${data.id}`)
+        }}
+      >
+        <h2>Neues Paket</h2>
+        <div className="lk-zeile">
+          <label>
+            Titel
+            <input className="lk-feld" value={titel} onChange={(e) => setTitel(e.target.value)} placeholder="z. B. das oder dass – Übung 1" required maxLength={120} />
+          </label>
+        </div>
+        <TagAuswahl wert={tags} onChange={setTags} />
+        <div className="lk-knopfreihe">
+          <button className="lk-knopf lk-knopf--haupt">Anlegen</button>
+        </div>
+      </form>
+    </>
+  )
+}

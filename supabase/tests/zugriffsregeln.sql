@@ -292,6 +292,143 @@ begin
     n := n + 5;
   end;
 
+  -- ---------- 6 Pakete und Üben (Phase 6) ----------
+  declare
+    t_fuchs text := (select token from public.schueler where pseudonym = 'Fuchs-01');
+    t_eule text := (select token from public.schueler where pseudonym = 'Eule-02');
+    t_dachs text := (select token from public.schueler where pseudonym = 'Dachs-03');
+    v_paket uuid;
+    v_lt uuid := (select id from public.aufgaben where titel = 'T-lueckentext');
+    v_er uuid := (select id from public.aufgaben where titel = 'T-erklaerung');
+    v_b_aufgabe uuid := (select id from public.aufgaben where titel = 'B-Aufgabe');
+    v_start jsonb;
+    v_erg jsonb;
+    v_cid uuid := gen_random_uuid();
+    i integer;
+    v_s_ids uuid[];
+  begin
+    set local role anon;
+    begin
+      perform 1 from public.pakete;
+      raise exception 'Block 6.1: anon kann pakete lesen';
+    exception when insufficient_privilege then n := n + 1;
+    end;
+    begin
+      perform 1 from public.versuche;
+      raise exception 'Block 6.2: anon kann versuche lesen';
+    exception when insufficient_privilege then n := n + 1;
+    end;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into public.pakete (titel, jahrgaenge, zweige) values ('P-Test', '{7}', '{Realschule}') returning id into v_paket;
+    insert into public.paket_aufgaben (paket_id, aufgabe_id, position)
+    select v_paket, id, row_number() over (order by titel) from public.aufgaben
+    where titel in ('T-lueckentext', 'T-zuordnen', 'T-auswahl', 'T-erklaerung');
+    insert into public.zuweisungen (paket_id, klasse_id) values (v_paket, c_kl_a);
+    begin
+      insert into public.zuweisungen (paket_id, klasse_id) values (v_paket, c_kl_b);
+      raise exception 'Block 6.3: A konnte ein Paket der Klasse von B zuweisen';
+    exception when insufficient_privilege then n := n + 1;
+    end;
+    begin
+      insert into public.paket_aufgaben (paket_id, aufgabe_id) values (v_paket, v_b_aufgabe);
+      raise exception 'Block 6.4: A konnte eine Aufgabe von B ins Paket legen';
+    exception when insufficient_privilege or not_null_violation then n := n + 1;
+    end;
+    begin
+      insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig)
+      select gen_random_uuid(), s.id, v_lt, '{}', '{}', 1, true from public.schueler s where s.pseudonym = 'Fuchs-01';
+      raise exception 'Block 6.5: Lehrkraft kann Versuche selbst schreiben';
+    exception when insufficient_privilege then n := n + 1;
+    end;
+    reset role;
+
+    set local role anon;
+    begin
+      perform public.schueler_start('falscher-token-falscher-token-xx');
+      raise exception 'Block 6.6: falscher Token wird angenommen';
+    exception when no_data_found then n := n + 1;
+    end;
+    -- Stufe 1 (Start): ohne Bereich nur T-lueckentext (★), im Bereich „Test“ gibt es nur ★★ → T-auswahl; Erklärseite immer
+    v_start := public.schueler_start(t_fuchs);
+    if jsonb_array_length(v_start -> 'pakete' -> 0 -> 'aufgaben') <> 3
+       or v_start::text ~ 'T-zuordnen' or v_start::text !~ 'T-auswahl' then
+      raise exception 'Block 6.7: Fuchs sieht die falschen Aufgaben: %', v_start;
+    end if;
+    if v_start::text ~ '"(loesung|loesungen|richtig|korrekturen|kategorie|gross_klein_beachten)"' then
+      raise exception 'Block 6.8: schueler_start verrät eine Lösung: %', v_start;
+    end if;
+    if jsonb_array_length(public.schueler_start(t_dachs) -> 'pakete') <> 0 then
+      raise exception 'Block 6.9: Dachs (Klasse von B) sieht das Paket von A';
+    end if;
+    n := n + 3;
+    begin
+      perform public.antwort_abgeben(t_dachs, v_paket, v_lt, '{"0":"dass"}', gen_random_uuid());
+      raise exception 'Block 6.10: Dachs konnte eine nicht zugewiesene Aufgabe abgeben';
+    exception when no_data_found then n := n + 1;
+    end;
+    -- falsch, doppelt gesendet → ein Versuch
+    v_erg := public.antwort_abgeben(t_fuchs, v_paket, v_lt, '{"0":"das"}', v_cid);
+    v_erg := public.antwort_abgeben(t_fuchs, v_paket, v_lt, '{"0":"das"}', v_cid);
+    if (v_erg -> 'ergebnis' ->> 'richtig')::boolean or (v_erg ->> 'versuche')::int <> 1 then
+      raise exception 'Block 6.11: doppelt gesendete Antwort zählt doppelt oder falsch bewertet: %', v_erg;
+    end if;
+    n := n + 1;
+    begin
+      perform public.loesung_anzeigen(t_fuchs, v_paket, v_lt);
+      raise exception 'Block 6.12: Lösung schon nach einem Versuch';
+    exception when raise_exception then n := n + 1;
+    end;
+    perform public.antwort_abgeben(t_fuchs, v_paket, v_lt, '{"0":"das"}', gen_random_uuid());
+    v_erg := public.loesung_anzeigen(t_fuchs, v_paket, v_lt);
+    if v_erg <> '{"luecken":[{"id":0,"loesungen":["dass"]}]}'::jsonb then
+      raise exception 'Block 6.13: Lösung nach zwei Versuchen falsch: %', v_erg;
+    end if;
+    n := n + 1;
+    v_erg := public.antwort_abgeben(t_fuchs, v_paket, v_lt, '{"0":"dass"}', gen_random_uuid());
+    v_erg := public.antwort_abgeben(t_fuchs, v_paket, v_er, '{}', gen_random_uuid());
+    if not (v_erg -> 'ergebnis' ->> 'richtig')::boolean then raise exception 'Block 6.14: Erklärseite nicht erledigt'; end if;
+    n := n + 1;
+    reset role;
+    -- Nach „Lösung ansehen“ und bei Erklärseiten zählt nichts für den Lernstand (Aufgabe 17/25)
+    if exists (select 1 from public.versuche v where v.aufgabe_id in (v_lt, v_er) and v.richtig and v.zaehlt_fuer_lernstand) then
+      raise exception 'Block 6.15: Versuch nach Lösung oder Erklärseite zählt für den Lernstand';
+    end if;
+    n := n + 1;
+
+    -- Stufen: Regel, Vorrang der Lehrkraft, Aufstieg
+    if not public.stufe_aufstieg(5, 4) or public.stufe_aufstieg(4, 4) or public.stufe_aufstieg(5, 3) then
+      raise exception 'Block 6.16: Regel für den Aufstieg falsch';
+    end if;
+    n := n + 1;
+    update public.schueler set stufe_manuell = 2 where pseudonym = 'Eule-02';
+    v_start := public.schueler_start(t_eule);
+    if v_start::text !~ 'T-zuordnen' or v_start::text ~ 'T-lueckentext' then
+      raise exception 'Block 6.17: manuelle Stufe ★★ wirkt nicht: %', v_start;
+    end if;
+    n := n + 1;
+    for i in 1..5 loop
+      insert into public.aufgaben (owner, typ, titel, stufe, loesung)
+      values (c_lk_a, 'lueckentext', 'S-' || i, 1, '{"teile":[{"t":"luecke","id":0,"loesungen":["x"]}]}');
+      insert into public.paket_aufgaben (paket_id, aufgabe_id) select v_paket, id from public.aufgaben where titel = 'S-' || i;
+    end loop;
+    v_s_ids := array(select id from public.aufgaben where titel like 'S-_' order by titel);
+    set local role anon;
+    for i in 1..5 loop
+      perform public.antwort_abgeben(t_fuchs, v_paket, v_s_ids[i], '{"0":"x"}', gen_random_uuid());
+    end loop;
+    v_start := public.schueler_start(t_fuchs);
+    reset role;
+    if (select stufe from public.schueler_stufen st join public.schueler s on s.id = st.schueler_id
+        where s.pseudonym = 'Fuchs-01' and st.bereich = '') is distinct from 2::smallint
+       or v_start::text !~ 'T-zuordnen' or v_start::text ~ 'S-1' then
+      raise exception 'Block 6.18: automatischer Aufstieg auf ★★ fehlt: %', v_start;
+    end if;
+    n := n + 1;
+  end;
+
   raise exception 'ALLE TESTS BESTANDEN (%)', n;
 end
 $test$;
