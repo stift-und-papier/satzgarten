@@ -7,40 +7,9 @@ So ist sie aufgebaut:
   - Text             → Aufzählungspunkt
   **Wort**           → fett
 Alles vor der ersten „#“-Zeile (also auch dieser Kasten) erscheint nicht in der App.
-Abschnitt 1 wird in Aufgabe 43 mit DATENSCHUTZ.md abgeglichen – bei Änderungen bitte beide Stellen gleich halten.
+Abschnitt „Für Eltern und Schüler:innen“ wird in Aufgabe 43 mit DATENSCHUTZ.md abgeglichen – bei Änderungen bitte beide Stellen gleich halten.
 Der letzte Abschnitt nennt die Grafiken – er muss bleiben (Lizenz).
 -->
-
-# Für Eltern und Schüler:innen
-
-## Was speichert Wortsalat über mich?
-
-- Deinen **Fantasienamen** (zum Beispiel „Fuchs-07“). Deinen richtigen Namen kennt die App nicht.
-- Deine **Antworten** zu den Übungen und wann du sie gemacht hast.
-- Ob du dir eine **Lösung** angesehen hast.
-- Daraus rechnet die App aus, welche Aufgaben gut zu dir passen und wie du dich entwickelst.
-
-## Wer sieht das?
-
-- **Deine Lehrkraft** sieht deine Antworten und deinen Lernstand. So kann sie dir helfen.
-- **Du** siehst deine eigenen Übungen und deine Rückmeldungen. Noten oder Punkte siehst du nicht. Die gibt es in der App nicht.
-- **Andere Schüler:innen** sehen nichts von dir.
-
-## Wo liegen die Daten?
-
-In einer Datenbank in Frankfurt am Main. Auf deinem iPad merkt sich die App nur angefangene Antworten und Antworten, die noch auf Internet warten, damit nichts verloren geht.
-
-## Was ist mit meinem Link?
-
-Dein Link ist wie ein Schlüssel. Gib ihn nicht weiter. Wer ihn hat, kann in deinem Namen üben.
-
-## Werden die Daten gelöscht?
-
-Ja. Deine Lehrkraft kann deine Ergebnisse jederzeit löschen, zum Beispiel am Ende des Schuljahres. Wenn du das möchtest, sprich deine Lehrkraft an.
-
-## Gibt es Werbung oder Tracking?
-
-Nein. Die App zeigt keine Werbung und schickt keine Daten an Werbe- oder Analysefirmen.
 
 # Das fragst du dich vielleicht
 
@@ -76,10 +45,42 @@ Deine Seite öffnest du über deinen persönlichen Link von deiner Lehrkraft. Gi
 
 Steht da, dass eine Antwort auf Internet wartet? Dann ist sie sicher gespeichert und wird von selbst gesendet, sobald das Internet wieder da ist. Erscheint „Es gibt eine neue Version“, tippe auf **Neu laden**. Und wenn du bei einer Aufgabe nicht weiterkommst: Schau dir den Tipp an oder frag deine Lehrkraft.
 
+# Für Eltern und Schüler:innen
+
+## Was speichert Wortsalat über mich?
+
+- Deinen **Fantasienamen** (zum Beispiel „Fuchs-07“). Deinen richtigen Namen kennt die App nicht.
+- Deine **Antworten** zu den Übungen und wann du sie gemacht hast.
+- Ob du dir eine **Lösung** angesehen hast.
+- Daraus rechnet die App aus, welche Aufgaben gut zu dir passen und wie du dich entwickelst.
+
+## Wer sieht das?
+
+- **Deine Lehrkraft** sieht deine Antworten und deinen Lernstand. So kann sie dir helfen.
+- **Du** siehst deine eigenen Übungen und deine Rückmeldungen. Noten oder Punkte siehst du nicht. Die gibt es in der App nicht.
+- **Andere Schüler:innen** sehen nichts von dir.
+
+## Wo liegen die Daten?
+
+In einer Datenbank in Frankfurt am Main. Auf deinem iPad merkt sich die App nur angefangene Antworten und Antworten, die noch auf Internet warten, damit nichts verloren geht.
+
+## Was ist mit meinem Link?
+
+Dein Link ist wie ein Schlüssel. Gib ihn nicht weiter. Wer ihn hat, kann in deinem Namen üben.
+
+## Werden die Daten gelöscht?
+
+Ja. Deine Lehrkraft kann deine Ergebnisse jederzeit löschen, zum Beispiel am Ende des Schuljahres. Wenn du das möchtest, sprich deine Lehrkraft an.
+
+## Gibt es Werbung oder Tracking?
+
+Nein. Die App zeigt keine Werbung und schickt keine Daten an Werbe- oder Analysefirmen.
+
 # Bilder und Ideen
 
 ## Woher kommen die Bilder?
 
 - Assets – From: **Sprout Lands** – By: **Cup Nooble**
-- Einstein hat deine Lehrkraft selbst gezeichnet.
+- Einstein und das Rübchen-Monster hat deine Lehrkraft selbst gezeichnet.
+- Schleim und Ork kommen von **craftpix.net**.
 - Ideen und Teile des Diktats stammen aus **TastenHeld**, mit freundlicher Erlaubnis.

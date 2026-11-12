@@ -543,7 +543,10 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .kampf__buehne { display: flex; justify-content: space-around; align-items: flex-end; min-height: 132px; }
 .kampf__figur, .kampf__monster { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .kampf__balken { width: 96px; height: 14px; border: 2px solid var(--color-tinte); border-radius: 4px; background: var(--color-papier); overflow: hidden; }
-.kampf__balken > span { display: block; height: 100%; background: var(--color-tinte-leise); transition: width 0.4s ease-out; }
+.kampf__balken > span { display: block; height: 100%; background: var(--kat-gruen); transition: width 0.4s ease-out; }
+/* Lehrkraft 2026-11-12: viel Leben grün, weniger orange, ganz wenig rot (Länge zeigt es zusätzlich) */
+.kampf__balken[data-stand='mittel'] > span { background: var(--kat-orange); }
+.kampf__balken[data-stand='wenig'] > span { background: var(--kat-rot); }
 .kampf__monster > .sprite { animation: farm-huepfen 1.6s ease-in-out infinite; }
 .kampf__monster--weg { opacity: 0.25; transform: translateX(40px); transition: opacity 1s, transform 1s; }
 .kampf__monster--weg > .sprite { animation: none; }

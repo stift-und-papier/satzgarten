@@ -230,3 +230,6 @@
   läuft davon. Erklärseiten zählen nicht; nur Erklärseiten = kein Monster.
 - 2026-11-12 (Lehrkraft): Nach „Lösung ansehen“ trifft die Aufgabe **ab dem nächsten Tag** wieder (sonst wäre das Monster nie zu besiegen;
   Migration `monster_morgen`). Am selben Tag sagt die Aufgabenseite das statt „Daneben“.
+- 2026-11-12 (Lehrkraft): Lebensbalken des Monsters **grün → orange (≤ 50 %) → rot (≤ 25 %)** (Fachbegriff-Farben `--kat-*`;
+  bewusste Ausnahme von „Grün nur richtig / nie Rot“, die Länge zeigt es zusätzlich). Schüler:innen schalten **Dunklen Modus** und
+  **Leseschrift für LRS** selbst um (Schalter oben auf der Hilfe-Seite). Hilfe beginnt mit „Das fragst du dich vielleicht“.

@@ -1,5 +1,7 @@
 // alt (Übungswiese), im Pixel-Look: Seite „Hilfe“. Die Texte stehen in hilfe.md (ohne Code änderbar).
 import { fettTeile, hilfeLesen, type Block } from '../lib/hilfe'
+import { useLeseschrift } from '../lib/leseschrift'
+import { useDunkel } from '../lib/thema'
 import text from './hilfe.md?raw'
 
 const ABSCHNITTE = hilfeLesen(text)
@@ -18,11 +20,24 @@ function BlockAnzeige({ block }: { block: Block }) {
 }
 
 export function Hilfe() {
+  const [lrs, setLrs] = useLeseschrift()
+  const [dunkel, setDunkel] = useDunkel()
   return (
     <>
       <header className="karte">
         <h1>Hilfe</h1>
         <p>Tippe auf eine Frage, dann klappt die Antwort auf.</p>
+        {/* Lehrkraft 2026-11-12: Schüler:innen schalten selbst um; gespeichert auf diesem Gerät */}
+        <div className="knopf-reihe">
+          <button type="button" role="switch" aria-checked={dunkel} className="schalter" onClick={() => setDunkel(!dunkel)}>
+            <span className="schalter__bahn" aria-hidden="true"><span className="schalter__knopf" /></span>
+            Dunkler Modus
+          </button>
+          <button type="button" role="switch" aria-checked={lrs} className="schalter" onClick={() => setLrs(!lrs)}>
+            <span className="schalter__bahn" aria-hidden="true"><span className="schalter__knopf" /></span>
+            Leseschrift für LRS
+          </button>
+        </div>
       </header>
       {ABSCHNITTE.map((a) => (
         <section key={a.titel} className="karte">

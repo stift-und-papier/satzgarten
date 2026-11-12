@@ -43,7 +43,7 @@ export function Kampf({ paket, aufgabeId }: { paket: SchuelerPaket; aufgabeId?: 
         </span>
         <span className={`kampf__monster${besiegt ? ' kampf__monster--weg' : ''}`}>
           {!besiegt && (
-            <span className="kampf__balken" aria-hidden="true">
+            <span className="kampf__balken" aria-hidden="true" data-stand={leben > 0.5 ? 'viel' : leben > 0.25 ? 'mittel' : 'wenig'}>
               <span style={{ width: `${leben * 100}%` }} />
             </span>
           )}
@@ -53,10 +53,11 @@ export function Kampf({ paket, aufgabeId }: { paket: SchuelerPaket; aufgabeId?: 
       <p role="status">
         {wurf?.art === 'treffer' && !besiegt && 'Treffer! '}
         {wurf?.art === 'daneben' && 'Daneben. '}
-        {gesperrt && 'Du hast bei dieser Aufgabe die Lösung angesehen. Ab morgen trifft sie wieder. '}
         {besiegt
           ? `Geschafft! ${monster.der} ${monster.name} läuft davon.`
-          : k.durch
+          : gesperrt
+            ? 'Du hast bei dieser Aufgabe die Lösung angesehen. Versuche sie morgen noch einmal, um das Monster zu besiegen!'
+            : k.durch
             ? `${monster.der} ${monster.name} steht noch. Versuch die Aufgaben ohne Haken noch einmal!`
             : `Ein ${monster.name}! Jede richtige Antwort trifft.`}
       </p>

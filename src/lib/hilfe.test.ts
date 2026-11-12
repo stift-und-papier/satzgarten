@@ -22,7 +22,7 @@ describe('Hilfetext lesen', () => {
   it('die echte Hilfedatei: drei Abschnitte, jeder Eintrag hat Text, kein „FAQ“, Namensnennung', () => {
     const md = readFileSync(new URL('../schueler/hilfe.md', import.meta.url), 'utf8')
     const a = hilfeLesen(md)
-    expect(a.map((x) => x.titel)).toEqual(['Für Eltern und Schüler:innen', 'Das fragst du dich vielleicht', 'Bilder und Ideen'])
+    expect(a.map((x) => x.titel)).toEqual(['Das fragst du dich vielleicht', 'Für Eltern und Schüler:innen', 'Bilder und Ideen'])
     for (const x of a) for (const e of x.eintraege) expect(e.bloecke.length).toBeGreaterThan(0)
     expect(md.split('-->')[1]).not.toMatch(/FAQ/i)
     expect(md).toContain('Assets – From: **Sprout Lands** – By: **Cup Nooble**')
