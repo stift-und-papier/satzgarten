@@ -188,7 +188,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 
 ## Phase 8: Farm (`muenzen`, `shop`, `felder`, `tiere`, `spielfigur`)
 
-- [ ] **34 Spec Münzen und Shop** (S) – `docs/SPEC-muenzen.md`: offene Fragen 1, 2, 7 (Münzen je Aufgabe, Schutz gegen Tempo und Raten, Preise, Angebot). Prüfen: Freigabe. · **Diktat-Regeln aus `docs/SPEC-diktat.md` übernehmen:** Münzen ab 90 %, erneut bei Verbesserung, Extra für fehlerfrei.
+- [x] **34 Spec Münzen und Shop** (S) – `docs/SPEC-muenzen.md`: offene Fragen 1, 2, 7 (Münzen je Aufgabe, Schutz gegen Tempo und Raten, Preise, Angebot). Prüfen: Freigabe. · **Diktat-Regeln aus `docs/SPEC-diktat.md` übernehmen:** Münzen ab 90 %, erneut bei Verbesserung, Extra für fehlerfrei.
 - [ ] **35 Münzen** (M) – hängt an 34, 25 · Tabelle `muenz_ereignisse` (eindeutig je Grund + Bezug); Vergabe in **einer** Funktion; Kontostand gezählt; Münzanzeige. Prüfen: DB-Test: doppelte Abgabe → keine doppelten Münzen; Token kann nichts schreiben.
 - [ ] **36 Spec Felder und Tiere** (S) – `docs/SPEC-felder.md`: offene Fragen 8, 9, 12 (Wachstumsdauer, Folgen von Nicht-Üben, was Füttern bringt). Prüfen: Freigabe.
 - [ ] **37 Shop** (M) – hängt an 35 · Angebot aus Sprout-Lands-Grafiken; RPC `kaufen` (prüft Kontostand); Besitz als Liste. Prüfen: DB-Test (kein Kauf ohne Münzen); iPad.

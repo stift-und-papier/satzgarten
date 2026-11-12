@@ -1,7 +1,7 @@
 # Spec: Münzen und Shop (`muenzen`, `shop`)
 
-Antworten der Lehrkraft vom 2026-11-12 auf die offenen Fragen 1, 2 und 7. Zahlen (Preise, Freischalt-Grenzen) sind
-Vorschläge von Claude und gelten nach Freigabe.
+Antworten der Lehrkraft vom 2026-11-12 auf die offenen Fragen 1, 2 und 7. Preise und Freischalt-Grenzen auf Wunsch
+der Lehrkraft niedriger angesetzt (freigegeben 2026-11-12).
 
 ## Münzen
 
@@ -34,11 +34,11 @@ Vorschläge von Claude und gelten nach Freigabe.
 | Insgesamt verdient | Neu im Shop |
 |---|---|
 | 0 | 3 Samen, Zaun |
-| 300 | 3 weitere Samen, Huhn, erste Deko |
-| 800 | 3 weitere Samen, mehr Deko |
-| 1500 | 3 weitere Samen, Kuh |
-| 3000 | letzte Samen, Brunnen und große Deko |
+| 150 | 3 weitere Samen, Huhn, erste Deko |
+| 400 | 3 weitere Samen, mehr Deko |
+| 800 | 3 weitere Samen, Kuh |
+| 1500 | letzte Samen, Brunnen und große Deko |
 
-- Preise (Vorschlag): Samen 20–60, Deko 30–200, Huhn 300, Kuh 600. Ein Paket mit 10 Aufgaben bringt etwa 100–200 Münzen.
+- Preise: Samen 10–30, Deko 20–100, Huhn 150, Kuh 300. Ein Paket mit 10 Aufgaben bringt etwa 100–200 Münzen.
 - Noch nicht Freigeschaltetes erscheint als „?“ mit dem Satz „Kommt, wenn du weiter übst.“ (keine Zahl bis zur Grenze).
 - Kaufen nur über die Datenbankfunktion `kaufen` (prüft Freischaltung und Kontostand). Besitz ist eine Liste.

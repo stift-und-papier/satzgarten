@@ -185,3 +185,5 @@
 - 2026-11-12 (Lehrkraft): Lernstand mit Kernkompetenzen und Tulpen-Lernweg freigegeben – **Haltepunkt 7 erreicht**. Weiter mit Phase 8.
   Münzen (`docs/SPEC-muenzen.md`): nach Sternen ★ 10 / ★★ 15 / ★★★ 20, im 2. Versuch die Hälfte, nach „Lösung ansehen“ nichts;
   je Aufgabe einmal pro Tag. Erklärseiten einmalig 5 Münzen. Shop schaltet nach insgesamt verdienten Münzen nach und nach frei.
+- 2026-11-12 (Lehrkraft): Shop leichter zugänglich: freischalten bei 0 / 150 / 400 / 800 / 1500 verdienten Münzen;
+  Samen 10–30, Deko 20–100, Huhn 150, Kuh 300. Spec Münzen und Shop freigegeben (Aufgabe 34).
