@@ -37,6 +37,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
   const leinwand = useRef<HTMLCanvasElement>(null)
   const ankunft = useRef<number>(undefined)
   const [blase, setBlase] = useState(true) // Sprechblase „… kann geerntet werden!“, bis man zum ersten Mal tippt
+  const [blasenBreite, setBlasenBreite] = useState(0) // gemessen, in Grafik-Pixeln
 
   const laden = useCallback(async () => {
     const { data, error } = await supabase.rpc('schueler_farm', { p_token: token })
@@ -93,13 +94,20 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
 
   useEffect(() => () => window.clearTimeout(ankunft.current), [])
 
+  // Lehrkraft 2026-11-12: Die Blase steht immer links von der Figur. Fehlt dort Platz, läuft die Figur zuerst nach rechts.
+  const blasenPlatz = blasenBreite + 8
+  useEffect(() => {
+    if (!blase || !blasenBreite || figur.dauer > 0 || figur.x >= blasenPlatz) return
+    gehe((o) => mitte(o).x >= blasenPlatz, undefined, true)
+  }, [blase, blasenPlatz])
+
   /**
    * Figur auf kürzestem Weg um Hindernisse herum zur nächsten Kachel laufen lassen, für die `ziel` gilt; danach `dann`.
    * Gibt es keinen Weg, passiert `dann` sofort (alles bleibt bedienbar).
    */
-  function gehe(ziel: (o: Ort) => boolean, dann?: () => void) {
+  function gehe(ziel: (o: Ort) => boolean, dann?: () => void, vonSelbst = false) {
     window.clearTimeout(ankunft.current)
-    setBlase(false)
+    if (!vonSelbst) setBlase(false)
     const start = { x: Math.floor(figur.x / KACHEL), y: Math.floor(figur.y / KACHEL) }
     const pfad = weg(start, ziel, besetzt)
     if (!pfad) return dann?.()
@@ -261,7 +269,6 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
     ...daten.baeume.filter((b) => b.tage === 0 && b.art in BAUM_PLAETZE).map((b) => OBSTBAUM[b.art].name),
   ]
   const blasenText = reifes.length > 1 ? 'Ich kann heute vieles ernten!' : reifes.length ? `${reifes[0]} kann geerntet werden!` : null
-  const blaseLinks = figur.x > (SPALTEN * KACHEL) / 2
 
   return (
     <section className="karte farm">
@@ -347,11 +354,17 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
 
           {blase && blasenText && (
             <span
-              className={`farm-blase${blaseLinks ? ' farm-blase--links' : ''}`}
+              className="farm-blase"
+              ref={(el) => {
+                const b = el ? Math.ceil(el.offsetWidth / mal) : 0
+                if (b && b !== blasenBreite) setBlasenBreite(b)
+              }}
               style={{
                 ['--bild' as string]: `url(${GRAFIK.dialog_blase.url})`,
-                [blaseLinks ? 'right' : 'left']: blaseLinks ? (SPALTEN * KACHEL - figur.x + 6) * mal : (figur.x + 6) * mal,
+                right: (SPALTEN * KACHEL - figur.x + 6) * mal,
                 top: (figur.y - 22) * mal,
+                // erst zeigen, wenn die Figur steht und links genug Platz ist
+                visibility: figur.dauer === 0 && figur.x >= blasenPlatz ? undefined : 'hidden',
               }}
             >
               {blasenText}
