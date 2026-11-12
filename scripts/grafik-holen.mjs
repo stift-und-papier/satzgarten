@@ -81,19 +81,14 @@ const BILDER = [
   { name: 'milch_blaubeer', datei: SPRITES + 'Objects/Items/milk-items.png', x: 0, y: 80, breite: 16, hoehe: 16 },
   // Obstbäume (Lehrkraft 2026-11-12): je 48 × 48, Zeile 0 im Wind wiegen (6 Bilder), Zeile 1 Früchte fallen (12 Bilder);
   // ohne Früchte (nach der Ernte) dieselbe Bewegung aus dem Blatt ohne Obst
-  { name: 'baum_orange', datei: SPRITES + 'Objects/Tree animations/tree_orange_sprites.png', x: 0, y: 96, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
-  { name: 'baum_pfirsich', datei: SPRITES + 'Objects/Tree animations/tree_peach_sprites.png', x: 0, y: 96, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
-  { name: 'baum_birne', datei: SPRITES + 'Objects/Tree animations/tree_pear_sprites.png', x: 0, y: 96, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
-  { name: 'baum_ohne_obst', datei: SPRITES + 'Objects/Tree animations/tree_sprites.png', x: 0, y: 96, breite: 288, hoehe: 48, bildBreite: 48, bildHoehe: 48 },
+  { name: 'baum_orange', datei: SPRITES + 'Objects/Tree animations/tree_orange_sprites.png', x: 0, y: 0, breite: 576, hoehe: 192, bildBreite: 48, bildHoehe: 48 },
+  { name: 'baum_pfirsich', datei: SPRITES + 'Objects/Tree animations/tree_peach_sprites.png', x: 0, y: 0, breite: 576, hoehe: 192, bildBreite: 48, bildHoehe: 48 },
+  { name: 'baum_birne', datei: SPRITES + 'Objects/Tree animations/tree_pear_sprites.png', x: 0, y: 0, breite: 576, hoehe: 192, bildBreite: 48, bildHoehe: 48 },
+  { name: 'baum_ohne_obst', datei: SPRITES + 'Objects/Tree animations/tree_sprites.png', x: 0, y: 0, breite: 48, hoehe: 48, bildBreite: 48, bildHoehe: 48 },
   // Früchte: 0 Apfel, 1 Orange, 2 Birne, 3 Pfirsich
   { name: 'fruechte', datei: SPRITES + 'Objects/Items/fruit-n-berries-items.png', x: 0, y: 0, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   // Boot (Deko), am Ufer festgebunden, schaukelt im Wasser (2 Bilder)
   { name: 'deko_boot', datei: SPRITES + 'Objects/Boats.png', x: 0, y: 0, breite: 96, hoehe: 32, bildBreite: 48, bildHoehe: 32 },
-  // Monster über der Aufgabe (docs/SPEC-monster.md), je ein ruhiges Standbild 32×32, Blick nach links zur Spielfigur:
-  // ★ Rübchen „chomp“ (eigenes Werk der Lehrkraft), ★★ Schleim, ★★★ Ork (craftpix.net, frei)
-  { name: 'monster_1', datei: 'assets/chomp_idle.png', x: 0, y: 0, breite: 32, hoehe: 32 },
-  { name: 'monster_2', datei: 'assets/entpackt/free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime1/Idle/Slime1_Idle_full.png', x: 16, y: 144, breite: 32, hoehe: 32 },
-  { name: 'monster_3', datei: 'assets/entpackt/Free-Top-Down-Orc-Game-Character-Pixel-Art/PNG/Orc1/Orc1_idle/orc1_idle_full.png', x: 16, y: 142, breite: 32, hoehe: 32 },
 ]
 
 mkdirSync('src/grafik', { recursive: true })

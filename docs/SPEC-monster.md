@@ -1,5 +1,7 @@
 # Spec: Monster-Kampf und Buch (`monster`, `buch`)
 
+> **Monster-Kampf entfernt** (Lehrkraft 2026-11-12, Migration `kampf_weg`). Gültig ist nur noch der Teil „Buch“ (Mein Sammelalbum).
+
 Antworten der Lehrkraft vom 11. November 2026 (offene Fragen 17–22 der `docs/SPEC.md`).
 
 ## Monster-Kampf

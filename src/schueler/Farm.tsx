@@ -201,7 +201,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
     const reif = b.tage === 0
     const zeile =
       faellt === b.id
-        ? { grafik: info.grafik, nummer: 12, bilder: 12 }
+        ? { grafik: info.grafik, nummer: 36, bilder: 12 }
         : reif
           ? { grafik: info.grafik, nummer: 0, bilder: 1 }
           : { grafik: GRAFIK.baum_ohne_obst, nummer: 0, bilder: 1 }
@@ -215,7 +215,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
         aria-label={reif ? `${info.name}: reif, antippen zum Ernten` : `${info.name}: trägt ${wann} wieder Früchte`}
         onClick={() =>
           gehe(nebenan(tierFlaeche(o, 2)), () => {
-            if (!reif) return setMeldung(`Der ${info.name} trägt ${wann} wieder Früchte. Einmal in der Woche kannst du ernten.`)
+            if (!reif) return setMeldung(`Der ${info.name} trägt ${wann} wieder Früchte. Du kannst Obstbäume einmal pro Woche ernten.`)
             void baumErnten(b.id, info.name, info.fruechte)
           })
         }

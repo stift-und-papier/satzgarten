@@ -453,10 +453,12 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 /* ---------- Schüleransicht: Pakete und Aufgaben (src/schueler) ---------- */
 .paket-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-sm); }
 .paket-liste__eintrag {
-  grid-template-columns: auto minmax(0, 1fr); align-items: center;
+  grid-template-columns: auto minmax(0, 1fr) auto; align-items: center;
   min-height: var(--tipp-min);
   color: var(--color-tinte); text-decoration: none;
 }
+/* Lehrkraft 2026-11-12: Sterne oben rechts im Kasten, mit dem Wort „Schwierigkeit“ */
+.paket-liste__stufe { align-self: start; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
 .paket-liste__nr {
   display: inline-grid; place-items: center;
   min-width: 2.5rem; height: 2.5rem;
@@ -562,29 +564,6 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   border: 2px solid currentColor; line-height: 1;
 }
 /* Liegt zum Einsammeln bereit: hüpft leicht, damit man es bemerkt */
-/* Monster über der Aufgabe (Kampf.tsx): Figur links, Monster rechts; Treffer = Figur springt vor, Monster zuckt;
-   daneben = Monster hüpft zur Seite; besiegt = Monster verblasst und läuft weg. Keine Rotfärbung, kein Blut. */
-.kampf__buehne { display: flex; justify-content: space-around; align-items: flex-end; min-height: 132px; }
-.kampf__figur, .kampf__monster { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.kampf__balken { width: 96px; height: 14px; border: 2px solid var(--color-tinte); border-radius: 4px; background: var(--color-papier); overflow: hidden; }
-.kampf__balken > span { display: block; height: 100%; background: var(--kat-gruen); transition: width 0.4s ease-out; }
-/* Lehrkraft 2026-11-12: viel Leben grün, weniger orange, ganz wenig rot (Länge zeigt es zusätzlich) */
-.kampf__balken[data-stand='mittel'] > span { background: var(--kat-orange); }
-.kampf__balken[data-stand='wenig'] > span { background: var(--kat-rot); }
-.kampf__monster > .sprite { animation: farm-huepfen 1.6s ease-in-out infinite; }
-.kampf__monster--weg { opacity: 0.25; transform: translateX(40px); transition: opacity 1s, transform 1s; }
-.kampf__monster--weg > .sprite { animation: none; }
-[data-wurf='treffer'] .kampf__figur { animation: kampf-vor 0.5s ease-out; }
-[data-wurf='treffer'] .kampf__monster > .sprite { animation: kampf-zucken 0.5s 0.2s ease-out; }
-[data-wurf='daneben'] .kampf__figur { animation: kampf-vor 0.5s ease-out; }
-[data-wurf='daneben'] .kampf__monster > .sprite { animation: kampf-ausweichen 0.6s ease-out; }
-@keyframes kampf-vor { 40% { transform: translateX(28px); } }
-@keyframes kampf-zucken { 25% { transform: translateX(8px); } 50% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-@keyframes kampf-ausweichen { 40% { transform: translate(0, -24px); } }
-@media (prefers-reduced-motion: reduce) {
-  .kampf__figur, .kampf__monster, .kampf__monster > .sprite, .kampf__balken > span { animation: none !important; transition: none !important; }
-}
-
 .farm-liegt > .sprite { animation: farm-huepfen 1.2s ease-in-out infinite; }
 @keyframes farm-huepfen { 50% { transform: translateY(-15%); } }
 .farm-herz { position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%); }

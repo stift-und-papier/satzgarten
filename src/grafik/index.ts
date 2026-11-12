@@ -40,9 +40,6 @@ import baum_birne from './baum_birne.png'
 import baum_ohne_obst from './baum_ohne_obst.png'
 import fruechte from './fruechte.png'
 import deko_boot from './deko_boot.png'
-import monster_1 from './monster_1.png'
-import monster_2 from './monster_2.png'
-import monster_3 from './monster_3.png'
 import feld from './feld.png'
 import album_seite from './album_seite.png'
 
@@ -82,15 +79,12 @@ export const GRAFIK = {
   milch: { url: milch, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   milch_erdbeer: { url: milch_erdbeer, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   milch_blaubeer: { url: milch_blaubeer, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
-  baum_orange: { url: baum_orange, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
-  baum_pfirsich: { url: baum_pfirsich, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
-  baum_birne: { url: baum_birne, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
-  baum_ohne_obst: { url: baum_ohne_obst, breite: 288, hoehe: 48, bildBreite: 48, bildHoehe: 48 },
+  baum_orange: { url: baum_orange, breite: 576, hoehe: 192, bildBreite: 48, bildHoehe: 48 },
+  baum_pfirsich: { url: baum_pfirsich, breite: 576, hoehe: 192, bildBreite: 48, bildHoehe: 48 },
+  baum_birne: { url: baum_birne, breite: 576, hoehe: 192, bildBreite: 48, bildHoehe: 48 },
+  baum_ohne_obst: { url: baum_ohne_obst, breite: 48, hoehe: 48, bildBreite: 48, bildHoehe: 48 },
   fruechte: { url: fruechte, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   deko_boot: { url: deko_boot, breite: 96, hoehe: 32, bildBreite: 48, bildHoehe: 32 },
-  monster_1: { url: monster_1, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
-  monster_2: { url: monster_2, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
-  monster_3: { url: monster_3, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   feld: { url: feld, breite: 14, hoehe: 14, bildBreite: 14, bildHoehe: 14 },
   album_seite: { url: album_seite, breite: 96, hoehe: 96, bildBreite: 96, bildHoehe: 96 },
 } as const

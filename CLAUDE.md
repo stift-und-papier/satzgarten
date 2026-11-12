@@ -20,7 +20,7 @@
   `service_role`-Schlüssel und DB-Passwort **nie**.
 - **Nie ins Repo:** KC-PDFs (`docs/*.pdf`), Referenzbilder (`refrences/`), Referenz-Texte (`Erklärungen referenz/`),
   die gekauften Asset-Pakete (`assets/`, Lizenz verbietet Weitergabe).
-- **Grafiken:** Sprout Lands (gekauft, Cup Nooble), Humble Gift Paper UI, craftpix Orks/Schleime und TastenHeld (Erlaubnis für Ideen, Code, Grafiken).
+- **Grafiken:** Sprout Lands (gekauft, Cup Nooble), Humble Gift Paper UI und TastenHeld (Erlaubnis für Ideen, Code, Grafiken).
   Nur benutzte Einzelbilder nach `src/grafik/` mit `LIZENZ.md`; Namensnennung in der App
   („Assets – From: Sprout Lands – By: Cup Nooble“). Übernommenen TastenHeld-Code mit Herkunft kennzeichnen.
 - Kompetenzen **nicht erfinden** – nur aus `docs/kompetenzen.csv` bzw. durch die Lehrkraft.
@@ -246,3 +246,5 @@
   so bleibt zwischen den Feldern ein kleiner Abstand); Pflanzen stehen mitten im Feld. Der zusammenhängende Acker entfällt.
 - 2026-11-12 (Lehrkraft): Preise für Obstbäume, Obst und Boot bestätigt. Bäume **wackeln nicht**, bewegen sich nur beim Ernten
   (Früchte fallen); das Obst kommt danach **direkt in den Vorrat** und liegt nicht auf der Karte (Migration `obst_vorrat`).
+- 2026-11-12 (Lehrkraft): **Monster-Kampf komplett entfernt** (gefällt nicht; Migration `kampf_weg`, Kampf.tsx, Monster-Bilder und craftpix weg).
+  Obstbäume mit dem geraden Standbild. Übungen: Sterne oben rechts im Kasten mit dem Wort „Schwierigkeit“.

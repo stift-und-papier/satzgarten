@@ -31,17 +31,7 @@ Obstbäume (`baum_*.png`), Früchte (`fruechte.png`) und Boot (`deko_boot.png`) 
 
 - `einstein.png`: Maskottchen Einstein, Posen freundlich, blinzelt, lob, freut sich, huch, erklärt (aus der eigenen Vorlage
   auf ihr Pixelraster verkleinert, Hintergrund entfernt).
-- `monster_1.png`: Rübchen-Wesen aus `chomp_idle.png` (Monster ★).
 - `bubble emotes july update.png` (Sprechblasen): noch nicht benutzt.
-
-## craftpix.net (frei)
-
-- `monster_2.png` (Schleim, Monster ★★): „Free Slime Mobs Pixel Art Top-Down Sprite Pack“.
-- `monster_3.png` (Ork, Monster ★★★): „Free Top-Down Orc Game Character Pixel Art“.
-
-Lizenz https://craftpix.net/file-licenses/ : in eigenen Projekten nutzbar, auch verändert; die Grafiken selbst nicht
-weiterverkaufen oder als Grafiken weitergeben; kein KI-Training; Namensnennung freiwillig. Darum auch hier nur einzelne
-ausgeschnittene Bilder, die die App benutzt.
 
 ## Humble Gift – Paper UI System (Humble Pixel)
 
