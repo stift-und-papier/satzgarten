@@ -523,20 +523,23 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .farm-landschaft canvas { display: block; image-rendering: pixelated; }
 .farm-landschaft .sprite { image-rendering: pixelated; }
 .farm-ding { position: absolute; pointer-events: none; line-height: 0; }
-.farm-feld, .farm-tier {
+.farm-feld, .farm-tier, .farm-liegt {
   position: absolute; display: grid; place-items: center; line-height: 0;
   padding: 0; border: none; background: none; cursor: pointer; pointer-events: auto;
 }
 /* Tippfläche mindestens 48 px, auch wenn Feld oder Huhn kleiner gezeichnet sind */
-.farm-feld::before, .farm-tier::before { content: ''; position: absolute; inset: min(0px, calc((100% - 48px) / 2)); }
+.farm-feld::before, .farm-tier::before, .farm-liegt::before { content: ''; position: absolute; inset: min(0px, calc((100% - 48px) / 2)); }
 .farm-feld[aria-pressed='true'] { outline: 3px solid var(--color-aktion); outline-offset: 1px; }
-.farm-feld:focus-visible, .farm-tier:focus-visible { outline: 3px solid var(--color-aktion); }
+.farm-feld:focus-visible, .farm-tier:focus-visible, .farm-liegt:focus-visible { outline: 3px solid var(--color-aktion); }
 .farm-feld .sprite { transform: translateY(-20%); }
 .farm-feld__reif {
   position: absolute; top: -10px; right: -10px; display: grid; place-items: center; width: 22px; height: 22px;
   border-radius: 50%; background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); font-weight: 800; font-size: 14px;
   border: 2px solid currentColor; line-height: 1;
 }
+/* Liegt zum Einsammeln bereit: hüpft leicht, damit man es bemerkt */
+.farm-liegt > .sprite { animation: farm-huepfen 1.2s ease-in-out infinite; }
+@keyframes farm-huepfen { 50% { transform: translateY(-15%); } }
 .farm-herz { position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%); }
 .farm-figur { position: absolute; pointer-events: none; image-rendering: pixelated; background-repeat: no-repeat; }
 /* Figur: Laufbilder untereinander (Zeile 1 bis 3), Richtung als Spalte */
@@ -547,7 +550,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .farm-tier > .sprite { animation: farm-laufen 1.6s steps(4) infinite; }
 .farm-tier[aria-label^='Kuh'] > .sprite { animation-timing-function: steps(3); animation-duration: 1.8s; }
 @media (prefers-reduced-motion: reduce) {
-  .farm-figur, .farm-tier > .sprite { animation: none !important; transition: none !important; }
+  .farm-figur, .farm-tier > .sprite, .farm-liegt > .sprite { animation: none !important; transition: none !important; }
 }
 .farm-vorrat { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 .farm-vorrat li { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 6rem; text-align: center; font-weight: 700; }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  belegung, blobTeil, DEKO_PLAETZE, FELD_PLAETZE, FIGUR_START, GRAS_DEKO, grundKacheln, HEU, hindernisse, HUHN_PLAETZE, istGras, KUH_PLAETZE,
+  ablagePlaetze, belegung, blobTeil, DEKO_PLAETZE, FELD_PLAETZE, FIGUR_START, GRAS_DEKO, grundKacheln, HEU, hindernisse, HUHN_PLAETZE, istGras, KUH_PLAETZE,
   nebenan, SCHEUNE, SPALTEN, tierFlaeche, TROG, weg, ZEILEN,
 } from './landschaft'
 
@@ -46,5 +46,24 @@ describe('Landschaft', () => {
     expect(pfad.length).toBeGreaterThan(1) // diagonal wäre zwischen den beiden Hindernissen durch
     expect(pfad.some((o) => besetzt.has(`${o.x},${o.y}`))).toBe(false)
     expect(weg({ x: 4, y: 5 }, (o) => o.x === 0 && o.y === 0, besetzt)).toBeNull() // Wasser
+  })
+})
+
+describe('ablagePlaetze', () => {
+  it('legt Dinge auf freie, verschiedene Kacheln neben den Ursprung', () => {
+    const besetzt = hindernisse({ deko: DEKO_PLAETZE.length, brunnen: true, huehner: 4, kuehe: 4 })
+    const huhn = tierFlaeche(HUHN_PLAETZE[0], 1)
+    const plaetze = ablagePlaetze([huhn, huhn, huhn], besetzt, new Set())
+    expect(new Set(plaetze.map((o) => `${o.x},${o.y}`)).size).toBe(3)
+    for (const o of plaetze) {
+      expect(besetzt.has(`${o.x},${o.y}`)).toBe(false)
+      expect(istGras(o.x, o.y)).toBe(true)
+      expect(Math.max(Math.abs(o.x - huhn[0].x), Math.abs(o.y - huhn[0].y))).toBeLessThanOrEqual(2)
+    }
+  })
+  it('Ernte liegt auf dem leeren Feld, auf einem bepflanzten daneben', () => {
+    const feld = FELD_PLAETZE[0]
+    expect(ablagePlaetze([[feld]], new Set(), new Set())[0]).toEqual(feld)
+    expect(ablagePlaetze([[feld]], new Set(), new Set([`${feld.x},${feld.y}`]))[0]).not.toEqual(feld)
   })
 })

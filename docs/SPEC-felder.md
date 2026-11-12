@@ -25,6 +25,7 @@ Antworten der Lehrkraft vom 2026-11-12 auf die offenen Fragen 8, 9 und 12. Zahle
 - Huhn und Kuh aus dem Shop werden auf die Farm gestellt.
 - **Füttern** verbraucht 1 Geerntetes aus dem Vorrat. Das Tier zeigt eine Sprechblase mit Herz (keine Fress-Animation)
   und gibt danach **einmal pro Tag** ein Ei (Huhn) bzw. Milch (Kuh).
+- Ernte und Ei/Milch **liegen zuerst auf der Farm** (beim Feld bzw. neben dem Tier) und kommen erst beim Einsammeln in den Vorrat.
 - **Verkaufen** geht nur im Shop (Lehrkraft 2026-11-12): Geerntetes und Eier/Milch. Verkaufs-Münzen zählen fürs Freischalten, gießen aber nicht.
 - Teurere Samen geben teurere Ernte (Güte 1 bis 3). Füttern mit besserer Ernte gibt besseres Ei bzw. bessere Milch:
 

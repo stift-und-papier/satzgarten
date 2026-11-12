@@ -185,3 +185,32 @@ export function weg(start: Ort, ziel: (o: Ort) => boolean, besetzt: Set<string>)
 
 /** Ziel „neben einem Ding“: freie Kachel, die waagrecht oder senkrecht an eine der Kacheln grenzt */
 export const nebenan = (kacheln: Ort[]) => (o: Ort) => kacheln.some((k) => Math.abs(k.x - o.x) + Math.abs(k.y - o.y) === 1)
+
+/**
+ * Plätze für Dinge, die auf der Farm liegen (Ernte beim Feld, Ei/Milch beim Tier): je Ding die nächste freie Graskachel
+ * um seinen Ursprung herum, nicht auf Hindernissen, nicht in `gesperrt` (z. B. bepflanzte Felder) und nicht doppelt.
+ */
+export function ablagePlaetze(ursprung: Ort[][], besetzt: Set<string>, gesperrt: Set<string>): Ort[] {
+  const vergeben = new Set<string>()
+  return ursprung.map((start) => {
+    const gesehen = new Set(start.map((o) => `${o.x},${o.y}`))
+    const schlange = [...start]
+    for (let i = 0; i < schlange.length; i++) {
+      const o = schlange[i]
+      const k = `${o.x},${o.y}`
+      if (istGras(o.x, o.y) && !besetzt.has(k) && !gesperrt.has(k) && !vergeben.has(k)) {
+        vergeben.add(k)
+        return o
+      }
+      for (const [dx, dy] of [[0, 1], [1, 0], [-1, 0], [0, -1], [1, 1], [-1, 1], [1, -1], [-1, -1]]) {
+        const n = { x: o.x + dx, y: o.y + dy }
+        const nk = `${n.x},${n.y}`
+        if (!gesehen.has(nk) && istGras(n.x, n.y)) {
+          gesehen.add(nk)
+          schlange.push(n)
+        }
+      }
+    }
+    return start[0] // shortcut: Insel ganz voll, dann eben auf den Ursprung
+  })
+}

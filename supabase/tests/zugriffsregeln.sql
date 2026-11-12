@@ -822,8 +822,11 @@ begin
     n := n + 2;
     set local role anon;
     v := public.ernten(t_eule, 0);
+    -- Ernte liegt erst auf dem Feld, kommt mit Einsammeln in den Vorrat
+    if v -> 'vorrat' <> '[]'::jsonb or v -> 'liegen' -> 0 ->> 'bei' <> 'feld:0' then raise exception 'Block 10.7: Ernte liegt nicht: %', v; end if;
+    v := public.einsammeln(t_eule, (v -> 'liegen' -> 0 ->> 'id')::uuid);
     reset role;
-    if jsonb_array_length(v -> 'pflanzen') <> 0
+    if jsonb_array_length(v -> 'pflanzen') <> 0 or v -> 'liegen' <> '[]'::jsonb
        or v -> 'vorrat' <> '[{"sorte":"karotte","anzahl":1}]'::jsonb or exists (select 1 from public.pflanzungen where schueler_id = v_eule and feld = 0) then
       raise exception 'Block 10.7: Ernte falsch: %', v;
     end if;
@@ -850,10 +853,37 @@ begin
     insert into public.vorrat (schueler_id, sorte) values (v_eule, 'karotte'), (v_eule, 'karotte');
     set local role anon;
     v := public.fuettern(t_eule, v_huhn, 'karotte');
-    if not (v -> 'tiere' -> 0 ->> 'satt')::boolean or not (v -> 'vorrat' @> '[{"sorte":"ei","anzahl":1},{"sorte":"karotte","anzahl":1}]') then
+    if not (v -> 'tiere' -> 0 ->> 'satt')::boolean or v -> 'vorrat' <> '[{"sorte":"karotte","anzahl":1}]'::jsonb
+       or v -> 'liegen' -> 0 ->> 'bei' <> 'tier:' || v_huhn or v -> 'liegen' -> 0 ->> 'sorte' <> 'ei' then
       raise exception 'Block 11.1: Füttern falsch: %', v;
     end if;
-    n := n + 1;
+    -- Liegendes kann man nicht verkaufen, erst einsammeln
+    begin
+      perform public.verkaufen(t_eule, 'ei');
+      raise exception 'Block 11.8: liegendes Ei verkauft';
+    exception when raise_exception then if sqlerrm !~ 'nicht zum Verkaufen' then raise; end if;
+    end;
+    -- fremde Schüler:innen können es nicht einsammeln
+    declare
+      t_fuchs1 text;
+      v_id uuid := (v -> 'liegen' -> 0 ->> 'id')::uuid;
+    begin
+      reset role;
+      t_fuchs1 := (select token from public.schueler where pseudonym = 'Fuchs-01');
+      set local role anon;
+      begin
+        perform public.einsammeln(t_fuchs1, v_id);
+        raise exception 'Block 11.9: fremdes Ei eingesammelt';
+      exception when raise_exception then if sqlerrm !~ 'liegt hier nicht' then raise; end if;
+      end;
+      v := public.einsammeln(t_eule, v_id);
+      begin
+        perform public.einsammeln(t_eule, v_id);
+        raise exception 'Block 11.9: doppelt eingesammelt';
+      exception when raise_exception then if sqlerrm !~ 'liegt hier nicht' then raise; end if;
+      end;
+    end;
+    n := n + 3;
     begin
       perform public.fuettern(t_eule, v_huhn, 'karotte');
       raise exception 'Block 11.2: zweimal am Tag gefüttert';
@@ -882,6 +912,7 @@ begin
       insert into public.vorrat (schueler_id, sorte) values (v_eule, 'aubergine');
       set local role anon;
       v := public.fuettern(t_eule, v_huhn2, 'aubergine');
+      v := public.einsammeln(t_eule, (v -> 'liegen' -> 0 ->> 'id')::uuid);
       if not (v -> 'vorrat' @> '[{"sorte":"ei_blau","anzahl":1}]') then raise exception 'Block 11.7: Güte falsch: %', v; end if;
       v := public.verkaufen(t_eule, 'ei_blau');
       if (v ->> 'kontostand')::int <> 125 then raise exception 'Block 11.7: blaues Ei falsch bezahlt: %', v; end if;

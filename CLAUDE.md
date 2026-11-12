@@ -220,3 +220,6 @@
   Sprout Lands Sorry Pack (8 Richtungen). **Vorrat** unter der Farm in Kästchen mit Anzahl oben rechts. **Verkaufen nur im Shop**,
   auch Geerntetes. Teurere Samen geben teurere Ernte; Futter-Güte 1 bis 3 gibt Ei/Rosa Ei/Blaues Ei bzw. Milch/Erdbeermilch/
   Blaubeermilch (Preise von Claude, von der Lehrkraft bestätigt; Tabelle in `docs/SPEC-felder.md`). Ein Tier frisst weiter einmal am Tag.
+- 2026-11-12 (Lehrkraft): Ernte und Ei/Milch erscheinen erst **in der Spielwelt** (Ernte auf dem Feld bzw. daneben, Ei/Milch neben dem Tier,
+  hüpfen leicht) und kommen erst beim **Einsammeln** (antippen, Figur läuft hin) in den Vorrat (`vorrat.liegt_bei`, Funktion `einsammeln`,
+  Plätze `ablagePlaetze` in `landschaft.ts`). Liegendes kann man weder füttern noch verkaufen. Es bleibt liegen, bis man es holt.

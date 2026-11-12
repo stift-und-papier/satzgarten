@@ -6,7 +6,7 @@ import { Sprite } from '../gemeinsam/Sprite'
 import { GRAFIK } from '../grafik'
 import { fehlerText } from '../lib/fehler'
 import {
-  BAEUME, blobTeil, BRUNNEN, DEKO_PLAETZE, FELD_PLAETZE, FIGUR_START, grundKacheln, HEU, hindernisse, HUHN_PLAETZE, istGras, KACHEL,
+  ablagePlaetze, BAEUME, blobTeil, BRUNNEN, DEKO_PLAETZE, FELD_PLAETZE, FIGUR_START, grundKacheln, HEU, hindernisse, HUHN_PLAETZE, istGras, KACHEL,
   KUH_PLAETZE, nebenan, scheunenKacheln, SPALTEN, STALL, tierFlaeche, TROG, weg, ZEILEN, type Ort,
 } from '../lib/landschaft'
 import { artikelBild, SORTE, SORTE_NAME, vorratDing, type Farm as FarmDaten } from '../lib/shop'
@@ -119,7 +119,7 @@ export function Farm({ token, shop }: { token: string; shop: string }) {
     schritt(0, figur)
   }
 
-  async function ausfuehren(rpc: 'pflanzen' | 'ernten' | 'fuettern', args: Record<string, unknown>, erfolg: string | ((neu: FarmDaten) => string)) {
+  async function ausfuehren(rpc: 'pflanzen' | 'ernten' | 'fuettern' | 'einsammeln', args: Record<string, unknown>, erfolg: string | ((neu: FarmDaten) => string)) {
     setFehler(null)
     const { data, error } = await supabase.rpc(rpc, { p_token: token, ...args })
     if (error) return setFehler(fehlerText(error))
@@ -135,7 +135,7 @@ export function Farm({ token, shop }: { token: string; shop: string }) {
     const p = daten!.pflanzen.find((x) => x.feld === feld)
     setMeldung(null)
     if (!p) return setMenue({ art: 'feld', feld })
-    if (p.reif) return void ausfuehren('ernten', { p_feld: feld }, `Geerntet: ${SORTE_NAME[p.sorte]}!`)
+    if (p.reif) return void ausfuehren('ernten', { p_feld: feld }, `Geerntet! ${SORTE_NAME[p.sorte]} liegt jetzt beim Feld. Tippe es an zum Einsammeln.`)
     setMeldung(`${SORTE_NAME[p.sorte]} wächst noch. Jede gelöste Aufgabe gießt deine Felder.`)
   }
 
@@ -156,6 +156,17 @@ export function Farm({ token, shop }: { token: string; shop: string }) {
   const hatBrunnen = daten.dinge.some((d) => d.artikel === 'brunnen')
   const besetzt = hindernisse({ deko: deko.length, brunnen: hatBrunnen, huehner: huehner.length, kuehe: kuehe.length })
   const ernte = daten.vorrat.filter((v) => v.sorte in SORTE)
+  // Was auf der Farm liegt: Ernte beim Feld, Ei/Milch beim Tier (Plätze rechnet ablagePlaetze, nichts überdeckt sich)
+  const tierOrt = new Map<string, Ort[]>([
+    ...huehner.map((t, i) => [`tier:${t.id}`, tierFlaeche(HUHN_PLAETZE[i], 1)] as const),
+    ...kuehe.map((t, i) => [`tier:${t.id}`, tierFlaeche(KUH_PLAETZE[i], 2)] as const),
+  ])
+  const bepflanzt = new Set(daten.pflanzen.map((p) => `${FELD_PLAETZE[p.feld].x},${FELD_PLAETZE[p.feld].y}`))
+  const liegenOrte = ablagePlaetze(
+    daten.liegen.map((d) => (d.bei.startsWith('feld:') ? [FELD_PLAETZE[Number(d.bei.slice(5))]] : (tierOrt.get(d.bei) ?? [FIGUR_START]))),
+    besetzt,
+    bepflanzt,
+  )
 
   function tierKnopf(t: { id: string; art: string }, o: { x: number; y: number }, groesse: number) {
     return (
@@ -216,6 +227,27 @@ export function Farm({ token, shop }: { token: string; shop: string }) {
           })}
           {huehner.map((t, i) => tierKnopf(t, HUHN_PLAETZE[i], 1))}
           {kuehe.map((t, i) => tierKnopf(t, KUH_PLAETZE[i], 2))}
+          {daten.liegen.map((d, i) => {
+            const o = liegenOrte[i]
+            const ding = vorratDing(d.sorte)
+            return (
+              <button
+                key={d.id}
+                type="button"
+                className="farm-ding farm-liegt"
+                style={{ left: px(o.x), top: px(o.y), width: px(1), height: px(1), zIndex: (o.y + 1) * KACHEL + 1 }}
+                aria-label={`${ding.name} einsammeln`}
+                onClick={() =>
+                  gehe(
+                    (z) => z.x === o.x && z.y === o.y,
+                    () => void ausfuehren('einsammeln', { p_ding: d.id }, `Eingesammelt: ${ding.name}. Es liegt jetzt in deinem Vorrat.`),
+                  )
+                }
+              >
+                <Sprite grafik={ding.grafik} nummer={ding.nummer} mal={mal} />
+              </button>
+            )
+          })}
 
           <span
             className={`farm-figur${figur.dauer > 0 ? ' farm-figur--laeuft' : ''}`}
@@ -283,11 +315,10 @@ export function Farm({ token, shop }: { token: string; shop: string }) {
                       'fuettern',
                       { p_tier: tier.id, p_sorte: v.sorte },
                       (neu) => {
-                        // was neu im Vorrat liegt (Ei bzw. Milch in der Güte des Futters)
-                        const alt = (s: string) => daten.vorrat.find((x) => x.sorte === s)?.anzahl ?? 0
-                        const ding = neu.vorrat.find((x) => !(x.sorte in SORTE) && x.anzahl > alt(x.sorte))
+                        // das Neueste, was jetzt beim Tier liegt (Ei bzw. Milch in der Güte des Futters)
+                        const ding = neu.liegen.filter((x) => x.bei === `tier:${tier.id}`).at(-1)
                         const was = ding ? vorratDing(ding.sorte).name : tier.art === 'huhn' ? 'Ei' : 'Milch'
-                        return `${tier.art === 'huhn' ? 'Das Huhn' : 'Die Kuh'} freut sich. Du bekommst: ${was}!`
+                        return `${tier.art === 'huhn' ? 'Das Huhn' : 'Die Kuh'} freut sich. Neben ihm liegt jetzt: ${was}. Tippe es an zum Einsammeln.`
                       },
                     ).then((ok) => {
                       if (!ok) return
