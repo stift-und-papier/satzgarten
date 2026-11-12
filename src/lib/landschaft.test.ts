@@ -1,30 +1,29 @@
 import { describe, expect, it } from 'vitest'
-import { belegung, GRAS_DEKO, grundKacheln, INSEL, KUH_PLAETZE, GEHEGE, neunerTeil, SPALTEN, ZEILEN } from './landschaft'
+import { belegung, blobTeil, GRAS_DEKO, grundKacheln, HEU, istGras, KUH_PLAETZE, SCHEUNE, SPALTEN, TROG, ZEILEN } from './landschaft'
 
 describe('Landschaft', () => {
-  it('nichts überdeckt sich, alles liegt auf der Insel', () => {
-    const belegt = belegung()
-    for (const k of belegt.keys()) {
+  it('nichts überdeckt sich, alles liegt auf Gras', () => {
+    for (const [k, name] of belegung()) {
       const [x, y] = k.split(',').map(Number)
-      expect(x >= INSEL.x0 && x <= INSEL.x1 && y >= INSEL.y0 && y <= INSEL.y1, k).toBe(true)
+      expect(istGras(x, y), `${name} bei ${k}`).toBe(true)
     }
   })
-  it('Kühe stehen innen im Gehege', () => {
-    for (const k of KUH_PLAETZE) {
-      expect(k.x > GEHEGE.x0 && k.x + 1 < GEHEGE.x1 && k.y > GEHEGE.y0 && k.y + 1 < GEHEGE.y1).toBe(true)
-    }
+  it('Kühe, Heu und Trog stehen innen in der Scheune', () => {
+    const innen = (x: number, y: number) => x > SCHEUNE.x0 && x < SCHEUNE.x1 && y > SCHEUNE.y0 && y < SCHEUNE.y1
+    for (const k of KUH_PLAETZE.slice(0, 2)) expect(innen(k.x, k.y) && innen(k.x + 1, k.y + 1)).toBe(true)
+    for (const o of [HEU, TROG]) expect(innen(o.x, o.y) && innen(o.x + 1, o.y)).toBe(true)
   })
-  it('Rahmen-Teile', () => {
-    const r = { x0: 1, y0: 1, x1: 3, y1: 3 }
-    expect([neunerTeil(1, 1, r), neunerTeil(2, 1, r), neunerTeil(3, 3, r), neunerTeil(2, 2, r)]).toEqual([0, 1, 8, 4])
+  it('Grasdeko liegt nur innen (alle 8 Nachbarn Gras)', () => {
+    for (const d of GRAS_DEKO)
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) expect(istGras(d.x + dx, d.y + dy), `${d.x},${d.y}`).toBe(true)
+  })
+  it('Blob-Teile: Mitte, Ecke, Einzelstück', () => {
+    const alles = () => true
+    expect(blobTeil(5, 5, alles)).toBe(12)
+    expect(blobTeil(0, 0, (x, y) => x >= 0 && y >= 0)).toBe(0) // links oben
+    expect(blobTeil(0, 0, (x, y) => x === 0 && y === 0)).toBe(36) // allein
   })
   it('Hintergrund deckt jede Kachel mit Wasser', () => {
     expect(grundKacheln().filter((k) => k.grafik === 'wasser')).toHaveLength(SPALTEN * ZEILEN)
-  })
-})
-
-describe('Grasdeko', () => {
-  it('liegt nie auf dem Inselrand', () => {
-    for (const d of GRAS_DEKO) expect(d.x > INSEL.x0 && d.x < INSEL.x1 && d.y > INSEL.y0 && d.y < INSEL.y1, `${d.x},${d.y}`).toBe(true)
   })
 })

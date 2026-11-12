@@ -258,7 +258,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
           </div>
         </section>
       )}
-      <Farm token={token} shop={`#${basis}/shop`} />
+      <Farm token={token} shop={`#${basis}/shop`} nachMuenzen={() => void laden()} />
     </Rahmen>
   )
 }

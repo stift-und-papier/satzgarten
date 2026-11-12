@@ -838,6 +838,62 @@ begin
     n := n + 1;
   end;
 
+  -- ---------- 11 Tiere füttern und verkaufen (Phase 8) ----------
+  declare
+    t_eule text := (select token from public.schueler where pseudonym = 'Eule-02');
+    v_eule uuid := (select id from public.schueler where pseudonym = 'Eule-02');
+    v_huhn uuid;
+    v jsonb;
+    k integer;
+  begin
+    insert into public.besitz (schueler_id, artikel_id, preis) values (v_eule, 'huhn', 0) returning id into v_huhn;
+    insert into public.vorrat (schueler_id, sorte) values (v_eule, 'karotte'), (v_eule, 'karotte');
+    set local role anon;
+    v := public.fuettern(t_eule, v_huhn, 'karotte');
+    if not (v -> 'tiere' -> 0 ->> 'satt')::boolean or not (v -> 'vorrat' @> '[{"sorte":"ei","anzahl":1},{"sorte":"karotte","anzahl":1}]') then
+      raise exception 'Block 11.1: Füttern falsch: %', v;
+    end if;
+    n := n + 1;
+    begin
+      perform public.fuettern(t_eule, v_huhn, 'karotte');
+      raise exception 'Block 11.2: zweimal am Tag gefüttert';
+    exception when raise_exception then if sqlerrm !~ 'satt' then raise; end if;
+    end;
+    begin
+      perform public.verkaufen(t_eule, 'karotte');
+      raise exception 'Block 11.3: Karotte verkauft';
+    exception when raise_exception then if sqlerrm !~ 'nicht zum Verkaufen' then raise; end if;
+    end;
+    n := n + 2;
+    v := public.verkaufen(t_eule, 'ei');
+    if (v ->> 'kontostand')::int <> 10 or v -> 'vorrat' @> '[{"sorte":"ei"}]' then raise exception 'Block 11.4: Verkauf falsch: %', v; end if;
+    begin
+      perform public.verkaufen(t_eule, 'ei');
+      raise exception 'Block 11.4: Ei doppelt verkauft';
+    exception when raise_exception then null;
+    end;
+    n := n + 1;
+    reset role;
+    -- Verkaufs-Münzen gießen nicht
+    insert into public.pflanzungen (schueler_id, feld, sorte, gepflanzt_am) values (v_eule, 0, 'karotte', now() - interval '1 minute');
+    select public.wachstum(p) into k from public.pflanzungen p where schueler_id = v_eule and feld = 0;
+    if k <> 0 then raise exception 'Block 11.5: Verkauf gießt (%)', k; end if;
+    n := n + 1;
+    -- fremdes Tier füttern geht nicht
+    insert into public.vorrat (schueler_id, sorte) values ((select id from public.schueler where pseudonym = 'Fuchs-01'), 'karotte');
+    declare t_fuchs text := (select token from public.schueler where pseudonym = 'Fuchs-01');
+    begin
+      set local role anon;
+      begin
+        perform public.fuettern(t_fuchs, v_huhn, 'karotte');
+        raise exception 'Block 11.6: fremdes Tier gefüttert';
+      exception when raise_exception then if sqlerrm !~ 'gibt es nicht' then raise; end if;
+      end;
+      reset role;
+    end;
+    n := n + 1;
+  end;
+
   raise exception 'ALLE TESTS BESTANDEN (%)', n;
 end
 $test$;

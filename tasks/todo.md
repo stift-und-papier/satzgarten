@@ -193,7 +193,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 - [x] **36 Spec Felder und Tiere** (S) – `docs/SPEC-felder.md`: offene Fragen 8, 9, 12 (Wachstumsdauer, Folgen von Nicht-Üben, was Füttern bringt). Prüfen: Freigabe.
 - [x] **37 Shop** (M) – hängt an 35 · Angebot aus Sprout-Lands-Grafiken; RPC `kaufen` (prüft Kontostand); Besitz als Liste. Prüfen: DB-Test (kein Kauf ohne Münzen); iPad.
 - [x] **38 Felder: pflanzen, gießen, ernten** (M) – hängt an 36, 37 · Farm-Raster aus Kacheln; RPCs `pflanzen`, `ernten`; Wachstum = gelöste Aufgaben seit dem Pflanzen (Gießen), gegossene Kacheln aus dem Pflanzen-Paket. Prüfen: DB-Testfälle Wachstum; iPad.
-- [ ] **39 Tiere füttern** (M) – hängt an 38 · Tiere aufstellen; RPC `fuettern` (verbraucht Geerntetes); Sprechblase mit Herz über dem Tier. Prüfen: DB-Test; iPad.
+- [x] **39 Tiere füttern** (M) – hängt an 38 · Tiere aufstellen; RPC `fuettern` (verbraucht Geerntetes); Sprechblase mit Herz über dem Tier. Prüfen: DB-Test; iPad.
 - [x] **40 Spec Spielfigur** (S) – `docs/SPEC-spielfigur.md`: offene Frage 10 (Steuerung per Antippen, Pfeiltasten oder beides). Prüfen: Freigabe.
 - [ ] **41 Spielfigur** (M) – hängt an 40, 38 · Figur aus dem Sprout-Lands-Spritesheet, 4 Richtungen, Bewegung nach der Spec; alles bleibt auch ohne Figur bedienbar; ruhig bei „Bewegung reduzieren“. Prüfen: iPad (flüssig?).
 

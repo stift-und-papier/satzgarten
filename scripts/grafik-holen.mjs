@@ -11,6 +11,7 @@ const { PNG } = createRequire(import.meta.url)('pngjs')
 
 const UI = 'assets/entpackt/Sprout Lands - UI Pack - Premium pack/UI Sprites/'
 const SPRITES = 'assets/entpackt/Sprout Lands - Sprites - premium pack/'
+const UI_BASIS = 'assets/entpackt/Sprout Lands - UI Pack - Basic pack/Sprite sheets/'
 
 // Was wir benutzen. x, y, breite, hoehe = Ausschnitt in Pixeln (ohne Angabe: ganzes Bild).
 // bildBreite/bildHoehe: Größe eines Einzelbilds, wenn der Ausschnitt mehrere Bilder (Spritesheet) enthält.
@@ -30,13 +31,24 @@ const BILDER = [
     ['deko_busch', 3, 2], ['deko_blume_gelb', 2, 3], ['deko_pilz', 2, 0], ['deko_stein', 5, 1], ['deko_blume_lila', 2, 4],
     ['deko_pilzhaus', 6, 0], ['deko_katze_rosa', 7, 3], ['deko_katze_blau', 7, 4],
   ].map(([name, sp, ze]) => ({ name, datei: SPRITES + 'Objects/Mushrooms, Flowers, Stones.png', x: sp * 16, y: ze * 16, breite: 16, hoehe: 16 })),
-  // Ackerboden: einzelnes rundes Feld aus den Erd-Kacheln
-  { name: 'acker', datei: SPRITES + 'Tilesets/ground tiles/New tiles/Darker_Soil_Ground_Tiles.png', x: 48, y: 48, breite: 16, hoehe: 16 },
-  // Landschaft der Farm: Wasser, Grasinsel (9 Teile: Ecken, Ränder, Mitte), Grasdeko, Zaun (9 Teile), Bäume, Stall, Figur
+  // Ackerboden und Gras als „Blob“-Kachelsatz (11 × 5 Teile je Nachbarschaft, Zuordnung in src/lib/landschaft.ts)
+  { name: 'acker', datei: SPRITES + 'Tilesets/ground tiles/New tiles/Darker_Soil_Ground_Tiles.png', x: 0, y: 0, breite: 176, hoehe: 80, bildBreite: 16, bildHoehe: 16 },
+  { name: 'gras', datei: SPRITES + 'Tilesets/ground tiles/New tiles/Grass_tiles_v2.png', x: 0, y: 0, breite: 176, hoehe: 80, bildBreite: 16, bildHoehe: 16 },
+  // Scheune von oben (offenes Dach wie im Titelbild): Wand-Rahmen (9 Teile), offene Tür, Heu, Wassertrog
+  { name: 'wand', datei: SPRITES + 'Tilesets/Building parts/Wooden_House_Walls_Tilset.png', x: 0, y: 0, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
+  { name: 'tuer_offen', datei: SPRITES + 'Tilesets/Building parts/door animation sprites.png', x: 204, y: 16, breite: 22, hoehe: 16 },
+  { name: 'heu', datei: SPRITES + 'Tilesets/Building parts/Animal Structures/Barn structures.png', x: 0, y: 32, breite: 32, hoehe: 16 },
+  { name: 'heu_lose', datei: SPRITES + 'Tilesets/Building parts/Animal Structures/Barn structures.png', x: 16, y: 48, breite: 16, hoehe: 16 },
+  { name: 'trog', datei: SPRITES + 'Tilesets/Building parts/Animal Structures/Water tray.png', x: 0, y: 0, breite: 32, hoehe: 16 },
+  // Herz-Sprechblase: eigenes Werk der Lehrkraft (bubble emotes)
+  { name: 'herz', datei: 'assets/bubble emotes july update.png', x: 32, y: 96, breite: 16, hoehe: 16 },
+  // Menü (UI Pack Basic): Papierrahmen, Platz für einen Gegenstand, Schließen-Knopf
+  { name: 'menue_rahmen', datei: UI_BASIS + 'Setting menu.png', x: 139, y: 12, breite: 106, hoehe: 122 },
+  { name: 'menue_platz', datei: UI_BASIS + 'Sprite sheet for Basic Pack.png', x: 11, y: 59, breite: 26, hoehe: 28 },
+  { name: 'knopf_x', datei: UI_BASIS + 'Sprite sheet for Basic Pack.png', x: 839, y: 5, breite: 18, hoehe: 20 },
+  // Landschaft der Farm: Wasser, Grasinsel (9 Teile: Ecken, Ränder, Mitte), Grasdeko, Bäume, Stall, Figur
   { name: 'wasser', datei: SPRITES + 'Tilesets/ground tiles/Water.png', x: 0, y: 0, breite: 16, hoehe: 16 },
-  { name: 'gras', datei: SPRITES + 'Tilesets/ground tiles/New tiles/simpel versions/Grass_tiles_v2_simple.png', x: 0, y: 0, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
   { name: 'gras_deko', datei: SPRITES + 'Tilesets/ground tiles/New tiles/simpel versions/Grass_tiles_v2_simple.png', x: 0, y: 48, breite: 96, hoehe: 32, bildBreite: 16, bildHoehe: 16 },
-  { name: 'zaun', datei: SPRITES + 'Tilesets/Building parts/Fences.png', x: 16, y: 0, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
   { name: 'baum', datei: SPRITES + 'Objects/Trees, stumps and bushes.png', x: 16, y: 0, breite: 32, hoehe: 32 },
   { name: 'baum_klein', datei: SPRITES + 'Objects/Trees, stumps and bushes.png', x: 0, y: 0, breite: 16, hoehe: 32 },
   { name: 'stall', datei: SPRITES + 'Tilesets/Building parts/Animal Structures/Chikcen_Houses.png', x: 48, y: 80, breite: 48, hoehe: 48 },

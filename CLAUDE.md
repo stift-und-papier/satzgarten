@@ -208,3 +208,9 @@
   Kuh-Gehege mit Zaun, Bäume, Brunnen und Deko auf festen Plätzen (`src/lib/landschaft.ts`, getestet: nichts überdeckt sich).
   **Spielfigur** (Sprout-Lands-Figur, „Maus“) läuft per Antippen dorthin und tippt Felder an (offene Frage 10: Antippen, Aufgabe 40).
   Hintergrund als Canvas in Originalgröße, ganzzahlig vergrößert (2- bis 4-fach nach Breite). Ohne Figur bleibt alles bedienbar.
+- 2026-11-12 (Lehrkraft): Farm größer (21 × 15 Kacheln) und **verspielte Inselform** (Textbild `KARTE` in `src/lib/landschaft.ts`,
+  Ränder per „Blob“-Kachelsatz aus den Bitmask-Vorlagen des Pakets). **Acker** zusammenhängend wie im Titelbild. **Hühnerstall** erst
+  mit dem ersten Huhn, **Scheune** (von oben, offene Tür, Heu, Wassertrog; aus Wand-, Tür- und Stallteilen) erst mit der ersten Kuh;
+  Kuh-Gehege mit Zaun entfällt. Feld oder Tier antippen öffnet ein **Menü** im Papier-Look (UI Pack Basic: Rahmen, Plätze, X-Knopf),
+  scrollt bei vielen Gegenständen, schließt mit X, Esc oder Tippen daneben. Aufgabe 39: Füttern mit Geerntetem (einmal pro Tag je Tier,
+  Herz-Sprechblase aus den Emotes der Lehrkraft), gibt sofort Ei bzw. Milch; Verkaufen im Vorrat (Ei 10, Milch 20 Münzen, gießt nicht).

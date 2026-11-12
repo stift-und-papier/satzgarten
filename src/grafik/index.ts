@@ -12,10 +12,18 @@ import deko_pilzhaus from './deko_pilzhaus.png'
 import deko_katze_rosa from './deko_katze_rosa.png'
 import deko_katze_blau from './deko_katze_blau.png'
 import acker from './acker.png'
-import wasser from './wasser.png'
 import gras from './gras.png'
+import wand from './wand.png'
+import tuer_offen from './tuer_offen.png'
+import heu from './heu.png'
+import heu_lose from './heu_lose.png'
+import trog from './trog.png'
+import herz from './herz.png'
+import menue_rahmen from './menue_rahmen.png'
+import menue_platz from './menue_platz.png'
+import knopf_x from './knopf_x.png'
+import wasser from './wasser.png'
 import gras_deko from './gras_deko.png'
-import zaun from './zaun.png'
 import baum from './baum.png'
 import baum_klein from './baum_klein.png'
 import stall from './stall.png'
@@ -39,11 +47,19 @@ export const GRAFIK = {
   deko_pilzhaus: { url: deko_pilzhaus, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   deko_katze_rosa: { url: deko_katze_rosa, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   deko_katze_blau: { url: deko_katze_blau, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
-  acker: { url: acker, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  acker: { url: acker, breite: 176, hoehe: 80, bildBreite: 16, bildHoehe: 16 },
+  gras: { url: gras, breite: 176, hoehe: 80, bildBreite: 16, bildHoehe: 16 },
+  wand: { url: wand, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
+  tuer_offen: { url: tuer_offen, breite: 22, hoehe: 16, bildBreite: 22, bildHoehe: 16 },
+  heu: { url: heu, breite: 32, hoehe: 16, bildBreite: 32, bildHoehe: 16 },
+  heu_lose: { url: heu_lose, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  trog: { url: trog, breite: 32, hoehe: 16, bildBreite: 32, bildHoehe: 16 },
+  herz: { url: herz, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  menue_rahmen: { url: menue_rahmen, breite: 106, hoehe: 122, bildBreite: 106, bildHoehe: 122 },
+  menue_platz: { url: menue_platz, breite: 26, hoehe: 28, bildBreite: 26, bildHoehe: 28 },
+  knopf_x: { url: knopf_x, breite: 18, hoehe: 20, bildBreite: 18, bildHoehe: 20 },
   wasser: { url: wasser, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
-  gras: { url: gras, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
   gras_deko: { url: gras_deko, breite: 96, hoehe: 32, bildBreite: 16, bildHoehe: 16 },
-  zaun: { url: zaun, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
   baum: { url: baum, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   baum_klein: { url: baum_klein, breite: 16, hoehe: 32, bildBreite: 16, bildHoehe: 32 },
   stall: { url: stall, breite: 48, hoehe: 48, bildBreite: 48, bildHoehe: 48 },
