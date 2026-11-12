@@ -45,7 +45,8 @@ der Lehrkraft zwischen erstem und zweitem Vorschlag angesetzt (freigegeben 2026-
 
 ## Münzen von der Lehrkraft (Wunsch der Lehrkraft, 2026-11-12)
 
-- Auf der Klassenseite: Spalte „Münzen“ mit Kontostand und Auswahlkästchen, darunter „Münzen vergeben“
-  (1–1000 Münzen, Grund freiwillig und nur für die Lehrkraft sichtbar) an die Ausgewählten oder an alle.
+- Klassenseite: Spalte „Münzen“ zeigt den Kontostand. Unter „Münzen vergeben“ tippt die Lehrkraft die Schüler:innen an
+  (oder „An alle geben“), wählt 1–1000 Münzen und schreibt freiwillig eine kurze Nachricht (bis 100 Zeichen).
+- Beim nächsten Öffnen der App erscheint bei den Schüler:innen ein Fenster „Post von deiner Lehrkraft!“ mit den Münzen
+  und der Nachricht; „Danke!“ schließt es für immer (`geschenke_gesehen`).
 - Datenbankfunktion `muenzen_schenken` (nur eigene Schüler:innen), Ereignis mit Grund „lehrkraft“.
-- Schüler:innen sehen nur den neuen Kontostand.

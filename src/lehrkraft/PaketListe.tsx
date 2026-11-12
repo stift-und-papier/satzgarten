@@ -78,7 +78,7 @@ export function PaketListe() {
         <div className="lk-zeile">
           <label>
             Titel
-            <input className="lk-feld" value={titel} onChange={(e) => setTitel(e.target.value)} placeholder="z. B. das oder dass – Übung 1" required maxLength={120} />
+            <input className="lk-feld" value={titel} onChange={(e) => setTitel(e.target.value)} placeholder="z. B. das oder dass, Übung 1" required maxLength={120} />
           </label>
         </div>
         <TagAuswahl wert={tags} onChange={setTags} />

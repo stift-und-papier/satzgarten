@@ -40,7 +40,7 @@ export const FORMATE: Record<AufgabenTyp, { name: string; kurz: string; mini: st
   },
   auswahl: {
     name: 'Auswahl',
-    kurz: 'Schüler:innen tippen die richtige Möglichkeit an – auch mehrere.',
+    kurz: 'Schüler:innen tippen die richtige Möglichkeit an, auch mehrere.',
     mini: 'Ich weiß, [das | dass] du kommst.',
     anweisung: 'Tippe die richtige Antwort an.',
     beispiel: 'Ich weiß, [das | *dass] du kommst.\n\nWelche Wörter sind Nomen?\n[*Hund | laufen | *Baum | schnell]',
@@ -77,14 +77,14 @@ export const FORMATE: Record<AufgabenTyp, { name: string; kurz: string; mini: st
   },
   erklaerung: {
     name: 'Erklärung',
-    kurz: 'Eine Seite, die ein Thema erklärt – mit Merkkasten und Beispielen. Steht im Paket zwischen den Aufgaben.',
+    kurz: 'Eine Seite, die ein Thema erklärt, mit Merkkasten und Beispielen. Steht im Paket zwischen den Aufgaben.',
     mini: 'Merke: „dass“ lässt sich nicht durch „dieses“ ersetzen.',
     anweisung: '',
     beispiel: '',
   },
   diktat: {
     name: 'Diktat',
-    kurz: 'Schüler:innen tippen einen Text ab – oder merken sich Satz für Satz und schreiben ihn aus dem Gedächtnis.',
+    kurz: 'Schüler:innen tippen einen Text ab oder merken sich Satz für Satz und schreiben ihn aus dem Gedächtnis.',
     mini: 'Gestern war ich im Zoo. → abtippen',
     anweisung: 'Tippe den Text genau ab.',
     beispiel: 'Gestern war ich mit meiner Klasse im Zoo. | Die Affen turnten in den Bäumen, | während die Löwen schliefen. | Wann gehen wir wieder hin?',
@@ -375,13 +375,13 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                       Zeichen wartet der Cursor auf das richtige. Beim <strong>Merkdiktat</strong> erscheint immer ein Teil,
                       nach „gemerkt“ verschwindet er und wird aus dem Gedächtnis getippt. <strong>Sie bestimmen, wo getrennt wird:</strong>{' '}
                       mit <strong>|</strong> im Text oder per Klick zwischen zwei Wörter in der Ansicht unter dem Textfeld. Es zählen Buchstaben,
-                      Groß-/Kleinschreibung und Satzzeichen; „ “ und – gelten wie " und -. Geschafft ab 90 % richtig.
+                      Groß-/Kleinschreibung und Satzzeichen; „ “ und der lange Strich gelten wie " und -. Geschafft ab 90 % richtig.
                     </p>
                   ) : typ === 'ueberarbeiten' ? (
                     <p>
                       Schreiben Sie jede Version eines Satzes in eine <strong>eigene Zeile</strong> (2 bis 4 Versionen) und
                       markieren Sie die bessere mit <strong>*</strong>. Unter jede Version gehört eine Zeile{' '}
-                      <code>Hinweis: …</code> mit der Begründung – Schüler:innen sehen die Hinweise erst nach dem Prüfen.
+                      <code>Hinweis: …</code> mit der Begründung. Schüler:innen sehen die Hinweise erst nach dem Prüfen.
                       Optional steht darüber <code>Kontext: …</code> (z. B. der Satz davor). Eine <strong>Leerzeile</strong>{' '}
                       beginnt einen neuen Satz. Die Versionen erscheinen in der Reihenfolge, in der Sie sie schreiben.
                     </p>
@@ -391,7 +391,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                       Gibt es weitere richtige Reihenfolgen, schreiben Sie sie in die Zeilen <strong>direkt darunter</strong>.
                       Eine <strong>Leerzeile</strong> beginnt einen neuen Satz. Schreiben Sie das erste Wort so, wie es mitten
                       im Satz stünde (z. B. <code>gestern</code>), und setzen Sie das Satzzeichen ans Ende. Schüler:innen
-                      sehen Bausteine gemischt, ohne großen Satzanfang und ohne Satzzeichen – beides erscheint erst, wenn der
+                      sehen Bausteine gemischt, ohne großen Satzanfang und ohne Satzzeichen. Beides erscheint erst, wenn der
                       Satz richtig ist. Die Satzart wird aus dem Satzzeichen erkannt (. ? !); sonst eine Zeile{' '}
                       <code>Satzart: Ausrufesatz</code> darüber schreiben. Sollen mehrere richtige Sätze gebildet werden,
                       schreiben Sie z. B. <code>Varianten: 2</code> darüber.
@@ -420,7 +420,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                       Schreiben Sie den Text und setzen Sie jedes gesuchte Wort in <strong>[eckige Klammern]</strong>. Gibt es
                       mehrere richtige Lösungen, trennen Sie sie mit <strong>/</strong>. Einen <strong>Hinweis</strong> für
                       die Schüler:innen schreiben Sie nach einem <strong>Doppelpunkt</strong>:{' '}
-                      <code>[Rad fahren : Rad + fahren]</code> – er erscheint in Klammern hinter der Lücke. Eine Auswahl zum
+                      <code>[Rad fahren : Rad + fahren]</code>. Er erscheint in Klammern hinter der Lücke. Eine Auswahl zum
                       Antippen schreiben Sie so: <code>[das | *dass]</code>.
                     </p>
                   )}
@@ -500,7 +500,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
             )}
             {typ === 'zuordnen' && (
               <label>
-                Kategorien („Stifte“) – die im Text verwendeten kommen automatisch dazu. Weitere als Ablenker mit Komma trennen:
+                Kategorien („Stifte“). Die im Text verwendeten kommen automatisch dazu. Weitere als Ablenker mit Komma trennen:
                 <input className="lk-feld"
                   value={kategorienText}
                   onChange={(e) => setKategorienText(e.target.value)}
@@ -551,7 +551,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                     }}
                     pruefen={vorschauPruefen(typ, loesung, rueckmeldung)}
                   />
-                  <p className="lk-leise">Probieren Sie die Aufgabe hier aus – in der Vorschau wird nichts gespeichert.</p>
+                  <p className="lk-leise">Probieren Sie die Aufgabe hier aus. In der Vorschau wird nichts gespeichert.</p>
                 </div>
               ) : (
                 <p className="lk-leise">
@@ -570,7 +570,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
           </label>
           {istErklaerung ? (
             <p className="lk-leise">
-              Erklärseiten zählen im Paket als erledigt, sobald Schüler:innen „Verstanden“ antippen – aber nie für den
+              Erklärseiten zählen im Paket als erledigt, sobald Schüler:innen „Verstanden“ antippen, aber nie für den
               Lernstand. Darum gibt es hier keine Stufe und keine Kompetenzen.
             </p>
           ) : (
@@ -927,7 +927,7 @@ function TrennAnsicht({ text, onChange }: { text: string; onChange: (text: strin
   return (
     <div className="lk-trennen">
       <div className="lk-zeile">
-        <p className="lk-leise">Klicken Sie zwischen zwei Wörter, um dort zu trennen – noch einmal klicken hebt die Trennung auf.</p>
+        <p className="lk-leise">Klicken Sie zwischen zwei Wörter, um dort zu trennen. Noch einmal klicken hebt die Trennung auf.</p>
         <button type="button" className="lk-knopf" onClick={() => onChange(nachSaetzenTrennen(text))}>
           Nach jedem Satz trennen
         </button>

@@ -191,3 +191,7 @@
 - 2026-11-12 (Lehrkraft): Lehrkraft kann Münzen vergeben (Klassenseite: Spalte „Münzen“ zum Auswählen, an Ausgewählte oder alle).
   Aufgabe 35 gebaut: Migration `muenzen` (`muenz_ereignisse`, `muenzen_fuer_versuch`, `muenzen_schenken`), Kontostand oben auf
   jeder Schülerseite, „+10 Münzen für dich!“ in der Rückmeldung; Zurücksetzen löscht auch Münzen.
+- 2026-11-12 (Lehrkraft): Münzen vergeben per Antippen der Pseudonyme (keine Kästchen in der Tabelle); die Nachricht der Lehrkraft
+  ploppt bei Schüler:innen einmal als Fenster „Post von deiner Lehrkraft!“ auf. „Lernstand“-Knöpfe grün (`--color-lk-gut`, 4 Varianten,
+  Kontrast 6,5 / 9,9 / 9,3 / 15,1). Lernweg: Emoji hinter dem Satz statt Tulpen-Bild (🌱 erste Ergebnisse, 🌿 dranbleiben, 🪴 besser,
+  🌷 deutlich besser). **Kein Gedankenstrich „–“ als Satzzeichen** in Oberflächentexten (Punkt, Komma oder Doppelpunkt statt dessen).

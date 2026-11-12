@@ -193,7 +193,7 @@ function VorratsKarte({ id, text, onTippen }: { id: string; text: string; onTipp
       {...attributes}
       {...listeners}
       onClick={onTippen}
-      aria-label={`${text} – antippen, um ihn ans Ende der Reihe zu legen`}
+      aria-label={`${text}. Antippen, um ihn ans Ende der Reihe zu legen`}
     >
       {text}
     </button>
@@ -222,7 +222,7 @@ function ReihenKarte({ id, text, platz, stimmt, gesperrt, onTippen }: ReihenKart
       {...attributes}
       {...listeners}
       onClick={onTippen}
-      aria-label={`Platz ${platz}: ${text}${stimmt === true ? ', richtig' : stimmt === false ? ', schau nochmal hin' : ''} – antippen, um ihn zurückzulegen`}
+      aria-label={`Platz ${platz}: ${text}${stimmt === true ? ', richtig' : stimmt === false ? ', schau nochmal hin' : ''}. Antippen, um ihn zurückzulegen`}
     >
       {stimmt === true && <span className="marke marke--richtig" aria-hidden="true">✓</span>}
       {stimmt === false && <span className="marke marke--nochmal" aria-hidden="true">↻</span>}

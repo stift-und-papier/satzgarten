@@ -549,6 +549,7 @@ begin
     t_fuchs text := (select token from public.schueler where pseudonym = 'Fuchs-01');
     v_fuchs uuid := (select id from public.schueler where pseudonym = 'Fuchs-01');
     v_eule uuid := (select id from public.schueler where pseudonym = 'Eule-02');
+    t_eule text := (select token from public.schueler where pseudonym = 'Eule-02');
     v_paket uuid := (select id from public.pakete where titel = 'P-Test');
     v_er uuid := (select id from public.aufgaben where titel = 'T-erklaerung');
     v_s1 uuid := (select id from public.aufgaben where titel = 'S-1');
@@ -567,8 +568,8 @@ begin
     v_m := array(select id from public.aufgaben where titel like 'M-_' order by titel);
 
     set local role anon;
-    if public.schueler_muenzen(t_fuchs) <> 55 then
-      raise exception 'Block 8.1: Kontostand nach Block 6 ist % statt 55', public.schueler_muenzen(t_fuchs);
+    if (public.schueler_muenzen(t_fuchs) ->> 'kontostand')::int <> 55 then
+      raise exception 'Block 8.1: Kontostand nach Block 6: %', public.schueler_muenzen(t_fuchs);
     end if;
     n := n + 1;
     -- Erklärseite nur einmal; dieselbe Aufgabe am selben Tag nur einmal; doppelt gesendet = keine neuen Münzen
@@ -665,7 +666,27 @@ begin
        or (select sum(muenzen) from public.muenz_ereignisse where schueler_id = v_fuchs) <> 128 then
       raise exception 'Block 8.11: A kann nicht schenken (%)', k;
     end if;
+    reset role;
+    -- Eule sieht die Nachricht einmal; nach „gesehen“ ist sie weg; fremde Ids ändern nichts
+    set local role anon;
+    v := public.schueler_muenzen(t_eule);
+    if jsonb_array_length(v -> 'geschenke') <> 1 or v -> 'geschenke' -> 0 ->> 'nachricht' <> 'Mitarbeit'
+       or (v -> 'geschenke' -> 0 ->> 'muenzen')::int <> 50 then
+      raise exception 'Block 8.13: Nachricht der Lehrkraft fehlt: %', v;
+    end if;
+    perform public.geschenke_gesehen(t_fuchs, array[(v -> 'geschenke' -> 0 ->> 'id')::uuid]);
+    if jsonb_array_length(public.schueler_muenzen(t_eule) -> 'geschenke') <> 1 then
+      raise exception 'Block 8.13: Fuchs kann die Nachricht von Eule als gesehen markieren';
+    end if;
+    perform public.geschenke_gesehen(t_eule, array[(v -> 'geschenke' -> 0 ->> 'id')::uuid]);
+    if jsonb_array_length(public.schueler_muenzen(t_eule) -> 'geschenke') <> 0 then
+      raise exception 'Block 8.13: Nachricht nach „gesehen“ noch da';
+    end if;
+    reset role;
+    n := n + 1;
     -- Zurücksetzen löscht die Münzen
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
     perform public.ergebnisse_zuruecksetzen(array[v_fuchs]);
     reset role;
     if public.kontostand(v_fuchs) <> 0 then raise exception 'Block 8.12: Münzen nach Zurücksetzen noch da'; end if;

@@ -27,6 +27,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
   const [fehler, setFehler] = useState<string | null>(null)
   const [wartend, setWartend] = useState(() => warteschlangeLesen(token).length)
   const [muenzen, setMuenzen] = useState<number | null>(null)
+  const [geschenke, setGeschenke] = useState<Geschenk[]>([])
 
   const laden = useCallback(async () => {
     const [start, konto] = await Promise.all([
@@ -38,7 +39,11 @@ export function SchuelerBereich({ token, pfad }: Props) {
       setDaten(start.data as SchuelerStart)
       setFehler(null)
     }
-    if (!konto.error) setMuenzen(konto.data as number)
+    if (!konto.error) {
+      const k = konto.data as { kontostand: number; geschenke: Geschenk[] }
+      setMuenzen(k.kontostand)
+      setGeschenke(k.geschenke)
+    }
   }, [token])
 
   // Wartende Antworten senden, sobald wieder Internet da ist. client_id sorgt dafür, dass jede genau einmal zählt.
@@ -76,6 +81,15 @@ export function SchuelerBereich({ token, pfad }: Props) {
   }, [laden, warteschlangeSenden])
 
   const basis = `/s/${token}`
+  const fenster = geschenke.length > 0 && (
+    <GeschenkFenster
+      geschenke={geschenke}
+      schliessen={() => {
+        void supabase.rpc('geschenke_gesehen', { p_token: token, p_ids: geschenke.map((g) => g.id) })
+        setGeschenke([])
+      }}
+    />
+  )
   const [bereich, paketId, , aufgabeId] = pfad
 
   if (!daten) {
@@ -112,7 +126,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
     const index = paket.aufgaben.findIndex((a) => a.id === aufgabeId)
     const aufgabe = paket.aufgaben[index]
     return (
-      <Rahmen basis={basis} aktiv="uebungen" muenzen={muenzen}>
+      <Rahmen basis={basis} aktiv="uebungen" muenzen={muenzen} fenster={fenster}>
         {wartendHinweis}
         <div className="knopf-reihe">
           <a className="holzknopf" href={`#${basis}/p/${paket.id}`} aria-label={`Zurück zu ${paket.titel}`}>
@@ -147,7 +161,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
 
   if (paket) {
     return (
-      <Rahmen basis={basis} aktiv="uebungen" muenzen={muenzen}>
+      <Rahmen basis={basis} aktiv="uebungen" muenzen={muenzen} fenster={fenster}>
         {wartendHinweis}
         <header className="karte">
           <div className="knopf-reihe">
@@ -180,7 +194,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
 
   if (bereich === 'lernweg') {
     return (
-      <Rahmen basis={basis} aktiv="lernweg" muenzen={muenzen}>
+      <Rahmen basis={basis} aktiv="lernweg" muenzen={muenzen} fenster={fenster}>
         <Lernweg token={token} uebungen={`#${basis}/uebungen`} />
       </Rahmen>
     )
@@ -188,7 +202,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
 
   if (bereich === 'hilfe') {
     return (
-      <Rahmen basis={basis} aktiv="hilfe" muenzen={muenzen}>
+      <Rahmen basis={basis} aktiv="hilfe" muenzen={muenzen} fenster={fenster}>
         <Hilfe />
       </Rahmen>
     )
@@ -196,7 +210,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
 
   if (bereich === 'uebungen') {
     return (
-      <Rahmen basis={basis} aktiv="uebungen" muenzen={muenzen}>
+      <Rahmen basis={basis} aktiv="uebungen" muenzen={muenzen} fenster={fenster}>
         {wartendHinweis}
         <header className="karte">
           <h1>Meine Übungen</h1>
@@ -212,7 +226,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
   const naechste = naechstesPaket?.aufgaben.find((a) => !a.geloest)
   const gruss = naechste ? 'begruessung' : daten.pakete.length ? 'begruessung-fertig' : 'begruessung-leer'
   return (
-    <Rahmen basis={basis} aktiv="start" muenzen={muenzen}>
+    <Rahmen basis={basis} aktiv="start" muenzen={muenzen} fenster={fenster}>
       {wartendHinweis}
       <EinsteinSagt pose="freundlich">
         <p>{EINSTEIN[gruss]?.replaceAll('{name}', daten.pseudonym)}</p>
@@ -239,8 +253,8 @@ export function SchuelerBereich({ token, pfad }: Props) {
 }
 
 function aufgabeStand(a: SchuelerAufgabe): string {
-  if (a.typ === 'erklaerung') return a.geloest ? 'Erklärung – gelesen. Du kannst sie jederzeit noch einmal lesen.' : 'Erklärung – lies sie dir in Ruhe durch.'
-  return a.geloest ? 'Geschafft – du kannst sie noch einmal üben.' : a.versuche > 0 ? 'Angefangen' : 'Neu'
+  if (a.typ === 'erklaerung') return a.geloest ? 'Erklärung gelesen. Du kannst sie jederzeit noch einmal lesen.' : 'Erklärung: Lies sie dir in Ruhe durch.'
+  return a.geloest ? 'Geschafft! Du kannst sie noch einmal üben.' : a.versuche > 0 ? 'Angefangen' : 'Neu'
 }
 
 function PaketListe({ pakete, basis }: { pakete: SchuelerPaket[]; basis: string }) {
@@ -343,7 +357,37 @@ const MENUE: { id: 'start' | 'uebungen' | 'lernweg' | 'hilfe'; symbol: SymbolNam
 ]
 
 // Seite mit Wiese im Hintergrund und Menüleiste unten (das Buch kommt in Phase 8 dazu)
-function Rahmen({ basis, aktiv, menue = true, muenzen = null, children }: { basis: string; aktiv: string; menue?: boolean; muenzen?: number | null; children: ReactNode }) {
+type Geschenk = { id: string; muenzen: number; nachricht: string | null }
+
+// Münzen von der Lehrkraft: einmal als Fenster mit ihrer Nachricht, „Danke!“ schließt es.
+function GeschenkFenster({ geschenke, schliessen }: { geschenke: Geschenk[]; schliessen: () => void }) {
+  const summe = geschenke.reduce((n, g) => n + g.muenzen, 0)
+  return (
+    <div className="fenster-hintergrund">
+      <div className="karte fenster" role="dialog" aria-modal="true" aria-labelledby="geschenk-titel">
+        <h2 id="geschenk-titel">Post von deiner Lehrkraft!</h2>
+        <p className="muenzen-plus">
+          <Sprite grafik={GRAFIK.muenze} mal={2} /> +{summe} {summe === 1 ? 'Münze' : 'Münzen'} für dich!
+        </p>
+        {geschenke
+          .filter((g) => g.nachricht)
+          .map((g) => (
+            <p key={g.id} className="fenster__nachricht">
+              „{g.nachricht}“
+            </p>
+          ))}
+        <div className="knopf-reihe">
+          {/* eslint-disable-next-line jsx-a11y/no-autofocus -- Fenster: Fokus muss hinein */}
+          <button type="button" className="knopf knopf--haupt" autoFocus onClick={schliessen}>
+            Danke!
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Rahmen({ basis, aktiv, menue = true, muenzen = null, fenster, children }: { basis: string; aktiv: string; menue?: boolean; muenzen?: number | null; fenster?: ReactNode; children: ReactNode }) {
   return (
     <div className="garten-seite">
       <main className="garten-seite__inhalt">
@@ -356,6 +400,7 @@ function Rahmen({ basis, aktiv, menue = true, muenzen = null, children }: { basi
         )}
         {children}
       </main>
+      {fenster}
       {menue && (
         <nav className="menue" aria-label="Hauptmenü">
           <ul>

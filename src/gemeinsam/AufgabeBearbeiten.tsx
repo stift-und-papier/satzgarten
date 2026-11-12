@@ -233,7 +233,7 @@ function AufgabeUeben({ aufgabe, pruefen, loesungHolen, weiter, startAntworten, 
             .filter(Boolean)
             .join(' ')
         : (ergebnis?.rueckmeldung ??
-          (anzahlRichtig === 0 ? 'Lies den Satz noch einmal in Ruhe – du schaffst das!' : `Schon ${anzahlRichtig} von ${gezaehlt} ${wort.viele} stimmen.`))
+          (anzahlRichtig === 0 ? 'Lies den Satz noch einmal in Ruhe. Du schaffst das!' : `Schon ${anzahlRichtig} von ${gezaehlt} ${wort.viele} stimmen.`))
 
   return (
     <form

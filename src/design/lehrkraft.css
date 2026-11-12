@@ -278,6 +278,10 @@ fieldset.lk-teil { grid-template-columns: minmax(0, 1fr); }
 .lk-knopf--gefahr { border: 2px solid var(--color-lk-gefahr); color: var(--color-lk-gefahr); }
 .lk-knopf--gefahr:hover { background: var(--color-lk-gefahr); color: var(--color-lk-papier); }
 
-/* Münzen-Spalte: Auswahlkästchen + Kontostand, ganze Zelle antippbar */
-.lk-muenzen { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 48px; padding-inline: 0.25rem; font-variant-numeric: tabular-nums; font-weight: 700; cursor: pointer; }
-.lk-muenzen input { width: 1.25rem; height: 1.25rem; }
+/* Münzen-Spalte: Kontostand; Auswahl beim Vergeben als Umschaltknöpfe */
+.lk-muenzen { font-variant-numeric: tabular-nums; font-weight: 700; }
+.lk-auswahl { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-block: var(--space-sm); }
+/* „Lernstand“: grün gefüllt, damit er sich von den blauen Hauptknöpfen abhebt (Lehrkraft 2026-11-12) */
+.lk-knopf--gut { background: var(--color-lk-gut); border-color: var(--color-lk-gut); color: var(--color-lk-gut-text); }
+.lk-knopf--gut:hover { background: var(--color-lk-gut-2); }
+.lk-auswahl .lk-knopf[aria-pressed='true'] { background: var(--color-lk-aktion); border-color: var(--color-lk-aktion); color: var(--color-lk-aktion-text); }

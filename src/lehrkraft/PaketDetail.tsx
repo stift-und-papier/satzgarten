@@ -335,7 +335,7 @@ function PaketVorschau({ daten }: { daten: Daten }) {
       </a>
       <h1>{daten.paket.titel}</h1>
       <p className="lk-leise">
-        Vorschau – Aufgabe {index + 1} von {daten.inhalt.length}. Hier sehen Sie alle Stufen; es wird nichts gespeichert.
+        Vorschau: Aufgabe {index + 1} von {daten.inhalt.length}. Hier sehen Sie alle Stufen; es wird nichts gespeichert.
       </p>
       <div className="lk-vorschau">
         <AufgabeBearbeiten

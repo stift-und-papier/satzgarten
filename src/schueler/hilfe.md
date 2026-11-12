@@ -23,7 +23,7 @@ Der letzte Abschnitt nennt die Grafiken – er muss bleiben (Lizenz).
 ## Wer sieht das?
 
 - **Deine Lehrkraft** sieht deine Antworten und deinen Lernstand. So kann sie dir helfen.
-- **Du** siehst deine eigenen Übungen und deine Rückmeldungen. Noten oder Punkte siehst du nicht – die gibt es in der App nicht.
+- **Du** siehst deine eigenen Übungen und deine Rückmeldungen. Noten oder Punkte siehst du nicht. Die gibt es in der App nicht.
 - **Andere Schüler:innen** sehen nichts von dir.
 
 ## Wo liegen die Daten?
@@ -62,7 +62,7 @@ Wortsalat ist zum Üben da, nicht zum Bewerten. Darum gibt es hier keine Noten u
 
 ## Was passiert, wenn ich einen Fehler mache?
 
-Nach dem Prüfen zeigt dir ein ↻, wo du noch einmal hinschauen kannst. Dann probierst du es einfach noch einmal. Bei manchen Aufgaben hat Einstein einen **Tipp** für dich. Nach zwei Versuchen kannst du dir auch die Lösung ansehen – dann zählt diese Aufgabe aber nicht mehr für deine Entwicklung.
+Nach dem Prüfen zeigt dir ein ↻, wo du noch einmal hinschauen kannst. Dann probierst du es einfach noch einmal. Bei manchen Aufgaben hat Einstein einen **Tipp** für dich. Nach zwei Versuchen kannst du dir auch die Lösung ansehen. Dann zählt diese Aufgabe aber nicht mehr für deine Entwicklung.
 
 ## Kann ich Aufgaben wiederholen?
 
@@ -82,4 +82,4 @@ Steht da, dass eine Antwort auf Internet wartet? Dann ist sie sicher gespeichert
 
 - Assets – From: **Sprout Lands** – By: **Cup Nooble**
 - Einstein hat deine Lehrkraft selbst gezeichnet.
-- Ideen und Teile des Diktats stammen aus **TastenHeld** – mit freundlicher Erlaubnis.
+- Ideen und Teile des Diktats stammen aus **TastenHeld**, mit freundlicher Erlaubnis.

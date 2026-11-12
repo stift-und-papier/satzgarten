@@ -65,7 +65,7 @@ export function trendText(a: Auswertung, e: Einstellungen): string {
   const seit = datum(a.vergleich_zeit)
   if (!a.trend_gueltig) {
     const fehlen = e.trend_min_neue - (a.neue_seit_vergleich ?? 0)
-    return fehlen > 0 ? `noch kein Trend – ${fehlen === 1 ? 'ein weiterer Versuch' : `${fehlen} weitere Versuche`} nötig` : `stabil seit ${seit}`
+    return fehlen > 0 ? `noch kein Trend, ${fehlen === 1 ? 'ein weiterer Versuch' : `${fehlen} weitere Versuche`} nötig` : `stabil seit ${seit}`
   }
   const stufen = a.trend_stufen ?? 0
   if (stufen !== 0) return `${stufen > 0 ? '+' : '−'}${Math.abs(stufen)} Stufe${Math.abs(stufen) === 1 ? '' : 'n'} seit ${seit}`

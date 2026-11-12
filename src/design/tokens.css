@@ -59,6 +59,9 @@
   --color-lk-linie: #d0dae6;
   --color-lk-aktion: #003466;         /* Hauptknopf, aktuelle Seite, Fokus */
   --color-lk-gefahr: #b3261e;         /* endgültig löschen (nur Lehrkraft; Schüler:innen sehen nie Rot) */
+  --color-lk-gut: #1e6b34;            /* „Lernstand“-Knopf (Kontrast mit -gut-text 6,5:1) */
+  --color-lk-gut-2: #164f26;
+  --color-lk-gut-text: #ffffff;
   --color-lk-aktion-2: #00264d;
   --color-lk-aktion-text: #ffffff;
   --color-lk-leiste: #003466;         /* Menüleiste */
@@ -141,6 +144,9 @@
   --color-lk-linie: #2c3a4d;
   --color-lk-aktion: #a9c8ec;
   --color-lk-gefahr: #ffb4ab;
+  --color-lk-gut: #8fd4a0;
+  --color-lk-gut-2: #b0e3bb;
+  --color-lk-gut-text: #00210b;
   --color-lk-aktion-2: #c6dbf3;
   --color-lk-aktion-text: #001a33;
   --color-lk-leiste: #0a1a2e;
@@ -164,6 +170,9 @@
     --color-lk-linie: #6d7d90;
     --color-lk-aktion: #002347;
     --color-lk-gefahr: #8c1d18;
+    --color-lk-gut: #145226;
+    --color-lk-gut-2: #0d3a1a;
+    --color-lk-gut-text: #ffffff;
     --color-lk-aktion-2: #00162e;
     --color-lk-leiste: #002347;
     --color-lk-leiste-leise: #e1e9f2;
@@ -188,6 +197,9 @@
     --color-lk-linie: #7b8a9c;
     --color-lk-aktion: #cfe2f8;
     --color-lk-gefahr: #ffd2cc;
+    --color-lk-gut: #c2ecca;
+    --color-lk-gut-2: #e0f6e4;
+    --color-lk-gut-text: #000f05;
     --color-lk-aktion-2: #e6f0fb;
     --color-lk-aktion-text: #000c1a;
     --color-lk-leiste: #000c1a;

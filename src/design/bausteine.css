@@ -492,5 +492,13 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .lernweg-thema[data-art='dranbleiben'] { border-left-color: var(--color-nochmal-flaeche); }
 .lernweg-marke[data-art='dranbleiben'] { background: var(--color-nochmal-flaeche); color: var(--color-nochmal-tinte); }
 /* Tulpe vorn (Samen → blüht), Text daneben, Rückmeldung rechts bzw. darunter */
-.lernweg-thema > .sprite { flex: none; }
 .lernweg-thema__text { flex: 1 1 10rem; }
+
+/* ---------- Fenster (z. B. Münzen von der Lehrkraft) ---------- */
+.fenster-hintergrund {
+  position: fixed; inset: 0; z-index: 50;
+  display: grid; place-items: center; padding: var(--space-md);
+  background: rgb(0 0 0 / 0.45);
+}
+.fenster { max-width: 28rem; width: 100%; }
+.fenster__nachricht { font-size: 1.15em; font-style: italic; }

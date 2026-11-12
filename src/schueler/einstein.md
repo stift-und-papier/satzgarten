@@ -36,7 +36,7 @@ Hier vergleichst du Sätze. Lies alle Versionen und wähle die, die besser kling
 Hier lernst du etwas Neues. Lies alles in Ruhe durch. Wenn du es verstanden hast, tippst du auf „Verstanden“.
 
 ## diktat-abschreiben
-Beim Abschreiben zählt jedes Zeichen: große und kleine Buchstaben und die Satzzeichen. Lass dir Zeit – genau ist wichtiger als schnell.
+Beim Abschreiben zählt jedes Zeichen: große und kleine Buchstaben und die Satzzeichen. Lass dir Zeit. Genau ist wichtiger als schnell.
 
 ## diktat-merken
 Lies den Satz und merk ihn dir gut. Tippe auf „Gemerkt“, dann verschwindet er. Schreib ihn danach aus dem Kopf auf.

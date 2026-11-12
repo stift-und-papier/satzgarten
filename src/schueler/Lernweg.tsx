@@ -1,8 +1,6 @@
 // alt (Übungswiese, Entwicklung.tsx), im Pixel-Look: „Mein Lernweg“ – nur die eigene Entwicklung in Worten.
 // Keine Stufen, Punkte, Prozente oder Noten: Die Datenbank liefert hier gar keine absoluten Werte (schueler_entwicklung).
 import { useEffect, useState } from 'react'
-import { Sprite } from '../gemeinsam/Sprite'
-import { GRAFIK } from '../grafik'
 import { fehlerText } from '../lib/fehler'
 import { GROSSE_BEREICHE, grosserBereich } from '../lib/lernstand'
 import { supabase } from '../lib/supabase'
@@ -15,9 +13,9 @@ type Daten = {
 }
 
 const REIHENFOLGE: Kategorie[] = ['deutlich', 'besser', 'dranbleiben', 'erste']
-// Bild der Tulpe je Rückmeldung: Samen → Sprössling → wächst → blüht (nur Verzierung, der Satz trägt die Bedeutung)
-const BLUME: Record<Kategorie, number> = { erste: 0, dranbleiben: 1, besser: 2, deutlich: 3 }
-const Blume = ({ art }: { art: Kategorie }) => <Sprite grafik={GRAFIK.blume} nummer={BLUME[art]} mal={4} />
+// Emoji hinter dem Satz: keimt → wächst → wird groß → blüht (nur Verzierung, der Satz trägt die Bedeutung)
+const PFLANZE: Record<Kategorie, string> = { erste: '🌱', dranbleiben: '🌿', besser: '🪴', deutlich: '🌷' }
+const Pflanze = ({ art }: { art: Kategorie }) => <span aria-hidden="true">{' ' + PFLANZE[art]}</span>
 
 export function Lernweg({ token, uebungen }: { token: string; uebungen: string }) {
   const [daten, setDaten] = useState<Daten | null>(null)
@@ -84,13 +82,13 @@ export function Lernweg({ token, uebungen }: { token: string; uebungen: string }
               <ul className="lernweg-liste">
                 {themen.map((k) => (
                   <li key={k.name} className="lernweg-thema" data-art={k.kategorie}>
-                    <Blume art={k.kategorie} />
                     <div className="lernweg-thema__text">
                       <p className="lernweg-thema__name">{k.name}</p>
                       {k.geloest > 0 && <p className="leise">{gelungen(k.geloest)}</p>}
                     </div>
                     <p className="lernweg-marke" data-art={k.kategorie}>
                       {daten.texte[k.kategorie]}
+                      <Pflanze art={k.kategorie} />
                     </p>
                   </li>
                 ))}
@@ -108,9 +106,11 @@ export function Lernweg({ token, uebungen }: { token: string; uebungen: string }
           <ul className="lernweg-liste">
             {ersteSchritte.map((k) => (
               <li key={k.name} className="lernweg-thema">
-                <Blume art="erste" />
                 <div className="lernweg-thema__text">
-                  <h3>{k.name}</h3>
+                  <h3>
+                    {k.name}
+                    <Pflanze art="erste" />
+                  </h3>
                   <p className="leise">{k.bereich}</p>
                 </div>
               </li>

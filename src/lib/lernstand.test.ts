@@ -10,7 +10,7 @@ describe('Lernstand', () => {
   })
   it('beschreibt den Trend in Worten', () => {
     expect(trendText(a({ punkte: null, anzahl: 2 }), e)).toBe('noch nicht genug Daten (2 von 4 Versuchen)')
-    expect(trendText(a({ neue_seit_vergleich: 3 }), e)).toBe('noch kein Trend – ein weiterer Versuch nötig')
+    expect(trendText(a({ neue_seit_vergleich: 3 }), e)).toBe('noch kein Trend, ein weiterer Versuch nötig')
     expect(trendText(a({ trend_gueltig: true, trend_stufen: 2, trend_punkte: 30 }), e)).toBe('+2 Stufen seit 12.10.2026')
   })
 })

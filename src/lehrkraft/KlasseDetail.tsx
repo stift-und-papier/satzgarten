@@ -170,7 +170,7 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
             <a className="lk-knopf lk-knopf--haupt" href={`#/lehrkraft/klassen/${klasse.id}/links`}>
               Linkliste mit QR-Codes
             </a>
-            <a className="lk-knopf lk-knopf--haupt" href={`#/lehrkraft/klassen/${klasse.id}/lernstand`}>
+            <a className="lk-knopf lk-knopf--gut" href={`#/lehrkraft/klassen/${klasse.id}/lernstand`}>
               Lernstand der Klasse
             </a>
           </div>
@@ -228,7 +228,7 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
                     </td>
                     <td>
                       <div className="lk-knopfreihe">
-                        <a className="lk-knopf lk-knopf--haupt" href={`#/lehrkraft/schueler/${s.id}`}>
+                        <a className="lk-knopf lk-knopf--gut" href={`#/lehrkraft/schueler/${s.id}`}>
                           Lernstand
                         </a>
                         <button type="button" className="lk-knopf" onClick={() => einzelnZuruecksetzen(s)}>
@@ -237,20 +237,7 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
                       </div>
                     </td>
                     <td>
-                      <label className="lk-muenzen">
-                        <input
-                          type="checkbox"
-                          checked={gewaehlt.has(s.id)}
-                          onChange={(e) => {
-                            const neu = new Set(gewaehlt)
-                            if (e.target.checked) neu.add(s.id)
-                            else neu.delete(s.id)
-                            setGewaehlt(neu)
-                          }}
-                        />
-                        <span className="lk-unsichtbar">{s.pseudonym} für Münzen auswählen, Kontostand </span>
-                        {konto.get(s.id) ?? 0}
-                      </label>
+                      <span className="lk-muenzen">{konto.get(s.id) ?? 0}</span>
                     </td>
                     <td>
                       <button type="button" className="lk-knopf lk-knopf--gefahr" onClick={() => loeschen(s)}>
@@ -273,9 +260,28 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
         <section className="lk-abschnitt">
           <h2>Münzen vergeben</h2>
           <p className="lk-leise">
-            Zum Beispiel für gute Mitarbeit. Die Münzen kommen sofort dazu. Wählen Sie in der Spalte „Münzen“ aus, wer sie bekommt, oder geben
-            Sie allen welche.
+            Zum Beispiel für gute Mitarbeit. Tippen Sie an, wer Münzen bekommt. Die Nachricht erscheint beim nächsten Öffnen der App
+            zusammen mit den Münzen.
           </p>
+          <div className="lk-auswahl" role="group" aria-label="Wer bekommt Münzen?">
+            {schueler.map((x) => (
+              <button
+                key={x.id}
+                type="button"
+                className="lk-knopf"
+                aria-pressed={gewaehlt.has(x.id)}
+                onClick={() => {
+                  const neu = new Set(gewaehlt)
+                  if (neu.has(x.id)) neu.delete(x.id)
+                  else neu.add(x.id)
+                  setGewaehlt(neu)
+                }}
+              >
+                {gewaehlt.has(x.id) && '✓ '}
+                {x.pseudonym}
+              </button>
+            ))}
+          </div>
           <form
             className="lk-zeile"
             onSubmit={(e) => {
@@ -288,8 +294,8 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
               <input className="lk-feld lk-feld--zahl" type="number" min={1} max={1000} value={geschenk} onChange={(e) => setGeschenk(Number(e.target.value))} required />
             </label>
             <label>
-              Grund (freiwillig, nur für Sie)
-              <input className="lk-feld" value={notiz} onChange={(e) => setNotiz(e.target.value)} maxLength={100} placeholder="Mitarbeit" />
+              Nachricht (freiwillig)
+              <input className="lk-feld" value={notiz} onChange={(e) => setNotiz(e.target.value)} maxLength={100} placeholder="Super mitgearbeitet heute!" />
             </label>
             <button className="lk-knopf lk-knopf--haupt" disabled={gewaehlt.size === 0}>
               An {gewaehlt.size === 1 ? '1 Ausgewählte:n' : `${gewaehlt.size} Ausgewählte`} geben

@@ -212,7 +212,7 @@ function Auswahl({ teil, dropdown, gewaehlt, onWahl, klasse, gesperrt, zeichen }
           disabled={gesperrt}
           onChange={(e) => onWahl(e.target.value === '' ? [] : [Number(e.target.value)])}
         >
-          <option value="">– wählen –</option>
+          <option value="">bitte wählen</option>
           {teil.optionen.map((o, nr) => (
             <option key={nr} value={nr}>
               {o}

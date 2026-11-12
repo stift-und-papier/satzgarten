@@ -41,7 +41,7 @@ export function Linkliste({ klasseId }: { klasseId: string }) {
         </div>
         <p className="lk-leise">Zum Ausschneiden: Jede Karte hat einen Rahmen. Als PDF: im Druckfenster „Als PDF speichern“ wählen.</p>
       </div>
-      <h1>Persönliche Links – {klasse.name}</h1>
+      <h1>Persönliche Links der Klasse {klasse.name}</h1>
       <ul className="lk-linkkarten">
         {schueler.map((s) => (
           <li key={s.id} className="lk-linkkarte">

@@ -68,7 +68,7 @@ export function DiktatAufgabe({ aufgabe, pruefen, weiter }: Props) {
 
       {e?.fehlerfrei ? (
         <EinsteinSagt pose="freut-sich">
-          <strong>Fehlerfrei – super!</strong> Du hast den ganzen Text ohne einen einzigen Fehler geschrieben.
+          <strong>Fehlerfrei, super!</strong> Du hast den ganzen Text ohne einen einzigen Fehler geschrieben.
           <MuenzenPlus anzahl={ergebnis?.muenzen} />
         </EinsteinSagt>
       ) : e?.richtig ? (
@@ -83,7 +83,7 @@ export function DiktatAufgabe({ aufgabe, pruefen, weiter }: Props) {
         <div className="rueckmeldung rueckmeldung--nochmal" role="status">
           <span className="rueckmeldung__zeichen" aria-hidden="true">!</span>
           <p>
-            <strong>Nochmal üben – du schaffst das!</strong> {fehlerSatz} {ergebnis?.rueckmeldung ?? 'Lass dir Zeit und schau genau hin.'}
+            <strong>Nochmal üben, du schaffst das!</strong> {fehlerSatz} {ergebnis?.rueckmeldung ?? 'Lass dir Zeit und schau genau hin.'}
           </p>
         </div>
       ) : null}
@@ -175,7 +175,7 @@ function Abschreiben({ text, onFertig }: { text: string; onFertig: (a: Antworten
 
   return (
     <div className="diktat" onClick={() => feld.current?.focus()}>
-      <p className="leise">Tippe los – der Text läuft mit. Bei einem falschen Zeichen wartet der Cursor, bis es stimmt.</p>
+      <p className="leise">Tippe los, der Text läuft mit. Bei einem falschen Zeichen wartet der Cursor, bis es stimmt.</p>
       <div className="diktat__zeile" ref={zeile} role="img" aria-label={text}>
         <span className="diktat__band" ref={band}>
         {zeichen.map((z, i) => (
