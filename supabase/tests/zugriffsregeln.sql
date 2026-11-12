@@ -1062,10 +1062,12 @@ begin
       raise exception 'Block 14.2: Farm ohne Baum oder Boot: %', v;
     end if;
     n := n + 2;
-    -- Ernten: drei Orangen liegen unter dem Baum, dann eine Woche Pause
+    -- Ernten: drei Orangen gleich im Vorrat (nichts liegt auf der Karte), dann eine Woche Pause
     v := public.baum_ernten(t_eule, v_baum);
-    select count(*) into k from jsonb_array_elements(v -> 'liegen') x where x ->> 'sorte' = 'orange' and x ->> 'bei' = 'baum:' || v_baum;
-    if k <> 3 or (v -> 'baeume' -> 0 ->> 'tage')::int <> 7 then raise exception 'Block 14.3: Ernte falsch: %', v; end if;
+    if not (v -> 'vorrat' @> '[{"sorte":"orange","anzahl":3}]') or v::text ~ '"bei": "baum:'
+       or (v -> 'baeume' -> 0 ->> 'tage')::int <> 7 then
+      raise exception 'Block 14.3: Ernte falsch: %', v;
+    end if;
     begin
       perform public.baum_ernten(t_eule, v_baum);
       raise exception 'Block 14.4: zweimal in der Woche geerntet';
@@ -1076,9 +1078,8 @@ begin
       raise exception 'Block 14.5: fremden Baum geerntet';
     exception when raise_exception then if sqlerrm !~ 'gibt es nicht' then raise; end if;
     end;
-    -- Einsammeln und verkaufen (Orange 30)
-    v := public.einsammeln(t_eule, (select (x ->> 'id')::uuid from jsonb_array_elements(v -> 'liegen') x where x ->> 'sorte' = 'orange' limit 1));
-    if not (public.schueler_verkauf(t_eule) -> 'vorrat' @> '[{"sorte":"orange","anzahl":1,"preis":30}]') then
+    -- Verkaufen (Orange 30)
+    if not (public.schueler_verkauf(t_eule) -> 'vorrat' @> '[{"sorte":"orange","anzahl":3,"preis":30}]') then
       raise exception 'Block 14.6: Orange nicht verkaufbar: %', public.schueler_verkauf(t_eule);
     end if;
     if not (public.schueler_album(t_eule) @> '[{"id":"orangenbaum","gesammelt":true},{"id":"boot","gesammelt":true}]') then

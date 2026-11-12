@@ -244,3 +244,5 @@
   eingesammelt) und **Boot** (Deko im Wasser, schaukelt). Migration `obstbaeume_boot`, Plätze `BAUM_PLAETZE`/`BOOT` in `landschaft.ts`;
   Preise von Claude in `docs/SPEC-felder.md` (Bestätigung offen). **Felder einzeln** mit Bild `Soil_Ground_Tile_single` (auf 14 × 14 verkleinert,
   so bleibt zwischen den Feldern ein kleiner Abstand); Pflanzen stehen mitten im Feld. Der zusammenhängende Acker entfällt.
+- 2026-11-12 (Lehrkraft): Preise für Obstbäume, Obst und Boot bestätigt. Bäume **wackeln nicht**, bewegen sich nur beim Ernten
+  (Früchte fallen); das Obst kommt danach **direkt in den Vorrat** und liegt nicht auf der Karte (Migration `obst_vorrat`).

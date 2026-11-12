@@ -551,9 +551,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .farm-feld[aria-pressed='true'] { outline: 3px solid var(--color-aktion); outline-offset: 1px; }
 .farm-feld:focus-visible, .farm-tier:focus-visible, .farm-liegt:focus-visible, .farm-baum:focus-visible { outline: 3px solid var(--color-aktion); }
 /* Pflanzen stehen mitten im Feld (Lehrkraft 2026-11-12) */
-/* Obstbäume: Bild 48 × 48 ragt über die 2 × 2 Kacheln hinaus; wiegen sich ruhig, Früchte fallen beim Ernten einmal */
+/* Obstbäume: Bild 48 × 48 ragt über die 2 × 2 Kacheln hinaus; stehen still, nur beim Ernten fallen die Früchte einmal */
 .farm-baum__bild { position: absolute; line-height: 0; pointer-events: none; }
-.farm-baum__bild > .sprite { animation: farm-laufen calc(var(--bilder) * 0.3s) steps(var(--bilder)) infinite; }
 .farm-baum__bild[data-faellt] > .sprite { animation: farm-laufen 1.2s steps(12) 1 forwards; }
 /* Boot schaukelt am Ufer (2 Bilder) */
 .farm-boot > .sprite { animation: farm-laufen 1.6s steps(2) infinite; }

@@ -41,8 +41,9 @@ Antworten der Lehrkraft vom 2026-11-12 auf die offenen Fragen 8, 9 und 12. Zahle
 
 - Orangenbaum, Pfirsichbaum, Birnenbaum im Shop, **je einer**, auf festen Plätzen (zwei über dem Acker, einer vor dem Stall).
 - Ohne Gießen **einmal pro Woche** erntbar (7 Kalendertage nach der letzten Ernte; gleich nach dem Kauf reif), je **3 Früchte**.
-  Die Früchte fallen unter den Baum, man sammelt sie ein und verkauft sie im Shop. Füttern kann man mit Obst nicht.
-- Preise (von Claude, Bestätigung offen):
+  Beim Ernten fallen die Früchte (Animation), danach sind sie direkt im Vorrat (nicht auf der Karte). Sonst steht der Baum still.
+  Verkaufen im Shop; füttern kann man mit Obst nicht.
+- Preise (von Claude, von der Lehrkraft bestätigt):
 
   | Baum | Preis | im Shop ab verdient | Frucht (Verkauf) |
   |---|---|---|---|

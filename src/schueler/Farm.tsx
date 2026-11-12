@@ -120,7 +120,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
     schritt(0, figur)
   }
 
-  async function ausfuehren(rpc: 'pflanzen' | 'ernten' | 'fuettern' | 'einsammeln' | 'baum_ernten', args: Record<string, unknown>, erfolg: string | ((neu: FarmDaten) => string)) {
+  async function ausfuehren(rpc: 'pflanzen' | 'ernten' | 'fuettern' | 'einsammeln', args: Record<string, unknown>, erfolg: string | ((neu: FarmDaten) => string)) {
     setFehler(null)
     const { data, error } = await supabase.rpc(rpc, { p_token: token, ...args })
     if (error) return setFehler(fehlerText(error))
@@ -179,7 +179,22 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
   const bereich = (art: string, i: number): [number, number] =>
     art === 'huhn' ? [-6, 6] : i >= 2 ? [-8, 8] : kuehe.length === 1 ? [0, 2 * KACHEL] : i === 0 ? [-2, 4] : [-4, 2]
 
-  // Obstbaum: wiegt sich im Wind (mit Obst, wenn reif); beim Ernten fallen die Früchte einmal herunter
+  // Obstbaum ernten (Lehrkraft 2026-11-12): Früchte fallen einmal herunter, danach sind die 3 Früchte im Vorrat (nichts liegt herum)
+  async function baumErnten(id: string, name: string, fruechte: string) {
+    setFehler(null)
+    setMeldung(null)
+    setFaellt(id)
+    const [{ data, error }] = await Promise.all([
+      supabase.rpc('baum_ernten', { p_token: token, p_baum: id }),
+      new Promise((fertig) => window.setTimeout(fertig, ruhig() ? 0 : 1200)),
+    ])
+    setFaellt(null)
+    if (error) return setFehler(fehlerText(error))
+    setDaten(data as FarmDaten)
+    setMeldung(`Geerntet! 3 ${fruechte} vom ${name} sind jetzt in deinem Vorrat.`)
+  }
+
+  // Obstbaum: steht still (mit Obst, wenn reif); nur beim Ernten bewegt er sich
   function baumKnopf(b: { id: string; art: string; tage: number }) {
     const o = BAUM_PLAETZE[b.art]
     const info = OBSTBAUM[b.art]
@@ -188,8 +203,8 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
       faellt === b.id
         ? { grafik: info.grafik, nummer: 12, bilder: 12 }
         : reif
-          ? { grafik: info.grafik, nummer: 0, bilder: 6 }
-          : { grafik: GRAFIK.baum_ohne_obst, nummer: 0, bilder: 6 }
+          ? { grafik: info.grafik, nummer: 0, bilder: 1 }
+          : { grafik: GRAFIK.baum_ohne_obst, nummer: 0, bilder: 1 }
     const wann = b.tage === 1 ? 'morgen' : `in ${b.tage} Tagen`
     return (
       <button
@@ -201,11 +216,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
         onClick={() =>
           gehe(nebenan(tierFlaeche(o, 2)), () => {
             if (!reif) return setMeldung(`Der ${info.name} trägt ${wann} wieder Früchte. Einmal in der Woche kannst du ernten.`)
-            void ausfuehren('baum_ernten', { p_baum: b.id }, `Geerntet! 3 ${info.fruechte} liegen unter dem Baum. Tippe sie an zum Einsammeln.`).then((ok) => {
-              if (!ok) return
-              setFaellt(b.id)
-              window.setTimeout(() => setFaellt(null), 1300)
-            })
+            void baumErnten(b.id, info.name, info.fruechte)
           })
         }
       >
