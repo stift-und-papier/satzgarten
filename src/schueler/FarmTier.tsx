@@ -24,8 +24,19 @@ export function FarmTier({ art, mal, von, bis }: { art: Art; mal: number; von: n
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let timer: number
-    // Nächster Schritt: stehen, (beim Huhn manchmal) picken, oder zu einer neuen Stelle laufen
+    // Kuh (Lehrkraft 2026-11-12): läuft immer von einem Ende ihres Bereichs zum anderen, mit kurzer Pause dazwischen
+    const pendeln = (x: number) => {
+      const ziel = x - von < bis - x ? bis : von
+      const dauer = (Math.abs(ziel - x) / t.tempo) * 1000
+      setZ({ zustand: 'laeuft', x: ziel, blick: ziel > x ? 1 : -1, dauer })
+      timer = window.setTimeout(() => {
+        setZ((alt) => ({ ...alt, zustand: 'steht', dauer: 0 }))
+        timer = window.setTimeout(() => pendeln(ziel), zufall(1000, 2500))
+      }, dauer)
+    }
+    // Huhn: stehen, picken oder zu einer neuen Stelle laufen
     const weiter = (x: number) => {
+      if (!t.pickt) return pendeln(x)
       const r = Math.random()
       if (t.pickt && r < 0.35) {
         setZ((alt) => ({ ...alt, zustand: 'pickt', dauer: 0 }))
