@@ -21,6 +21,7 @@ export type Farm = {
   pflanzen: { feld: number; sorte: string; bild: number; reif: boolean }[]
   samen: { sorte: string; anzahl: number }[]
   vorrat: { sorte: string; anzahl: number }[]
+  dinge: { artikel: string; anzahl: number }[]
 }
 
 /** Bild für die Shop-Karte: Samentüte, Tier, Deko oder Feld (reife Karotte als Zeichen) */

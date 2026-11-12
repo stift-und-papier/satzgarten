@@ -204,3 +204,7 @@
 - 2026-11-12 (Claude, Aufgabe 38): Farm auf der Startseite (`src/schueler/Farm.tsx`, Migration `felder`): Felder als Ackerboden-Bild,
   leeres Feld antippen → Samen wählen; reif (Haken) antippen → ernten in den Vorrat. Wachstum nur auf dem Server (`wachstum`),
   Schüler:innen sehen nur das Bild (4 Stufen). Deko und Tiere erscheinen erst mit Aufgabe 39.
+- 2026-11-12 (Lehrkraft): **Farm als Landschaft** wie das Sprout-Lands-Titelbild: Insel im Wasser, Felder links oben, Hühnerstall,
+  Kuh-Gehege mit Zaun, Bäume, Brunnen und Deko auf festen Plätzen (`src/lib/landschaft.ts`, getestet: nichts überdeckt sich).
+  **Spielfigur** (Sprout-Lands-Figur, „Maus“) läuft per Antippen dorthin und tippt Felder an (offene Frage 10: Antippen, Aufgabe 40).
+  Hintergrund als Canvas in Originalgröße, ganzzahlig vergrößert (2- bis 4-fach nach Breite). Ohne Figur bleibt alles bedienbar.

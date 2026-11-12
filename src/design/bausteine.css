@@ -517,18 +517,34 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .shop-artikel__frage { font-size: 2.5rem; font-weight: 800; line-height: 1; }
 .muenzen-preis { display: inline-flex; align-items: center; gap: var(--space-2xs); font-weight: 800; font-variant-numeric: tabular-nums; }
 
-/* ---------- Farm ---------- */
-.farm-felder { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+/* ---------- Farm (Landschaft) ---------- */
+.farm-rahmen { overflow-x: auto; margin-inline: calc(-1 * var(--space-xs)); }
+.farm-landschaft { position: relative; margin-inline: auto; cursor: pointer; touch-action: manipulation; }
+.farm-landschaft canvas { display: block; image-rendering: pixelated; }
+.farm-landschaft .sprite { image-rendering: pixelated; }
+.farm-ding { position: absolute; pointer-events: none; line-height: 0; }
 .farm-feld {
-  position: relative; display: grid; place-items: center;
-  padding: 0; border: none; background: none; cursor: pointer; min-width: 48px; min-height: 48px;
+  position: absolute; display: grid; place-items: center; line-height: 0;
+  padding: 0; border: none; background: none; cursor: pointer;
 }
-.farm-feld[aria-pressed='true'] { outline: 4px solid var(--color-aktion); outline-offset: 2px; }
-.farm-feld__pflanze { position: absolute; inset: 0; display: grid; place-items: center; }
+/* Tippfläche mindestens 48 px, auch wenn das Feld kleiner gezeichnet ist */
+.farm-feld::before { content: ''; position: absolute; inset: min(0px, calc((100% - 48px) / 2)); }
+.farm-feld[aria-pressed='true'] { outline: 3px solid var(--color-aktion); outline-offset: 1px; }
+.farm-feld:focus-visible { outline: 3px solid var(--color-aktion); }
+.farm-feld__pflanze { position: absolute; inset: 0; display: grid; place-items: center; transform: translateY(-15%); }
 .farm-feld__reif {
-  position: absolute; top: -6px; right: -6px; display: grid; place-items: center; width: 26px; height: 26px;
-  border-radius: 50%; background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); font-weight: 800;
-  border: 2px solid currentColor;
+  position: absolute; top: -10px; right: -10px; display: grid; place-items: center; width: 22px; height: 22px;
+  border-radius: 50%; background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); font-weight: 800; font-size: 14px;
+  border: 2px solid currentColor; line-height: 1;
+}
+.farm-figur { position: absolute; pointer-events: none; image-rendering: pixelated; background-repeat: no-repeat; background-position-x: 0; }
+.farm-figur--laeuft { animation: farm-laufen 0.6s steps(4) infinite; }
+@keyframes farm-laufen { to { background-position-x: var(--lauf); } }
+/* Tiere bewegen sich ruhig auf der Stelle (4 bzw. 3 Bilder) */
+.farm-tier .sprite { animation: farm-laufen 1.6s steps(4) infinite; }
+.farm-tier--kuh .sprite { animation-timing-function: steps(3); animation-duration: 1.8s; }
+@media (prefers-reduced-motion: reduce) {
+  .farm-figur, .farm-tier .sprite { animation: none !important; transition: none !important; }
 }
 .farm-auswahl { margin-top: var(--space-sm); }
 .farm-auswahl .knopf { display: inline-flex; align-items: center; gap: var(--space-2xs); }

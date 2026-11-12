@@ -32,6 +32,16 @@ const BILDER = [
   ].map(([name, sp, ze]) => ({ name, datei: SPRITES + 'Objects/Mushrooms, Flowers, Stones.png', x: sp * 16, y: ze * 16, breite: 16, hoehe: 16 })),
   // Ackerboden: einzelnes rundes Feld aus den Erd-Kacheln
   { name: 'acker', datei: SPRITES + 'Tilesets/ground tiles/New tiles/Darker_Soil_Ground_Tiles.png', x: 48, y: 48, breite: 16, hoehe: 16 },
+  // Landschaft der Farm: Wasser, Grasinsel (9 Teile: Ecken, Ränder, Mitte), Grasdeko, Zaun (9 Teile), Bäume, Stall, Figur
+  { name: 'wasser', datei: SPRITES + 'Tilesets/ground tiles/Water.png', x: 0, y: 0, breite: 16, hoehe: 16 },
+  { name: 'gras', datei: SPRITES + 'Tilesets/ground tiles/New tiles/simpel versions/Grass_tiles_v2_simple.png', x: 0, y: 0, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
+  { name: 'gras_deko', datei: SPRITES + 'Tilesets/ground tiles/New tiles/simpel versions/Grass_tiles_v2_simple.png', x: 0, y: 48, breite: 96, hoehe: 32, bildBreite: 16, bildHoehe: 16 },
+  { name: 'zaun', datei: SPRITES + 'Tilesets/Building parts/Fences.png', x: 16, y: 0, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
+  { name: 'baum', datei: SPRITES + 'Objects/Trees, stumps and bushes.png', x: 16, y: 0, breite: 32, hoehe: 32 },
+  { name: 'baum_klein', datei: SPRITES + 'Objects/Trees, stumps and bushes.png', x: 0, y: 0, breite: 16, hoehe: 32 },
+  { name: 'stall', datei: SPRITES + 'Tilesets/Building parts/Animal Structures/Chikcen_Houses.png', x: 48, y: 80, breite: 48, hoehe: 48 },
+  // Spielfigur: Zeilen = runter, hoch, links, rechts; je 4 Laufbilder
+  { name: 'figur', datei: SPRITES + 'Characters/Basic Charakter Spritesheet.png', bildBreite: 48, bildHoehe: 48 },
   { name: 'brunnen', datei: SPRITES + 'Objects/Water well.png' },
   { name: 'huhn', datei: SPRITES + 'Animals/Chicken/chicken default.png', x: 0, y: 0, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   { name: 'kuh', datei: SPRITES + 'Animals/Cow/Light cow animations.png', x: 0, y: 0, breite: 96, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
