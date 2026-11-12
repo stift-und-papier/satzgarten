@@ -459,6 +459,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 }
 /* Lehrkraft 2026-11-12: Sterne oben rechts im Kasten, mit dem Wort „Schwierigkeit“ */
 .paket-liste__stufe { align-self: start; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.kopf-zeile { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-sm); }
 .paket-liste__nr {
   display: inline-grid; place-items: center;
   min-width: 2.5rem; height: 2.5rem;

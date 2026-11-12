@@ -259,9 +259,17 @@ export function SchuelerBereich({ token, pfad }: Props) {
       </EinsteinSagt>
       {naechstesPaket && naechste && (
         <section className="karte">
-          <h2>Dein nächster Schritt</h2>
+          <div className="kopf-zeile">
+            <h2>Dein nächster Schritt</h2>
+            {naechste.typ !== 'erklaerung' && (
+              <span className="paket-liste__stufe">
+                <span className="leise">Schwierigkeit</span>
+                <Sterne stufe={naechste.stufe} />
+              </span>
+            )}
+          </div>
           <p>
-            {naechstesPaket.titel}: {naechste.titel} {naechste.typ !== 'erklaerung' && <Sterne stufe={naechste.stufe} />}
+            {naechstesPaket.titel}: {naechste.titel}
           </p>
           <div className="knopf-reihe">
             <a className="knopf knopf--haupt" href={`#${basis}/p/${naechstesPaket.id}/a/${naechste.id}`}>

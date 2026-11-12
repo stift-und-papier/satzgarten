@@ -247,4 +247,4 @@
 - 2026-11-12 (Lehrkraft): Preise für Obstbäume, Obst und Boot bestätigt. Bäume **wackeln nicht**, bewegen sich nur beim Ernten
   (Früchte fallen); das Obst kommt danach **direkt in den Vorrat** und liegt nicht auf der Karte (Migration `obst_vorrat`).
 - 2026-11-12 (Lehrkraft): **Monster-Kampf komplett entfernt** (gefällt nicht; Migration `kampf_weg`, Kampf.tsx, Monster-Bilder und craftpix weg).
-  Obstbäume mit dem geraden Standbild. Übungen: Sterne oben rechts im Kasten mit dem Wort „Schwierigkeit“.
+  Obstbäume mit dem geraden Standbild. Übungen und „Dein nächster Schritt“: Sterne oben rechts im Kasten mit dem Wort „Schwierigkeit“.
