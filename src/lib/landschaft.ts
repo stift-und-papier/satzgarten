@@ -1,6 +1,6 @@
 // Aufbau der Farm-Landschaft (Lehrkraft 2026-11-12: wie das Sprout-Lands-Titelbild, verspielte Inselform, Platz für Deko).
-// Alle Angaben in Kacheln zu 16 Pixeln. Felder links oben, Hühnerstall rechts oben, Scheune rechts unten (beide erst mit dem
-// ersten Tier), dazwischen Bäume, Brunnen und Deko-Plätze.
+// Alle Angaben in Kacheln zu 16 Pixeln. Felder links oben, Scheune rechts oben, Hühnerstall rechts unten (beide erst mit dem
+// ersten Tier), dazwischen Bäume, Brunnen und Deko-Plätze. Durch Gebäude, Bäume, Deko und Tiere läuft die Figur nicht.
 export const KACHEL = 16
 
 // # = Gras, . = Wasser. Neue Plätze für Deko einfach auf Gras legen (der Test prüft das).
@@ -29,31 +29,32 @@ export type Ort = { x: number; y: number }
 type Rechteck = { x0: number; y0: number; x1: number; y1: number }
 
 export const FELD_PLAETZE: Ort[] = Array.from({ length: 12 }, (_, i) => ({ x: 3 + (i % 4), y: 3 + Math.floor(i / 4) }))
-export const STALL: Ort = { x: 14, y: 1 } // 3 × 3 Kacheln
-export const HUHN_PLAETZE: Ort[] = [{ x: 13, y: 4 }, { x: 15, y: 4 }, { x: 17, y: 4 }, { x: 14, y: 5 }]
-// Scheune von oben mit offenem Dach; Tür unten in der Mitte (2 Kacheln)
-export const SCHEUNE: Rechteck = { x0: 12, y0: 8, x1: 17, y1: 12 }
-export const TUER: Ort = { x: 14, y: 12 }
-export const HEU: Ort = { x: 13, y: 11 } // 2 × 1
-export const TROG: Ort = { x: 15, y: 11 } // 2 × 1
-export const KUH_PLAETZE: Ort[] = [{ x: 13, y: 9 }, { x: 15, y: 9 }, { x: 9, y: 8 }, { x: 9, y: 10 }] // je 2 × 2; erst innen, dann davor
+export const STALL: Ort = { x: 14, y: 9 } // 3 × 3 Kacheln
+export const HUHN_PLAETZE: Ort[] = [{ x: 13, y: 10 }, { x: 17, y: 10 }, { x: 13, y: 12 }, { x: 16, y: 12 }]
+// Scheune von oben mit offenem Dach; unten in der Mitte ein Durchgang ohne Tür (2 Kacheln).
+// Heu und Trog stehen hinten an der Wand, die Kühe davor, ganz unten bleibt ein Gang frei.
+export const SCHEUNE: Rechteck = { x0: 13, y0: 2, x1: 18, y1: 7 }
+export const TUER: Ort = { x: 15, y: 7 }
+export const HEU: Ort = { x: 14, y: 3 } // 2 × 1
+export const TROG: Ort = { x: 16, y: 3 } // 2 × 1
+export const KUH_PLAETZE: Ort[] = [{ x: 14, y: 4 }, { x: 16, y: 4 }, { x: 9, y: 8 }, { x: 9, y: 10 }] // je 2 × 2; erst innen, dann davor
 export const BAEUME: (Ort & { grafik: 'baum' | 'baum_klein' })[] = [
   { grafik: 'baum', x: 8, y: 1 },
   { grafik: 'baum_klein', x: 1, y: 7 },
-  { grafik: 'baum_klein', x: 18, y: 4 },
+  { grafik: 'baum_klein', x: 10, y: 2 },
   { grafik: 'baum_klein', x: 4, y: 12 },
 ]
 export const BRUNNEN: Ort = { x: 8, y: 6 } // 2 × 2
 export const DEKO_PLAETZE: Ort[] = [
   { x: 8, y: 4 }, { x: 10, y: 5 }, { x: 11, y: 3 }, { x: 2, y: 8 }, { x: 3, y: 10 }, { x: 5, y: 9 },
   { x: 7, y: 9 }, { x: 6, y: 11 }, { x: 8, y: 12 }, { x: 19, y: 8 }, { x: 18, y: 10 }, { x: 11, y: 11 },
-  { x: 6, y: 7 }, { x: 4, y: 7 }, { x: 12, y: 6 }, { x: 16, y: 6 }, { x: 18, y: 7 }, { x: 2, y: 5 },
+  { x: 6, y: 7 }, { x: 4, y: 7 }, { x: 12, y: 6 }, { x: 17, y: 9 }, { x: 19, y: 9 }, { x: 2, y: 5 },
 ]
 export const FIGUR_START: Ort = { x: 7, y: 6 }
 // Kleine Halme und Blümchen auf dem Gras (nur innen, nie am Rand)
 export const GRAS_DEKO: (Ort & { nummer: number })[] = [
-  { x: 7, y: 3 }, { x: 10, y: 3 }, { x: 4, y: 9 }, { x: 13, y: 7 }, { x: 11, y: 6 }, { x: 3, y: 7 },
-  { x: 8, y: 10 }, { x: 15, y: 6 }, { x: 11, y: 8 }, { x: 6, y: 10 },
+  { x: 7, y: 3 }, { x: 10, y: 3 }, { x: 4, y: 9 }, { x: 7, y: 8 }, { x: 11, y: 6 }, { x: 3, y: 7 },
+  { x: 8, y: 10 }, { x: 12, y: 8 }, { x: 11, y: 8 }, { x: 6, y: 10 },
 ].map((o, i) => ({ ...o, nummer: [0, 3, 5, 1, 9, 7, 4, 11, 2, 10][i] }))
 
 /** Teil eines 3 × 3-Rahmens (0 links oben … 4 Mitte … 8 rechts unten) für die Kachel (x, y) im Rechteck r */
@@ -131,3 +132,56 @@ export function belegung(): Map<string, string> {
   setze('Figur', FIGUR_START)
   return belegt
 }
+
+export type Stand = { deko: number; brunnen: boolean; huehner: number; kuehe: number }
+const flaeche = (o: Ort, breite: number, hoehe: number): Ort[] =>
+  Array.from({ length: breite * hoehe }, (_, i) => ({ x: o.x + (i % breite), y: o.y + Math.floor(i / breite) }))
+/** Kacheln, die ein Tier belegt (Huhn 1 × 1, Kuh 2 × 2) */
+export const tierFlaeche = (o: Ort, groesse: number) => flaeche(o, groesse, groesse)
+
+/** Kacheln, durch die die Figur nicht laufen kann (Wasser zählt extra) */
+export function hindernisse(s: Stand): Set<string> {
+  // Felder sind Boden: darauf darf man gehen (sonst kommt man an die mittleren nicht heran)
+  const liste: Ort[] = DEKO_PLAETZE.slice(0, s.deko)
+  for (const b of BAEUME) liste.push(...flaeche(b, b.grafik === 'baum' ? 2 : 1, 2))
+  if (s.brunnen) liste.push(...flaeche(BRUNNEN, 2, 2))
+  if (s.huehner) liste.push(...flaeche(STALL, 3, 3), ...HUHN_PLAETZE.slice(0, s.huehner))
+  if (s.kuehe) {
+    liste.push(...scheunenKacheln().filter((k) => k.nummer !== 4), ...flaeche(HEU, 2, 1), ...flaeche(TROG, 2, 1))
+    for (const k of KUH_PLAETZE.slice(0, s.kuehe)) liste.push(...tierFlaeche(k, 2))
+  }
+  return new Set(liste.map((o) => `${o.x},${o.y}`))
+}
+
+/**
+ * Kürzester Weg (8 Richtungen, keine Ecken abschneiden) von `start` zur nächsten Kachel, für die `ziel` gilt.
+ * Ergebnis ohne die Startkachel; null, wenn kein Weg da ist.
+ */
+export function weg(start: Ort, ziel: (o: Ort) => boolean, besetzt: Set<string>): Ort[] | null {
+  const frei = (x: number, y: number) => istGras(x, y) && !besetzt.has(`${x},${y}`)
+  const herkunft = new Map<string, string | null>([[`${start.x},${start.y}`, null]])
+  const schlange: Ort[] = [start]
+  for (let i = 0; i < schlange.length; i++) {
+    const o = schlange[i]
+    if (ziel(o)) {
+      const pfad: Ort[] = []
+      for (let k: string | null = `${o.x},${o.y}`; k && herkunft.get(k) !== null; k = herkunft.get(k)!) {
+        const [x, y] = k.split(',').map(Number)
+        pfad.unshift({ x, y })
+      }
+      return pfad
+    }
+    for (let dy = -1; dy <= 1; dy++)
+      for (let dx = -1; dx <= 1; dx++) {
+        const x = o.x + dx, y = o.y + dy, k = `${x},${y}`
+        if ((!dx && !dy) || herkunft.has(k) || !frei(x, y)) continue
+        if (dx && dy && (!frei(o.x + dx, o.y) || !frei(o.x, o.y + dy))) continue
+        herkunft.set(k, `${o.x},${o.y}`)
+        schlange.push({ x, y })
+      }
+  }
+  return null
+}
+
+/** Ziel „neben einem Ding“: freie Kachel, die waagrecht oder senkrecht an eine der Kacheln grenzt */
+export const nebenan = (kacheln: Ort[]) => (o: Ort) => kacheln.some((k) => Math.abs(k.x - o.x) + Math.abs(k.y - o.y) === 1)

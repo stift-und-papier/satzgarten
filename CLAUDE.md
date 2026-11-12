@@ -214,3 +214,9 @@
   Kuh-Gehege mit Zaun entfällt. Feld oder Tier antippen öffnet ein **Menü** im Papier-Look (UI Pack Basic: Rahmen, Plätze, X-Knopf),
   scrollt bei vielen Gegenständen, schließt mit X, Esc oder Tippen daneben. Aufgabe 39: Füttern mit Geerntetem (einmal pro Tag je Tier,
   Herz-Sprechblase aus den Emotes der Lehrkraft), gibt sofort Ei bzw. Milch; Verkaufen im Vorrat (Ei 10, Milch 20 Münzen, gießt nicht).
+- 2026-11-12 (Lehrkraft): Figur läuft **nicht durch Gebäude, Bäume, Deko und Tiere** (Wegsuche `weg` in `landschaft.ts`; Felder sind Boden
+  und begehbar, sonst kämen mittlere Felder nicht in Reichweite). **Scheune oben rechts** ohne Tür (offener Durchgang), Heu und Trog hinten
+  an der Wand, Kühe davor, Gang frei; loses Heu entfernt. **Hühnerstall unten rechts**. Spielfigur = „test character“ aus dem
+  Sprout Lands Sorry Pack (8 Richtungen). **Vorrat** unter der Farm in Kästchen mit Anzahl oben rechts. **Verkaufen nur im Shop**,
+  auch Geerntetes. Teurere Samen geben teurere Ernte; Futter-Güte 1 bis 3 gibt Ei/Rosa Ei/Blaues Ei bzw. Milch/Erdbeermilch/
+  Blaubeermilch (Preise von Claude, Tabelle in `docs/SPEC-felder.md`). Ein Tier frisst weiter einmal am Tag.

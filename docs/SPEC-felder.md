@@ -25,7 +25,15 @@ Antworten der Lehrkraft vom 2026-11-12 auf die offenen Fragen 8, 9 und 12. Zahle
 - Huhn und Kuh aus dem Shop werden auf die Farm gestellt.
 - **Füttern** verbraucht 1 Geerntetes aus dem Vorrat. Das Tier zeigt eine Sprechblase mit Herz (keine Fress-Animation)
   und gibt danach **einmal pro Tag** ein Ei (Huhn) bzw. Milch (Kuh).
-- Eier und Milch kann man **verkaufen**: Ei 10 Münzen, Milch 20 Münzen. Diese Münzen zählen auch fürs Freischalten.
+- **Verkaufen** geht nur im Shop (Lehrkraft 2026-11-12): Geerntetes und Eier/Milch. Verkaufs-Münzen zählen fürs Freischalten, gießen aber nicht.
+- Teurere Samen geben teurere Ernte (Güte 1 bis 3). Füttern mit besserer Ernte gibt besseres Ei bzw. bessere Milch:
+
+  | Güte | Ernte (Verkauf) | Huhn gibt | Kuh gibt |
+  |---|---|---|---|
+  | 1 | Karotte, Salat 20, Rettich 25 | Ei 25 | Milch 35 |
+  | 2 | Tomate, Weizen 35, Gurke, Blumenkohl, Tulpe, Rose 40, Rote Bete 45 | Rosa Ei 50 | Erdbeermilch 65 |
+  | 3 | Aubergine 55, Kürbis, Sternfrucht 60 | Blaues Ei 80 | Blaubeermilch 100 |
+
 - Ungefüttert passiert nichts Schlimmes, das Tier gibt nur nichts.
 
 ## Belohnung für Lernfortschritt (offene Frage 12)

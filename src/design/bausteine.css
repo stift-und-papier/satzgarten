@@ -538,8 +538,10 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   border: 2px solid currentColor; line-height: 1;
 }
 .farm-herz { position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%); }
-.farm-figur { position: absolute; pointer-events: none; image-rendering: pixelated; background-repeat: no-repeat; background-position-x: 0; }
-.farm-figur--laeuft { animation: farm-laufen 0.6s steps(4) infinite; }
+.farm-figur { position: absolute; pointer-events: none; image-rendering: pixelated; background-repeat: no-repeat; }
+/* Figur: Laufbilder untereinander (Zeile 1 bis 3), Richtung als Spalte */
+.farm-figur--laeuft { animation: farm-gehen 0.45s steps(3) infinite; }
+@keyframes farm-gehen { from { background-position-y: 0; } to { background-position-y: var(--lauf); } }
 @keyframes farm-laufen { to { background-position-x: var(--lauf); } }
 /* Tiere bewegen sich ruhig auf der Stelle (Huhn 4, Kuh 3 Bilder) */
 .farm-tier > .sprite { animation: farm-laufen 1.6s steps(4) infinite; }
@@ -548,7 +550,9 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   .farm-figur, .farm-tier > .sprite { animation: none !important; transition: none !important; }
 }
 .farm-vorrat { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-sm); }
-.farm-vorrat li { display: inline-flex; align-items: center; gap: var(--space-2xs); font-weight: 700; }
+.farm-vorrat li { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 6rem; text-align: center; font-weight: 700; }
+/* im Vorrat steht die Anzahl klein oben rechts im Kästchen */
+.farm-vorrat .farm-menue__anzahl, .farm-menue__bild--oben .farm-menue__anzahl { top: 6px; bottom: auto; }
 
 /* Menü im Papier-Look aus dem UI Pack (Rahmen 3-fach, pixelgenau) */
 .farm-menue {

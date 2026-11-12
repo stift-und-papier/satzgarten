@@ -16,6 +16,24 @@ export const SORTE_NAME: Record<string, string> = {
   weizen: 'Weizen', kuerbis: 'Kürbis', rettich: 'Rettich', rose: 'Rose', rote_bete: 'Rote Bete', sternfrucht: 'Sternfrucht', gurke: 'Gurke',
 }
 
+// Eier und Milch in drei Güten (je nach Futter); Namen wie in shop_artikel
+export const ERZEUGNIS: Record<string, { name: string; grafik: Grafik }> = {
+  ei: { name: 'Ei', grafik: GRAFIK.ei },
+  ei_rosa: { name: 'Rosa Ei', grafik: GRAFIK.ei_rosa },
+  ei_blau: { name: 'Blaues Ei', grafik: GRAFIK.ei_blau },
+  milch: { name: 'Milch', grafik: GRAFIK.milch },
+  milch_erdbeer: { name: 'Erdbeermilch', grafik: GRAFIK.milch_erdbeer },
+  milch_blaubeer: { name: 'Blaubeermilch', grafik: GRAFIK.milch_blaubeer },
+}
+
+/** Bild und Name für etwas im Vorrat: Geerntetes oder Ei/Milch */
+export function vorratDing(sorte: string): { name: string; grafik: Grafik; nummer: number } {
+  if (sorte in SORTE) return { name: SORTE_NAME[sorte], grafik: GRAFIK.saatgut, nummer: SORTE[sorte] * 2 + 1 }
+  const e = ERZEUGNIS[sorte]
+  if (!e) throw new Error(`Kein Bild für ${sorte}`)
+  return { ...e, nummer: 0 }
+}
+
 export type Farm = {
   felder: number
   pflanzen: { feld: number; sorte: string; bild: number; reif: boolean }[]

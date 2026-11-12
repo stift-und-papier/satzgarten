@@ -36,9 +36,7 @@ const BILDER = [
   { name: 'gras', datei: SPRITES + 'Tilesets/ground tiles/New tiles/Grass_tiles_v2.png', x: 0, y: 0, breite: 176, hoehe: 80, bildBreite: 16, bildHoehe: 16 },
   // Scheune von oben (offenes Dach wie im Titelbild): Wand-Rahmen (9 Teile), offene Tür, Heu, Wassertrog
   { name: 'wand', datei: SPRITES + 'Tilesets/Building parts/Wooden_House_Walls_Tilset.png', x: 0, y: 0, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
-  { name: 'tuer_offen', datei: SPRITES + 'Tilesets/Building parts/door animation sprites.png', x: 204, y: 16, breite: 22, hoehe: 16 },
   { name: 'heu', datei: SPRITES + 'Tilesets/Building parts/Animal Structures/Barn structures.png', x: 0, y: 32, breite: 32, hoehe: 16 },
-  { name: 'heu_lose', datei: SPRITES + 'Tilesets/Building parts/Animal Structures/Barn structures.png', x: 16, y: 48, breite: 16, hoehe: 16 },
   { name: 'trog', datei: SPRITES + 'Tilesets/Building parts/Animal Structures/Water tray.png', x: 0, y: 0, breite: 32, hoehe: 16 },
   // Herz-Sprechblase: eigenes Werk der Lehrkraft (bubble emotes)
   { name: 'herz', datei: 'assets/bubble emotes july update.png', x: 32, y: 96, breite: 16, hoehe: 16 },
@@ -52,13 +50,19 @@ const BILDER = [
   { name: 'baum', datei: SPRITES + 'Objects/Trees, stumps and bushes.png', x: 16, y: 0, breite: 32, hoehe: 32 },
   { name: 'baum_klein', datei: SPRITES + 'Objects/Trees, stumps and bushes.png', x: 0, y: 0, breite: 16, hoehe: 32 },
   { name: 'stall', datei: SPRITES + 'Tilesets/Building parts/Animal Structures/Chikcen_Houses.png', x: 48, y: 80, breite: 48, hoehe: 48 },
-  // Spielfigur: Zeilen = runter, hoch, links, rechts; je 4 Laufbilder
-  { name: 'figur', datei: SPRITES + 'Characters/Basic Charakter Spritesheet.png', bildBreite: 48, bildHoehe: 48 },
+  // Spielfigur (Lehrkraft 2026-11-12: „test character“ aus dem Sprout Sorry pack): Spalten = 8 Richtungen (hoch, rechts oben, rechts,
+  // rechts unten, runter, links unten, links, links oben), Zeilen = Laufbild 1, Stehen, Laufbild 2
+  { name: 'figur', datei: 'assets/entpackt/Sprout Sorry pack/Tests/free_character_spritesheet_by-cupnooble.png', bildBreite: 16, bildHoehe: 32 },
   { name: 'brunnen', datei: SPRITES + 'Objects/Water well.png' },
   { name: 'huhn', datei: SPRITES + 'Animals/Chicken/chicken default.png', x: 0, y: 0, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   { name: 'kuh', datei: SPRITES + 'Animals/Cow/Light cow animations.png', x: 0, y: 0, breite: 96, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  // Erzeugnisse in drei Güten (je nach Futter): Ei, rosa Ei, blaues Ei; Milch, Erdbeermilch, Blaubeermilch
   { name: 'ei', datei: SPRITES + 'Objects/Items/egg-items.png', x: 0, y: 0, breite: 16, hoehe: 16 },
+  { name: 'ei_rosa', datei: SPRITES + 'Objects/Items/egg-items.png', x: 32, y: 0, breite: 16, hoehe: 16 },
+  { name: 'ei_blau', datei: SPRITES + 'Objects/Items/egg-items.png', x: 64, y: 0, breite: 16, hoehe: 16 },
   { name: 'milch', datei: SPRITES + 'Objects/Items/milk-items.png', x: 0, y: 16, breite: 16, hoehe: 16 },
+  { name: 'milch_erdbeer', datei: SPRITES + 'Objects/Items/milk-items.png', x: 0, y: 112, breite: 16, hoehe: 16 },
+  { name: 'milch_blaubeer', datei: SPRITES + 'Objects/Items/milk-items.png', x: 0, y: 80, breite: 16, hoehe: 16 },
 ]
 
 mkdirSync('src/grafik', { recursive: true })

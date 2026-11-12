@@ -859,21 +859,35 @@ begin
       raise exception 'Block 11.2: zweimal am Tag gefüttert';
     exception when raise_exception then if sqlerrm !~ 'satt' then raise; end if;
     end;
-    begin
-      perform public.verkaufen(t_eule, 'karotte');
-      raise exception 'Block 11.3: Karotte verkauft';
-    exception when raise_exception then if sqlerrm !~ 'nicht zum Verkaufen' then raise; end if;
-    end;
+    -- Verkaufsliste: Ernte und Ei mit Preis
+    v := public.schueler_verkauf(t_eule);
+    if not (v -> 'vorrat' @> '[{"sorte":"karotte","anzahl":1,"preis":20},{"sorte":"ei","anzahl":1,"preis":25}]') then
+      raise exception 'Block 11.3: Verkaufsliste falsch: %', v;
+    end if;
     n := n + 2;
+    v := public.verkaufen(t_eule, 'karotte');
     v := public.verkaufen(t_eule, 'ei');
-    if (v ->> 'kontostand')::int <> 10 or v -> 'vorrat' @> '[{"sorte":"ei"}]' then raise exception 'Block 11.4: Verkauf falsch: %', v; end if;
+    if (v ->> 'kontostand')::int <> 45 or jsonb_array_length(v -> 'vorrat') <> 0 then raise exception 'Block 11.4: Verkauf falsch: %', v; end if;
     begin
       perform public.verkaufen(t_eule, 'ei');
       raise exception 'Block 11.4: Ei doppelt verkauft';
-    exception when raise_exception then null;
+    exception when raise_exception then if sqlerrm !~ 'nicht zum Verkaufen' then raise; end if;
     end;
     n := n + 1;
     reset role;
+    -- Besseres Futter gibt besseres Ei (Aubergine → blaues Ei)
+    declare v_huhn2 uuid;
+    begin
+      insert into public.besitz (schueler_id, artikel_id, preis) values (v_eule, 'huhn', 0) returning id into v_huhn2;
+      insert into public.vorrat (schueler_id, sorte) values (v_eule, 'aubergine');
+      set local role anon;
+      v := public.fuettern(t_eule, v_huhn2, 'aubergine');
+      if not (v -> 'vorrat' @> '[{"sorte":"ei_blau","anzahl":1}]') then raise exception 'Block 11.7: Güte falsch: %', v; end if;
+      v := public.verkaufen(t_eule, 'ei_blau');
+      if (v ->> 'kontostand')::int <> 125 then raise exception 'Block 11.7: blaues Ei falsch bezahlt: %', v; end if;
+      reset role;
+    end;
+    n := n + 1;
     -- Verkaufs-Münzen gießen nicht
     insert into public.pflanzungen (schueler_id, feld, sorte, gepflanzt_am) values (v_eule, 0, 'karotte', now() - interval '1 minute');
     select public.wachstum(p) into k from public.pflanzungen p where schueler_id = v_eule and feld = 0;

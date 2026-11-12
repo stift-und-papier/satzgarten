@@ -15,6 +15,9 @@ Lizenzbedingungen (Zusammenfassung des `read_me.txt` der Pakete):
   Eigene Projekte mit den Grafiken dürfen weitergegeben werden, auch als Open Source.
 - Namensnennung ist Pflicht (Cup Nooble).
 
+Die Spielfigur (`figur.png`) stammt aus dem **Sprout Lands Sorry Pack** (Ordner „Tests“), ebenfalls von Cup Nooble,
+mit denselben Bedingungen (nicht kommerziell, Paket nicht weitergeben).
+
 Deshalb liegen hier nur einzelne, ausgeschnittene Bilder, die die App wirklich benutzt
 (erzeugt von `scripts/grafik-holen.mjs`), nie die Pakete.
 

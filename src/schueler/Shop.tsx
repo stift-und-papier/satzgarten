@@ -1,10 +1,13 @@
 // Shop: mit Münzen Samen, Tiere, Deko und Felder kaufen (docs/SPEC-muenzen.md). Prüfen und Abziehen macht der Server (kaufen).
+// Oben: Geerntetes, Eier und Milch verkaufen (Lehrkraft 2026-11-12: Verkaufen nur im Shop). Preise kommen vom Server.
 import { useCallback, useEffect, useState } from 'react'
 import { Sprite } from '../gemeinsam/Sprite'
 import { GRAFIK } from '../grafik'
 import { fehlerText } from '../lib/fehler'
-import { artikelBild, type Artikel, type ArtikelArt, type Shop as ShopDaten } from '../lib/shop'
+import { artikelBild, vorratDing, type Artikel, type ArtikelArt, type Shop as ShopDaten } from '../lib/shop'
 import { supabase } from '../lib/supabase'
+
+type Verkauf = { kontostand: number; vorrat: { sorte: string; name: string; anzahl: number; preis: number }[] }
 
 const BEREICHE: { art: ArtikelArt; titel: string }[] = [
   { art: 'samen', titel: 'Samen' },
@@ -19,11 +22,17 @@ export function Shop({ token, nachKauf }: { token: string; nachKauf: () => void 
   const [meldung, setMeldung] = useState<string | null>(null)
   const [frage, setFrage] = useState<string | null>(null) // id des Artikels, der gerade bestätigt wird
   const [beschaeftigt, setBeschaeftigt] = useState(false)
+  const [verkauf, setVerkauf] = useState<Verkauf | null>(null)
 
   const laden = useCallback(async () => {
-    const { data, error } = await supabase.rpc('schueler_shop', { p_token: token })
-    if (error) setFehler(fehlerText(error))
-    else setDaten(data as ShopDaten)
+    const [shop, liste] = await Promise.all([
+      supabase.rpc('schueler_shop', { p_token: token }),
+      supabase.rpc('schueler_verkauf', { p_token: token }),
+    ])
+    const error = shop.error ?? liste.error
+    if (error) return setFehler(fehlerText(error))
+    setDaten(shop.data as ShopDaten)
+    setVerkauf(liste.data as Verkauf)
   }, [token])
 
   useEffect(() => {
@@ -38,6 +47,17 @@ export function Shop({ token, nachKauf }: { token: string; nachKauf: () => void 
     setFrage(null)
     if (error) return setFehler(fehlerText(error))
     setMeldung(`Gekauft: ${a.name}! Das kommt bald auf deine Farm.`)
+    await laden()
+    nachKauf()
+  }
+
+  async function verkaufen(v: Verkauf['vorrat'][number]) {
+    setBeschaeftigt(true)
+    setFehler(null)
+    const { error } = await supabase.rpc('verkaufen', { p_token: token, p_sorte: v.sorte })
+    setBeschaeftigt(false)
+    if (error) return setFehler(fehlerText(error))
+    setMeldung(`Verkauft: ${v.name}. +${v.preis} Münzen für dich!`)
     await laden()
     nachKauf()
   }
@@ -61,6 +81,32 @@ export function Shop({ token, nachKauf }: { token: string; nachKauf: () => void 
           <span className="rueckmeldung__zeichen" aria-hidden="true">!</span>
           {fehler}
         </p>
+      )}
+      {verkauf && verkauf.vorrat.length > 0 && (
+        <section className="karte">
+          <h2>Verkaufen</h2>
+          <p>Bessere Ernte bringt mehr Münzen. Füttere deine Tiere damit, dann geben sie besondere Eier und Milch.</p>
+          <ul className="shop-raster">
+            {verkauf.vorrat.map((v) => {
+              const d = vorratDing(v.sorte)
+              return (
+                <li key={v.sorte} className="shop-artikel">
+                  <span className="farm-menue__bild farm-menue__bild--oben">
+                    <Sprite grafik={d.grafik} nummer={d.nummer} mal={3} />
+                    <span className="farm-menue__anzahl">{v.anzahl}</span>
+                  </span>
+                  <strong>{v.name}</strong>
+                  <span className="muenzen-preis">
+                    <Sprite grafik={GRAFIK.muenze} mal={1} /> {v.preis}
+                  </span>
+                  <button type="button" className="knopf" disabled={beschaeftigt} onClick={() => void verkaufen(v)}>
+                    Verkaufen
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
       )}
       {BEREICHE.map(({ art, titel }) => {
         const angebot = daten.angebot.filter((a) => a.art === art && a.preis > 0)

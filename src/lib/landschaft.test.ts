@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { belegung, blobTeil, GRAS_DEKO, grundKacheln, HEU, istGras, KUH_PLAETZE, SCHEUNE, SPALTEN, TROG, ZEILEN } from './landschaft'
+import {
+  belegung, blobTeil, DEKO_PLAETZE, FELD_PLAETZE, FIGUR_START, GRAS_DEKO, grundKacheln, HEU, hindernisse, HUHN_PLAETZE, istGras, KUH_PLAETZE,
+  nebenan, SCHEUNE, SPALTEN, tierFlaeche, TROG, weg, ZEILEN,
+} from './landschaft'
 
 describe('Landschaft', () => {
   it('nichts überdeckt sich, alles liegt auf Gras', () => {
@@ -25,5 +28,23 @@ describe('Landschaft', () => {
   })
   it('Hintergrund deckt jede Kachel mit Wasser', () => {
     expect(grundKacheln().filter((k) => k.grafik === 'wasser')).toHaveLength(SPALTEN * ZEILEN)
+  })
+  it('mit allem gekauft erreicht die Figur jedes Feld und jedes Tier (auch in der Scheune)', () => {
+    const besetzt = hindernisse({ deko: DEKO_PLAETZE.length, brunnen: true, huehner: 4, kuehe: 4 })
+    expect(besetzt.has(`${FIGUR_START.x},${FIGUR_START.y}`)).toBe(false)
+    const ziele = [
+      ...FELD_PLAETZE.map((o) => [o]),
+      ...HUHN_PLAETZE.map((o) => tierFlaeche(o, 1)),
+      ...KUH_PLAETZE.map((o) => tierFlaeche(o, 2)),
+    ]
+    for (const z of ziele) expect(weg(FIGUR_START, nebenan(z), besetzt), JSON.stringify(z[0])).not.toBeNull()
+  })
+  it('Weg geht um Hindernisse herum und schneidet keine Ecken', () => {
+    const besetzt = new Set(['4,6', '5,5'])
+    const pfad = weg({ x: 4, y: 5 }, (o) => o.x === 5 && o.y === 6, besetzt)!
+    expect(pfad.at(-1)).toEqual({ x: 5, y: 6 })
+    expect(pfad.length).toBeGreaterThan(1) // diagonal wäre zwischen den beiden Hindernissen durch
+    expect(pfad.some((o) => besetzt.has(`${o.x},${o.y}`))).toBe(false)
+    expect(weg({ x: 4, y: 5 }, (o) => o.x === 0 && o.y === 0, besetzt)).toBeNull() // Wasser
   })
 })

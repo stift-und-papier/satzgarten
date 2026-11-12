@@ -14,9 +14,7 @@ import deko_katze_blau from './deko_katze_blau.png'
 import acker from './acker.png'
 import gras from './gras.png'
 import wand from './wand.png'
-import tuer_offen from './tuer_offen.png'
 import heu from './heu.png'
-import heu_lose from './heu_lose.png'
 import trog from './trog.png'
 import herz from './herz.png'
 import menue_rahmen from './menue_rahmen.png'
@@ -32,7 +30,11 @@ import brunnen from './brunnen.png'
 import huhn from './huhn.png'
 import kuh from './kuh.png'
 import ei from './ei.png'
+import ei_rosa from './ei_rosa.png'
+import ei_blau from './ei_blau.png'
 import milch from './milch.png'
+import milch_erdbeer from './milch_erdbeer.png'
+import milch_blaubeer from './milch_blaubeer.png'
 
 export const GRAFIK = {
   muenze: { url: muenze, breite: 24, hoehe: 24, bildBreite: 24, bildHoehe: 24 },
@@ -50,9 +52,7 @@ export const GRAFIK = {
   acker: { url: acker, breite: 176, hoehe: 80, bildBreite: 16, bildHoehe: 16 },
   gras: { url: gras, breite: 176, hoehe: 80, bildBreite: 16, bildHoehe: 16 },
   wand: { url: wand, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
-  tuer_offen: { url: tuer_offen, breite: 22, hoehe: 16, bildBreite: 22, bildHoehe: 16 },
   heu: { url: heu, breite: 32, hoehe: 16, bildBreite: 32, bildHoehe: 16 },
-  heu_lose: { url: heu_lose, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   trog: { url: trog, breite: 32, hoehe: 16, bildBreite: 32, bildHoehe: 16 },
   herz: { url: herz, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   menue_rahmen: { url: menue_rahmen, breite: 106, hoehe: 122, bildBreite: 106, bildHoehe: 122 },
@@ -63,10 +63,14 @@ export const GRAFIK = {
   baum: { url: baum, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   baum_klein: { url: baum_klein, breite: 16, hoehe: 32, bildBreite: 16, bildHoehe: 32 },
   stall: { url: stall, breite: 48, hoehe: 48, bildBreite: 48, bildHoehe: 48 },
-  figur: { url: figur, breite: 192, hoehe: 192, bildBreite: 48, bildHoehe: 48 },
+  figur: { url: figur, breite: 128, hoehe: 96, bildBreite: 16, bildHoehe: 32 },
   brunnen: { url: brunnen, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   huhn: { url: huhn, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   kuh: { url: kuh, breite: 96, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   ei: { url: ei, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  ei_rosa: { url: ei_rosa, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  ei_blau: { url: ei_blau, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   milch: { url: milch, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  milch_erdbeer: { url: milch_erdbeer, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  milch_blaubeer: { url: milch_blaubeer, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
 } as const
