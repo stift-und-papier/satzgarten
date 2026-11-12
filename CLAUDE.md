@@ -182,3 +182,6 @@
 - 2026-11-12 (Lehrkraft): „Große Bereiche“ heißen in der Lehrkraft-Ansicht **Kernkompetenzen**. „Mein Lernweg“ zeigt je Rückmeldung eine
   Tulpe aus Sprout Lands (`GRAFIK.blume`, 4 Stufen): erste Ergebnisse = Samen, dranbleiben = Sprössling, wird besser = wächst,
   deutlich besser = blüht.
+- 2026-11-12 (Lehrkraft): Lernstand mit Kernkompetenzen und Tulpen-Lernweg freigegeben – **Haltepunkt 7 erreicht**. Weiter mit Phase 8.
+  Münzen (`docs/SPEC-muenzen.md`): nach Sternen ★ 10 / ★★ 15 / ★★★ 20, im 2. Versuch die Hälfte, nach „Lösung ansehen“ nichts;
+  je Aufgabe einmal pro Tag. Erklärseiten einmalig 5 Münzen. Shop schaltet nach insgesamt verdienten Münzen nach und nach frei.

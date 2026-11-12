@@ -182,7 +182,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 - [x] **33 Zurücksetzen und Löschen** (S) – hängt an 31 · RPC `ergebnisse_zuruecksetzen` (später auch Münzen und Farm). Prüfen: DB-Test. · Testdaten: Klasse „Lernstand-Demo“ (Realschule, 4 Pseudonyme, erfundene Versuche der letzten 6 Wochen).
 
 ### Haltepunkt 7
-- [ ] Lehrkraft prüft Heatmap, Einzelansicht und Lernweg mit Testdaten.
+- [x] Lehrkraft prüft Heatmap, Einzelansicht und Lernweg mit Testdaten.
 
 ---
 
