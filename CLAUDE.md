@@ -248,4 +248,4 @@
   (Früchte fallen); das Obst kommt danach **direkt in den Vorrat** und liegt nicht auf der Karte (Migration `obst_vorrat`).
 - 2026-11-12 (Lehrkraft): **Monster-Kampf komplett entfernt** (gefällt nicht; Migration `kampf_weg`, Kampf.tsx, Monster-Bilder und craftpix weg).
   Obstbäume mit dem geraden Standbild. Reifes ohne Haken: Sprechblase an der Figur „X kann geerntet werden!“ bzw.
-  „Ich kann heute vieles ernten!“, verschwindet beim ersten Tippen. „Dein nächster Schritt:“ nur mit dem Namen der Aufgabe. Übungen und „Dein nächster Schritt“: Sterne oben rechts im Kasten mit dem Wort „Schwierigkeit“.
+  „Ich kann heute vieles ernten!“ (Bild „dialog box“ aus dem UI Pack, `dialog_blase.png`), verschwindet beim ersten Tippen. „Dein nächster Schritt:“ nur mit dem Namen der Aufgabe. Übungen und „Dein nächster Schritt“: Sterne oben rechts im Kasten mit dem Wort „Schwierigkeit“.

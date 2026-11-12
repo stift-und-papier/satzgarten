@@ -55,6 +55,8 @@ const BILDER = [
   { name: 'heu', datei: SPRITES + 'Tilesets/Building parts/Animal Structures/Barn structures.png', x: 0, y: 32, breite: 32, hoehe: 16 },
   { name: 'trog', datei: SPRITES + 'Tilesets/Building parts/Animal Structures/Water tray.png', x: 0, y: 0, breite: 32, hoehe: 16 },
   // Herz-Sprechblase: eigenes Werk der Lehrkraft (bubble emotes)
+  // Sprechblase der Figur auf der Farm (Dialouge UI, „dialog box“): 30 × 28, Spitze links unten
+  { name: 'dialog_blase', datei: UI + 'Dialouge UI/dialog box.png', x: 7, y: 11, breite: 30, hoehe: 28 },
   { name: 'herz', datei: 'assets/bubble emotes july update.png', x: 32, y: 96, breite: 16, hoehe: 16 },
   // Menü (UI Pack Basic): Papierrahmen, Platz für einen Gegenstand, Schließen-Knopf
   { name: 'menue_rahmen', datei: UI_BASIS + 'Setting menu.png', x: 139, y: 12, breite: 106, hoehe: 122 },

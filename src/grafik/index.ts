@@ -15,6 +15,7 @@ import gras from './gras.png'
 import wand from './wand.png'
 import heu from './heu.png'
 import trog from './trog.png'
+import dialog_blase from './dialog_blase.png'
 import herz from './herz.png'
 import menue_rahmen from './menue_rahmen.png'
 import menue_platz from './menue_platz.png'
@@ -60,6 +61,7 @@ export const GRAFIK = {
   wand: { url: wand, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
   heu: { url: heu, breite: 32, hoehe: 16, bildBreite: 32, bildHoehe: 16 },
   trog: { url: trog, breite: 32, hoehe: 16, bildBreite: 32, bildHoehe: 16 },
+  dialog_blase: { url: dialog_blase, breite: 30, hoehe: 28, bildBreite: 30, bildHoehe: 28 },
   herz: { url: herz, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   menue_rahmen: { url: menue_rahmen, breite: 106, hoehe: 122, bildBreite: 106, bildHoehe: 122 },
   menue_platz: { url: menue_platz, breite: 26, hoehe: 28, bildBreite: 26, bildHoehe: 28 },

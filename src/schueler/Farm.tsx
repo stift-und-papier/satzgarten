@@ -347,9 +347,10 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
 
           {blase && blasenText && (
             <span
-              className={`sprechblase farm-blase${blaseLinks ? ' farm-blase--links' : ''}`}
+              className={`farm-blase${blaseLinks ? ' farm-blase--links' : ''}`}
               style={{
-                [blaseLinks ? 'right' : 'left']: blaseLinks ? (SPALTEN * KACHEL - figur.x + 10) * mal : (figur.x + 10) * mal,
+                ['--bild' as string]: `url(${GRAFIK.dialog_blase.url})`,
+                [blaseLinks ? 'right' : 'left']: blaseLinks ? (SPALTEN * KACHEL - figur.x + 6) * mal : (figur.x + 6) * mal,
                 top: (figur.y - 22) * mal,
               }}
             >

@@ -559,9 +559,21 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .farm-baum__bild[data-faellt] > .sprite { animation: farm-laufen 1.2s steps(12) 1 forwards; }
 /* Boot schaukelt am Ufer (2 Bilder) */
 .farm-boot > .sprite { animation: farm-laufen 1.6s steps(2) infinite; }
-/* Sprechblase neben der Figur (was reif ist); Spitze zeigt zur Figur, rechts von ihr oder (am rechten Rand) links */
-.farm-blase { position: absolute; z-index: 9999; white-space: nowrap; transform: translateY(-50%); pointer-events: none; font-weight: 700; }
-.farm-blase--links::before { left: auto; right: calc(-7 * var(--px)); transform: scaleX(-1); }
+/* Sprechblase neben der Figur (was reif ist); Spitze zeigt zur Figur, rechts von ihr oder (am rechten Rand) links
+   Bild „dialog box“ (Sprout Lands UI) doppelt groß, nur in der Breite gedehnt; Spitze 28 px über der Unterkante.
+   Papier bleibt hell, darum auch im dunklen Modus dunkle Schrift (--color-album-tinte). */
+.farm-blase {
+  position: absolute; z-index: 9999; white-space: nowrap; pointer-events: none;
+  transform: translateY(calc(-100% + 28px)); padding: 16px 14px 18px 22px; line-height: 22px;
+  color: var(--color-album-tinte); font-weight: 700;
+}
+.farm-blase::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; image-rendering: pixelated;
+  border-style: solid; border-width: 0; border-image-source: var(--bild);
+  border-image-slice: 13 5 14 8 fill; border-image-width: 26px 10px 28px 16px;
+}
+.farm-blase--links { padding: 16px 22px 18px 14px; }
+.farm-blase--links::before { transform: scaleX(-1); }
 /* Liegt zum Einsammeln bereit: hüpft leicht, damit man es bemerkt */
 .farm-liegt > .sprite { animation: farm-huepfen 1.2s ease-in-out infinite; }
 @keyframes farm-huepfen { 50% { transform: translateY(-15%); } }
