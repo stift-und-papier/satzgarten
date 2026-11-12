@@ -7,7 +7,7 @@ Antworten der Lehrkraft vom 11. November 2026 (offene Fragen 17–22 der `docs/S
 | Frage | Entscheidung |
 |---|---|
 | Wo? | Über der Aufgabe, nur in **zugewiesenen Paketen**. Das Monster steht der Spielfigur gegenüber (Katzen-Bauer, Sprout Lands). |
-| Treffer | Jede **richtig gelöste Aufgabe** trifft, auch beim **zweiten Versuch**. Falsch = verfehlt. Nach **„Lösung ansehen“** gibt es keinen Treffer für diese Aufgabe. |
+| Treffer | Jede **richtig gelöste Aufgabe** trifft, auch beim **zweiten Versuch**. Falsch = verfehlt. Nach **„Lösung ansehen“** gibt es am selben Tag keinen Treffer für diese Aufgabe, **ab dem nächsten Tag** wieder (Lehrkraft 2026-11-12). |
 | Figur | Der Figur **passiert nie etwas** (keine Herzen, kein Verlieren). |
 | Anzeige | Das Monster hat einen **Lebensbalken ohne Zahlen und Werte**. Er wird mit jeder richtigen Antwort kürzer. Keine Trefferzahl, keine Prozente. |
 | Besiegt | Wenn **alle Aufgaben des Pakets richtig** erledigt sind. Ist das Paket mit falschen Antworten durch, kommt eine freundliche Meldung, es **nochmal zu versuchen**; das Monster bleibt stehen. |

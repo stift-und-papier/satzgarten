@@ -964,7 +964,7 @@ begin
     exception when insufficient_privilege then null;
     end;
     v := (select x -> 'kampf' from jsonb_array_elements(public.schueler_start(t_eule) -> 'pakete') x where x ->> 'id' = v_p::text);
-    if v is distinct from '{"monster":2,"gesamt":2,"treffer":0,"durch":false}'::jsonb then raise exception 'Block 12.2: Start falsch: %', v; end if;
+    if v is distinct from '{"monster":2,"gesamt":2,"treffer":0,"durch":false,"gesperrt":[]}'::jsonb then raise exception 'Block 12.2: Start falsch: %', v; end if;
     n := n + 2;
     -- M-1: erst falsch, dann richtig (zweiter Versuch trifft); M-2: zweimal falsch, Lösung ansehen, dann richtig (kein Treffer)
     perform public.antwort_abgeben(t_eule, v_p, v_k[1], '{"0":"y"}', gen_random_uuid());
@@ -974,8 +974,17 @@ begin
     perform public.loesung_anzeigen(t_eule, v_p, v_k[2]);
     perform public.antwort_abgeben(t_eule, v_p, v_k[2], '{"0":"x"}', gen_random_uuid());
     v := (select x -> 'kampf' from jsonb_array_elements(public.schueler_start(t_eule) -> 'pakete') x where x ->> 'id' = v_p::text);
-    if v is distinct from '{"monster":2,"gesamt":2,"treffer":1,"durch":true}'::jsonb then raise exception 'Block 12.3: Treffer falsch: %', v; end if;
+    if v is distinct from jsonb_build_object('monster', 2, 'gesamt', 2, 'treffer', 1, 'durch', true, 'gesperrt', jsonb_build_array(v_k[2])) then
+      raise exception 'Block 12.3: Treffer falsch: %', v;
+    end if;
     reset role;
+    n := n + 1;
+    -- Lehrkraft: ab dem nächsten Tag trifft die Aufgabe wieder (Lösung „gestern“ angesehen, heute richtig)
+    update public.loesung_angesehen set angesehen_am = angesehen_am - interval '1 day' where aufgabe_id = v_k[2];
+    set local role anon;
+    v := (select x -> 'kampf' from jsonb_array_elements(public.schueler_start(t_eule) -> 'pakete') x where x ->> 'id' = v_p::text);
+    reset role;
+    if (v ->> 'treffer')::int <> 2 or v -> 'gesperrt' <> '[]'::jsonb then raise exception 'Block 12.5: am nächsten Tag kein Treffer: %', v; end if;
     n := n + 1;
     -- Nur Erklärseiten: kein Monster
     delete from public.paket_aufgaben where paket_id = v_p and aufgabe_id = any (v_k);

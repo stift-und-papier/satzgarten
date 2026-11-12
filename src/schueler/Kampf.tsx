@@ -14,8 +14,10 @@ const MONSTER = {
 // Spielfigur steht und schaut schräg nach rechts vorne (Gesicht sichtbar): Zeile 1 (stehen), Spalte 3
 const FIGUR_RECHTS = 8 + 3
 
-export function Kampf({ paket }: { paket: SchuelerPaket }) {
+// aufgabeId: auf der Seite einer Aufgabe; trifft sie heute nicht (Lösung angesehen), sagen wir das statt „Daneben“
+export function Kampf({ paket, aufgabeId }: { paket: SchuelerPaket; aufgabeId?: string }) {
   const k = paket.kampf
+  const gesperrt = !!aufgabeId && !!k?.gesperrt.includes(aufgabeId)
   const versuche = paket.aufgaben.reduce((n, a) => n + a.versuche, 0)
   const vorher = useRef({ treffer: k?.treffer ?? 0, versuche })
   const [wurf, setWurf] = useState<{ art: 'treffer' | 'daneben'; nr: number } | null>(null)
@@ -24,9 +26,9 @@ export function Kampf({ paket }: { paket: SchuelerPaket }) {
   useEffect(() => {
     const alt = vorher.current
     vorher.current = { treffer: k?.treffer ?? 0, versuche }
-    if (!k || versuche <= alt.versuche) return
+    if (!k || versuche <= alt.versuche || (gesperrt && k.treffer <= alt.treffer)) return
     setWurf((w) => ({ art: k.treffer > alt.treffer ? 'treffer' : 'daneben', nr: (w?.nr ?? 0) + 1 }))
-  }, [k, versuche])
+  }, [k, versuche, gesperrt])
 
   if (!k) return null
   const monster = MONSTER[k.monster]
@@ -51,6 +53,7 @@ export function Kampf({ paket }: { paket: SchuelerPaket }) {
       <p role="status">
         {wurf?.art === 'treffer' && !besiegt && 'Treffer! '}
         {wurf?.art === 'daneben' && 'Daneben. '}
+        {gesperrt && 'Du hast bei dieser Aufgabe die Lösung angesehen. Ab morgen trifft sie wieder. '}
         {besiegt
           ? `Geschafft! ${monster.der} ${monster.name} läuft davon.`
           : k.durch

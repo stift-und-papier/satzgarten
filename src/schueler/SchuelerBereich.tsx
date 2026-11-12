@@ -141,7 +141,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
             {aufgabe && ` · Aufgabe ${index + 1} von ${paket.aufgaben.length}`}
           </span>
         </div>
-        <Kampf paket={paket} />
+        <Kampf paket={paket} aufgabeId={aufgabe?.id} />
         {aufgabe ? (
           <AufgabeSeite
             key={aufgabe.id}

@@ -171,7 +171,7 @@ export type SchuelerPaket = {
   beschreibung: string | null
   aufgaben: SchuelerAufgabe[]
   // Monster über der Aufgabe (vom Server); null, wenn das Paket nur Erklärseiten hat
-  kampf: { monster: 1 | 2 | 3; gesamt: number; treffer: number; durch: boolean } | null
+  kampf: { monster: 1 | 2 | 3; gesamt: number; treffer: number; durch: boolean; gesperrt: string[] } | null
 }
 
 /** formate_geuebt: Formate, die schon einmal abgegeben wurden (Einstein erklärt nur neue) */

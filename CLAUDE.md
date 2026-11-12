@@ -228,3 +228,5 @@
   Schleim, Ork (craftpix, Lizenz geprüft: Nutzung erlaubt, einzelne Bilder wie bei Sprout Lands). Spielfigur links, Lebensbalken ohne
   Zahlen (Holz-/Tintenfarben, kein Grün/Rot), Treffer = Figur springt vor, daneben = Monster hüpft zur Seite, besiegt = verblasst und
   läuft davon. Erklärseiten zählen nicht; nur Erklärseiten = kein Monster.
+- 2026-11-12 (Lehrkraft): Nach „Lösung ansehen“ trifft die Aufgabe **ab dem nächsten Tag** wieder (sonst wäre das Monster nie zu besiegen;
+  Migration `monster_morgen`). Am selben Tag sagt die Aufgabenseite das statt „Daneben“.
