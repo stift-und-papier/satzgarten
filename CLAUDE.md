@@ -237,3 +237,6 @@
   einmal gehabt (gekauft, Belohnung, gepflanzt, geerntet), Rest als „?“ ohne Namen (`schueler_album`, `src/schueler/Album.tsx`).
   Seiten aus Papier-Teilen von Humble Gift (`album_seite.png`, zusammengesetzt in `grafik-holen.mjs`), Papier bleibt im dunklen Modus hell
   (`--color-album-tinte`, 4 Varianten, 10,3 / 14,1 : 1).
+- 2026-11-12 (Lehrkraft): Tiere bewegen sich: Kuh läuft in der Scheune hin und her, Hühner laufen ein Stück und picken (`FarmTier.tsx`;
+  nur das Bild wandert wenige Pixel, Tippfläche und Hindernisse bleiben fest; still bei „Bewegung reduzieren“).
+  Shop „Du hast …“ zählt keine gepflanzten (verbrauchten) Samen mehr (Migration `shop_besitz`).

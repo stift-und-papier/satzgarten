@@ -588,11 +588,13 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .farm-figur--laeuft { animation: farm-gehen 0.45s steps(3) infinite; }
 @keyframes farm-gehen { from { background-position-y: 0; } to { background-position-y: var(--lauf); } }
 @keyframes farm-laufen { to { background-position-x: var(--lauf); } }
-/* Tiere bewegen sich ruhig auf der Stelle (Huhn 4, Kuh 3 Bilder) */
-.farm-tier > .sprite { animation: farm-laufen 1.6s steps(4) infinite; }
-.farm-tier[aria-label^='Kuh'] > .sprite { animation-timing-function: steps(3); animation-duration: 1.8s; }
+/* Tiere (FarmTier.tsx): Bild wandert ein Stück vom Platz weg (__weg), schaut nach links/rechts (__bild),
+   Bilder der Zeile laufen durch (--bilder Stück); stehen langsam, laufen und picken schneller */
+.farm-tier__weg, .farm-tier__bild { display: block; }
+.farm-tier__bild > .sprite { animation: farm-laufen calc(var(--bilder) * 0.12s) steps(var(--bilder)) infinite; }
+.farm-tier__bild[data-zustand='steht'] > .sprite { animation-duration: calc(var(--bilder) * 0.45s); }
 @media (prefers-reduced-motion: reduce) {
-  .farm-figur, .farm-tier > .sprite, .farm-liegt > .sprite { animation: none !important; transition: none !important; }
+  .farm-figur, .farm-tier__weg, .farm-tier__bild > .sprite, .farm-liegt > .sprite { animation: none !important; transition: none !important; }
 }
 .farm-vorrat { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 .farm-vorrat li { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 6rem; text-align: center; font-weight: 700; }

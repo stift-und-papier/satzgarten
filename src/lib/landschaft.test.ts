@@ -66,4 +66,9 @@ describe('ablagePlaetze', () => {
     expect(ablagePlaetze([[feld]], new Set(), new Set())[0]).toEqual(feld)
     expect(ablagePlaetze([[feld]], new Set(), new Set([`${feld.x},${feld.y}`]))[0]).not.toEqual(feld)
   })
+  it('eine Kuh allein läuft durch die ganze Scheune: beide Plätze drinnen gesperrt, die Kuh bleibt erreichbar', () => {
+    const besetzt = hindernisse({ deko: 0, brunnen: false, huehner: 0, kuehe: 1 })
+    for (const k of [...tierFlaeche(KUH_PLAETZE[0], 2), ...tierFlaeche(KUH_PLAETZE[1], 2)]) expect(besetzt.has(`${k.x},${k.y}`)).toBe(true)
+    expect(weg(FIGUR_START, nebenan(tierFlaeche(KUH_PLAETZE[0], 2)), besetzt)).not.toBeNull()
+  })
 })

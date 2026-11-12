@@ -12,6 +12,7 @@ import {
 import { artikelBild, SORTE, SORTE_NAME, vorratDing, type Farm as FarmDaten } from '../lib/shop'
 import { einzelbild, type Grafik } from '../lib/sprite'
 import { supabase } from '../lib/supabase'
+import { FarmTier } from './FarmTier'
 
 const TEMPO = 50 // Grafik-Pixel pro Sekunde
 const ruhig = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -168,17 +169,22 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
     bepflanzt,
   )
 
-  function tierKnopf(t: { id: string; art: string }, o: { x: number; y: number }, groesse: number) {
+  // Wie weit das Bild wandern darf: eine Kuh allein in der Scheune nutzt die ganze Breite (der Platz daneben ist dann gesperrt,
+  // siehe hindernisse), zwei Kühe drinnen nur wenig; draußen und Hühner ein kleines Stück.
+  const bereich = (art: string, i: number): [number, number] =>
+    art === 'huhn' ? [-6, 6] : i >= 2 ? [-8, 8] : kuehe.length === 1 ? [0, 2 * KACHEL] : i === 0 ? [-2, 4] : [-4, 2]
+
+  function tierKnopf(t: { id: string; art: string }, o: { x: number; y: number }, groesse: number, i: number) {
     return (
       <button
         key={t.id}
         type="button"
         className="farm-ding farm-tier"
-        style={{ left: px(o.x), top: px(o.y), zIndex: (o.y + groesse) * KACHEL, ['--lauf' as string]: `${-(t.art === 'kuh' ? 96 : 64) * mal}px` }}
+        style={{ left: px(o.x), top: px(o.y), zIndex: (o.y + groesse) * KACHEL }}
         aria-label={`${TIER_NAME[t.art]} füttern`}
         onClick={() => gehe(nebenan(tierFlaeche(o, groesse)), () => setMenue({ art: 'tier', id: t.id }))}
       >
-        <Sprite grafik={t.art === 'kuh' ? GRAFIK.kuh : GRAFIK.huhn} mal={mal} />
+        <FarmTier art={t.art === 'kuh' ? 'kuh' : 'huhn'} mal={mal} von={bereich(t.art, i)[0]} bis={bereich(t.art, i)[1]} />
         {herz === t.id && (
           <span className="farm-herz">
             <Sprite grafik={GRAFIK.herz} mal={mal} titel="Herz" />
@@ -225,8 +231,8 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
             const o = DEKO_PLAETZE[i]
             return <Ding key={i} grafik={b.grafik} nummer={b.nummer} x={px(o.x)} y={px(o.y)} mal={mal} z={(o.y + 1) * KACHEL} />
           })}
-          {huehner.map((t, i) => tierKnopf(t, HUHN_PLAETZE[i], 1))}
-          {kuehe.map((t, i) => tierKnopf(t, KUH_PLAETZE[i], 2))}
+          {huehner.map((t, i) => tierKnopf(t, HUHN_PLAETZE[i], 1, i))}
+          {kuehe.map((t, i) => tierKnopf(t, KUH_PLAETZE[i], 2, i))}
           {daten.liegen.map((d, i) => {
             const o = liegenOrte[i]
             const ding = vorratDing(d.sorte)

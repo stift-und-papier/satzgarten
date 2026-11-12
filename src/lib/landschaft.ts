@@ -148,7 +148,8 @@ export function hindernisse(s: Stand): Set<string> {
   if (s.huehner) liste.push(...flaeche(STALL, 3, 3), ...HUHN_PLAETZE.slice(0, s.huehner))
   if (s.kuehe) {
     liste.push(...scheunenKacheln().filter((k) => k.nummer !== 4), ...flaeche(HEU, 2, 1), ...flaeche(TROG, 2, 1))
-    for (const k of KUH_PLAETZE.slice(0, s.kuehe)) liste.push(...tierFlaeche(k, 2))
+    // eine Kuh allein läuft in der ganzen Scheune hin und her (FarmTier): dann auch den zweiten Platz drinnen sperren
+    for (const k of KUH_PLAETZE.slice(0, s.kuehe === 1 ? 2 : s.kuehe)) liste.push(...tierFlaeche(k, 2))
   }
   return new Set(liste.map((o) => `${o.x},${o.y}`))
 }

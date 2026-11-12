@@ -71,8 +71,8 @@ const BILDER = [
   // rechts unten, runter, links unten, links, links oben), Zeilen = Laufbild 1, Stehen, Laufbild 2
   { name: 'figur', datei: 'assets/entpackt/Sprout Sorry pack/Tests/free_character_spritesheet_by-cupnooble.png', bildBreite: 16, bildHoehe: 32 },
   { name: 'brunnen', datei: SPRITES + 'Objects/Water well.png' },
-  { name: 'huhn', datei: SPRITES + 'Animals/Chicken/chicken default.png', x: 0, y: 0, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
-  { name: 'kuh', datei: SPRITES + 'Animals/Cow/Light cow animations.png', x: 0, y: 0, breite: 96, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  { name: 'huhn', datei: SPRITES + 'Animals/Chicken/chicken default.png', x: 0, y: 0, breite: 128, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
+  { name: 'kuh', datei: SPRITES + 'Animals/Cow/Light cow animations.png', x: 0, y: 0, breite: 256, hoehe: 64, bildBreite: 32, bildHoehe: 32 },
   // Erzeugnisse in drei Güten (je nach Futter): Ei, rosa Ei, blaues Ei; Milch, Erdbeermilch, Blaubeermilch
   { name: 'ei', datei: SPRITES + 'Objects/Items/egg-items.png', x: 0, y: 0, breite: 16, hoehe: 16 },
   { name: 'ei_rosa', datei: SPRITES + 'Objects/Items/egg-items.png', x: 32, y: 0, breite: 16, hoehe: 16 },

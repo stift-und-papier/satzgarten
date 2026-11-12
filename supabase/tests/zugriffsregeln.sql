@@ -1020,6 +1020,16 @@ begin
     end;
     reset role;
     n := n + 4;
+    -- Shop „Du hast …“: gepflanzte (verbrauchte) Samen zählen nicht. Dachs: zwei Karotten-Samen, einer schon gepflanzt.
+    insert into public.besitz (schueler_id, artikel_id, preis, verbraucht_am)
+      select id, 'karotte', 0, x from public.schueler, unnest(array[now(), null]::timestamptz[]) x where pseudonym = 'Dachs-03';
+    set local role anon;
+    v := public.schueler_shop(t_dachs);
+    reset role;
+    if (select (x ->> 'besitz')::int from jsonb_array_elements(v -> 'angebot') x where x ->> 'id' = 'karotte') is distinct from 1 then
+      raise exception 'Block 13.5: Shop zählt verbrauchte Samen: %', v -> 'angebot';
+    end if;
+    n := n + 1;
   end;
 
   raise exception 'ALLE TESTS BESTANDEN (%)', n;
