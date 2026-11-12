@@ -164,3 +164,9 @@
   Schüleransicht `src/schueler/` mit Menüleiste unten (Farm, Übungen, Hilfe; Lernweg und Buch kommen in Phase 7/8). Einstein begrüßt,
   erklärt ein Format, solange es noch nie abgegeben wurde, und sagt den Tipp der Lehrkraft (Texte in `src/schueler/einstein.md`).
   Hilfe-Seite mit Namensnennung (Sprout Lands, TastenHeld). Übungspaket „Übung: alle Formate“ der Klasse „Test“ zugewiesen.
+- 2026-11-12 (Lehrkraft): Phase 6 am iPad getestet – **Haltepunkt 6 erreicht**. Lernstand wie in der Übungswiese: Stufenfarben
+  rot → grün mit Zeichen -- bis ++ (`--color-stufe-*`, nur Lehrkraft), „Mein Lernweg“ mit vier Kategorien in Worten (Texte unter
+  Einstellungen), Höchstpunkte ★ 70 / ★★ 85 / ★★★ 100.
+- 2026-11-12 (Claude, Phase 7): Migration `lernstand` (Berechnung alt, Schwierigkeit = Sterne-Stufe, KC aus der Klasse),
+  Seiten Lernstand der Klasse, Einzelseite zum Drucken, Einstellungen, „Mein Lernweg“ (Menüpunkt Lernweg), Ergebnisse zurücksetzen.
+  Klasse „Test“ steht auf Gymnasium, die Übungsaufgaben haben Realschul-Kompetenzen – darum Testklasse „Lernstand-Demo“ (Realschule).

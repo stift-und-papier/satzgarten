@@ -9,6 +9,8 @@ import { FormatWahl } from './FormatWahl'
 import { KlasseDetail } from './KlasseDetail'
 import { KlassenListe } from './KlassenListe'
 import { Kompetenzen } from './Kompetenzen'
+import { Einstellungen } from './Einstellungen'
+import { KlassenLernstand, SchuelerLernstand } from './Lernstand'
 import { Linkliste } from './Linkliste'
 import { PaketDetail } from './PaketDetail'
 import { PaketListe } from './PaketListe'
@@ -24,14 +26,12 @@ const MENUE: [string, string][] = [
   ['einstellungen', 'Einstellungen'],
 ]
 
-// Platzhalter, bis die Seiten in den nächsten Aufgaben entstehen
-const KOMMT: Record<string, string> = {
-  einstellungen: 'Hier stellen Sie bald zum Beispiel ein, wie oft eine Pflanze gegossen werden muss.',
-}
-
 /** Inhalt zur Adresse #/lehrkraft/<bereich>/<id>/<unterseite> */
 function Inhalt({ pfad }: { pfad: string[] }) {
   const [bereich = 'klassen', id, unterseite] = pfad
+  if (bereich === 'klassen' && id && unterseite === 'lernstand') return <KlassenLernstand key={id} klasseId={id} />
+  if (bereich === 'schueler' && id) return <SchuelerLernstand key={id} schuelerId={id} />
+  if (bereich === 'einstellungen') return <Einstellungen />
   if (bereich === 'klassen' && id && unterseite === 'links') return <Linkliste klasseId={id} />
   if (bereich === 'klassen' && id) return <KlasseDetail klasseId={id} />
   if (bereich === 'klassen') return <KlassenListe />
@@ -45,7 +45,7 @@ function Inhalt({ pfad }: { pfad: string[] }) {
   return (
     <>
       <h1>{titel}</h1>
-      <p>{KOMMT[bereich] ?? 'Diese Seite gibt es nicht. Bitte wählen Sie einen Bereich im Menü.'}</p>
+      <p>Diese Seite gibt es nicht. Bitte wählen Sie einen Bereich im Menü.</p>
     </>
   )
 }
@@ -68,7 +68,7 @@ export function LehrkraftBereich({ pfad }: { pfad: string[] }) {
   if (!sitzung) return <Anmeldung />
 
   return (
-    <LehrkraftRahmen bereich={pfad[0] ?? 'klassen'} email={sitzung.user.email}>
+    <LehrkraftRahmen bereich={pfad[0] === 'schueler' ? 'klassen' : (pfad[0] ?? 'klassen')} email={sitzung.user.email}>
       <Inhalt pfad={pfad} />
     </LehrkraftRahmen>
   )

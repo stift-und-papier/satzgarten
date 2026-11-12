@@ -23,7 +23,12 @@ begin
   insert into auth.users (id, aud, role, email) values
     (c_lk_a, 'authenticated', 'authenticated', 'test-a@example.invalid'),
     (c_lk_b, 'authenticated', 'authenticated', 'test-b@example.invalid');
-  insert into public.einstellungen (owner, guesse_je_stufe) values (c_lk_a, 3), (c_lk_b, 5);
+  -- Einstellungen legt die Datenbank beim Anlegen des Kontos selbst an (Trigger, Phase 7)
+  if (select count(*) from public.einstellungen where owner in (c_lk_a, c_lk_b)) <> 2 then
+    raise exception 'Block 1.0: neue Lehrkräfte bekommen keine Einstellungen';
+  end if;
+  update public.einstellungen set guesse_je_stufe = 3 where owner = c_lk_a;
+  update public.einstellungen set guesse_je_stufe = 5 where owner = c_lk_b;
   insert into public.klassen (id, owner, name, kerncurriculum) values
     (c_kl_a, c_lk_a, 'Test 7a', 'Realschule'), (c_kl_b, c_lk_b, 'Test 7b', 'Gymnasium');
   insert into public.schueler (owner, klasse_id, pseudonym) values
@@ -425,6 +430,115 @@ begin
         where s.pseudonym = 'Fuchs-01' and st.bereich = '') is distinct from 2::smallint
        or v_start::text !~ 'T-zuordnen' or v_start::text ~ 'S-1' then
       raise exception 'Block 6.18: automatischer Aufstieg auf ★★ fehlt: %', v_start;
+    end if;
+    n := n + 1;
+  end;
+
+  -- ---------- 7 Lernstand (Phase 7) ----------
+  -- Eule-02 bearbeitet 8 Aufgaben (★★★, Kompetenz T-2): vor 20–17 Tagen alles falsch, vor 4–1 Tagen alles richtig.
+  -- Rechenbeispiel: Startstand 0 (--); jetzt 100 · (1+0,85+0,85²+0,85³) / (Summe 0,85⁰…0,85⁷) = 65,7 (o); Trend +2 Stufen.
+  declare
+    t_eule text := (select token from public.schueler where pseudonym = 'Eule-02');
+    v_eule uuid := (select id from public.schueler where pseudonym = 'Eule-02');
+    v_dachs uuid := (select id from public.schueler where pseudonym = 'Dachs-03');
+    v_t2 uuid := (select id from public.kompetenzen where owner = c_lk_a and code = 'T-2');
+    v_aufg uuid;
+    v jsonb;
+    i integer;
+    k integer;
+  begin
+    for i in 1..8 loop
+      insert into public.aufgaben (owner, typ, titel, stufe, loesung)
+      values (c_lk_a, 'lueckentext', 'L-' || i, 3, '{"teile":[{"t":"luecke","id":0,"loesungen":["x"]}]}')
+      returning id into v_aufg;
+      insert into public.aufgabe_kompetenzen (aufgabe_id, kompetenz_id) values (v_aufg, v_t2);
+      insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig, bearbeitet_am)
+      values (gen_random_uuid(), v_eule, v_aufg, '{}', '{}', case when i > 4 then 1 else 0 end, i > 4,
+              now() - make_interval(days => case when i > 4 then 9 - i else 25 - i end));
+    end loop;
+    -- zweiter Versuch am selben Tag zählt nicht
+    insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig, bearbeitet_am)
+    values (gen_random_uuid(), v_eule, v_aufg, '{}', '{}', 0, false, now() - interval '1 day' + interval '1 minute');
+
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select l.daten into v from public.lernstand_schueler(v_eule) l where l.kompetenz_id = v_t2;
+    if abs((v ->> 'punkte')::numeric - 65.7) > 0.05 or (v ->> 'stufe')::int <> 2 or (v ->> 'anzahl')::int <> 8
+       or (v ->> 'start_stufe')::int <> 0 or (v ->> 'trend_stufen')::int <> 2 or not (v ->> 'trend_gueltig')::boolean then
+      raise exception 'Block 7.1: Rechenbeispiel stimmt nicht: %', v;
+    end if;
+    n := n + 1;
+    select count(*) into k from public.lernstand_klasse(c_kl_a);
+    if k <> 1 then raise exception 'Block 7.2: Klassen-Lernstand liefert % Zeilen statt 1', k; end if;
+    n := n + 1;
+    select count(*) into k from public.lernstand_klasse(c_kl_b);
+    if k <> 0 then raise exception 'Block 7.3: A sieht den Lernstand der Klasse von B'; end if;
+    select count(*) into k from public.lernstand_schueler(v_dachs);
+    if k <> 0 then raise exception 'Block 7.3: A sieht den Lernstand einer Person von B'; end if;
+    n := n + 1;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into k from public.lernstand_schueler(v_eule);
+    if k <> 0 then raise exception 'Block 7.4: B sieht den Lernstand von Eule (Klasse von A)'; end if;
+    n := n + 1;
+    reset role;
+
+    set local role anon;
+    declare f text;
+    begin
+      foreach f in array array[
+        format('select * from public.lernstand_klasse(%L)', c_kl_a),
+        format('select * from public.lernstand_schueler(%L)', v_eule),
+        format('select public.auswertung(%L, %L, null::public.einstellungen)', v_eule, v_t2),
+        format('select public.ergebnisse_zuruecksetzen(array[%L]::uuid[])', v_eule)
+      ] loop
+        begin
+          execute f;
+          raise exception 'Block 7.5: anon darf ausführen: %', f;
+        exception when insufficient_privilege then null;
+        end;
+      end loop;
+    end;
+    n := n + 1;
+    -- Schüler:innen: Kategorie ja, absolute Werte NIE
+    v := public.schueler_entwicklung(t_eule);
+    if v -> 'kompetenzen' -> 0 ->> 'kategorie' <> 'deutlich' or v ->> 'naechster_schritt' is null
+       or (v -> 'kompetenzen' -> 0 ->> 'geloest')::int <> 4 then
+      raise exception 'Block 7.6: Entwicklung von Eule falsch: %', v;
+    end if;
+    if v::text ~ '"(punkte|stufe|start_|vergleich_|trend_|verlauf|anzahl|prozent)"' or v::text ~ '65[.,]7' then
+      raise exception 'Block 7.7: absolute Werte in schueler_entwicklung: %', v;
+    end if;
+    n := n + 2;
+    begin
+      perform public.schueler_entwicklung('falscher-token-falscher-token-xx');
+      raise exception 'Block 7.8: Entwicklung mit falschem Token';
+    exception when no_data_found then n := n + 1;
+    end;
+    reset role;
+
+    -- Zurücksetzen: nur eigene Schüler:innen; alles auf Anfang außer Pseudonym und fester Stufe
+    insert into public.loesung_angesehen (schueler_id, aufgabe_id) values (v_eule, v_aufg);
+    insert into public.schueler_stufen (owner, schueler_id, bereich, stufe) values (c_lk_a, v_eule, 'Test', 3);
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if public.ergebnisse_zuruecksetzen(array[v_eule]) <> 0 then raise exception 'Block 7.9: B setzt Eule zurück'; end if;
+    reset role;
+    if not exists (select 1 from public.versuche where schueler_id = v_eule) then
+      raise exception 'Block 7.9: Versuche von Eule nach Aufruf durch B weg';
+    end if;
+    n := n + 1;
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if public.ergebnisse_zuruecksetzen(array[v_eule]) <> 1 then raise exception 'Block 7.10: A kann nicht zurücksetzen'; end if;
+    reset role;
+    if exists (select 1 from public.versuche where schueler_id = v_eule)
+       or exists (select 1 from public.loesung_angesehen where schueler_id = v_eule)
+       or exists (select 1 from public.schueler_stufen where schueler_id = v_eule)
+       or (select stufe_manuell from public.schueler where id = v_eule) is distinct from 2::smallint
+       or (select pseudonym from public.schueler where id = v_eule) <> 'Eule-02' then
+      raise exception 'Block 7.10: Zurücksetzen unvollständig oder zu viel gelöscht';
     end if;
     n := n + 1;
   end;

@@ -210,3 +210,52 @@ fieldset.lk-teil { grid-template-columns: minmax(0, 1fr); }
 }
 .lk-trenner:hover { border-color: var(--color-lk-linie); background: var(--color-lk-papier-2); }
 .lk-trenner[aria-pressed='true'] { color: var(--color-lk-aktion-text); background: var(--color-lk-aktion); border-color: var(--color-lk-aktion); }
+
+/* ---------- Lernstand (Phase 7, alt: Übungswiese) ---------- */
+.lk-lernstand { display: grid; gap: var(--space-lg); grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; }
+@media (max-width: 1100px) { .lk-lernstand { grid-template-columns: minmax(0, 1fr); } }
+.lk-stufe {
+  display: inline-flex; align-items: center; justify-content: center; gap: 2px;
+  min-width: 2.75rem; min-height: 2rem; padding: 0 var(--space-2xs); box-sizing: border-box;
+  border-radius: var(--radius-lk); font-weight: 800; font-variant-numeric: tabular-nums;
+}
+.lk-stufe small { font-size: 0.8em; }
+.lk-stufe--wenig { border: 1px dashed var(--color-lk-leise); color: var(--color-lk-leise); }
+.lk-heatmap { border-collapse: collapse; }
+.lk-heatmap th, .lk-heatmap td { padding: 2px; border-bottom: 1px solid var(--color-lk-linie); text-align: center; }
+.lk-heatmap thead th { vertical-align: bottom; font-size: var(--text-klein); color: var(--color-lk-leise); font-weight: 800; }
+.lk-heatmap thead th:not(:first-child) span { display: inline-block; writing-mode: vertical-rl; transform: rotate(180deg); max-height: 9rem; text-align: left; }
+.lk-heatmap tbody th { text-align: left; }
+.lk-heatmap__knopf {
+  min-height: 48px; min-width: 48px; padding: 0 var(--space-xs);
+  border: 0; border-radius: var(--radius-lk); background: none;
+  color: var(--color-lk-tinte); font: inherit; font-weight: 800; cursor: pointer;
+}
+.lk-heatmap__knopf:hover { background: var(--color-lk-papier-2); }
+.lk-heatmap tr[aria-selected='true'] { box-shadow: inset 4px 0 0 var(--color-lk-aktion); background: var(--color-lk-papier-2); }
+.lk-legende { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-sm); color: var(--color-lk-leise); font-size: var(--text-klein); }
+.lk-einzel { display: grid; gap: var(--space-sm); padding: var(--space-md); border: 1px solid var(--color-lk-linie); border-radius: var(--radius-lk); }
+.lk-einzel h2 { margin: 0; }
+.lk-einzel__bereich h3 { margin: var(--space-sm) 0 var(--space-xs); font-size: var(--text-body); }
+.lk-einzel__kompetenz { padding: var(--space-xs) 0; border-top: 1px solid var(--color-lk-linie); break-inside: avoid; }
+.lk-streifen { display: grid; gap: var(--space-2xs); }
+.lk-streifen__name { font-weight: 800; }
+.lk-streifen__bahn {
+  position: relative; height: 2rem; border-radius: var(--radius-lk);
+  background: repeating-linear-gradient(90deg, var(--color-lk-papier-2) 0 calc(20% - 1px), var(--color-lk-linie) calc(20% - 1px) 20%);
+}
+.lk-streifen__fuellung, .lk-streifen__leer {
+  height: 100%; display: flex; align-items: center; justify-content: flex-end; padding: 0 var(--space-xs); box-sizing: border-box;
+  border-radius: var(--radius-lk); font-weight: 800;
+}
+.lk-streifen__leer { justify-content: flex-start; color: var(--color-lk-leise); font-size: var(--text-klein); }
+.lk-streifen__start { position: absolute; top: -3px; bottom: -3px; width: 4px; background: var(--color-lk-tinte); border-radius: 2px; }
+.lk-verlauf { width: 100%; max-width: 30rem; height: auto; }
+.lk-verlauf__grenze { stroke: var(--color-lk-linie); stroke-width: 1; }
+.lk-verlauf__linie { fill: none; stroke: var(--color-lk-aktion); stroke-width: 2; }
+.lk-verlauf__punkt { fill: var(--color-lk-aktion); }
+.lk-verlauf__datum { fill: var(--color-lk-leise); font-size: 9px; font-family: var(--font-body); }
+@media print {
+  .lk-stufe, .lk-streifen__fuellung { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .lk-einzel { border: 0; padding: 0; }
+}

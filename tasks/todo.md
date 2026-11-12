@@ -170,16 +170,16 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 - [x] **29 Hilfe-Seite** (S) – hängt an 24 · Fragen aus `src/schueler/hilfe.md` (alt, angepasst); **Namensnennung** Sprout Lands und TastenHeld. Prüfen: Test Parser (alt); iPad.
 
 ### Haltepunkt 6
-- [ ] **iPad-Test mit Testklasse:** Paket zuweisen, per QR öffnen, alle Formate inkl. Diktat, offline abgeben, Stufen prüfen.
+- [x] **iPad-Test mit Testklasse:** Paket zuweisen, per QR öffnen, alle Formate inkl. Diktat, offline abgeben, Stufen prüfen.
 
 ---
 
 ## Phase 7: Lernstand (`lernstand`)
 
-- [ ] **30 Berechnung und Einstellungen** (M) – hängt an 25 · SQL `gewertete_versuche`, `auswertung`, `stand_bis` (Verfahren wie alt); Seite Einstellungen. Prüfen: DB-Testfälle.
-- [ ] **31 Lernstand der Klasse und Einzelansicht** (M) – hängt an 30 · Heatmap, Einzelansicht mit Verlauf, „Entwicklung drucken“. Prüfen: Testdaten; Druckvorschau.
-- [ ] **32 „Mein Lernweg“** (M) – hängt an 30 · RPC `schueler_entwicklung` (nur Kategorien). Prüfen: **DB-Test: nie Punkte, Stufen, Prozente.**
-- [ ] **33 Zurücksetzen und Löschen** (S) – hängt an 31 · RPC `ergebnisse_zuruecksetzen` (später auch Münzen und Farm). Prüfen: DB-Test.
+- [x] **30 Berechnung und Einstellungen** (M) – hängt an 25 · SQL `gewertete_versuche`, `auswertung`, `stand_bis` (Verfahren wie alt); Seite Einstellungen. Prüfen: DB-Testfälle.
+- [x] **31 Lernstand der Klasse und Einzelansicht** (M) – hängt an 30 · Heatmap, Einzelansicht mit Verlauf, „Entwicklung drucken“. Prüfen: Testdaten; Druckvorschau.
+- [x] **32 „Mein Lernweg“** (M) – hängt an 30 · RPC `schueler_entwicklung` (nur Kategorien). Prüfen: **DB-Test: nie Punkte, Stufen, Prozente.**
+- [x] **33 Zurücksetzen und Löschen** (S) – hängt an 31 · RPC `ergebnisse_zuruecksetzen` (später auch Münzen und Farm). Prüfen: DB-Test. · Testdaten: Klasse „Lernstand-Demo“ (Realschule, 4 Pseudonyme, erfundene Versuche der letzten 6 Wochen).
 
 ### Haltepunkt 7
 - [ ] Lehrkraft prüft Heatmap, Einzelansicht und Lernweg mit Testdaten.

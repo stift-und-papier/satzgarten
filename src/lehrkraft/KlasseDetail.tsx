@@ -7,7 +7,7 @@ import { supabase } from '../lib/supabase'
 import type { Klasse, Schueler } from '../lib/typen'
 
 // alt (Übungswiese), gekürzt: Klasse umbenennen, KC wählen, Pseudonyme anlegen/umbenennen/löschen, Sterne-Stufe fest einstellen.
-// Lernstand und „Ergebnisse zurücksetzen“ kommen in späteren Phasen dazu.
+// Dazu Lernstand (Phase 7) und „Ergebnisse zurücksetzen“ (alt).
 export function KlasseDetail({ klasseId }: { klasseId: string }) {
   const [klasse, setKlasse] = useState<Klasse | null>(null)
   const [schueler, setSchueler] = useState<Schueler[]>([])
@@ -59,6 +59,26 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
   function loeschen(s: Schueler) {
     if (!window.confirm(`${s.pseudonym} wirklich löschen?\n\nDer Link funktioniert dann nicht mehr, alle Ergebnisse sind endgültig weg.`)) return
     void aendern(supabase.from('schueler').delete().eq('id', s.id), `${s.pseudonym} gelöscht.`)
+  }
+
+  // alt (Übungswiese): Ergebnisse zurücksetzen – Pseudonym, Link und fest eingestellte Stufe bleiben.
+  function zuruecksetzen(liste: Schueler[], erfolg: string) {
+    void aendern(supabase.rpc('ergebnisse_zuruecksetzen', { p_schueler: liste.map((s) => s.id) }), erfolg)
+  }
+
+  function einzelnZuruecksetzen(s: Schueler) {
+    const ok = window.confirm(
+      `Ergebnisse von ${s.pseudonym} zurücksetzen?\n\nAlle Antworten werden endgültig gelöscht, die Sterne-Stufe beginnt wieder bei einem Stern (außer einer fest eingestellten). Pseudonym und Link bleiben.`,
+    )
+    if (ok) zuruecksetzen([s], `Ergebnisse von ${s.pseudonym} zurückgesetzt.`)
+  }
+
+  function klasseZuruecksetzen() {
+    if (!klasse) return
+    const eingabe = window.prompt(
+      `Die Ergebnisse aller ${schueler.length} Schüler:innen der Klasse „${klasse.name}“ zurücksetzen?\n\nAlle Antworten werden endgültig gelöscht, die Sterne-Stufen beginnen wieder bei einem Stern (außer fest eingestellten). Pseudonyme und Links bleiben. Zur Bestätigung den Klassennamen eintippen:`,
+    )
+    if (eingabe?.trim() === klasse.name) zuruecksetzen(schueler, `Ergebnisse der Klasse „${klasse.name}“ zurückgesetzt.`)
   }
 
   async function klasseLoeschen() {
@@ -127,6 +147,9 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
             <a className="lk-knopf lk-knopf--haupt" href={`#/lehrkraft/klassen/${klasse.id}/links`}>
               Linkliste mit QR-Codes
             </a>
+            <a className="lk-knopf" href={`#/lehrkraft/klassen/${klasse.id}/lernstand`}>
+              Lernstand der Klasse
+            </a>
           </div>
           <div className="lk-rollen">
             <table className="lk-tabelle">
@@ -135,6 +158,7 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
                   <th>Pseudonym</th>
                   <th>Sterne-Stufe</th>
                   <th>Link</th>
+                  <th>Ergebnisse</th>
                   <th><span className="lk-unsichtbar">Löschen</span></th>
                 </tr>
               </thead>
@@ -176,6 +200,16 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
                         <a className="lk-knopf" href={schuelerLink(s.token)} target="_blank" rel="noreferrer">
                           Öffnen
                         </a>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="lk-knopfreihe">
+                        <a className="lk-knopf" href={`#/lehrkraft/schueler/${s.id}`}>
+                          Lernstand
+                        </a>
+                        <button type="button" className="lk-knopf" onClick={() => einzelnZuruecksetzen(s)}>
+                          Zurücksetzen
+                        </button>
                       </div>
                     </td>
                     <td>
@@ -239,6 +273,19 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
             </div>
           </form>
         )}
+      </section>
+
+      <section className="lk-abschnitt">
+        <h2>Ergebnisse zurücksetzen</h2>
+        <p className="lk-leise">
+          Zum Beispiel am Schuljahresende: Löscht alle Antworten der Klasse endgültig. Sterne-Stufen beginnen wieder bei einem Stern (fest
+          eingestellte bleiben). Pseudonyme und Links bleiben.
+        </p>
+        <div>
+          <button type="button" className="lk-knopf" disabled={schueler.length === 0} onClick={klasseZuruecksetzen}>
+            Ergebnisse der Klasse „{klasse.name}“ zurücksetzen
+          </button>
+        </div>
       </section>
 
       <section className="lk-abschnitt">

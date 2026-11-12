@@ -13,6 +13,7 @@ import type { Loesung, SchuelerAufgabe, SchuelerPaket, SchuelerStart } from '../
 import { neueId } from '../lib/zufall'
 import einsteinMd from './einstein.md?raw'
 import { Hilfe } from './Hilfe'
+import { Lernweg } from './Lernweg'
 import { entwurfLesen, entwurfSpeichern, warteschlangeLesen, warteschlangeSpeichern, type WartenderVersuch } from './speicher'
 
 const EINSTEIN = einsteinTexte(einsteinMd)
@@ -170,6 +171,14 @@ export function SchuelerBereich({ token, pfad }: Props) {
     )
   }
 
+  if (bereich === 'lernweg') {
+    return (
+      <Rahmen basis={basis} aktiv="lernweg">
+        <Lernweg token={token} uebungen={`#${basis}/uebungen`} />
+      </Rahmen>
+    )
+  }
+
   if (bereich === 'hilfe') {
     return (
       <Rahmen basis={basis} aktiv="hilfe">
@@ -319,13 +328,14 @@ function AufgabeSeite({ token, paket, aufgabe, neuesFormat, nachAbgabe, onWarten
   )
 }
 
-const MENUE: { id: 'start' | 'uebungen' | 'hilfe'; symbol: SymbolName; text: string; ziel: string }[] = [
+const MENUE: { id: 'start' | 'uebungen' | 'lernweg' | 'hilfe'; symbol: SymbolName; text: string; ziel: string }[] = [
   { id: 'start', symbol: 'garten', text: 'Farm', ziel: '' },
   { id: 'uebungen', symbol: 'uebungen', text: 'Übungen', ziel: '/uebungen' },
+  { id: 'lernweg', symbol: 'lernweg', text: 'Lernweg', ziel: '/lernweg' },
   { id: 'hilfe', symbol: 'hilfe', text: 'Hilfe', ziel: '/hilfe' },
 ]
 
-// Seite mit Wiese im Hintergrund und Menüleiste unten (Lernweg und Buch kommen in Phase 7 und 8 dazu)
+// Seite mit Wiese im Hintergrund und Menüleiste unten (das Buch kommt in Phase 8 dazu)
 function Rahmen({ basis, aktiv, menue = true, children }: { basis: string; aktiv: string; menue?: boolean; children: ReactNode }) {
   return (
     <div className="garten-seite">
