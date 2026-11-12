@@ -219,4 +219,4 @@
   an der Wand, Kühe davor, Gang frei; loses Heu entfernt. **Hühnerstall unten rechts**. Spielfigur = „test character“ aus dem
   Sprout Lands Sorry Pack (8 Richtungen). **Vorrat** unter der Farm in Kästchen mit Anzahl oben rechts. **Verkaufen nur im Shop**,
   auch Geerntetes. Teurere Samen geben teurere Ernte; Futter-Güte 1 bis 3 gibt Ei/Rosa Ei/Blaues Ei bzw. Milch/Erdbeermilch/
-  Blaubeermilch (Preise von Claude, Tabelle in `docs/SPEC-felder.md`). Ein Tier frisst weiter einmal am Tag.
+  Blaubeermilch (Preise von Claude, von der Lehrkraft bestätigt; Tabelle in `docs/SPEC-felder.md`). Ein Tier frisst weiter einmal am Tag.
