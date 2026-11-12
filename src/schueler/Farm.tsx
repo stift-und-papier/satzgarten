@@ -454,9 +454,6 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
               )
             })}
           </ul>
-          <p className="leise">
-            Verkaufen kannst du <a href={shop}>im Shop</a>.
-          </p>
         </>
       )}
       <div className="knopf-reihe">
