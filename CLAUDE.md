@@ -188,3 +188,6 @@
 - 2026-11-12 (Lehrkraft): Shop leichter zugänglich: freischalten bei 0 / 150 / 400 / 800 / 1500 verdienten Münzen;
   Samen 10–30, Deko 20–100, Huhn 150, Kuh 300. Spec Münzen und Shop freigegeben (Aufgabe 34).
 - 2026-11-12 (Lehrkraft): Doch etwas höher (Mitte): freischalten bei 0 / 200 / 600 / 1200 / 2200; Samen 15–45, Deko 25–150, Huhn 220, Kuh 450.
+- 2026-11-12 (Lehrkraft): Lehrkraft kann Münzen vergeben (Klassenseite: Spalte „Münzen“ zum Auswählen, an Ausgewählte oder alle).
+  Aufgabe 35 gebaut: Migration `muenzen` (`muenz_ereignisse`, `muenzen_fuer_versuch`, `muenzen_schenken`), Kontostand oben auf
+  jeder Schülerseite, „+10 Münzen für dich!“ in der Rückmeldung; Zurücksetzen löscht auch Münzen.

@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { falscheWoerter, vereinheitliche } from '../lib/diktat'
 import type { Antworten, SchuelerAufgabe } from '../lib/typen'
 import type { PruefAntwort } from './AufgabeBearbeiten'
+import { MuenzenPlus } from './MuenzenPlus'
 import { Anweisung } from './Anweisung'
 import { EinsteinSagt } from './Einstein'
 import { Eingabe } from './Eingabe'
@@ -68,6 +69,7 @@ export function DiktatAufgabe({ aufgabe, pruefen, weiter }: Props) {
       {e?.fehlerfrei ? (
         <EinsteinSagt pose="freut-sich">
           <strong>Fehlerfrei – super!</strong> Du hast den ganzen Text ohne einen einzigen Fehler geschrieben.
+          <MuenzenPlus anzahl={ergebnis?.muenzen} />
         </EinsteinSagt>
       ) : e?.richtig ? (
         <div className="rueckmeldung rueckmeldung--richtig" role="status">
@@ -75,6 +77,7 @@ export function DiktatAufgabe({ aufgabe, pruefen, weiter }: Props) {
           <p>
             <strong>Geschafft!</strong> {fehlerSatz} Wenn du es noch genauer schaffst, bekommst du nochmal Münzen.
           </p>
+          <MuenzenPlus anzahl={ergebnis?.muenzen} />
         </div>
       ) : e ? (
         <div className="rueckmeldung rueckmeldung--nochmal" role="status">

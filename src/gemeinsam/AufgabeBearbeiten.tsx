@@ -4,9 +4,10 @@ import { Anweisung } from './Anweisung'
 import { DiktatAufgabe } from './DiktatAnzeige'
 import { EinsteinSagt } from './Einstein'
 import { LueckentextAnzeige } from './LueckentextAnzeige'
+import { MuenzenPlus } from './MuenzenPlus'
 import { Sterne } from './Sterne'
 
-export type PruefAntwort = { ergebnis: Pruefergebnis; rueckmeldung: string | null; versuche: number }
+export type PruefAntwort = { ergebnis: Pruefergebnis; rueckmeldung: string | null; versuche: number; muenzen?: number }
 
 type Props = {
   aufgabe: SchuelerAufgabe
@@ -258,6 +259,7 @@ function AufgabeUeben({ aufgabe, pruefen, loesungHolen, weiter, startAntworten, 
             <p>
               <strong>Richtig! Gut gemacht.</strong> Alle {wort.viele} stimmen.
             </p>
+            <MuenzenPlus anzahl={ergebnis.muenzen} />
           </div>
         ) : (
           <div className="rueckmeldung rueckmeldung--nochmal" role="status">

@@ -3,10 +3,12 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { AufgabeBearbeiten, type PruefAntwort } from '../gemeinsam/AufgabeBearbeiten'
 import { EinsteinSagt } from '../gemeinsam/Einstein'
+import { Sprite } from '../gemeinsam/Sprite'
 import { Sterne } from '../gemeinsam/Sterne'
 import { Symbol, type SymbolName } from '../gemeinsam/Symbol'
 import { einsteinTexte, formatKennung } from '../lib/einstein'
 import { fehlerText, istNetzwerkfehler } from '../lib/fehler'
+import { GRAFIK } from '../grafik'
 import { gehe } from '../lib/router'
 import { supabase } from '../lib/supabase'
 import type { Loesung, SchuelerAufgabe, SchuelerPaket, SchuelerStart } from '../lib/typen'
@@ -24,14 +26,19 @@ export function SchuelerBereich({ token, pfad }: Props) {
   const [daten, setDaten] = useState<SchuelerStart | null>(null)
   const [fehler, setFehler] = useState<string | null>(null)
   const [wartend, setWartend] = useState(() => warteschlangeLesen(token).length)
+  const [muenzen, setMuenzen] = useState<number | null>(null)
 
   const laden = useCallback(async () => {
-    const { data, error } = await supabase.rpc('schueler_start', { p_token: token })
-    if (error) setFehler(fehlerText(error))
+    const [start, konto] = await Promise.all([
+      supabase.rpc('schueler_start', { p_token: token }),
+      supabase.rpc('schueler_muenzen', { p_token: token }),
+    ])
+    if (start.error) setFehler(fehlerText(start.error))
     else {
-      setDaten(data as SchuelerStart)
+      setDaten(start.data as SchuelerStart)
       setFehler(null)
     }
+    if (!konto.error) setMuenzen(konto.data as number)
   }, [token])
 
   // Wartende Antworten senden, sobald wieder Internet da ist. client_id sorgt dafür, dass jede genau einmal zählt.
@@ -105,7 +112,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
     const index = paket.aufgaben.findIndex((a) => a.id === aufgabeId)
     const aufgabe = paket.aufgaben[index]
     return (
-      <Rahmen basis={basis} aktiv="uebungen">
+      <Rahmen basis={basis} aktiv="uebungen" muenzen={muenzen}>
         {wartendHinweis}
         <div className="knopf-reihe">
           <a className="holzknopf" href={`#${basis}/p/${paket.id}`} aria-label={`Zurück zu ${paket.titel}`}>
@@ -140,7 +147,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
 
   if (paket) {
     return (
-      <Rahmen basis={basis} aktiv="uebungen">
+      <Rahmen basis={basis} aktiv="uebungen" muenzen={muenzen}>
         {wartendHinweis}
         <header className="karte">
           <div className="knopf-reihe">
@@ -173,7 +180,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
 
   if (bereich === 'lernweg') {
     return (
-      <Rahmen basis={basis} aktiv="lernweg">
+      <Rahmen basis={basis} aktiv="lernweg" muenzen={muenzen}>
         <Lernweg token={token} uebungen={`#${basis}/uebungen`} />
       </Rahmen>
     )
@@ -181,7 +188,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
 
   if (bereich === 'hilfe') {
     return (
-      <Rahmen basis={basis} aktiv="hilfe">
+      <Rahmen basis={basis} aktiv="hilfe" muenzen={muenzen}>
         <Hilfe />
       </Rahmen>
     )
@@ -189,7 +196,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
 
   if (bereich === 'uebungen') {
     return (
-      <Rahmen basis={basis} aktiv="uebungen">
+      <Rahmen basis={basis} aktiv="uebungen" muenzen={muenzen}>
         {wartendHinweis}
         <header className="karte">
           <h1>Meine Übungen</h1>
@@ -205,7 +212,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
   const naechste = naechstesPaket?.aufgaben.find((a) => !a.geloest)
   const gruss = naechste ? 'begruessung' : daten.pakete.length ? 'begruessung-fertig' : 'begruessung-leer'
   return (
-    <Rahmen basis={basis} aktiv="start">
+    <Rahmen basis={basis} aktiv="start" muenzen={muenzen}>
       {wartendHinweis}
       <EinsteinSagt pose="freundlich">
         <p>{EINSTEIN[gruss]?.replaceAll('{name}', daten.pseudonym)}</p>
@@ -336,10 +343,19 @@ const MENUE: { id: 'start' | 'uebungen' | 'lernweg' | 'hilfe'; symbol: SymbolNam
 ]
 
 // Seite mit Wiese im Hintergrund und Menüleiste unten (das Buch kommt in Phase 8 dazu)
-function Rahmen({ basis, aktiv, menue = true, children }: { basis: string; aktiv: string; menue?: boolean; children: ReactNode }) {
+function Rahmen({ basis, aktiv, menue = true, muenzen = null, children }: { basis: string; aktiv: string; menue?: boolean; muenzen?: number | null; children: ReactNode }) {
   return (
     <div className="garten-seite">
-      <main className="garten-seite__inhalt">{children}</main>
+      <main className="garten-seite__inhalt">
+        {muenzen !== null && (
+          <p className="muenzen-stand">
+            <span className="muenzen" role="img" aria-label={`Du hast ${muenzen} Münzen`}>
+              <Sprite grafik={GRAFIK.muenze} mal={2} /> {muenzen}
+            </span>
+          </p>
+        )}
+        {children}
+      </main>
       {menue && (
         <nav className="menue" aria-label="Hauptmenü">
           <ul>

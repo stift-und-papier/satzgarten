@@ -543,6 +543,135 @@ begin
     n := n + 1;
   end;
 
+  -- ---------- 8 Münzen (Phase 8, docs/SPEC-muenzen.md) ----------
+  -- Stand nach Block 6 (Fuchs): T-lueckentext erst nach „Lösung ansehen“ richtig = 0, Erklärseite = 5, S-1..5 (★, 1. Versuch) = 5 × 10.
+  declare
+    t_fuchs text := (select token from public.schueler where pseudonym = 'Fuchs-01');
+    v_fuchs uuid := (select id from public.schueler where pseudonym = 'Fuchs-01');
+    v_eule uuid := (select id from public.schueler where pseudonym = 'Eule-02');
+    v_paket uuid := (select id from public.pakete where titel = 'P-Test');
+    v_er uuid := (select id from public.aufgaben where titel = 'T-erklaerung');
+    v_s1 uuid := (select id from public.aufgaben where titel = 'S-1');
+    v_d uuid := (select id from public.aufgaben where titel = 'D-ab');
+    v_m uuid[];
+    v_cid uuid := gen_random_uuid();
+    v_v public.versuche;
+    v jsonb;
+    k integer;
+  begin
+    for k in 1..2 loop
+      insert into public.aufgaben (owner, typ, titel, stufe, loesung)
+      values (c_lk_a, 'lueckentext', 'M-' || k, 2, '{"teile":[{"t":"luecke","id":0,"loesungen":["x"]}]}');
+      insert into public.paket_aufgaben (paket_id, aufgabe_id) select v_paket, id from public.aufgaben where titel = 'M-' || k;
+    end loop;
+    v_m := array(select id from public.aufgaben where titel like 'M-_' order by titel);
+
+    set local role anon;
+    if public.schueler_muenzen(t_fuchs) <> 55 then
+      raise exception 'Block 8.1: Kontostand nach Block 6 ist % statt 55', public.schueler_muenzen(t_fuchs);
+    end if;
+    n := n + 1;
+    -- Erklärseite nur einmal; dieselbe Aufgabe am selben Tag nur einmal; doppelt gesendet = keine neuen Münzen
+    v := public.antwort_abgeben(t_fuchs, v_paket, v_er, '{}', gen_random_uuid());
+    if (v ->> 'muenzen')::int <> 0 then raise exception 'Block 8.2: Erklärseite zahlt zweimal: %', v; end if;
+    v := public.antwort_abgeben(t_fuchs, v_paket, v_s1, '{"0":"x"}', gen_random_uuid());
+    if (v ->> 'muenzen')::int <> 0 then raise exception 'Block 8.2: Aufgabe zahlt zweimal am Tag: %', v; end if;
+    n := n + 1;
+    -- ★★ im 2. Versuch: halb (8); doppelt gesendet: gleiche Antwort, Kontostand bleibt
+    perform public.antwort_abgeben(t_fuchs, v_paket, v_m[1], '{"0":"y"}', gen_random_uuid());
+    v := public.antwort_abgeben(t_fuchs, v_paket, v_m[1], '{"0":"x"}', v_cid);
+    if (v ->> 'muenzen')::int <> 8 or (v ->> 'kontostand')::int <> 63 then
+      raise exception 'Block 8.3: 2. Versuch bringt nicht die Hälfte: %', v;
+    end if;
+    v := public.antwort_abgeben(t_fuchs, v_paket, v_m[1], '{"0":"x"}', v_cid);
+    if (v ->> 'kontostand')::int <> 63 then raise exception 'Block 8.4: doppelt gesendet zahlt doppelt: %', v; end if;
+    n := n + 2;
+    -- 3. Versuch des Tages: nichts
+    perform public.antwort_abgeben(t_fuchs, v_paket, v_m[2], '{"0":"y"}', gen_random_uuid());
+    perform public.antwort_abgeben(t_fuchs, v_paket, v_m[2], '{"0":"y"}', gen_random_uuid());
+    v := public.antwort_abgeben(t_fuchs, v_paket, v_m[2], '{"0":"x"}', gen_random_uuid());
+    if (v ->> 'muenzen')::int <> 0 then raise exception 'Block 8.5: 3. Versuch zahlt: %', v; end if;
+    n := n + 1;
+    -- anon darf keine Münzen schreiben, nicht schenken, nichts lesen, Vergabe nicht direkt aufrufen
+    begin
+      insert into public.muenz_ereignisse (schueler_id, grund, schluessel, muenzen) values (v_fuchs, 'lehrkraft', 'x', 999);
+      raise exception 'Block 8.6: anon schreibt Münzen';
+    exception when insufficient_privilege then null;
+    end;
+    begin
+      perform public.muenzen_schenken(array[v_fuchs], 100);
+      raise exception 'Block 8.6: anon schenkt Münzen';
+    exception when insufficient_privilege then null;
+    end;
+    begin
+      perform public.muenzen_fuer_versuch(null::public.versuche);
+      raise exception 'Block 8.6: anon ruft die Münzvergabe direkt auf';
+    exception when insufficient_privilege then null;
+    end;
+    begin
+      perform 1 from public.muenz_ereignisse;
+      raise exception 'Block 8.6: anon liest Münzen';
+    exception when insufficient_privilege then null;
+    end;
+    n := n + 1;
+    begin
+      perform public.schueler_muenzen('falscher-token-falscher-token-xx');
+      raise exception 'Block 8.7: Kontostand mit falschem Token';
+    exception when no_data_found then n := n + 1;
+    end;
+    reset role;
+
+    -- An einem anderen Tag zahlt dieselbe Aufgabe wieder (★★ = 15)
+    insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig, bearbeitet_am)
+    values (gen_random_uuid(), v_fuchs, v_m[1], '{}', '{}', 1, true, now() - interval '2 days') returning * into v_v;
+    if public.muenzen_fuer_versuch(v_v) <> 15 then raise exception 'Block 8.8: anderer Tag zahlt nicht'; end if;
+    n := n + 1;
+    -- Diktat: unter 90 % nichts; erstes Geschafft 30; Verbesserung 10; gleich gut nichts; fehlerfrei 10 + 20 extra (einmal)
+    insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig)
+    values (gen_random_uuid(), v_eule, v_d, '{}', '{}', 0.85, false) returning * into v_v;
+    if public.muenzen_fuer_versuch(v_v) <> 0 then raise exception 'Block 8.9: Diktat unter 90 %% zahlt'; end if;
+    insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig)
+    values (gen_random_uuid(), v_eule, v_d, '{}', '{}', 0.92, true) returning * into v_v;
+    if public.muenzen_fuer_versuch(v_v) <> 30 then raise exception 'Block 8.9: erstes Geschafft zahlt nicht 30'; end if;
+    insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig)
+    values (gen_random_uuid(), v_eule, v_d, '{}', '{}', 0.92, true) returning * into v_v;
+    if public.muenzen_fuer_versuch(v_v) <> 0 then raise exception 'Block 8.9: gleich gutes Diktat zahlt'; end if;
+    insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig)
+    values (gen_random_uuid(), v_eule, v_d, '{}', '{}', 1, true) returning * into v_v;
+    if public.muenzen_fuer_versuch(v_v) <> 30 then raise exception 'Block 8.9: fehlerfrei zahlt nicht 10 + 20'; end if;
+    insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig)
+    values (gen_random_uuid(), v_eule, v_d, '{}', '{}', 1, true) returning * into v_v;
+    if public.muenzen_fuer_versuch(v_v) <> 0 then raise exception 'Block 8.9: fehlerfrei zahlt zweimal'; end if;
+    n := n + 1;
+
+    -- Lehrkraft schenkt: nur eigenen Schüler:innen, 1–1000; liest nur eigene
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if public.muenzen_schenken(array[v_fuchs], 50) <> 0 then raise exception 'Block 8.10: B schenkt Fuchs (Klasse von A) Münzen'; end if;
+    if exists (select 1 from public.muenz_ereignisse where schueler_id = v_fuchs) then
+      raise exception 'Block 8.10: B liest Münzen von Fuchs';
+    end if;
+    reset role;
+    n := n + 1;
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    begin
+      perform public.muenzen_schenken(array[v_fuchs], 0);
+      raise exception 'Block 8.11: 0 Münzen geschenkt';
+    exception when invalid_parameter_value then null;
+    end;
+    k := public.muenzen_schenken(array[v_fuchs, v_eule], 50, 'Mitarbeit');
+    if k <> 2
+       or (select sum(muenzen) from public.muenz_ereignisse where schueler_id = v_fuchs) <> 128 then
+      raise exception 'Block 8.11: A kann nicht schenken (%)', k;
+    end if;
+    -- Zurücksetzen löscht die Münzen
+    perform public.ergebnisse_zuruecksetzen(array[v_fuchs]);
+    reset role;
+    if public.kontostand(v_fuchs) <> 0 then raise exception 'Block 8.12: Münzen nach Zurücksetzen noch da'; end if;
+    n := n + 2;
+  end;
+
   raise exception 'ALLE TESTS BESTANDEN (%)', n;
 end
 $test$;

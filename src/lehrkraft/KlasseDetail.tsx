@@ -17,6 +17,10 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
   const [anzahl, setAnzahl] = useState(25)
   const [liste, setListe] = useState('')
   const [modus, setModus] = useState<'automatisch' | 'liste'>('automatisch')
+  const [konto, setKonto] = useState<Map<string, number>>(new Map())
+  const [gewaehlt, setGewaehlt] = useState<Set<string>>(new Set())
+  const [geschenk, setGeschenk] = useState(20)
+  const [notiz, setNotiz] = useState('')
 
   const laden = useCallback(async () => {
     const [k, s] = await Promise.all([
@@ -27,6 +31,13 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
     setKlasse(k.data as Klasse)
     setKlassenname((k.data as Klasse).name)
     setSchueler((s.data as Schueler[]).sort((a, b) => a.pseudonym.localeCompare(b.pseudonym, 'de', { numeric: true })))
+    // Kontostand je Person = Summe der Münz-Ereignisse
+    const m = await supabase.from('muenz_ereignisse').select('schueler_id, muenzen').in('schueler_id', (s.data as Schueler[]).map((x) => x.id))
+    if (!m.error) {
+      const summe = new Map<string, number>()
+      for (const e of m.data) summe.set(e.schueler_id, (summe.get(e.schueler_id) ?? 0) + e.muenzen)
+      setKonto(summe)
+    }
   }, [klasseId])
 
   useEffect(() => {
@@ -68,7 +79,7 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
 
   function einzelnZuruecksetzen(s: Schueler) {
     const ok = window.confirm(
-      `Ergebnisse von ${s.pseudonym} zurücksetzen?\n\nAlle Antworten werden endgültig gelöscht, die Sterne-Stufe beginnt wieder bei einem Stern (außer einer fest eingestellten). Pseudonym und Link bleiben.`,
+      `Ergebnisse von ${s.pseudonym} zurücksetzen?\n\nAlle Antworten und Münzen werden endgültig gelöscht, die Sterne-Stufe beginnt wieder bei einem Stern (außer einer fest eingestellten). Pseudonym und Link bleiben.`,
     )
     if (ok) zuruecksetzen([s], `Ergebnisse von ${s.pseudonym} zurückgesetzt.`)
   }
@@ -76,9 +87,21 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
   function klasseZuruecksetzen() {
     if (!klasse) return
     const eingabe = window.prompt(
-      `Die Ergebnisse aller ${schueler.length} Schüler:innen der Klasse „${klasse.name}“ zurücksetzen?\n\nAlle Antworten werden endgültig gelöscht, die Sterne-Stufen beginnen wieder bei einem Stern (außer fest eingestellten). Pseudonyme und Links bleiben. Zur Bestätigung den Klassennamen eintippen:`,
+      `Die Ergebnisse aller ${schueler.length} Schüler:innen der Klasse „${klasse.name}“ zurücksetzen?\n\nAlle Antworten und Münzen werden endgültig gelöscht, die Sterne-Stufen beginnen wieder bei einem Stern (außer fest eingestellten). Pseudonyme und Links bleiben. Zur Bestätigung den Klassennamen eintippen:`,
     )
     if (eingabe?.trim() === klasse.name) zuruecksetzen(schueler, `Ergebnisse der Klasse „${klasse.name}“ zurückgesetzt.`)
+  }
+
+  // Münzen schenken (Lehrkraft, z. B. für Mitarbeit) – an die Ausgewählten oder an alle
+  function schenken(liste: Schueler[]) {
+    if (liste.length === 0) return
+    const wem = liste.length === schueler.length ? 'allen' : liste.length === 1 ? liste[0].pseudonym : `${liste.length} Schüler:innen`
+    void aendern(
+      supabase.rpc('muenzen_schenken', { p_schueler: liste.map((x) => x.id), p_muenzen: geschenk, p_notiz: notiz }),
+      `${geschenk} Münzen an ${wem} vergeben.`,
+    )
+    setGewaehlt(new Set())
+    setNotiz('')
   }
 
   async function klasseLoeschen() {
@@ -159,6 +182,7 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
                   <th>Sterne-Stufe</th>
                   <th>Link</th>
                   <th>Ergebnisse</th>
+                  <th>Münzen</th>
                   <th><span className="lk-unsichtbar">Löschen</span></th>
                 </tr>
               </thead>
@@ -213,6 +237,22 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
                       </div>
                     </td>
                     <td>
+                      <label className="lk-muenzen">
+                        <input
+                          type="checkbox"
+                          checked={gewaehlt.has(s.id)}
+                          onChange={(e) => {
+                            const neu = new Set(gewaehlt)
+                            if (e.target.checked) neu.add(s.id)
+                            else neu.delete(s.id)
+                            setGewaehlt(neu)
+                          }}
+                        />
+                        <span className="lk-unsichtbar">{s.pseudonym} für Münzen auswählen, Kontostand </span>
+                        {konto.get(s.id) ?? 0}
+                      </label>
+                    </td>
+                    <td>
                       <button type="button" className="lk-knopf lk-knopf--gefahr" onClick={() => loeschen(s)}>
                         Löschen
                       </button>
@@ -227,6 +267,38 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
             selbst auf. Eine feste Stufe gilt, bis Sie wieder „automatisch“ wählen.
           </p>
         </>
+      )}
+
+      {schueler.length > 0 && (
+        <section className="lk-abschnitt">
+          <h2>Münzen vergeben</h2>
+          <p className="lk-leise">
+            Zum Beispiel für gute Mitarbeit. Die Münzen kommen sofort dazu. Wählen Sie in der Spalte „Münzen“ aus, wer sie bekommt, oder geben
+            Sie allen welche.
+          </p>
+          <form
+            className="lk-zeile"
+            onSubmit={(e) => {
+              e.preventDefault()
+              schenken(schueler.filter((x) => gewaehlt.has(x.id)))
+            }}
+          >
+            <label>
+              Münzen
+              <input className="lk-feld lk-feld--zahl" type="number" min={1} max={1000} value={geschenk} onChange={(e) => setGeschenk(Number(e.target.value))} required />
+            </label>
+            <label>
+              Grund (freiwillig, nur für Sie)
+              <input className="lk-feld" value={notiz} onChange={(e) => setNotiz(e.target.value)} maxLength={100} placeholder="Mitarbeit" />
+            </label>
+            <button className="lk-knopf lk-knopf--haupt" disabled={gewaehlt.size === 0}>
+              An {gewaehlt.size === 1 ? '1 Ausgewählte:n' : `${gewaehlt.size} Ausgewählte`} geben
+            </button>
+            <button type="button" className="lk-knopf" onClick={() => schenken(schueler)}>
+              An alle geben
+            </button>
+          </form>
+        </section>
       )}
 
       <section className="lk-abschnitt">
@@ -278,7 +350,7 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
       <section className="lk-abschnitt">
         <h2>Ergebnisse zurücksetzen</h2>
         <p className="lk-leise">
-          Zum Beispiel am Schuljahresende: Löscht alle Antworten der Klasse endgültig. Sterne-Stufen beginnen wieder bei einem Stern (fest
+          Zum Beispiel am Schuljahresende: Löscht alle Antworten und Münzen der Klasse endgültig. Sterne-Stufen beginnen wieder bei einem Stern (fest
           eingestellte bleiben). Pseudonyme und Links bleiben.
         </p>
         <div>

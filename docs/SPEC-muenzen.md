@@ -42,3 +42,10 @@ der Lehrkraft zwischen erstem und zweitem Vorschlag angesetzt (freigegeben 2026-
 - Preise: Samen 15–45, Deko 25–150, Huhn 220, Kuh 450. Ein Paket mit 10 Aufgaben bringt etwa 100–200 Münzen.
 - Noch nicht Freigeschaltetes erscheint als „?“ mit dem Satz „Kommt, wenn du weiter übst.“ (keine Zahl bis zur Grenze).
 - Kaufen nur über die Datenbankfunktion `kaufen` (prüft Freischaltung und Kontostand). Besitz ist eine Liste.
+
+## Münzen von der Lehrkraft (Wunsch der Lehrkraft, 2026-11-12)
+
+- Auf der Klassenseite: Spalte „Münzen“ mit Kontostand und Auswahlkästchen, darunter „Münzen vergeben“
+  (1–1000 Münzen, Grund freiwillig und nur für die Lehrkraft sichtbar) an die Ausgewählten oder an alle.
+- Datenbankfunktion `muenzen_schenken` (nur eigene Schüler:innen), Ereignis mit Grund „lehrkraft“.
+- Schüler:innen sehen nur den neuen Kontostand.
