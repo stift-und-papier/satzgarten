@@ -33,7 +33,7 @@ der Lehrkraft zwischen erstem und zweitem Vorschlag angesetzt (freigegeben 2026-
 
 | Insgesamt verdient | Neu im Shop |
 |---|---|
-| 0 | 3 Samen, Zaun |
+| 0 | 3 Samen, Busch, Felder |
 | 200 | 3 weitere Samen, Huhn, erste Deko |
 | 600 | 3 weitere Samen, mehr Deko |
 | 1200 | 3 weitere Samen, Kuh |

@@ -16,6 +16,7 @@ import { neueId } from '../lib/zufall'
 import einsteinMd from './einstein.md?raw'
 import { Hilfe } from './Hilfe'
 import { Lernweg } from './Lernweg'
+import { Shop } from './Shop'
 import { entwurfLesen, entwurfSpeichern, warteschlangeLesen, warteschlangeSpeichern, type WartenderVersuch } from './speicher'
 
 const EINSTEIN = einsteinTexte(einsteinMd)
@@ -85,7 +86,8 @@ export function SchuelerBereich({ token, pfad }: Props) {
     <GeschenkFenster
       geschenke={geschenke}
       schliessen={() => {
-        void supabase.rpc('geschenke_gesehen', { p_token: token, p_ids: geschenke.map((g) => g.id) })
+        // .then() nötig: supabase-js sendet die Anfrage erst, wenn jemand auf das Ergebnis wartet
+        void supabase.rpc('geschenke_gesehen', { p_token: token, p_ids: geschenke.map((g) => g.id) }).then()
         setGeschenke([])
       }}
     />
@@ -196,6 +198,14 @@ export function SchuelerBereich({ token, pfad }: Props) {
     return (
       <Rahmen basis={basis} aktiv="lernweg" muenzen={muenzen} fenster={fenster}>
         <Lernweg token={token} uebungen={`#${basis}/uebungen`} />
+      </Rahmen>
+    )
+  }
+
+  if (bereich === 'shop') {
+    return (
+      <Rahmen basis={basis} aktiv="shop" muenzen={muenzen} fenster={fenster}>
+        <Shop token={token} nachKauf={() => void laden()} />
       </Rahmen>
     )
   }
@@ -349,8 +359,9 @@ function AufgabeSeite({ token, paket, aufgabe, neuesFormat, nachAbgabe, onWarten
   )
 }
 
-const MENUE: { id: 'start' | 'uebungen' | 'lernweg' | 'hilfe'; symbol: SymbolName; text: string; ziel: string }[] = [
+const MENUE: { id: 'start' | 'shop' | 'uebungen' | 'lernweg' | 'hilfe'; symbol: SymbolName; text: string; ziel: string }[] = [
   { id: 'start', symbol: 'garten', text: 'Farm', ziel: '' },
+  { id: 'shop', symbol: 'shop', text: 'Shop', ziel: '/shop' },
   { id: 'uebungen', symbol: 'uebungen', text: 'Übungen', ziel: '/uebungen' },
   { id: 'lernweg', symbol: 'lernweg', text: 'Lernweg', ziel: '/lernweg' },
   { id: 'hilfe', symbol: 'hilfe', text: 'Hilfe', ziel: '/hilfe' },

@@ -1,9 +1,11 @@
 // Eigene, einfache Symbole (Linienzeichnung, runde Enden). Immer aria-hidden: Der Text daneben trägt die Bedeutung.
 export type SymbolName =
   | 'garten' | 'uebungen' | 'lernweg' | 'sammelbuch' | 'hilfe'
-  | 'zurueck' | 'weiter' | 'tipp' | 'stern' | 'haus'
+  | 'zurueck' | 'weiter' | 'tipp' | 'stern' | 'haus' | 'shop'
 
 const PFADE: Record<SymbolName, string> = {
+  // Marktstand mit Vordach
+  shop: 'M4 9l1.5-5h13L20 9Z M4 9c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 2 3s2-1.3 2-3c0 1.7 1.3 3 3 3s3-1.3 3-3 M6 12v8h12v-8 M10 20v-5h4v5',
   // Spross mit zwei Blättern auf Erde
   garten: 'M12 20v-8 M12 13c-4 0-6-2-6-5 3 0 6 1 6 5Z M12 11c0-4 2-6 6-6 0 3-2 6-6 6Z M5 20h14',
   // aufgeschlagenes Heft

@@ -198,3 +198,6 @@
 - 2026-11-12 (Lehrkraft, Aufgabe 36): Pflanzen wachsen durch Üben (jede Aufgabe mit Münzen gießt alle Felder) **und** etwas Zeit
   (einmal pro Tag von selbst, höchstens halb). Pausen: nichts welkt, alles wartet. Füttern: Herz + Ei/Milch zum Verkaufen.
   Lernfortschritt („besser“/„deutlich besser“) bringt einmalig besonderen Samen bzw. Deko. Zahlen in `docs/SPEC-felder.md`.
+- 2026-11-12 (Claude, Aufgabe 37): Shop gebaut (Migration `shop`: Angebot `shop_artikel` mit Preisen/Grenzen, `besitz`, `kaufen`,
+  `schueler_shop`; Bilder in `src/lib/shop.ts`). Menüpunkt „Shop“. 11 Samen im Shop, Tulpe und Rose sowie Katzenblumen nur als
+  Belohnung für Lernfortschritt. Statt Zaun (Kachel-Satz, schwer einzeln) gibt es zu Beginn einen Busch. Kauf mit Nachfrage „Ja, kaufen“.

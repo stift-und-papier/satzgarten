@@ -1,13 +1,13 @@
 # Spec: Felder und Tiere (`felder`, `tiere`)
 
-Antworten der Lehrkraft vom 2026-11-12 auf die offenen Fragen 8, 9 und 12. Zahlen sind Vorschläge von Claude und
-gelten nach Freigabe. Alles rechnet der Server; Schüler:innen sehen keine Wachstumszahlen, nur die Pflanze.
+Antworten der Lehrkraft vom 2026-11-12 auf die offenen Fragen 8, 9 und 12. Zahlen von Claude, freigegeben
+2026-11-12. Alles rechnet der Server; Schüler:innen sehen keine Wachstumszahlen, nur die Pflanze.
 
 ## Felder
 
 - Die Farm ist ein Raster aus Kacheln (Sprout Lands). Zu Beginn gibt es **4 Felder**; weitere Felder kauft man im Shop
   (je 40 Münzen, höchstens 12).
-- Pflanzen: Samen aus dem Shop auf ein leeres Feld setzen. Jede Sorte hat 5 Bilder (Samen → reif, „Farming Plants“).
+- Pflanzen: Samen aus dem Shop auf ein leeres Feld setzen. Jede Sorte hat 4 Bilder (Keimling → reif, „Farming Plants“).
 - **Wachstum = Üben + etwas Zeit** (Lehrkraft):
   - Jede Aufgabe, die Münzen bringt (Spec Münzen: richtig gelöst, einmal pro Tag je Aufgabe), **gießt alle Felder**: +1.
   - Zusätzlich wächst jede Pflanze **einmal pro Tag ein kleines Stück von selbst**: +1 je Kalendertag seit dem Pflanzen,

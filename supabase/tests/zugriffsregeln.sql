@@ -693,6 +693,73 @@ begin
     n := n + 2;
   end;
 
+  -- ---------- 9 Shop (Phase 8) ----------
+  -- Eule nach Block 8: Diktat 30 + 30, Geschenk 50 = 110 verdient
+  declare
+    t_eule text := (select token from public.schueler where pseudonym = 'Eule-02');
+    v_eule uuid := (select id from public.schueler where pseudonym = 'Eule-02');
+    v jsonb;
+  begin
+    set local role anon;
+    v := public.schueler_shop(t_eule);
+    if (v ->> 'kontostand')::int <> 110 or v -> 'angebot' @> '[{"id":"tomate"}]' or not (v -> 'angebot' @> '[{"id":"karotte"}]')
+       or v -> 'angebot' @> '[{"id":"tulpe"}]' or (v -> 'gesperrt')::text ~ '"(name|preis|id|ab_verdient)"' then
+      raise exception 'Block 9.1: Shop-Angebot falsch: %', v;
+    end if;
+    n := n + 1;
+    begin
+      perform public.kaufen(t_eule, 'tomate');
+      raise exception 'Block 9.2: gesperrter Artikel gekauft';
+    exception when raise_exception then
+      if sqlerrm !~ 'noch nicht' then raise; end if;
+    end;
+    begin
+      perform public.kaufen(t_eule, 'tulpe');
+      raise exception 'Block 9.2: Belohnungs-Samen gekauft';
+    exception when raise_exception then
+      if sqlerrm !~ 'noch nicht' then raise; end if;
+    end;
+    n := n + 1;
+    if (public.kaufen(t_eule, 'karotte') ->> 'kontostand')::int <> 95 then raise exception 'Block 9.3: Kauf zieht falsch ab'; end if;
+    perform public.kaufen(t_eule, 'feld');
+    if (public.kaufen(t_eule, 'feld') ->> 'kontostand')::int <> 15 then raise exception 'Block 9.3: Felder falsch abgezogen'; end if;
+    begin
+      perform public.kaufen(t_eule, 'feld');
+      raise exception 'Block 9.4: Kauf ohne genug Münzen';
+    exception when raise_exception then
+      if sqlerrm !~ 'reichen' then raise; end if;
+    end;
+    -- Kauf ändert nichts am Freischalten (verdient bleibt 110)
+    if (public.schueler_shop(t_eule) -> 'angebot') @> '[{"id":"tomate"}]' then raise exception 'Block 9.4: Freischalten falsch'; end if;
+    n := n + 2;
+    begin
+      insert into public.besitz (schueler_id, artikel_id, preis) values (v_eule, 'kuh', 0);
+      raise exception 'Block 9.5: anon schreibt Besitz';
+    exception when insufficient_privilege then n := n + 1;
+    end;
+    reset role;
+    -- Höchstens 8 gekaufte Felder
+    insert into public.besitz (schueler_id, artikel_id, preis) select v_eule, 'feld', 0 from generate_series(1, 6);
+    insert into public.muenz_ereignisse (schueler_id, grund, schluessel, muenzen) values (v_eule, 'lehrkraft', 'test-viel', 1000);
+    set local role anon;
+    begin
+      perform public.kaufen(t_eule, 'feld');
+      raise exception 'Block 9.6: mehr als 8 Felder gekauft';
+    exception when raise_exception then
+      if sqlerrm !~ 'Mehr Felder' then raise; end if;
+    end;
+    -- mit 1110 verdient: Tomate (ab 200) jetzt im Angebot
+    if not (public.schueler_shop(t_eule) -> 'angebot') @> '[{"id":"tomate"}]' then raise exception 'Block 9.6: Freischalten wirkt nicht'; end if;
+    reset role;
+    n := n + 1;
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform public.ergebnisse_zuruecksetzen(array[v_eule]);
+    reset role;
+    if exists (select 1 from public.besitz where schueler_id = v_eule) then raise exception 'Block 9.7: Besitz nach Zurücksetzen noch da'; end if;
+    n := n + 1;
+  end;
+
   raise exception 'ALLE TESTS BESTANDEN (%)', n;
 end
 $test$;
