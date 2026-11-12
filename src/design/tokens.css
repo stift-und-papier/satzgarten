@@ -30,6 +30,7 @@
 /* ===================== HELL (Standard) ===================== */
 :root {
   color-scheme: light;
+  --color-album-tinte: #3d281a; /* Sammelalbum: Schrift auf dem immer hellen Papier, 10,3 : 1 */
 
   /* Schrift und Linien */
   --color-tinte-leise: #5e4837;
@@ -126,6 +127,7 @@
 /* ===================== DUNKEL ===================== */
 :root[data-thema='dunkel'] {
   color-scheme: dark;
+  --color-album-tinte: #3d281a; /* Papier bleibt hell */
   --color-tinte-leise: #cec2af;
   --color-aktion: #edc291;
   --color-aktion-2: #fad8ab;
@@ -159,6 +161,7 @@
 /* ===================== MEHR KONTRAST (iPad: Bedienungshilfen → „Kontrast erhöhen“) ===================== */
 @media (prefers-contrast: more) {
   :root {
+    --color-album-tinte: #1c0e05; /* 14,1 : 1 */
     --color-stern-rand: #1c0d06;
     --color-tinte-leise: #2f2016;
     --color-aktion: #3c220f;
@@ -183,6 +186,7 @@
 }
 @media (prefers-contrast: more) {
   :root[data-thema='dunkel'] {
+    --color-album-tinte: #1c0e05; /* Papier bleibt hell, 14,1 : 1 */
     --color-stern-rand: #f4d9bb;
     --color-stern-leer: #795d46;
     --color-tinte-leise: #ebe4d6;

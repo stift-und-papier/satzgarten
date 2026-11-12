@@ -38,6 +38,7 @@ import milch_blaubeer from './milch_blaubeer.png'
 import monster_1 from './monster_1.png'
 import monster_2 from './monster_2.png'
 import monster_3 from './monster_3.png'
+import album_seite from './album_seite.png'
 
 export const GRAFIK = {
   muenze: { url: muenze, breite: 24, hoehe: 24, bildBreite: 24, bildHoehe: 24 },
@@ -79,4 +80,5 @@ export const GRAFIK = {
   monster_1: { url: monster_1, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   monster_2: { url: monster_2, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   monster_3: { url: monster_3, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  album_seite: { url: album_seite, breite: 96, hoehe: 96, bildBreite: 96, bildHoehe: 96 },
 } as const

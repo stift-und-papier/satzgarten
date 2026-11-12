@@ -201,7 +201,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 - [x] **41b Monster über der Aufgabe** (M) – hängt an 41a, 41, 25 · Figur gegen Monster über jeder Paket-Aufgabe; richtig = Treffer (auch 2. Versuch, nicht nach „Lösung ansehen“),
   falsch = verfehlt; Lebensbalken ohne Zahlen; besiegt erst wenn alle Aufgaben richtig, sonst „nochmal versuchen“; ★ Sprout, ★★ Schleim, ★★★ Ork; Treffer rechnet der Server; keine Blut-/Todes-Animation; ruhig bei „Bewegung reduzieren“.
   Prüfen: DB-Test (Treffer nicht erschummelbar, nie Punkte/Prozente für Schüler:innen); iPad.
-- [ ] **41c Buch** (M) – hängt an 41a · Freigeschaltetes im Papier-Look (Humble Gift). Prüfen: iPad.
+- [x] **41c Buch** (M) – hängt an 41a · Freigeschaltetes im Papier-Look (Humble Gift). Prüfen: iPad.
 
 ### Haltepunkt 8
 - [ ] **iPad-Test Farm:** Münzen verdienen, kaufen, pflanzen, durch Üben wachsen sehen, ernten, füttern, Figur bewegen, Monster bekämpfen, Buch ansehen.

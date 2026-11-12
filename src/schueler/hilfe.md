@@ -83,4 +83,5 @@ Nein. Die App zeigt keine Werbung und schickt keine Daten an Werbe- oder Analyse
 - Assets – From: **Sprout Lands** – By: **Cup Nooble**
 - Einstein und das Rübchen-Monster hat deine Lehrkraft selbst gezeichnet.
 - Schleim und Ork kommen von **craftpix.net**.
+- Das Papier im Sammelalbum stammt aus **Humble Gift** von Humble Pixel.
 - Ideen und Teile des Diktats stammen aus **TastenHeld**, mit freundlicher Erlaubnis.

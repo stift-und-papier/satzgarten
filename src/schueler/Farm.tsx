@@ -23,7 +23,7 @@ const richtungZu = (dx: number, dy: number) => (Math.round(Math.atan2(dx, -dy) /
 
 type Menue = { art: 'feld'; feld: number } | { art: 'tier'; id: string }
 
-export function Farm({ token, shop }: { token: string; shop: string }) {
+export function Farm({ token, shop, album }: { token: string; shop: string; album: string }) {
   const [daten, setDaten] = useState<FarmDaten | null>(null)
   const [meldung, setMeldung] = useState<string | null>(null)
   const [fehler, setFehler] = useState<string | null>(null)
@@ -355,6 +355,11 @@ export function Farm({ token, shop }: { token: string; shop: string }) {
           </p>
         </>
       )}
+      <div className="knopf-reihe">
+        <a className="knopf" href={album}>
+          Mein Sammelalbum
+        </a>
+      </div>
     </section>
   )
 }

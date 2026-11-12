@@ -37,6 +37,11 @@ Lizenz https://craftpix.net/file-licenses/ : in eigenen Projekten nutzbar, auch 
 weiterverkaufen oder als Grafiken weitergeben; kein KI-Training; Namensnennung freiwillig. Darum auch hier nur einzelne
 ausgeschnittene Bilder, die die App benutzt.
 
+## Humble Gift – Paper UI System (Humble Pixel)
+
+- `album_seite.png` (Seite im Sammelalbum): zusammengesetzt aus Papier-Teilen des Pakets „Humble Gift – Paper UI System“
+  von Humble Pixel (@Humblepixel). Paket nicht weitergeben; Namensnennung freiwillig. Darum nur dieses eine Bild.
+
 ## TastenHeld
 
 Grafiken aus TastenHeld (https://github.com/ChalkJunkie/TastenHeld) werden hier aufgeführt, sobald welche benutzt

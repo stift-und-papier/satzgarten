@@ -995,6 +995,33 @@ begin
     n := n + 1;
   end;
 
+  -- ---------- 13 Sammelalbum (Aufgabe 41c) ----------
+  -- Eule hat seit Block 11 ein Huhn und Karotten geerntet, aber keine Kuh.
+  declare
+    t_eule text := (select token from public.schueler where pseudonym = 'Eule-02');
+    t_dachs text := (select token from public.schueler where pseudonym = 'Dachs-03');
+    v jsonb;
+  begin
+    set local role anon;
+    v := public.schueler_album(t_eule);
+    if not (v @> '[{"id":"huhn","art":"tier","gesammelt":true,"name":"Huhn"},{"id":"karotte","gesammelt":true},{"id":"kuh","gesammelt":false,"name":null}]') then
+      raise exception 'Block 13.1: Album falsch: %', v;
+    end if;
+    if exists (select 1 from jsonb_array_elements(v) x where x ->> 'art' not in ('samen', 'tier', 'deko')) then
+      raise exception 'Block 13.2: Album zeigt Felder oder Eier/Milch: %', v;
+    end if;
+    if not (public.schueler_album(t_dachs) @> '[{"id":"huhn","gesammelt":false}]') then
+      raise exception 'Block 13.3: Dachs sieht Eules Sammlung';
+    end if;
+    begin
+      perform public.schueler_album('falscher-token-falscher-token-xx');
+      raise exception 'Block 13.4: falscher Token wird angenommen';
+    exception when sqlstate 'P0002' then null;
+    end;
+    reset role;
+    n := n + 4;
+  end;
+
   raise exception 'ALLE TESTS BESTANDEN (%)', n;
 end
 $test$;

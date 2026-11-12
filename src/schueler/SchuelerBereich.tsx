@@ -15,6 +15,7 @@ import type { Loesung, SchuelerAufgabe, SchuelerPaket, SchuelerStart } from '../
 import { neueId } from '../lib/zufall'
 import einsteinMd from './einstein.md?raw'
 import { Farm } from './Farm'
+import { Album } from './Album'
 import { Hilfe } from './Hilfe'
 import { Kampf } from './Kampf'
 import { Lernweg } from './Lernweg'
@@ -214,6 +215,14 @@ export function SchuelerBereich({ token, pfad }: Props) {
     )
   }
 
+  if (bereich === 'album') {
+    return (
+      <Rahmen basis={basis} aktiv="start" muenzen={muenzen} fenster={fenster}>
+        <Album token={token} zurueck={`#${basis}`} />
+      </Rahmen>
+    )
+  }
+
   if (bereich === 'hilfe') {
     return (
       <Rahmen basis={basis} aktiv="hilfe" muenzen={muenzen} fenster={fenster}>
@@ -261,7 +270,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
           </div>
         </section>
       )}
-      <Farm token={token} shop={`#${basis}/shop`} />
+      <Farm token={token} shop={`#${basis}/shop`} album={`#${basis}/album`} />
     </Rahmen>
   )
 }

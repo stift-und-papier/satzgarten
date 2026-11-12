@@ -233,3 +233,7 @@
 - 2026-11-12 (Lehrkraft): Lebensbalken des Monsters **grün → orange (≤ 50 %) → rot (≤ 25 %)** (Fachbegriff-Farben `--kat-*`;
   bewusste Ausnahme von „Grün nur richtig / nie Rot“, die Länge zeigt es zusätzlich). Schüler:innen schalten **Dunklen Modus** und
   **Leseschrift für LRS** selbst um (Schalter oben auf der Hilfe-Seite). Hilfe beginnt mit „Das fragst du dich vielleicht“.
+- 2026-11-12 (Lehrkraft, Aufgabe 41c): Das Buch heißt **„Mein Sammelalbum“**, Knopf auf der Farm (kein Menüpunkt). Gesammelt = schon
+  einmal gehabt (gekauft, Belohnung, gepflanzt, geerntet), Rest als „?“ ohne Namen (`schueler_album`, `src/schueler/Album.tsx`).
+  Seiten aus Papier-Teilen von Humble Gift (`album_seite.png`, zusammengesetzt in `grafik-holen.mjs`), Papier bleibt im dunklen Modus hell
+  (`--color-album-tinte`, 4 Varianten, 10,3 / 14,1 : 1).

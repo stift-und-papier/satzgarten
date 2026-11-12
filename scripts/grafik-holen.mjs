@@ -12,6 +12,23 @@ const { PNG } = createRequire(import.meta.url)('pngjs')
 const UI = 'assets/entpackt/Sprout Lands - UI Pack - Premium pack/UI Sprites/'
 const SPRITES = 'assets/entpackt/Sprout Lands - Sprites - premium pack/'
 const UI_BASIS = 'assets/entpackt/Sprout Lands - UI Pack - Basic pack/Sprite sheets/'
+const PAPIER = 'assets/entpackt/Humble Gift - Paper UI System/Humble Gift - Paper UI System v1.1/Sprites/Paper UI Pack/Plain/1 Paper/'
+
+// Zusammengesetzte Bilder: Teile (je 32×32) an Stellen (Spalte, Zeile) übereinander legen.
+// Sammelalbum-Seite (Humble Gift Paper UI): Papier 1–9 als 3×3, darüber Zierecken (11, 13, 15, 17) und Randlinien (10, 12, 14, 16).
+// Wird in CSS als border-image (je 32 px Rand) gestreckt.
+const ZUSAMMEN = [
+  {
+    name: 'album_seite', breite: 96, hoehe: 96,
+    teile: [
+      ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n, i) => ({ datei: PAPIER + n + '.png', sp: i % 3, ze: Math.floor(i / 3) })),
+      { datei: PAPIER + '10.png', sp: 0, ze: 1 }, { datei: PAPIER + '12.png', sp: 1, ze: 0 },
+      { datei: PAPIER + '14.png', sp: 2, ze: 1 }, { datei: PAPIER + '16.png', sp: 1, ze: 2 },
+      { datei: PAPIER + '11.png', sp: 0, ze: 0 }, { datei: PAPIER + '13.png', sp: 2, ze: 0 },
+      { datei: PAPIER + '15.png', sp: 2, ze: 2 }, { datei: PAPIER + '17.png', sp: 0, ze: 2 },
+    ],
+  },
+]
 
 // Was wir benutzen. x, y, breite, hoehe = Ausschnitt in Pixeln (ohne Angabe: ganzes Bild).
 // bildBreite/bildHoehe: Größe eines Einzelbilds, wenn der Ausschnitt mehrere Bilder (Spritesheet) enthält.
@@ -82,6 +99,23 @@ for (const b of BILDER) {
   writeFileSync(`src/grafik/${b.name}.png`, PNG.sync.write(ziel))
   liste.push({ name: b.name, breite, hoehe, bildBreite: b.bildBreite ?? breite, bildHoehe: b.bildHoehe ?? hoehe })
   console.log(`${b.name}.png  ${breite}×${hoehe}`)
+}
+
+for (const z of ZUSAMMEN) {
+  const ziel = new PNG({ width: z.breite, height: z.hoehe })
+  for (const t of z.teile) {
+    const q = PNG.sync.read(readFileSync(t.datei))
+    for (let y = 0; y < q.height; y++)
+      for (let x = 0; x < q.width; x++) {
+        const si = (y * q.width + x) * 4
+        if (!q.data[si + 3]) continue // durchsichtig: darunter bleibt sichtbar
+        const di = ((t.ze * 32 + y) * z.breite + t.sp * 32 + x) * 4
+        for (let c = 0; c < 4; c++) ziel.data[di + c] = q.data[si + c]
+      }
+  }
+  writeFileSync(`src/grafik/${z.name}.png`, PNG.sync.write(ziel))
+  liste.push({ name: z.name, breite: z.breite, hoehe: z.hoehe, bildBreite: z.breite, bildHoehe: z.hoehe })
+  console.log(`${z.name}.png  ${z.breite}×${z.hoehe} (zusammengesetzt)`)
 }
 
 const zeilen = liste.map((g) => `import ${g.name} from './${g.name}.png'`)
