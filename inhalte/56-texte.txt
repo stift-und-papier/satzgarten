@@ -17,6 +17,7 @@ Hinweis: Jeder Satz beginnt mit „Dann“. Das ist eintönig.
 Hinweis: Verschiedene Satzanfänge machen den Text lebendig.
 
 -- 1 | auswahl dropdown | Pronomen statt Wiederholung
+anweisung: Vermeide die Wiederholung: Wähle das passende Pronomen.
 Mein Bruder heißt Leo. [*Er | Leo | Mein Bruder] ist acht Jahre alt. Leo hat ein Fahrrad. [Leo | Er | *Es] ist rot.
 
 -- 2 | ueberarbeiten | Wiederholungen vermeiden

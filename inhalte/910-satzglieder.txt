@@ -73,9 +73,10 @@ beispiel: Ich bin für eine längere Pause, [weil wir uns dann besser erholen]. 
 -- 1 | reihenfolge | Satzglieder umstellen
 anweisung: Stelle den Satz so um, dass die Zeitangabe vorn steht.
 seit drei Jahren | spielt | Lena | im Verein | Handball.
+seit drei Jahren | spielt | Lena | Handball | im Verein.
 
 -- 2 | reihenfolge | Betonung durch Umstellen
-anweisung: Bilde zwei verschiedene Sätze, die mit einem anderen Satzglied beginnen als „wir“.
+anweisung: Stelle die Satzglieder um und bilde zwei verschiedene richtige Sätze.
 Varianten: 2
 wir | treffen | am Freitag | in der Mensa | unsere Partnerklasse.
 am Freitag | treffen | wir | in der Mensa | unsere Partnerklasse.

@@ -37,6 +37,7 @@ Hinweis: Behauptung, Begründung und Beispiel bilden ein überzeugendes Argument
 -- 2 | reihenfolge | Aufbau einer Erörterung
 anweisung: Bring die Teile einer Erörterung in die richtige Reihenfolge.
 Einleitung mit Thema | Argumente dafür | Argumente dagegen | eigene Meinung als Schluss.
+Einleitung mit Thema | Argumente dagegen | Argumente dafür | eigene Meinung als Schluss.
 
 -- 2 | zuordnen | Stärke oder Vorschlag?
 anweisung: Ordne die Sätze aus einem Kommentar zu.

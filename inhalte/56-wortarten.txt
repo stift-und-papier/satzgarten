@@ -18,7 +18,7 @@ anweisung: Setze den passenden Artikel ein.
 [Der] Apfel liegt auf [dem] Tisch. [Die] Sonne scheint. [Das] Kind spielt im Garten.
 
 -- 2 | zuordnen | Nomen und Artikel im Satz
-Am Morgen holt [die = Artikel] [Mutter = Nomen] [das = Artikel] [Brot = Nomen] vom [Bäcker = Nomen].
+Am Morgen holt [die = Artikel] [Mutter = Nomen] [das = Artikel] [Brot = Nomen] aus [der = Artikel] [Bäckerei = Nomen].
 
 -- 3 | fehler korrigieren | Großschreibung von Nomen
 anweisung: Finde die Nomen, die klein geschrieben sind, und verbessere sie.
@@ -70,7 +70,7 @@ Am Samstag [fuhren : fahren] wir an den See. Wir [schwammen : schwimmen] lange. 
 
 -- 3 | fehler korrigieren | Starke und schwache Verben
 anweisung: Hier stimmen einige Verbformen nicht. Verbessere sie.
-Letzte Woche [gehte -> ging] ich mit Opa angeln. Er [fangte -> fing] drei Fische. Ich habe leider keinen [gefangt -> gefangen]. Trotzdem [lachten] wir viel.
+Letzte Woche [gehte -> ging] ich mit Opa angeln. Er [fangte -> fing] drei Fische. Ich habe leider keinen [gefangt -> gefangen]. Trotzdem lachten wir viel.
 
 -- 3 | auswahl dropdown | haben oder sein?
 anweisung: Wähle das passende Hilfsverb für das Perfekt.

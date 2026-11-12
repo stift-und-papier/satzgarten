@@ -23,7 +23,7 @@ anweisung: Tippe die Sätze an, in denen der Doppelpunkt richtig steht.
 kategorien: Aufzählung, wörtliche Rede, Zusammenfassung
 
 -- 2 | auswahl dropdown | Semikolon oder Komma?
-Die Sonne schien[*; | ,] die Kinder spielten im Garten. Ich kaufe Brot[; | *,] Käse und Obst. Die Arbeit war hart[*; | ,] am Ende waren alle zufrieden.
+Die Sonne schien[*; | kein Zeichen] die Kinder spielten im Garten. Ich kaufe Brot[; | *,] Käse und Obst. Die Arbeit war hart[*; | kein Zeichen] am Ende waren alle zufrieden.
 
 -- 2 | zuordnen | Was leistet der Gedankenstrich?
 [Er drehte sich um – und erstarrte. = Überraschung] [Mein Onkel – er ist Pilot – besucht uns. = Einschub]
@@ -37,7 +37,7 @@ Hinweis: Der Satz wirkt atemlos und die Pointe geht verloren.
 Hinweis: Der Gedankenstrich setzt eine Pause vor der Überraschung.
 
 -- 3 | auswahl dropdown | Zeichen im Sachtext
-Drei Ursachen sind entscheidend[*: | –] Bevölkerungswachstum, Verkehr und Industrie. Die Werte sind gestiegen[*; | :] eine schnelle Lösung ist nicht in Sicht. Das Ergebnis[: | *–] wenn auch knapp[: | *–] überraschte alle.
+Drei Ursachen sind entscheidend[*: | –] Bevölkerungswachstum, Verkehr und Industrie. Die Werte sind gestiegen[*; | kein Zeichen] eine schnelle Lösung ist nicht in Sicht. Das Ergebnis[: | *–] wenn auch knapp[: | *–] überraschte alle.
 
 -- 1 | auswahl | Semikolon richtig?
 anweisung: Tippe die Sätze an, in denen das Semikolon richtig steht (zwischen zwei Hauptsätzen).
@@ -84,7 +84,7 @@ Er kam herein[*, | kein Komma] ohne anzuklopfen. Ich kaufe Brot[, | *kein Komma]
 
 -- 2 | fehler korrigieren | Kommas im Zeitungsbericht
 anweisung: Hier fehlen vier Kommas. Verbessere die Wörter, hinter denen eines fehlt.
-Die [Bürgermeisterin -> Bürgermeisterin,] Frau Lang, eröffnete das [Fest -> Fest,] das jedes Jahr stattfindet. Sie bat alle [Gäste -> Gäste,] den Müll mitzunehmen. Statt lange zu [reden -> reden,] gab sie das Startsignal.
+Die [Bürgermeisterin -> Bürgermeisterin,] Frau Lang, eröffnete das [Fest -> Fest,] das jedes Jahr stattfindet. Sie freute sich [darüber -> darüber,] so viele Gäste zu sehen. Statt lange zu [reden -> reden,] gab sie das Startsignal.
 
 -- 3 | fehler korrigieren | Kommafehler finden
 anweisung: Hier stehen Kommas, wo keine hingehören, oder sie fehlen. Verbessere die markierten Wörter.

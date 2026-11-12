@@ -27,7 +27,7 @@ Im [Teater -> Theater] gab es eine tolle [Vorstelung -> Vorstellung]. Danach hab
 
 -- 1 | lueckentext | ph, th oder y?
 anweisung: Setze ph, th oder y ein.
-die [Ph]ysik, das [Th]ema, das Gymnasi[u]m, die Stro[ph]e, das [Th]eater, das Hand[y]
+die [Ph]ysik, das [Th]ema, das G[y]mnasium, die Stro[ph]e, das [Th]eater, das Hand[y]
 
 -- 2 | zuordnen | Fremdwort-Bausteine
 anweisung: Ordne die Wörter nach ihrem Baustein.
@@ -48,7 +48,7 @@ beispiel: Wir wollen [Fußball spielen].
 beispiel: [Beim Fußballspielen] habe ich mich verletzt.
 
 -- 1 | auswahl | Getrennt oder zusammen?
-Wir gehen heute [*spazieren gehen | spazierengehen]. Ich möchte [*Rad fahren | radfahren]. Am Wochenende wollen wir [*Ski fahren | skifahren].
+Wir wollen heute [*spazieren gehen | spazierengehen]. Ich möchte [*Rad fahren | radfahren]. Am Wochenende wollen wir [*Ski fahren | skifahren].
 
 -- 2 | auswahl | Verbindung als Nomen
 Beim [Rad fahren | *Radfahren] trage ich einen Helm. Wir gehen [*Eis essen | Eisessen]. Das [Schlittschuh laufen | *Schlittschuhlaufen] macht Spaß.
@@ -85,7 +85,7 @@ Das [*Schwimmen | schwimmen] tut gut. Wir wollen [Schwimmen | *schwimmen]. Ich h
 
 -- 2 | zuordnen | Signalwörter finden
 anweisung: Markiere das Signalwort und die Nominalisierung.
-[Beim = Signalwort] [Joggen = Nominalisierung] höre ich Musik. Ich wünsche dir [viel = Signalwort] [Erfolg = Nominalisierung] und [alles = Signalwort] [Gute = Nominalisierung].
+[Beim = Signalwort] [Joggen = Nominalisierung] höre ich Musik. Wir haben [etwas = Signalwort] [Tolles = Nominalisierung] erlebt. Ich wünsche dir [alles = Signalwort] [Gute = Nominalisierung].
 kategorien: Signalwort, Nominalisierung
 
 -- 3 | fehler korrigieren | Nominalisierungen im Text

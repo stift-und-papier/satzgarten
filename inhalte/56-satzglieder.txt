@@ -119,7 +119,7 @@ beispiel: [Wenn es regnet], spielen wir drinnen.
 
 -- 1 | auswahl dropdown | Satzarten erkennen
 Kommst du heute mit ins Schwimmbad [. | *? | !]
-Mach bitte das Fenster zu [. | ? | *!]
+Hurra, wir haben gewonnen [. | ? | *!]
 Wir fahren morgen zu Oma [*. | ? | !]
 Wie spät ist es [. | *? | !]
 

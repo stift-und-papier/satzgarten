@@ -60,7 +60,7 @@ beispiel: Ich [hätte] gern einen Hund.
 beispiel: Wenn ich fliegen [könnte], [würde] ich nach Afrika fliegen.
 
 -- 1 | auswahl dropdown | Wünsche
-Ich [ist | *wäre | war] gern am Meer. Wir [haben | *hätten | hatten] gern mehr Ferien. Wenn ich groß [bin | *wäre | sei], [werde | *würde | wurde] ich Pilotin.
+Ach, [*wäre | ist | war] ich doch am Meer! Ach, [*hätten | haben | hatten] wir doch mehr Ferien! Wenn ich ein Vogel [bin | *wäre | sei], [werde | *würde | wurde] ich über die Stadt fliegen.
 
 -- 2 | lueckentext | Was wäre, wenn …
 anweisung: Setze die Verben im Konjunktiv II ein.

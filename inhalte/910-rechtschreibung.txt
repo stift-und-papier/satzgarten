@@ -117,7 +117,7 @@ Die Digitalisierung verändert viele Berufe. Computer und Maschinen übernehmen 
 -- 3 | diktat merken | Merkdiktat: Referat
 In meinem Referat präsentiere ich die Geschichte des Internets. | Zuerst erkläre ich die Theorie, danach zeige ich praktische Beispiele. | Zum Schluss diskutieren wir über Chancen und Risiken.
 
--- 2 | auswahl dropdown | Fremdwort oder deutsches Wort?
+-- 2 | auswahl dropdown | Fremdwörter im Satz
 Für die Präsentation brauche ich einen [*Beamer | Bimer]. Wir analysieren die [*Statistik | Statisstik]. Das ist eine gute [Idehe | *Idee].
 
 -- 3 | fehler korrigieren | Fremdwörter im Referat

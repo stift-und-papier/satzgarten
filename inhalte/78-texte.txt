@@ -43,7 +43,7 @@ anweisung: Tippe die Sätze an, die in einen sachlichen Bericht passen.
 
 -- 2 | lueckentext | Treffender Ausdruck
 anweisung: Ersetze „machen“ durch ein treffenderes Verb.
-Wir [bauten/errichteten : machten] eine Sandburg. Mama [kochte/bereitete : machte] das Essen. Tim [löste/erledigte : machte] die Aufgabe.
+Wir [bauten/errichteten : machten] eine Sandburg. Mama [kochte : machte] das Essen. Tim [löste/erledigte : machte] die Aufgabe.
 
 -- 3 | ueberarbeiten | Einleitung einer Inhaltsangabe
 Kontext: Der erste Satz einer Inhaltsangabe.

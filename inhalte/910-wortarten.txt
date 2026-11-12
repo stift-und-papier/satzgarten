@@ -27,7 +27,7 @@ Es regnete, [trotzdem = Adverb] gingen wir los, [weil = Konjunktion] wir verabre
 kategorien: Adverb, Konjunktion
 
 -- 2 | zuordnen | Wortarten im Sachtext
-[Viele = Numerale] [Jugendliche = Nomen] [nutzen = Verb] [täglich = Adjektiv] [soziale = Adjektiv] [Netzwerke = Nomen], [obwohl = Konjunktion] [sie = Pronomen] [die = Artikel] [Risiken = Nomen] [kennen = Verb].
+[Zwei = Numerale] [Drittel = Nomen] [der = Artikel] [Jugendlichen = Nomen] [nutzen = Verb] [täglich = Adjektiv] [soziale = Adjektiv] [Netzwerke = Nomen], [obwohl = Konjunktion] [sie = Pronomen] [die = Artikel] [Risiken = Nomen] [kennen = Verb].
 kategorien: Nomen, Verb, Adjektiv, Artikel, Pronomen, Numerale, Konjunktion
 
 -- 3 | ueberarbeiten | Wirkung von Adjektiven
@@ -48,7 +48,7 @@ anweisung: Tippe alle Pronomen an.
 
 -- 2 | lueckentext | Wortart wechseln
 anweisung: Setze das Wort in Klammern in der verlangten Wortart ein.
-Das [Rauchen : rauchen, als Nomen] ist hier verboten. Wir hörten ein [lautes : Lärm/laut, als Adjektiv] Geräusch. Sie antwortete [freundlich : Freund, als Adjektiv].
+Das [Rauchen : rauchen, als Nomen] ist hier verboten. Das war eine [gefährliche : Gefahr, als Adjektiv] Situation. Sie antwortete [freundlich : Freund, als Adjektiv].
 
 -- 3 | fehler korrigieren | Wortarten richtig schreiben
 anweisung: Hier wurden Wortarten verwechselt, deshalb stimmt die Groß- und Kleinschreibung nicht. Verbessere.
