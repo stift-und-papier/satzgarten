@@ -35,6 +35,9 @@ import ei_blau from './ei_blau.png'
 import milch from './milch.png'
 import milch_erdbeer from './milch_erdbeer.png'
 import milch_blaubeer from './milch_blaubeer.png'
+import monster_1 from './monster_1.png'
+import monster_2 from './monster_2.png'
+import monster_3 from './monster_3.png'
 
 export const GRAFIK = {
   muenze: { url: muenze, breite: 24, hoehe: 24, bildBreite: 24, bildHoehe: 24 },
@@ -73,4 +76,7 @@ export const GRAFIK = {
   milch: { url: milch, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   milch_erdbeer: { url: milch_erdbeer, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   milch_blaubeer: { url: milch_blaubeer, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  monster_1: { url: monster_1, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  monster_2: { url: monster_2, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  monster_3: { url: monster_3, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
 } as const

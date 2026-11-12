@@ -63,6 +63,11 @@ const BILDER = [
   { name: 'milch', datei: SPRITES + 'Objects/Items/milk-items.png', x: 0, y: 16, breite: 16, hoehe: 16 },
   { name: 'milch_erdbeer', datei: SPRITES + 'Objects/Items/milk-items.png', x: 0, y: 112, breite: 16, hoehe: 16 },
   { name: 'milch_blaubeer', datei: SPRITES + 'Objects/Items/milk-items.png', x: 0, y: 80, breite: 16, hoehe: 16 },
+  // Monster über der Aufgabe (docs/SPEC-monster.md), je ein ruhiges Standbild 32×32, Blick nach links zur Spielfigur:
+  // ★ Rübchen „chomp“ (eigenes Werk der Lehrkraft), ★★ Schleim, ★★★ Ork (craftpix.net, frei)
+  { name: 'monster_1', datei: 'assets/chomp_idle.png', x: 0, y: 0, breite: 32, hoehe: 32 },
+  { name: 'monster_2', datei: 'assets/entpackt/free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime1/Idle/Slime1_Idle_full.png', x: 16, y: 144, breite: 32, hoehe: 32 },
+  { name: 'monster_3', datei: 'assets/entpackt/Free-Top-Down-Orc-Game-Character-Pixel-Art/PNG/Orc1/Orc1_idle/orc1_idle_full.png', x: 16, y: 142, breite: 32, hoehe: 32 },
 ]
 
 mkdirSync('src/grafik', { recursive: true })

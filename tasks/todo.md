@@ -195,10 +195,10 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 - [x] **38 Felder: pflanzen, gießen, ernten** (M) – hängt an 36, 37 · Farm-Raster aus Kacheln; RPCs `pflanzen`, `ernten`; Wachstum = gelöste Aufgaben seit dem Pflanzen (Gießen), gegossene Kacheln aus dem Pflanzen-Paket. Prüfen: DB-Testfälle Wachstum; iPad.
 - [x] **39 Tiere füttern** (M) – hängt an 38 · Tiere aufstellen; RPC `fuettern` (verbraucht Geerntetes); Sprechblase mit Herz über dem Tier. Prüfen: DB-Test; iPad.
 - [x] **40 Spec Spielfigur** (S) – `docs/SPEC-spielfigur.md`: offene Frage 10 (Steuerung per Antippen, Pfeiltasten oder beides). Prüfen: Freigabe.
-- [ ] **41 Spielfigur** (M) – hängt an 40, 38 · Figur aus dem Sprout-Lands-Spritesheet, 4 Richtungen, Bewegung nach der Spec; alles bleibt auch ohne Figur bedienbar; ruhig bei „Bewegung reduzieren“. Prüfen: iPad (flüssig?).
+- [x] **41 Spielfigur** (M) – hängt an 40, 38 · Figur aus dem Sprout-Lands-Spritesheet, 4 Richtungen, Bewegung nach der Spec; alles bleibt auch ohne Figur bedienbar; ruhig bei „Bewegung reduzieren“. Prüfen: iPad (flüssig?).
 
 - [x] **41a Spec Monster-Kampf und Buch** (S) – `docs/SPEC-monster.md`: offene Fragen 17–22 (Antworten der Lehrkraft 2026-11-11).
-- [ ] **41b Monster über der Aufgabe** (M) – hängt an 41a, 41, 25 · Figur gegen Monster über jeder Paket-Aufgabe; richtig = Treffer (auch 2. Versuch, nicht nach „Lösung ansehen“),
+- [x] **41b Monster über der Aufgabe** (M) – hängt an 41a, 41, 25 · Figur gegen Monster über jeder Paket-Aufgabe; richtig = Treffer (auch 2. Versuch, nicht nach „Lösung ansehen“),
   falsch = verfehlt; Lebensbalken ohne Zahlen; besiegt erst wenn alle Aufgaben richtig, sonst „nochmal versuchen“; ★ Sprout, ★★ Schleim, ★★★ Ork; Treffer rechnet der Server; keine Blut-/Todes-Animation; ruhig bei „Bewegung reduzieren“.
   Prüfen: DB-Test (Treffer nicht erschummelbar, nie Punkte/Prozente für Schüler:innen); iPad.
 - [ ] **41c Buch** (M) – hängt an 41a · Freigeschaltetes im Papier-Look (Humble Gift). Prüfen: iPad.

@@ -223,3 +223,8 @@
 - 2026-11-12 (Lehrkraft): Ernte und Ei/Milch erscheinen erst **in der Spielwelt** (Ernte auf dem Feld bzw. daneben, Ei/Milch neben dem Tier,
   hüpfen leicht) und kommen erst beim **Einsammeln** (antippen, Figur läuft hin) in den Vorrat (`vorrat.liegt_bei`, Funktion `einsammeln`,
   Plätze `ablagePlaetze` in `landschaft.ts`). Liegendes kann man weder füttern noch verkaufen. Es bleibt liegen, bis man es holt.
+- 2026-11-12 (Claude, Aufgabe 41b): Monster über der Aufgabe und über der Aufgabenliste des Pakets (`src/schueler/Kampf.tsx`,
+  Migration `monster`: `kampf` in `schueler_start`). Monster nach der höchsten Sterne-Stufe der sichtbaren Aufgaben: Rübchen (chomp),
+  Schleim, Ork (craftpix, Lizenz geprüft: Nutzung erlaubt, einzelne Bilder wie bei Sprout Lands). Spielfigur links, Lebensbalken ohne
+  Zahlen (Holz-/Tintenfarben, kein Grün/Rot), Treffer = Figur springt vor, daneben = Monster hüpft zur Seite, besiegt = verblasst und
+  läuft davon. Erklärseiten zählen nicht; nur Erklärseiten = kein Monster.

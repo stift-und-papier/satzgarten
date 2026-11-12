@@ -16,6 +16,7 @@ import { neueId } from '../lib/zufall'
 import einsteinMd from './einstein.md?raw'
 import { Farm } from './Farm'
 import { Hilfe } from './Hilfe'
+import { Kampf } from './Kampf'
 import { Lernweg } from './Lernweg'
 import { Shop } from './Shop'
 import { entwurfLesen, entwurfSpeichern, warteschlangeLesen, warteschlangeSpeichern, type WartenderVersuch } from './speicher'
@@ -140,6 +141,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
             {aufgabe && ` · Aufgabe ${index + 1} von ${paket.aufgaben.length}`}
           </span>
         </div>
+        <Kampf paket={paket} />
         {aufgabe ? (
           <AufgabeSeite
             key={aufgabe.id}
@@ -175,6 +177,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
           </div>
           {paket.beschreibung && <p>{paket.beschreibung}</p>}
         </header>
+        <Kampf paket={paket} />
         <ol className="paket-liste">
           {paket.aufgaben.map((a, i) => (
             <li key={a.id}>
