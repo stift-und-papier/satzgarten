@@ -2,7 +2,7 @@
 import { datum, STUFEN, trendPfeil, trendText, type Auswertung, type Einstellungen } from '../lib/lernstand'
 
 // Feld in der Heatmap: Farbe UND Zeichen (für Farbsehschwäche und Schwarz-Weiß-Druck).
-export function StufenFeld({ a }: { a: Auswertung | undefined }) {
+export function StufenFeld({ a, titel }: { a: Pick<Auswertung, 'stufe' | 'trend_gueltig' | 'trend_punkte'> | undefined; titel?: string }) {
   if (!a || a.stufe === null)
     return (
       <span className="lk-stufe lk-stufe--wenig" title="noch nicht genug Daten">
@@ -11,7 +11,7 @@ export function StufenFeld({ a }: { a: Auswertung | undefined }) {
     )
   const s = STUFEN[a.stufe]
   return (
-    <span className="lk-stufe" style={{ background: s.farbe, color: s.text }} title={`Stufe ${s.symbol}`}>
+    <span className="lk-stufe" style={{ background: s.farbe, color: s.text }} title={titel ?? `Stufe ${s.symbol}`}>
       {s.symbol}
       {a.trend_gueltig && <small>{trendPfeil(a)}</small>}
     </span>

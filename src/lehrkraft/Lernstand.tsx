@@ -3,7 +3,7 @@
 // Schüler:innen sehen ausschließlich ihre Entwicklung in Worten (schueler_entwicklung).
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { fehlerText } from '../lib/fehler'
-import { datum, type Auswertung, type Einstellungen } from '../lib/lernstand'
+import { datum, GROSSE_BEREICHE, grosserBereich, stufeAusPunkte, zusammenfassen, type Auswertung, type Einstellungen } from '../lib/lernstand'
 import { supabase } from '../lib/supabase'
 import type { Klasse, Kompetenz, Schueler } from '../lib/typen'
 import { Legende, StufenFeld, StufenStreifen, Verlauf } from './LernstandAnzeige'
@@ -42,19 +42,70 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
     })
   }, [klasseId])
 
+  const [ansicht, setAnsicht] = useState<'bereiche' | 'kompetenzen'>('bereiche')
+  const [abgewaehlt, setAbgewaehlt] = useState<Set<string>>(new Set())
+  const [offen, setOffen] = useState<Set<string>>(new Set())
+
   const wert = useMemo(() => {
     const m = new Map<string, Auswertung>()
     for (const w of daten?.werte ?? []) if (w.daten) m.set(`${w.schueler_id}:${w.kompetenz_id}`, w.daten)
     return m
   }, [daten])
 
+  // Spalten der Einzelkompetenzen und Durchschnitte je Person (Bereiche und große Bereiche)
+  const { spalten, schnitt } = useMemo(() => {
+    if (!daten) return { spalten: [] as Kompetenz[], schnitt: new Map<string, ReturnType<typeof zusammenfassen>>() }
+    const mitDaten = new Set(daten.werte.map((w) => w.kompetenz_id))
+    const spalten = daten.kompetenzen.filter((k) => k.kerncurriculum === daten.klasse.kerncurriculum && mitDaten.has(k.id))
+    const schnitt = new Map(
+      daten.schueler.map((s) => [
+        s.id,
+        zusammenfassen(spalten.map((k) => ({ bereich: k.bereich, punkte: wert.get(`${s.id}:${k.id}`)?.punkte ?? null }))),
+      ]),
+    )
+    return { spalten, schnitt }
+  }, [daten, wert])
+
   if (fehler) return <p className="lk-hinweis" role="alert">{fehler}</p>
   if (!daten) return <p className="lk-leise" role="status">Lädt …</p>
   const { klasse, schueler, kompetenzen, werte, einstellungen } = daten
 
-  const mitDaten = new Set(werte.map((w) => w.kompetenz_id))
-  const spalten = kompetenzen.filter((k) => k.kerncurriculum === klasse.kerncurriculum && mitDaten.has(k.id))
   const person = schueler.find((s) => s.id === ausgewaehlt)
+  // Große Bereiche: die drei des KC, dazu „Weitere“ nur, falls es nicht zugeordnete Bereiche gibt
+  const bereicheMitDaten = [...new Set(spalten.map((k) => k.bereich))]
+  const grosse = [...GROSSE_BEREICHE, ...(bereicheMitDaten.some((b) => grosserBereich(b) === 'Weitere') ? ['Weitere'] : [])]
+  const hatDaten = (g: string) => bereicheMitDaten.some((b) => grosserBereich(b) === g)
+  const umschalten = (menge: Set<string>, setzen: (m: Set<string>) => void, x: string) => {
+    const neu = new Set(menge)
+    if (!neu.delete(x)) neu.add(x)
+    setzen(neu)
+  }
+  const feld = (punkte: number | undefined, titel: string) =>
+    punkte === undefined ? undefined : { stufe: stufeAusPunkte(punkte, einstellungen), trend_gueltig: false, trend_punkte: null, titel }
+
+  // Alle Spalten der Tabelle: in der Übersicht große Bereiche (aufklappbar in ihre Bereiche), sonst Einzelkompetenzen
+  type Spalte = { key: string; titel: string; erklaerung?: string; unter?: boolean; aufklappen?: string; feld: (sid: string) => ReturnType<typeof feld> | Auswertung | undefined }
+  const tabelle: Spalte[] =
+    ansicht === 'kompetenzen'
+      ? spalten.map((k) => ({ key: k.id, titel: name(k), erklaerung: k.kompetenz, feld: (sid) => wert.get(`${sid}:${k.id}`) }))
+      : grosse
+          .filter((g) => hatDaten(g) && !abgewaehlt.has(g))
+          .flatMap((g) => [
+            {
+              key: g,
+              titel: g,
+              erklaerung: `Durchschnitt der Bereiche: ${bereicheMitDaten.filter((b) => grosserBereich(b) === g).join(', ')}`,
+              aufklappen: g,
+              feld: (sid: string) => feld(schnitt.get(sid)?.gross.get(g), `${g}: Durchschnitt ${Math.round(schnitt.get(sid)?.gross.get(g) ?? 0)} Punkte`),
+            },
+            ...(offen.has(g) ? bereicheMitDaten.filter((b) => grosserBereich(b) === g) : []).map((b) => ({
+              key: `${g}/${b}`,
+              titel: b,
+              unter: true,
+              erklaerung: `Durchschnitt der Kompetenzen im Bereich ${b}`,
+              feld: (sid: string) => feld(schnitt.get(sid)?.bereiche.get(b), `${b}: Durchschnitt ${Math.round(schnitt.get(sid)?.bereiche.get(b) ?? 0)} Punkte`),
+            })),
+          ])
   const personDaten = new Map(werte.filter((w) => w.schueler_id === ausgewaehlt && w.daten).map((w) => [w.kompetenz_id, w.daten as Auswertung]))
 
   function waehlen(id: string) {
@@ -71,7 +122,38 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
       <h1>Lernstand Klasse {klasse.name}</h1>
       <p className="lk-leise">
         Nur für Sie sichtbar. Schüler:innen sehen nie diese Stufen, nur ihre Entwicklung in Worten. Kerncurriculum: {klasse.kerncurriculum}.
+        <span className="lk-nur-drucken"> Stand vom {datum(new Date().toISOString())}.</span>
       </p>
+
+      <div className="lk-zeile lk-nicht-drucken">
+        <div className="lk-reiter" role="group" aria-label="Ansicht">
+          <button type="button" className="lk-knopf" aria-pressed={ansicht === 'bereiche'} onClick={() => setAnsicht('bereiche')}>
+            Große Bereiche
+          </button>
+          <button type="button" className="lk-knopf" aria-pressed={ansicht === 'kompetenzen'} onClick={() => setAnsicht('kompetenzen')}>
+            Einzelne Kompetenzen
+          </button>
+        </div>
+        <button type="button" className="lk-knopf" onClick={() => window.print()}>
+          Klasse drucken oder als PDF
+        </button>
+      </div>
+      {ansicht === 'bereiche' && spalten.length > 0 && (
+        <fieldset className="lk-nicht-drucken">
+          <legend>Diese großen Bereiche zeigen</legend>
+          {grosse.map((g) => (
+            <label key={g} className="lk-haken">
+              <input type="checkbox" checked={hatDaten(g) && !abgewaehlt.has(g)} disabled={!hatDaten(g)} onChange={() => umschalten(abgewaehlt, setAbgewaehlt, g)} />
+              {g}
+              {!hatDaten(g) && <span className="lk-leise">(noch keine Ergebnisse)</span>}
+            </label>
+          ))}
+          <p className="lk-leise">
+            Ein großer Bereich ist der Durchschnitt seiner Bereiche, ein Bereich der Durchschnitt seiner Kompetenzen. Mit ▸ im Tabellenkopf
+            klappen Sie die Bereiche auf.
+          </p>
+        </fieldset>
+      )}
 
       <div className="lk-lernstand">
         <section aria-label="Klassenübersicht">
@@ -86,9 +168,20 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
                 <thead>
                   <tr>
                     <th>Schüler:in</th>
-                    {spalten.map((k) => (
-                      <th key={k.id} scope="col" title={k.kompetenz}>
-                        <span>{name(k)}</span>
+                    {tabelle.map((sp) => (
+                      <th key={sp.key} scope="col" title={sp.erklaerung} className={sp.unter ? 'lk-heatmap__unter' : undefined}>
+                        <span>{sp.titel}</span>
+                        {sp.aufklappen && (
+                          <button
+                            type="button"
+                            className="lk-heatmap__auf lk-nicht-drucken"
+                            aria-expanded={offen.has(sp.aufklappen)}
+                            aria-label={`Bereiche von „${sp.titel}“ ${offen.has(sp.aufklappen) ? 'zuklappen' : 'aufklappen'}`}
+                            onClick={() => umschalten(offen, setOffen, sp.key)}
+                          >
+                            {offen.has(sp.aufklappen) ? '◂' : '▸'}
+                          </button>
+                        )}
                       </th>
                     ))}
                   </tr>
@@ -101,13 +194,16 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
                           {s.pseudonym}
                         </button>
                       </th>
-                      {spalten.map((k) => (
-                        <td key={k.id}>
-                          <button type="button" className="lk-heatmap__knopf" aria-label={`${s.pseudonym}: ${name(k)}`} onClick={() => waehlen(s.id)}>
-                            <StufenFeld a={wert.get(`${s.id}:${k.id}`)} />
-                          </button>
-                        </td>
-                      ))}
+                      {tabelle.map((sp) => {
+                        const f = sp.feld(s.id)
+                        return (
+                          <td key={sp.key} className={sp.unter ? 'lk-heatmap__unter' : undefined}>
+                            <button type="button" className="lk-heatmap__knopf" aria-label={`${s.pseudonym}: ${sp.titel}`} onClick={() => waehlen(s.id)}>
+                              <StufenFeld a={f} titel={f && 'titel' in f ? f.titel : undefined} />
+                            </button>
+                          </td>
+                        )
+                      })}
                     </tr>
                   ))}
                 </tbody>
@@ -117,7 +213,7 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
           <Legende />
         </section>
 
-        <div ref={einzelRef}>
+        <div ref={einzelRef} className="lk-nicht-drucken">
           {person ? (
             <EinzelKarte schueler={person} klasse={klasse} kompetenzen={kompetenzen} daten={personDaten} einstellungen={einstellungen} />
           ) : (

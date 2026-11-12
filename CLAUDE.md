@@ -170,3 +170,8 @@
 - 2026-11-12 (Claude, Phase 7): Migration `lernstand` (Berechnung alt, Schwierigkeit = Sterne-Stufe, KC aus der Klasse),
   Seiten Lernstand der Klasse, Einzelseite zum Drucken, Einstellungen, „Mein Lernweg“ (Menüpunkt Lernweg), Ergebnisse zurücksetzen.
   Klasse „Test“ steht auf Gymnasium, die Übungsaufgaben haben Realschul-Kompetenzen – darum Testklasse „Lernstand-Demo“ (Realschule).
+- 2026-11-12 (Lehrkraft): Lernstand der Klasse auch als **große Bereiche** (Umschalter, Standard): Sprache und Sprachgebrauch
+  untersuchen (Wortarten, Wortbildung und Wortschatz, Satzglieder und Sätze, Sprachgebrauch), Schreiben (Rechtschreibung, Zeichensetzung,
+  Texte überarbeiten), Sich mit Texten und anderen Medien auseinandersetzen (noch ohne Kompetenzen). Großer Bereich = Durchschnitt seiner
+  Bereiche, Bereich = Durchschnitt seiner Kompetenzen (`zusammenfassen` in `src/lib/lernstand.ts`). Anhaken, welche großen Bereiche
+  sichtbar sind, ▸ klappt die Bereiche auf. „Klasse drucken oder als PDF“ druckt die Tabelle wie am Bildschirm.

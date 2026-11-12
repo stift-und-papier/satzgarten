@@ -72,7 +72,42 @@ export function trendText(a: Auswertung, e: Einstellungen): string {
   return `${(a.trend_punkte ?? 0) > 0 ? 'verbessert' : 'verschlechtert'} innerhalb der Stufe seit ${seit}`
 }
 
-export function trendPfeil(a: Auswertung): string {
+export function trendPfeil(a: Pick<Auswertung, 'trend_gueltig' | 'trend_punkte'>): string {
   if (!a.trend_gueltig || a.trend_punkte === null) return '→'
   return a.trend_punkte > 0 ? '↗' : '↘'
+}
+
+// ---------- Große Kompetenzbereiche (KC Niedersachsen; Zuordnung durch die Lehrkraft, 2026-11-12) ----------
+export const GROSSE_BEREICHE = [
+  'Sprache und Sprachgebrauch untersuchen',
+  'Schreiben',
+  'Sich mit Texten und anderen Medien auseinandersetzen',
+] as const
+const [SPRACHE, SCHREIBEN] = GROSSE_BEREICHE
+const ZU_GROSS: Record<string, string> = {
+  Wortarten: SPRACHE,
+  'Wortbildung und Wortschatz': SPRACHE,
+  'Satzglieder und Sätze': SPRACHE,
+  Sprachgebrauch: SPRACHE,
+  Rechtschreibung: SCHREIBEN,
+  Zeichensetzung: SCHREIBEN,
+  'Texte überarbeiten': SCHREIBEN,
+}
+/** Großer Bereich zu einem Bereich der Kompetenzliste; noch nicht zugeordnete Bereiche landen unter „Weitere“ */
+export const grosserBereich = (bereich: string) => ZU_GROSS[bereich] ?? 'Weitere'
+
+const mittel = (zahlen: number[]) => (zahlen.length ? zahlen.reduce((a, b) => a + b, 0) / zahlen.length : null)
+
+/**
+ * Durchschnitte einer Person: je Bereich über seine Kompetenzen, je großem Bereich über seine Bereiche
+ * (jeder Bereich zählt gleich viel). Kompetenzen ohne Stufe (zu wenige Versuche) zählen nicht mit.
+ */
+export function zusammenfassen(werte: { bereich: string; punkte: number | null }[]) {
+  const jeBereich = new Map<string, number[]>()
+  for (const w of werte) if (w.punkte !== null) jeBereich.set(w.bereich, [...(jeBereich.get(w.bereich) ?? []), w.punkte])
+  const bereiche = new Map([...jeBereich].map(([b, p]) => [b, mittel(p) as number]))
+  const jeGross = new Map<string, number[]>()
+  for (const [b, p] of bereiche) jeGross.set(grosserBereich(b), [...(jeGross.get(grosserBereich(b)) ?? []), p])
+  const gross = new Map([...jeGross].map(([g, p]) => [g, mittel(p) as number]))
+  return { bereiche, gross }
 }

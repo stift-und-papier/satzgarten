@@ -224,7 +224,7 @@ fieldset.lk-teil { grid-template-columns: minmax(0, 1fr); }
 .lk-heatmap { border-collapse: collapse; }
 .lk-heatmap th, .lk-heatmap td { padding: 2px; border-bottom: 1px solid var(--color-lk-linie); text-align: center; }
 .lk-heatmap thead th { vertical-align: bottom; font-size: var(--text-klein); color: var(--color-lk-leise); font-weight: 800; }
-.lk-heatmap thead th:not(:first-child) span { display: inline-block; writing-mode: vertical-rl; transform: rotate(180deg); max-height: 9rem; text-align: left; }
+.lk-heatmap thead th:not(:first-child) span { display: inline-block; writing-mode: vertical-rl; transform: rotate(180deg); max-height: 11rem; text-align: left; }
 .lk-heatmap tbody th { text-align: left; }
 .lk-heatmap__knopf {
   min-height: 48px; min-width: 48px; padding: 0 var(--space-xs);
@@ -258,4 +258,22 @@ fieldset.lk-teil { grid-template-columns: minmax(0, 1fr); }
 @media print {
   .lk-stufe, .lk-streifen__fuellung { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .lk-einzel { border: 0; padding: 0; }
+}
+/* Übersicht nach großen Bereichen: ▸ klappt die Bereiche daneben auf; Unterbereiche heller abgesetzt */
+.lk-heatmap__auf {
+  display: block; margin: var(--space-2xs) auto 0; min-width: 48px; min-height: 48px;
+  border: 1px solid var(--color-lk-linie); border-radius: var(--radius-lk);
+  background: var(--color-lk-papier); color: var(--color-lk-aktion); font: 800 1.1rem/1 var(--font-body); cursor: pointer;
+}
+.lk-heatmap__auf:hover { background: var(--color-lk-papier-2); }
+.lk-heatmap__unter { background: var(--color-lk-papier-2); }
+.lk-heatmap thead th.lk-heatmap__unter span { font-weight: 600; }
+.lk-nur-drucken { display: none; }
+@media print {
+  .lk-nur-drucken { display: inline; }
+  .lk-lernstand { display: block; }
+  .lk-heatmap tr[aria-selected='true'] { box-shadow: none; background: none; }
+  .lk-heatmap__knopf { min-height: 0; min-width: 0; }
+  .lk-heatmap__unter { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .lk-zurueck { display: none; }
 }
