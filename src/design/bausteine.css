@@ -516,3 +516,21 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .shop-artikel--gesperrt { justify-content: center; min-height: 10rem; }
 .shop-artikel__frage { font-size: 2.5rem; font-weight: 800; line-height: 1; }
 .muenzen-preis { display: inline-flex; align-items: center; gap: var(--space-2xs); font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* ---------- Farm ---------- */
+.farm-felder { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+.farm-feld {
+  position: relative; display: grid; place-items: center;
+  padding: 0; border: none; background: none; cursor: pointer; min-width: 48px; min-height: 48px;
+}
+.farm-feld[aria-pressed='true'] { outline: 4px solid var(--color-aktion); outline-offset: 2px; }
+.farm-feld__pflanze { position: absolute; inset: 0; display: grid; place-items: center; }
+.farm-feld__reif {
+  position: absolute; top: -6px; right: -6px; display: grid; place-items: center; width: 26px; height: 26px;
+  border-radius: 50%; background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); font-weight: 800;
+  border: 2px solid currentColor;
+}
+.farm-auswahl { margin-top: var(--space-sm); }
+.farm-auswahl .knopf { display: inline-flex; align-items: center; gap: var(--space-2xs); }
+.farm-vorrat { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.farm-vorrat li { display: inline-flex; align-items: center; gap: var(--space-2xs); font-weight: 700; }

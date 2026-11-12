@@ -11,6 +11,7 @@ import deko_blume_lila from './deko_blume_lila.png'
 import deko_pilzhaus from './deko_pilzhaus.png'
 import deko_katze_rosa from './deko_katze_rosa.png'
 import deko_katze_blau from './deko_katze_blau.png'
+import acker from './acker.png'
 import brunnen from './brunnen.png'
 import huhn from './huhn.png'
 import kuh from './kuh.png'
@@ -30,6 +31,7 @@ export const GRAFIK = {
   deko_pilzhaus: { url: deko_pilzhaus, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   deko_katze_rosa: { url: deko_katze_rosa, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   deko_katze_blau: { url: deko_katze_blau, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  acker: { url: acker, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   brunnen: { url: brunnen, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   huhn: { url: huhn, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   kuh: { url: kuh, breite: 96, hoehe: 32, bildBreite: 32, bildHoehe: 32 },

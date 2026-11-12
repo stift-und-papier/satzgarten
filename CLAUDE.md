@@ -201,3 +201,6 @@
 - 2026-11-12 (Claude, Aufgabe 37): Shop gebaut (Migration `shop`: Angebot `shop_artikel` mit Preisen/Grenzen, `besitz`, `kaufen`,
   `schueler_shop`; Bilder in `src/lib/shop.ts`). Menüpunkt „Shop“. 11 Samen im Shop, Tulpe und Rose sowie Katzenblumen nur als
   Belohnung für Lernfortschritt. Statt Zaun (Kachel-Satz, schwer einzeln) gibt es zu Beginn einen Busch. Kauf mit Nachfrage „Ja, kaufen“.
+- 2026-11-12 (Claude, Aufgabe 38): Farm auf der Startseite (`src/schueler/Farm.tsx`, Migration `felder`): Felder als Ackerboden-Bild,
+  leeres Feld antippen → Samen wählen; reif (Haken) antippen → ernten in den Vorrat. Wachstum nur auf dem Server (`wachstum`),
+  Schüler:innen sehen nur das Bild (4 Stufen). Deko und Tiere erscheinen erst mit Aufgabe 39.

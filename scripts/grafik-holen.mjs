@@ -30,6 +30,8 @@ const BILDER = [
     ['deko_busch', 3, 2], ['deko_blume_gelb', 2, 3], ['deko_pilz', 2, 0], ['deko_stein', 5, 1], ['deko_blume_lila', 2, 4],
     ['deko_pilzhaus', 6, 0], ['deko_katze_rosa', 7, 3], ['deko_katze_blau', 7, 4],
   ].map(([name, sp, ze]) => ({ name, datei: SPRITES + 'Objects/Mushrooms, Flowers, Stones.png', x: sp * 16, y: ze * 16, breite: 16, hoehe: 16 })),
+  // Ackerboden: einzelnes rundes Feld aus den Erd-Kacheln
+  { name: 'acker', datei: SPRITES + 'Tilesets/ground tiles/New tiles/Darker_Soil_Ground_Tiles.png', x: 48, y: 48, breite: 16, hoehe: 16 },
   { name: 'brunnen', datei: SPRITES + 'Objects/Water well.png' },
   { name: 'huhn', datei: SPRITES + 'Animals/Chicken/chicken default.png', x: 0, y: 0, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   { name: 'kuh', datei: SPRITES + 'Animals/Cow/Light cow animations.png', x: 0, y: 0, breite: 96, hoehe: 32, bildBreite: 32, bildHoehe: 32 },

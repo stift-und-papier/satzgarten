@@ -14,6 +14,7 @@ import { supabase } from '../lib/supabase'
 import type { Loesung, SchuelerAufgabe, SchuelerPaket, SchuelerStart } from '../lib/typen'
 import { neueId } from '../lib/zufall'
 import einsteinMd from './einstein.md?raw'
+import { Farm } from './Farm'
 import { Hilfe } from './Hilfe'
 import { Lernweg } from './Lernweg'
 import { Shop } from './Shop'
@@ -257,7 +258,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
           </div>
         </section>
       )}
-      <p className="karte leise">Hier entsteht bald deine Farm.</p>
+      <Farm token={token} shop={`#${basis}/shop`} />
     </Rahmen>
   )
 }

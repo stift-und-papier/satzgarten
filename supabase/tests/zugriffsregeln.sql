@@ -760,6 +760,84 @@ begin
     n := n + 1;
   end;
 
+  -- ---------- 10 Felder (Phase 8) ----------
+  -- Eule (nach Block 9 zurückgesetzt) bekommt 1000 Münzen von der Lehrkraft (gießen nicht), kauft eine Karotte (Bedarf 4)
+  declare
+    t_eule text := (select token from public.schueler where pseudonym = 'Eule-02');
+    v_eule uuid := (select id from public.schueler where pseudonym = 'Eule-02');
+    v jsonb;
+  begin
+    insert into public.muenz_ereignisse (schueler_id, grund, schluessel, muenzen) values (v_eule, 'lehrkraft', 'test-farm', 1000);
+    set local role anon;
+    perform public.kaufen(t_eule, 'karotte');
+    v := public.pflanzen(t_eule, 0, 'karotte');
+    if v -> 'pflanzen' -> 0 ->> 'bild' <> '0' or (v -> 'pflanzen' -> 0 ->> 'reif')::boolean or jsonb_array_length(v -> 'samen') <> 0
+       or (v ->> 'felder')::int <> 4 or v::text ~ '"(schritte|bedarf|wachstum)"' then
+      raise exception 'Block 10.1: Pflanzen falsch: %', v;
+    end if;
+    n := n + 1;
+    begin
+      perform public.kaufen(t_eule, 'karotte');
+      perform public.pflanzen(t_eule, 0, 'karotte');
+      raise exception 'Block 10.2: belegtes Feld bepflanzt';
+    exception when raise_exception then if sqlerrm !~ 'schon' then raise; end if;
+    end;
+    begin
+      perform public.pflanzen(t_eule, 4, 'karotte');
+      raise exception 'Block 10.2: Feld 5 ohne Kauf bepflanzt';
+    exception when raise_exception then if sqlerrm !~ 'gibt es nicht' then raise; end if;
+    end;
+    begin
+      perform public.pflanzen(t_eule, 1, 'salat');
+      raise exception 'Block 10.2: ohne Samen gepflanzt';
+    exception when raise_exception then if sqlerrm !~ 'hast du nicht' then raise; end if;
+    end;
+    begin
+      perform public.ernten(t_eule, 0);
+      raise exception 'Block 10.3: unreif geerntet';
+    exception when raise_exception then if sqlerrm !~ 'noch nichts' then raise; end if;
+    end;
+    begin
+      perform 1 from public.pflanzungen;
+      raise exception 'Block 10.4: anon liest Pflanzungen';
+    exception when insufficient_privilege then null;
+    end;
+    reset role;
+    n := n + 3;
+    -- Nur Zeit: 10 Tage bringen höchstens die Hälfte (2 von 4) → Bild 1, nicht reif
+    update public.pflanzungen set gepflanzt_am = now() - interval '10 days' where schueler_id = v_eule and feld = 0;
+    v := public.schueler_farm(t_eule);
+    if v -> 'pflanzen' -> 0 ->> 'bild' <> '1' or (v -> 'pflanzen' -> 0 ->> 'reif')::boolean then
+      raise exception 'Block 10.5: Zeit allein lässt zu viel wachsen: %', v;
+    end if;
+    -- Lehrkraft-Münzen gießen nicht; zwei geübte Aufgaben schon → reif
+    insert into public.muenz_ereignisse (schueler_id, grund, schluessel, muenzen) values (v_eule, 'lehrkraft', 'test-farm-2', 10);
+    if public.schueler_farm(t_eule) -> 'pflanzen' -> 0 ->> 'bild' <> '1' then raise exception 'Block 10.5: Lehrkraft-Münzen gießen'; end if;
+    insert into public.muenz_ereignisse (schueler_id, grund, schluessel, muenzen)
+    values (v_eule, 'aufgabe', 'test-a1', 10), (v_eule, 'aufgabe', 'test-a2', 10);
+    v := public.schueler_farm(t_eule);
+    if v -> 'pflanzen' -> 0 ->> 'bild' <> '3' or not (v -> 'pflanzen' -> 0 ->> 'reif')::boolean then
+      raise exception 'Block 10.6: Üben lässt nicht wachsen: %', v;
+    end if;
+    n := n + 2;
+    set local role anon;
+    v := public.ernten(t_eule, 0);
+    reset role;
+    if jsonb_array_length(v -> 'pflanzen') <> 0
+       or v -> 'vorrat' <> '[{"sorte":"karotte","anzahl":1}]'::jsonb or exists (select 1 from public.pflanzungen where schueler_id = v_eule and feld = 0) then
+      raise exception 'Block 10.7: Ernte falsch: %', v;
+    end if;
+    n := n + 1;
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform public.ergebnisse_zuruecksetzen(array[v_eule]);
+    reset role;
+    if exists (select 1 from public.vorrat where schueler_id = v_eule) or exists (select 1 from public.pflanzungen where schueler_id = v_eule) then
+      raise exception 'Block 10.8: Farm nach Zurücksetzen noch da';
+    end if;
+    n := n + 1;
+  end;
+
   raise exception 'ALLE TESTS BESTANDEN (%)', n;
 end
 $test$;
