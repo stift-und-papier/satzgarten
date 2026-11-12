@@ -54,7 +54,8 @@ export const DEKO_PLAETZE: Ort[] = [
   { x: 7, y: 9 }, { x: 6, y: 11 }, { x: 8, y: 12 }, { x: 19, y: 8 }, { x: 18, y: 10 }, { x: 11, y: 11 },
   { x: 6, y: 7 }, { x: 4, y: 7 }, { x: 12, y: 6 }, { x: 17, y: 9 }, { x: 19, y: 9 }, { x: 2, y: 5 },
 ]
-export const FIGUR_START: Ort = { x: 7, y: 6 }
+// Lehrkraft 2026-11-12: Start so weit rechts, dass die Sprechblase links von der Figur Platz hat (mit 2-facher Größe gut 140 Grafik-Pixel)
+export const FIGUR_START: Ort = { x: 10, y: 6 }
 // Kleine Halme und Blümchen auf dem Gras (nur innen, nie am Rand)
 export const GRAS_DEKO: (Ort & { nummer: number })[] = [
   { x: 7, y: 3 }, { x: 10, y: 3 }, { x: 4, y: 9 }, { x: 7, y: 8 }, { x: 11, y: 6 }, { x: 3, y: 7 },

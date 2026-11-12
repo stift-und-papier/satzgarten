@@ -249,4 +249,4 @@
 - 2026-11-12 (Lehrkraft): **Monster-Kampf komplett entfernt** (gefällt nicht; Migration `kampf_weg`, Kampf.tsx, Monster-Bilder und craftpix weg).
   Obstbäume mit dem geraden Standbild. Reifes ohne Haken: Sprechblase an der Figur „X kann geerntet werden!“ bzw.
   „Ich kann heute vieles ernten!“ (Bild „dialog box“ aus dem UI Pack, `dialog_blase.png`), verschwindet beim ersten Tippen.
-  Blase immer links von der Figur; fehlt dort Platz, läuft die Figur zuerst von selbst nach rechts. „Dein nächster Schritt:“ nur mit dem Namen der Aufgabe. Übungen und „Dein nächster Schritt“: Sterne oben rechts im Kasten mit dem Wort „Schwierigkeit“.
+  Blase immer links von der Figur; fehlt dort Platz, läuft die Figur zuerst von selbst nach rechts. Figur startet immer bei (10, 6), dort passt die Blase. „Dein nächster Schritt:“ nur mit dem Namen der Aufgabe. Übungen und „Dein nächster Schritt“: Sterne oben rechts im Kasten mit dem Wort „Schwierigkeit“.
