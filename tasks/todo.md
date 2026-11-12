@@ -202,9 +202,10 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
   falsch = verfehlt; Lebensbalken ohne Zahlen; besiegt erst wenn alle Aufgaben richtig, sonst „nochmal versuchen“; ★ Sprout, ★★ Schleim, ★★★ Ork; Treffer rechnet der Server; keine Blut-/Todes-Animation; ruhig bei „Bewegung reduzieren“.
   Prüfen: DB-Test (Treffer nicht erschummelbar, nie Punkte/Prozente für Schüler:innen); iPad.
 - [x] **41c Buch** (M) – hängt an 41a · Freigeschaltetes im Papier-Look (Humble Gift). Prüfen: iPad.
+- [x] **41d Belohnung für Lernfortschritt** (M) – Samen bei „besser“, Deko bei „deutlich besser“, Fenster „Ein Geschenk für deine Farm!“ (Migration `belohnungen`, DB-Test Block 15).
 
 ### Haltepunkt 8
-- [ ] **iPad-Test Farm:** Münzen verdienen, kaufen, pflanzen, durch Üben wachsen sehen, ernten, füttern, Figur bewegen, Sammelalbum ansehen.
+- [ ] **iPad-Test Farm:** Münzen verdienen, kaufen, pflanzen, durch Üben wachsen sehen, ernten, füttern, Figur bewegen, Sammelalbum ansehen, Geschenk für Lernfortschritt.
 
 ---
 

@@ -1056,6 +1056,49 @@ begin
     n := n + 1;
   end;
 
+  -- ---------- 15 Belohnung für Lernfortschritt ----------
+  -- Igel-11 (Lernstand-Demo, echte Testdaten) hat Kompetenzen mit „besser“ und „deutlich“.
+  declare
+    t_igel text := (select token from public.schueler where pseudonym = 'Igel-11');
+    v_igel uuid := (select id from public.schueler where pseudonym = 'Igel-11');
+    v_besser int;
+    v_deutlich int;
+    v jsonb;
+    v_samen_vorher int;
+  begin
+    delete from public.belohnungen where schueler_id = v_igel;
+    select count(*) filter (where x ->> 'kategorie' in ('besser', 'deutlich')), count(*) filter (where x ->> 'kategorie' = 'deutlich')
+      into v_besser, v_deutlich
+    from jsonb_array_elements(public.schueler_entwicklung(t_igel) -> 'kompetenzen') x;
+    if v_deutlich = 0 or v_besser <= v_deutlich then raise exception 'Block 15.0: Testdaten Igel-11 passen nicht (% / %)', v_besser, v_deutlich; end if;
+    select count(*) into v_samen_vorher from public.besitz where schueler_id = v_igel and artikel_id in ('tulpe', 'rose');
+    set local role anon;
+    begin
+      perform 1 from public.belohnungen;
+      raise exception 'Block 15.1: anon liest belohnungen';
+    exception when insufficient_privilege then null;
+    end;
+    v := public.belohnungen_holen(t_igel);
+    if jsonb_array_length(v) <> v_besser + v_deutlich then raise exception 'Block 15.2: % statt % Belohnungen', jsonb_array_length(v), v_besser + v_deutlich; end if;
+    if v::text ~ 'punkte|trend' then raise exception 'Block 15.2: Belohnung verrät Punkte'; end if;
+    -- abwechselnd: erster Samen Tulpe, zweiter Rose; erste Deko rosa, zweite (falls es sie gibt) blau
+    if (select array_agg(x ->> 'artikel' order by o) from jsonb_array_elements(v) with ordinality y(x, o) where x ->> 'stufe' = 'besser')[1:2]
+       <> array['tulpe', 'rose'] then raise exception 'Block 15.3: Samen nicht abwechselnd: %', v; end if;
+    if (select array_agg(x ->> 'artikel' order by o) from jsonb_array_elements(v) with ordinality y(x, o) where x ->> 'stufe' = 'deutlich')[1]
+       <> 'katze_rosa' then raise exception 'Block 15.3: erste Deko nicht rosa: %', v; end if;
+    -- zweimal holen gibt nichts doppelt
+    perform public.belohnungen_holen(t_igel);
+    reset role;
+    if (select count(*) from public.besitz where schueler_id = v_igel and artikel_id in ('tulpe', 'rose')) <> v_samen_vorher + v_besser then
+      raise exception 'Block 15.4: Samen doppelt oder fehlen';
+    end if;
+    set local role anon;
+    perform public.belohnungen_gesehen(t_igel, array(select (x ->> 'id')::uuid from jsonb_array_elements(v) x));
+    if public.belohnungen_holen(t_igel) <> '[]'::jsonb then raise exception 'Block 15.5: gesehene Belohnung kommt wieder'; end if;
+    reset role;
+    n := n + 5;
+  end;
+
   raise exception 'ALLE TESTS BESTANDEN (%)', n;
 end
 $test$;

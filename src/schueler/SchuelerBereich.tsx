@@ -10,6 +10,7 @@ import { einsteinTexte, formatKennung } from '../lib/einstein'
 import { fehlerText, istNetzwerkfehler } from '../lib/fehler'
 import { GRAFIK } from '../grafik'
 import { gehe } from '../lib/router'
+import { artikelBild } from '../lib/shop'
 import { supabase } from '../lib/supabase'
 import type { Loesung, SchuelerAufgabe, SchuelerPaket, SchuelerStart } from '../lib/typen'
 import { neueId } from '../lib/zufall'
@@ -31,12 +32,16 @@ export function SchuelerBereich({ token, pfad }: Props) {
   const [wartend, setWartend] = useState(() => warteschlangeLesen(token).length)
   const [muenzen, setMuenzen] = useState<number | null>(null)
   const [geschenke, setGeschenke] = useState<Geschenk[]>([])
+  const [belohnungen, setBelohnungen] = useState<Belohnung[]>([])
+  const [farmStand, setFarmStand] = useState(0) // neu laden, wenn Geschenke dazukamen
 
   const laden = useCallback(async () => {
-    const [start, konto] = await Promise.all([
+    const [start, konto, belohnt] = await Promise.all([
       supabase.rpc('schueler_start', { p_token: token }),
       supabase.rpc('schueler_muenzen', { p_token: token }),
+      supabase.rpc('belohnungen_holen', { p_token: token }),
     ])
+    if (!belohnt.error) setBelohnungen(belohnt.data as Belohnung[])
     if (start.error) setFehler(fehlerText(start.error))
     else {
       setDaten(start.data as SchuelerStart)
@@ -84,16 +89,28 @@ export function SchuelerBereich({ token, pfad }: Props) {
   }, [laden, warteschlangeSenden])
 
   const basis = `/s/${token}`
-  const fenster = geschenke.length > 0 && (
-    <GeschenkFenster
-      geschenke={geschenke}
-      schliessen={() => {
-        // .then() nötig: supabase-js sendet die Anfrage erst, wenn jemand auf das Ergebnis wartet
-        void supabase.rpc('geschenke_gesehen', { p_token: token, p_ids: geschenke.map((g) => g.id) }).then()
-        setGeschenke([])
-      }}
-    />
-  )
+  const fenster =
+    geschenke.length > 0 ? (
+      <GeschenkFenster
+        geschenke={geschenke}
+        schliessen={() => {
+          // .then() nötig: supabase-js sendet die Anfrage erst, wenn jemand auf das Ergebnis wartet
+          void supabase.rpc('geschenke_gesehen', { p_token: token, p_ids: geschenke.map((g) => g.id) }).then()
+          setGeschenke([])
+        }}
+      />
+    ) : (
+      belohnungen.length > 0 && (
+        <BelohnungFenster
+          belohnungen={belohnungen}
+          schliessen={() => {
+            void supabase.rpc('belohnungen_gesehen', { p_token: token, p_ids: belohnungen.map((b) => b.id) }).then()
+            setBelohnungen([])
+            setFarmStand((n) => n + 1)
+          }}
+        />
+      )
+    )
   const [bereich, paketId, , aufgabeId] = pfad
 
   if (!daten) {
@@ -279,7 +296,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
           </div>
         </section>
       )}
-      <Farm token={token} shop={`#${basis}/shop`} album={`#${basis}/album`} />
+      <Farm key={farmStand} token={token} shop={`#${basis}/shop`} album={`#${basis}/album`} />
     </Rahmen>
   )
 }
@@ -409,6 +426,41 @@ function GeschenkFenster({ geschenke, schliessen }: { geschenke: Geschenk[]; sch
               „{g.nachricht}“
             </p>
           ))}
+        <div className="knopf-reihe">
+          {/* eslint-disable-next-line jsx-a11y/no-autofocus -- Fenster: Fokus muss hinein */}
+          <button type="button" className="knopf knopf--haupt" autoFocus onClick={schliessen}>
+            Danke!
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+type Belohnung = { id: string; kompetenz: string; stufe: 'besser' | 'deutlich'; artikel: string; name: string }
+
+// Belohnung für Lernfortschritt (Lehrkraft 2026-11-12): einmal als Fenster, ohne Punkte oder Stufen
+function BelohnungFenster({ belohnungen, schliessen }: { belohnungen: Belohnung[]; schliessen: () => void }) {
+  return (
+    <div className="fenster-hintergrund">
+      <div className="karte fenster" role="dialog" aria-modal="true" aria-labelledby="belohnung-titel">
+        <h2 id="belohnung-titel">Ein Geschenk für deine Farm!</h2>
+        <ul className="belohnung-liste">
+          {belohnungen.map((b) => {
+            const bild = artikelBild(b.artikel)
+            return (
+              <li key={b.id}>
+                <Sprite grafik={bild.grafik} nummer={bild.nummer} mal={2} />
+                <span>
+                  Du bist bei <strong>{b.kompetenz}</strong> {b.stufe === 'deutlich' ? 'deutlich besser' : 'besser'} geworden!
+                  <br />
+                  Dafür bekommst du: <strong>{b.stufe === 'besser' ? `Samen für eine ${b.name}` : b.name}</strong>
+                </span>
+              </li>
+            )
+          })}
+        </ul>
+        <p className="leise">Samen findest du beim Pflanzen, Deko steht gleich auf deiner Farm.</p>
         <div className="knopf-reihe">
           {/* eslint-disable-next-line jsx-a11y/no-autofocus -- Fenster: Fokus muss hinein */}
           <button type="button" className="knopf knopf--haupt" autoFocus onClick={schliessen}>

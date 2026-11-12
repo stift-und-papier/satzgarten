@@ -504,6 +504,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   background: rgb(0 0 0 / 0.45);
 }
 .fenster { max-width: 28rem; width: 100%; }
+.belohnung-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-xs); max-height: 50vh; overflow-y: auto; }
+.belohnung-liste li { display: flex; align-items: center; gap: var(--space-xs); }
 .fenster__nachricht { font-size: 1.15em; font-style: italic; }
 
 /* ---------- Shop ---------- */
