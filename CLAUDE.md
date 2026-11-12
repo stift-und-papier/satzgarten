@@ -175,3 +175,7 @@
   Texte überarbeiten), Sich mit Texten und anderen Medien auseinandersetzen (noch ohne Kompetenzen). Großer Bereich = Durchschnitt seiner
   Bereiche, Bereich = Durchschnitt seiner Kompetenzen (`zusammenfassen` in `src/lib/lernstand.ts`). Anhaken, welche großen Bereiche
   sichtbar sind, ▸ klappt die Bereiche auf. „Klasse drucken oder als PDF“ druckt die Tabelle wie am Bildschirm.
+- 2026-11-12 (Lehrkraft): Knöpfe „aufklappen ▸ / ◂ zuklappen“ beschriftet. Lehrkraft-Knöpfe: „Lernstand“ Schulblau gefüllt, endgültig
+  „Löschen“ (Schüler:in, Klasse, Aufgabe, Paket) rot (`--color-lk-gefahr`, `lk-knopf--gefahr`; Rot nur Lehrkraft), Kopieren/Öffnen/Entfernen weiß.
+  „Mein Lernweg“ nach großen Bereichen sortiert, Rückmeldungen farbig: deutlich besser kräftig grün, besser hellgrün,
+  dranbleiben Pfirsich, erste Ergebnisse Papier (immer mit Satz, nie Rot).

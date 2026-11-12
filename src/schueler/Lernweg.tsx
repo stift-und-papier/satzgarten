@@ -2,6 +2,7 @@
 // Keine Stufen, Punkte, Prozente oder Noten: Die Datenbank liefert hier gar keine absoluten Werte (schueler_entwicklung).
 import { useEffect, useState } from 'react'
 import { fehlerText } from '../lib/fehler'
+import { GROSSE_BEREICHE, grosserBereich } from '../lib/lernstand'
 import { supabase } from '../lib/supabase'
 
 type Kategorie = 'deutlich' | 'besser' | 'dranbleiben' | 'erste'
@@ -31,10 +32,16 @@ export function Lernweg({ token, uebungen }: { token: string; uebungen: string }
   // Themen mit Entwicklung nach Bereich; Themen mit ersten Ergebnissen eingeklappt am Ende.
   const mitWeg = daten.kompetenzen.filter((k) => k.kategorie !== 'erste')
   const ersteSchritte = daten.kompetenzen.filter((k) => k.kategorie === 'erste')
-  const bereiche = [...new Set(mitWeg.map((k) => k.bereich))].map((bereich) => ({
-    bereich,
-    themen: mitWeg.filter((k) => k.bereich === bereich).sort((a, b) => REIHENFOLGE.indexOf(a.kategorie) - REIHENFOLGE.indexOf(b.kategorie)),
-  }))
+  // Sortiert nach großen Bereichen (wie in der Lehrkraft-Übersicht), darin nach Bereichen; innerhalb das Beste zuerst
+  const grosse = [...new Set(mitWeg.map((k) => grosserBereich(k.bereich)))]
+    .sort((a, b) => (GROSSE_BEREICHE as readonly string[]).indexOf(a) - (GROSSE_BEREICHE as readonly string[]).indexOf(b))
+    .map((gross) => ({
+      gross,
+      bereiche: [...new Set(mitWeg.filter((k) => grosserBereich(k.bereich) === gross).map((k) => k.bereich))].map((bereich) => ({
+        bereich,
+        themen: mitWeg.filter((k) => k.bereich === bereich).sort((a, b) => REIHENFOLGE.indexOf(a.kategorie) - REIHENFOLGE.indexOf(b.kategorie)),
+      })),
+    }))
 
   return (
     <>
@@ -63,22 +70,27 @@ export function Lernweg({ token, uebungen }: { token: string; uebungen: string }
 
       {daten.kompetenzen.length === 0 && <p className="karte">Sobald du ein paar Aufgaben bearbeitet hast, siehst du hier deinen Weg.</p>}
 
-      {bereiche.map(({ bereich, themen }) => (
-        <section key={bereich} className="karte">
-          <h2>{bereich}</h2>
-          <ul className="lernweg-liste">
-            {themen.map((k) => (
-              <li key={k.name} className="lernweg-thema">
-                <div>
-                  <h3>{k.name}</h3>
-                  {k.geloest > 0 && <p className="leise">{gelungen(k.geloest)}</p>}
-                </div>
-                <p className="lernweg-marke" data-art={k.kategorie}>
-                  {daten.texte[k.kategorie]}
-                </p>
-              </li>
-            ))}
-          </ul>
+      {grosse.map(({ gross, bereiche }) => (
+        <section key={gross} className="karte">
+          <h2>{gross === 'Weitere' ? 'Weitere Themen' : gross}</h2>
+          {bereiche.map(({ bereich, themen }) => (
+            <div key={bereich} className="lernweg-bereich">
+              <h3>{bereich}</h3>
+              <ul className="lernweg-liste">
+                {themen.map((k) => (
+                  <li key={k.name} className="lernweg-thema" data-art={k.kategorie}>
+                    <div>
+                      <p className="lernweg-thema__name">{k.name}</p>
+                      {k.geloest > 0 && <p className="leise">{gelungen(k.geloest)}</p>}
+                    </div>
+                    <p className="lernweg-marke" data-art={k.kategorie}>
+                      {daten.texte[k.kategorie]}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </section>
       ))}
 

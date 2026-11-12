@@ -194,7 +194,7 @@ fieldset.lk-teil { grid-template-columns: minmax(0, 1fr); }
 .lk-auswahlliste .lk-haken { align-items: flex-start; font-weight: 400; }
 /* Aufgabenliste: Spaltenköpfe zum Sortieren */
 .lk-sortieren { display: inline-flex; gap: var(--space-2xs); align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
-.lk-tabelle a { color: var(--color-lk-tinte); font-weight: 800; }
+.lk-tabelle a:not(.lk-knopf) { color: var(--color-lk-tinte); font-weight: 800; }
 /* Format-Kacheln */
 .lk-kacheln { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: var(--space-sm); }
 .lk-kachel { display: grid; justify-content: stretch; align-content: start; gap: var(--space-2xs); height: 100%; box-sizing: border-box; }
@@ -260,12 +260,7 @@ fieldset.lk-teil { grid-template-columns: minmax(0, 1fr); }
   .lk-einzel { border: 0; padding: 0; }
 }
 /* Übersicht nach großen Bereichen: ▸ klappt die Bereiche daneben auf; Unterbereiche heller abgesetzt */
-.lk-heatmap__auf {
-  display: block; margin: var(--space-2xs) auto 0; min-width: 48px; min-height: 48px;
-  border: 1px solid var(--color-lk-linie); border-radius: var(--radius-lk);
-  background: var(--color-lk-papier); color: var(--color-lk-aktion); font: 800 1.1rem/1 var(--font-body); cursor: pointer;
-}
-.lk-heatmap__auf:hover { background: var(--color-lk-papier-2); }
+.lk-heatmap__auf { display: flex; margin: var(--space-xs) auto 0; white-space: nowrap; }
 .lk-heatmap__unter { background: var(--color-lk-papier-2); }
 .lk-heatmap thead th.lk-heatmap__unter span { font-weight: 600; }
 .lk-nur-drucken { display: none; }
@@ -277,3 +272,8 @@ fieldset.lk-teil { grid-template-columns: minmax(0, 1fr); }
   .lk-heatmap__unter { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .lk-zurueck { display: none; }
 }
+
+/* Knopf-Farben (Lehrkraft 2026-11-12): hervorgehoben = Schulblau-Rand, endgültig löschen = Rot */
+.lk-knopf--betont { border: 2px solid var(--color-lk-aktion); color: var(--color-lk-aktion); }
+.lk-knopf--gefahr { border: 2px solid var(--color-lk-gefahr); color: var(--color-lk-gefahr); }
+.lk-knopf--gefahr:hover { background: var(--color-lk-gefahr); color: var(--color-lk-papier); }

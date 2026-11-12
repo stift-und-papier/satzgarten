@@ -618,7 +618,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
             {gespeichert ? '✓ Gespeichert' : 'Speichern'}
           </button>
           {aufgabeId && (
-            <button type="button" className="lk-knopf" onClick={() => void loeschen()}>
+            <button type="button" className="lk-knopf lk-knopf--gefahr" onClick={() => void loeschen()}>
               Aufgabe löschen
             </button>
           )}

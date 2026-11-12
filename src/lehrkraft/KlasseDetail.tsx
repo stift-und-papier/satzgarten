@@ -147,7 +147,7 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
             <a className="lk-knopf lk-knopf--haupt" href={`#/lehrkraft/klassen/${klasse.id}/links`}>
               Linkliste mit QR-Codes
             </a>
-            <a className="lk-knopf" href={`#/lehrkraft/klassen/${klasse.id}/lernstand`}>
+            <a className="lk-knopf lk-knopf--haupt" href={`#/lehrkraft/klassen/${klasse.id}/lernstand`}>
               Lernstand der Klasse
             </a>
           </div>
@@ -204,7 +204,7 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
                     </td>
                     <td>
                       <div className="lk-knopfreihe">
-                        <a className="lk-knopf" href={`#/lehrkraft/schueler/${s.id}`}>
+                        <a className="lk-knopf lk-knopf--haupt" href={`#/lehrkraft/schueler/${s.id}`}>
                           Lernstand
                         </a>
                         <button type="button" className="lk-knopf" onClick={() => einzelnZuruecksetzen(s)}>
@@ -213,7 +213,7 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
                       </div>
                     </td>
                     <td>
-                      <button type="button" className="lk-knopf" onClick={() => loeschen(s)}>
+                      <button type="button" className="lk-knopf lk-knopf--gefahr" onClick={() => loeschen(s)}>
                         Löschen
                       </button>
                     </td>
@@ -292,7 +292,7 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
         <h2>Klasse löschen</h2>
         <p className="lk-leise">Löscht die Klasse, alle Schüler:innen und alle Ergebnisse endgültig.</p>
         <div>
-          <button type="button" className="lk-knopf" onClick={() => void klasseLoeschen()}>
+          <button type="button" className="lk-knopf lk-knopf--gefahr" onClick={() => void klasseLoeschen()}>
             Klasse „{klasse.name}“ löschen
           </button>
         </div>

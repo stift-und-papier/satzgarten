@@ -149,8 +149,8 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
             </label>
           ))}
           <p className="lk-leise">
-            Ein großer Bereich ist der Durchschnitt seiner Bereiche, ein Bereich der Durchschnitt seiner Kompetenzen. Mit ▸ im Tabellenkopf
-            klappen Sie die Bereiche auf.
+            Ein großer Bereich ist der Durchschnitt seiner Bereiche, ein Bereich der Durchschnitt seiner Kompetenzen. Mit „aufklappen ▸“ im
+            Tabellenkopf sehen Sie daneben die einzelnen Bereiche.
           </p>
         </fieldset>
       )}
@@ -174,12 +174,13 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
                         {sp.aufklappen && (
                           <button
                             type="button"
-                            className="lk-heatmap__auf lk-nicht-drucken"
+                            className="lk-knopf lk-knopf--betont lk-heatmap__auf lk-nicht-drucken"
                             aria-expanded={offen.has(sp.aufklappen)}
                             aria-label={`Bereiche von „${sp.titel}“ ${offen.has(sp.aufklappen) ? 'zuklappen' : 'aufklappen'}`}
+                            title="Zeigt daneben die einzelnen Bereiche"
                             onClick={() => umschalten(offen, setOffen, sp.key)}
                           >
-                            {offen.has(sp.aufklappen) ? '◂' : '▸'}
+                            {offen.has(sp.aufklappen) ? '◂ zuklappen' : 'aufklappen ▸'}
                           </button>
                         )}
                       </th>

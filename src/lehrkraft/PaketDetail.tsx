@@ -229,7 +229,7 @@ export function PaketDetail({ paketId, vorschau }: { paketId: string; vorschau: 
         <div className="lk-knopfreihe">
           <button
             type="button"
-            className="lk-knopf"
+            className="lk-knopf lk-knopf--gefahr"
             onClick={async () => {
               if (!window.confirm(`Paket „${paket.titel}“ löschen?\n\nDie Aufgaben selbst bleiben erhalten. Schüler:innen sehen das Paket danach nicht mehr.`)) return
               const { error } = await supabase.from('pakete').delete().eq('id', paket.id)
