@@ -45,6 +45,10 @@ export const BAEUME: (Ort & { grafik: 'baum' | 'baum_klein' })[] = [
   { grafik: 'baum_klein', x: 4, y: 12 },
 ]
 export const BRUNNEN: Ort = { x: 8, y: 6 } // 2 × 2
+// Obstbäume (je einer, 2 × 2 Kacheln Stamm und Krone; das Bild ist 48 × 48 und ragt darüber hinaus): zwei über dem Acker, einer vor dem Stall
+export const BAUM_PLAETZE: Record<string, Ort> = { orangenbaum: { x: 3, y: 1 }, pfirsichbaum: { x: 5, y: 1 }, birnenbaum: { x: 11, y: 9 } }
+// Boot (3 × 2 Kacheln) liegt im Wasser unten, am Ufer festgebunden; kein Hindernis (Wasser ist es schon)
+export const BOOT: Ort = { x: 8, y: 13 }
 export const DEKO_PLAETZE: Ort[] = [
   { x: 8, y: 4 }, { x: 10, y: 5 }, { x: 11, y: 3 }, { x: 2, y: 8 }, { x: 3, y: 10 }, { x: 5, y: 9 },
   { x: 7, y: 9 }, { x: 6, y: 11 }, { x: 8, y: 12 }, { x: 19, y: 8 }, { x: 18, y: 10 }, { x: 11, y: 11 },
@@ -128,15 +132,16 @@ export function belegung(): Map<string, string> {
   KUH_PLAETZE.slice(2).forEach((o, i) => setze(`Kuh draußen ${i}`, o, 2, 2))
   BAEUME.forEach((b) => setze(b.grafik, b, b.grafik === 'baum' ? 2 : 1, 2))
   setze('Brunnen', BRUNNEN, 2, 2)
+  Object.entries(BAUM_PLAETZE).forEach(([name, o]) => setze(name, o, 2, 2))
   DEKO_PLAETZE.forEach((o, i) => setze(`Deko ${i}`, o))
   setze('Figur', FIGUR_START)
   return belegt
 }
 
-export type Stand = { deko: number; brunnen: boolean; huehner: number; kuehe: number }
+export type Stand = { deko: number; brunnen: boolean; huehner: number; kuehe: number; obstbaeume?: string[] }
 const flaeche = (o: Ort, breite: number, hoehe: number): Ort[] =>
   Array.from({ length: breite * hoehe }, (_, i) => ({ x: o.x + (i % breite), y: o.y + Math.floor(i / breite) }))
-/** Kacheln, die ein Tier belegt (Huhn 1 × 1, Kuh 2 × 2) */
+/** Kacheln, die ein Tier belegt (Huhn 1 × 1, Kuh 2 × 2) oder ein Obstbaum (2 × 2) */
 export const tierFlaeche = (o: Ort, groesse: number) => flaeche(o, groesse, groesse)
 
 /** Kacheln, durch die die Figur nicht laufen kann (Wasser zählt extra) */
@@ -145,6 +150,7 @@ export function hindernisse(s: Stand): Set<string> {
   const liste: Ort[] = DEKO_PLAETZE.slice(0, s.deko)
   for (const b of BAEUME) liste.push(...flaeche(b, b.grafik === 'baum' ? 2 : 1, 2))
   if (s.brunnen) liste.push(...flaeche(BRUNNEN, 2, 2))
+  for (const b of s.obstbaeume ?? []) if (BAUM_PLAETZE[b]) liste.push(...flaeche(BAUM_PLAETZE[b], 2, 2))
   if (s.huehner) liste.push(...flaeche(STALL, 3, 3), ...HUHN_PLAETZE.slice(0, s.huehner))
   if (s.kuehe) {
     liste.push(...scheunenKacheln().filter((k) => k.nummer !== 4), ...flaeche(HEU, 2, 1), ...flaeche(TROG, 2, 1))

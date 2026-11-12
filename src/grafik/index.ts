@@ -11,7 +11,6 @@ import deko_blume_lila from './deko_blume_lila.png'
 import deko_pilzhaus from './deko_pilzhaus.png'
 import deko_katze_rosa from './deko_katze_rosa.png'
 import deko_katze_blau from './deko_katze_blau.png'
-import acker from './acker.png'
 import gras from './gras.png'
 import wand from './wand.png'
 import heu from './heu.png'
@@ -35,9 +34,16 @@ import ei_blau from './ei_blau.png'
 import milch from './milch.png'
 import milch_erdbeer from './milch_erdbeer.png'
 import milch_blaubeer from './milch_blaubeer.png'
+import baum_orange from './baum_orange.png'
+import baum_pfirsich from './baum_pfirsich.png'
+import baum_birne from './baum_birne.png'
+import baum_ohne_obst from './baum_ohne_obst.png'
+import fruechte from './fruechte.png'
+import deko_boot from './deko_boot.png'
 import monster_1 from './monster_1.png'
 import monster_2 from './monster_2.png'
 import monster_3 from './monster_3.png'
+import feld from './feld.png'
 import album_seite from './album_seite.png'
 
 export const GRAFIK = {
@@ -53,7 +59,6 @@ export const GRAFIK = {
   deko_pilzhaus: { url: deko_pilzhaus, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   deko_katze_rosa: { url: deko_katze_rosa, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   deko_katze_blau: { url: deko_katze_blau, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
-  acker: { url: acker, breite: 176, hoehe: 80, bildBreite: 16, bildHoehe: 16 },
   gras: { url: gras, breite: 176, hoehe: 80, bildBreite: 16, bildHoehe: 16 },
   wand: { url: wand, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
   heu: { url: heu, breite: 32, hoehe: 16, bildBreite: 32, bildHoehe: 16 },
@@ -77,8 +82,15 @@ export const GRAFIK = {
   milch: { url: milch, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   milch_erdbeer: { url: milch_erdbeer, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   milch_blaubeer: { url: milch_blaubeer, breite: 16, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  baum_orange: { url: baum_orange, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
+  baum_pfirsich: { url: baum_pfirsich, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
+  baum_birne: { url: baum_birne, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
+  baum_ohne_obst: { url: baum_ohne_obst, breite: 288, hoehe: 48, bildBreite: 48, bildHoehe: 48 },
+  fruechte: { url: fruechte, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  deko_boot: { url: deko_boot, breite: 96, hoehe: 32, bildBreite: 48, bildHoehe: 32 },
   monster_1: { url: monster_1, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   monster_2: { url: monster_2, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   monster_3: { url: monster_3, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  feld: { url: feld, breite: 14, hoehe: 14, bildBreite: 14, bildHoehe: 14 },
   album_seite: { url: album_seite, breite: 96, hoehe: 96, bildBreite: 96, bildHoehe: 96 },
 } as const

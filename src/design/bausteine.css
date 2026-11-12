@@ -542,15 +542,21 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .farm-landschaft canvas { display: block; image-rendering: pixelated; }
 .farm-landschaft .sprite { image-rendering: pixelated; }
 .farm-ding { position: absolute; pointer-events: none; line-height: 0; }
-.farm-feld, .farm-tier, .farm-liegt {
+.farm-feld, .farm-tier, .farm-liegt, .farm-baum {
   position: absolute; display: grid; place-items: center; line-height: 0;
   padding: 0; border: none; background: none; cursor: pointer; pointer-events: auto;
 }
 /* Tippfläche mindestens 48 px, auch wenn Feld oder Huhn kleiner gezeichnet sind */
-.farm-feld::before, .farm-tier::before, .farm-liegt::before { content: ''; position: absolute; inset: min(0px, calc((100% - 48px) / 2)); }
+.farm-feld::before, .farm-tier::before, .farm-liegt::before, .farm-baum::before { content: ''; position: absolute; inset: min(0px, calc((100% - 48px) / 2)); }
 .farm-feld[aria-pressed='true'] { outline: 3px solid var(--color-aktion); outline-offset: 1px; }
-.farm-feld:focus-visible, .farm-tier:focus-visible, .farm-liegt:focus-visible { outline: 3px solid var(--color-aktion); }
-.farm-feld .sprite { transform: translateY(-20%); }
+.farm-feld:focus-visible, .farm-tier:focus-visible, .farm-liegt:focus-visible, .farm-baum:focus-visible { outline: 3px solid var(--color-aktion); }
+/* Pflanzen stehen mitten im Feld (Lehrkraft 2026-11-12) */
+/* Obstbäume: Bild 48 × 48 ragt über die 2 × 2 Kacheln hinaus; wiegen sich ruhig, Früchte fallen beim Ernten einmal */
+.farm-baum__bild { position: absolute; line-height: 0; pointer-events: none; }
+.farm-baum__bild > .sprite { animation: farm-laufen calc(var(--bilder) * 0.3s) steps(var(--bilder)) infinite; }
+.farm-baum__bild[data-faellt] > .sprite { animation: farm-laufen 1.2s steps(12) 1 forwards; }
+/* Boot schaukelt am Ufer (2 Bilder) */
+.farm-boot > .sprite { animation: farm-laufen 1.6s steps(2) infinite; }
 .farm-feld__reif {
   position: absolute; top: -10px; right: -10px; display: grid; place-items: center; width: 22px; height: 22px;
   border-radius: 50%; background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); font-weight: 800; font-size: 14px;
@@ -594,7 +600,9 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .farm-tier__bild > .sprite { animation: farm-laufen calc(var(--bilder) * 0.12s) steps(var(--bilder)) infinite; }
 .farm-tier__bild[data-zustand='steht'] > .sprite { animation-duration: calc(var(--bilder) * 0.45s); }
 @media (prefers-reduced-motion: reduce) {
-  .farm-figur, .farm-tier__weg, .farm-tier__bild > .sprite, .farm-liegt > .sprite { animation: none !important; transition: none !important; }
+  .farm-figur, .farm-tier__weg, .farm-tier__bild > .sprite, .farm-liegt > .sprite, .farm-baum__bild > .sprite, .farm-boot > .sprite {
+    animation: none !important; transition: none !important;
+  }
 }
 .farm-vorrat { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 .farm-vorrat li { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 6rem; text-align: center; font-weight: 700; }

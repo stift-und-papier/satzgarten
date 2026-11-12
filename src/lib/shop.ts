@@ -2,7 +2,7 @@
 import { GRAFIK } from '../grafik'
 import type { Grafik } from './sprite'
 
-export type ArtikelArt = 'samen' | 'tier' | 'deko' | 'feld'
+export type ArtikelArt = 'samen' | 'tier' | 'deko' | 'feld' | 'baum'
 export type Artikel = { id: string; art: ArtikelArt; name: string; preis: number; besitz: number }
 export type Shop = { kontostand: number; angebot: Artikel[]; gesperrt: { art: ArtikelArt }[] }
 
@@ -16,14 +16,24 @@ export const SORTE_NAME: Record<string, string> = {
   weizen: 'Weizen', kuerbis: 'Kürbis', rettich: 'Rettich', rose: 'Rose', rote_bete: 'Rote Bete', sternfrucht: 'Sternfrucht', gurke: 'Gurke',
 }
 
-// Eier und Milch in drei Güten (je nach Futter); Namen wie in shop_artikel
-export const ERZEUGNIS: Record<string, { name: string; grafik: Grafik }> = {
+// Eier und Milch in drei Güten (je nach Futter) und Obst von den Bäumen; Namen wie in shop_artikel
+export const ERZEUGNIS: Record<string, { name: string; grafik: Grafik; nummer?: number }> = {
   ei: { name: 'Ei', grafik: GRAFIK.ei },
   ei_rosa: { name: 'Rosa Ei', grafik: GRAFIK.ei_rosa },
   ei_blau: { name: 'Blaues Ei', grafik: GRAFIK.ei_blau },
   milch: { name: 'Milch', grafik: GRAFIK.milch },
   milch_erdbeer: { name: 'Erdbeermilch', grafik: GRAFIK.milch_erdbeer },
   milch_blaubeer: { name: 'Blaubeermilch', grafik: GRAFIK.milch_blaubeer },
+  orange: { name: 'Orange', grafik: GRAFIK.fruechte, nummer: 1 },
+  birne: { name: 'Birne', grafik: GRAFIK.fruechte, nummer: 2 },
+  pfirsich: { name: 'Pfirsich', grafik: GRAFIK.fruechte, nummer: 3 },
+}
+
+// Obstbäume (je einer): Bild mit Obst (Zeile 0 wiegen, Zeile 1 Früchte fallen), Name, Mehrzahl der Frucht für Meldungen
+export const OBSTBAUM: Record<string, { name: string; grafik: Grafik; fruechte: string }> = {
+  orangenbaum: { name: 'Orangenbaum', grafik: GRAFIK.baum_orange, fruechte: 'Orangen' },
+  pfirsichbaum: { name: 'Pfirsichbaum', grafik: GRAFIK.baum_pfirsich, fruechte: 'Pfirsiche' },
+  birnenbaum: { name: 'Birnenbaum', grafik: GRAFIK.baum_birne, fruechte: 'Birnen' },
 }
 
 /** Bild und Name für etwas im Vorrat: Geerntetes oder Ei/Milch */
@@ -31,7 +41,7 @@ export function vorratDing(sorte: string): { name: string; grafik: Grafik; numme
   if (sorte in SORTE) return { name: SORTE_NAME[sorte], grafik: GRAFIK.saatgut, nummer: SORTE[sorte] * 2 + 1 }
   const e = ERZEUGNIS[sorte]
   if (!e) throw new Error(`Kein Bild für ${sorte}`)
-  return { ...e, nummer: 0 }
+  return { nummer: 0, ...e }
 }
 
 export type Farm = {
@@ -41,6 +51,8 @@ export type Farm = {
   vorrat: { sorte: string; anzahl: number }[]
   dinge: { artikel: string; anzahl: number }[]
   tiere: { id: string; art: string; satt: boolean }[]
+  // tage = Tage, bis der Baum wieder Früchte trägt (0 = reif)
+  baeume: { id: string; art: string; tage: number }[]
   // liegt auf der Farm und wartet aufs Einsammeln; bei = 'feld:<Nummer>' oder 'tier:<id>'
   liegen: { id: string; sorte: string; bei: string }[]
 }
@@ -52,6 +64,7 @@ export function artikelBild(id: string): { grafik: Grafik; nummer: number } {
   if (id === 'huhn') return { grafik: GRAFIK.huhn, nummer: 0 }
   if (id === 'kuh') return { grafik: GRAFIK.kuh, nummer: 0 }
   if (id === 'brunnen') return { grafik: GRAFIK.brunnen, nummer: 0 }
+  if (id in OBSTBAUM) return { grafik: OBSTBAUM[id].grafik, nummer: 0 }
   const deko = (GRAFIK as Record<string, Grafik>)[`deko_${id}`]
   if (!deko) throw new Error(`Kein Bild für ${id}`)
   return { grafik: deko, nummer: 0 }

@@ -8,13 +8,13 @@ import { fehlerText } from '../lib/fehler'
 import { artikelBild, SORTE } from '../lib/shop'
 import { supabase } from '../lib/supabase'
 
-type Eintrag = { id: string; art: 'samen' | 'tier' | 'deko'; gesammelt: boolean; name: string | null }
+type Eintrag = { id: string; art: 'samen' | 'baum' | 'tier' | 'deko'; gesammelt: boolean; name: string | null }
 
-const SEITEN = [
-  { art: 'samen', titel: 'Pflanzen' },
-  { art: 'tier', titel: 'Tiere' },
-  { art: 'deko', titel: 'Deko' },
-] as const
+const SEITEN: { arten: Eintrag['art'][]; titel: string }[] = [
+  { arten: ['samen', 'baum'], titel: 'Pflanzen' },
+  { arten: ['tier'], titel: 'Tiere' },
+  { arten: ['deko'], titel: 'Deko' },
+]
 
 /** Pflanzen als reife Pflanze, Tiere und Deko wie im Shop */
 function bild(e: Eintrag) {
@@ -47,12 +47,12 @@ export function Album({ token, zurueck }: { token: string; zurueck: string }) {
       {!liste ? (
         <p className="karte" role={fehler ? 'alert' : 'status'}>{fehler ?? 'Einen Moment …'}</p>
       ) : (
-        SEITEN.map(({ art, titel }) => (
-          <section key={art} className="album-seite" aria-label={titel}>
+        SEITEN.map(({ arten, titel }) => (
+          <section key={titel} className="album-seite" aria-label={titel}>
             <h2>{titel}</h2>
             <ul className="album-raster">
               {liste
-                .filter((e) => e.art === art)
+                .filter((e) => arten.includes(e.art))
                 .map((e) => {
                   if (!e.gesammelt) {
                     return (

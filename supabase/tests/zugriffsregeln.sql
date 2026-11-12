@@ -1007,7 +1007,7 @@ begin
     if not (v @> '[{"id":"huhn","art":"tier","gesammelt":true,"name":"Huhn"},{"id":"karotte","gesammelt":true},{"id":"kuh","gesammelt":false,"name":null}]') then
       raise exception 'Block 13.1: Album falsch: %', v;
     end if;
-    if exists (select 1 from jsonb_array_elements(v) x where x ->> 'art' not in ('samen', 'tier', 'deko')) then
+    if exists (select 1 from jsonb_array_elements(v) x where x ->> 'art' not in ('samen', 'baum', 'tier', 'deko')) then
       raise exception 'Block 13.2: Album zeigt Felder oder Eier/Milch: %', v;
     end if;
     if not (public.schueler_album(t_dachs) @> '[{"id":"huhn","gesammelt":false}]') then
@@ -1029,6 +1029,70 @@ begin
     if (select (x ->> 'besitz')::int from jsonb_array_elements(v -> 'angebot') x where x ->> 'id' = 'karotte') is distinct from 1 then
       raise exception 'Block 13.5: Shop zählt verbrauchte Samen: %', v -> 'angebot';
     end if;
+    n := n + 1;
+  end;
+
+  -- ---------- 14 Obstbäume und Boot ----------
+  declare
+    t_eule text := (select token from public.schueler where pseudonym = 'Eule-02');
+    t_dachs text := (select token from public.schueler where pseudonym = 'Dachs-03');
+    v_eule uuid := (select id from public.schueler where pseudonym = 'Eule-02');
+    v_baum uuid;
+    v jsonb;
+    k integer;
+  begin
+    insert into public.muenz_ereignisse (schueler_id, grund, schluessel, muenzen) values (v_eule, 'lehrkraft', 'test-baum-1', 1000), (v_eule, 'lehrkraft', 'test-baum-2', 1000), (v_eule, 'lehrkraft', 'test-baum-3', 1000);
+    set local role anon;
+    perform public.kaufen(t_eule, 'orangenbaum');
+    begin
+      perform public.kaufen(t_eule, 'orangenbaum');
+      raise exception 'Block 14.1: Baum doppelt gekauft';
+    exception when raise_exception then if sqlerrm !~ 'schon' then raise; end if;
+    end;
+    perform public.kaufen(t_eule, 'boot');
+    begin
+      perform public.kaufen(t_eule, 'boot');
+      raise exception 'Block 14.1: Boot doppelt gekauft';
+    exception when raise_exception then if sqlerrm !~ 'schon' then raise; end if;
+    end;
+    v := public.schueler_farm(t_eule);
+    v_baum := (v -> 'baeume' -> 0 ->> 'id')::uuid;
+    if v -> 'baeume' -> 0 ->> 'art' <> 'orangenbaum' or (v -> 'baeume' -> 0 ->> 'tage')::int <> 0
+       or not (v -> 'dinge' @> '[{"artikel":"boot","anzahl":1}]') then
+      raise exception 'Block 14.2: Farm ohne Baum oder Boot: %', v;
+    end if;
+    n := n + 2;
+    -- Ernten: drei Orangen liegen unter dem Baum, dann eine Woche Pause
+    v := public.baum_ernten(t_eule, v_baum);
+    select count(*) into k from jsonb_array_elements(v -> 'liegen') x where x ->> 'sorte' = 'orange' and x ->> 'bei' = 'baum:' || v_baum;
+    if k <> 3 or (v -> 'baeume' -> 0 ->> 'tage')::int <> 7 then raise exception 'Block 14.3: Ernte falsch: %', v; end if;
+    begin
+      perform public.baum_ernten(t_eule, v_baum);
+      raise exception 'Block 14.4: zweimal in der Woche geerntet';
+    exception when raise_exception then if sqlerrm !~ 'noch keine' then raise; end if;
+    end;
+    begin
+      perform public.baum_ernten(t_dachs, v_baum);
+      raise exception 'Block 14.5: fremden Baum geerntet';
+    exception when raise_exception then if sqlerrm !~ 'gibt es nicht' then raise; end if;
+    end;
+    -- Einsammeln und verkaufen (Orange 30)
+    v := public.einsammeln(t_eule, (select (x ->> 'id')::uuid from jsonb_array_elements(v -> 'liegen') x where x ->> 'sorte' = 'orange' limit 1));
+    if not (public.schueler_verkauf(t_eule) -> 'vorrat' @> '[{"sorte":"orange","anzahl":1,"preis":30}]') then
+      raise exception 'Block 14.6: Orange nicht verkaufbar: %', public.schueler_verkauf(t_eule);
+    end if;
+    if not (public.schueler_album(t_eule) @> '[{"id":"orangenbaum","gesammelt":true},{"id":"boot","gesammelt":true}]') then
+      raise exception 'Block 14.7: Baum oder Boot fehlt im Album';
+    end if;
+    reset role;
+    n := n + 5;
+    -- Nach 6 Tagen noch 1 Tag, nach 7 Tagen wieder reif
+    update public.besitz set geerntet_am = now() - interval '6 days' where id = v_baum;
+    select public.baum_tage(b) into k from public.besitz b where id = v_baum;
+    if k <> 1 then raise exception 'Block 14.8: nach 6 Tagen % statt 1', k; end if;
+    update public.besitz set geerntet_am = now() - interval '7 days' where id = v_baum;
+    select public.baum_tage(b) into k from public.besitz b where id = v_baum;
+    if k <> 0 then raise exception 'Block 14.8: nach 7 Tagen nicht reif (%)', k; end if;
     n := n + 1;
   end;
 

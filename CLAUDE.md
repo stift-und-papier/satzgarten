@@ -240,3 +240,7 @@
 - 2026-11-12 (Lehrkraft): Tiere bewegen sich: Kuh läuft in der Scheune hin und her, Hühner laufen ein Stück und picken (`FarmTier.tsx`;
   nur das Bild wandert wenige Pixel, Tippfläche und Hindernisse bleiben fest; still bei „Bewegung reduzieren“).
   Shop „Du hast …“ zählt keine gepflanzten (verbrauchten) Samen mehr (Migration `shop_besitz`).
+- 2026-11-12 (Lehrkraft): **Obstbäume** (Orange, Pfirsich, Birne; je einer, wöchentlich 3 Früchte ohne Gießen, Früchte fallen und werden
+  eingesammelt) und **Boot** (Deko im Wasser, schaukelt). Migration `obstbaeume_boot`, Plätze `BAUM_PLAETZE`/`BOOT` in `landschaft.ts`;
+  Preise von Claude in `docs/SPEC-felder.md` (Bestätigung offen). **Felder einzeln** mit Bild `Soil_Ground_Tile_single` (auf 14 × 14 verkleinert,
+  so bleibt zwischen den Feldern ein kleiner Abstand); Pflanzen stehen mitten im Feld. Der zusammenhängende Acker entfällt.

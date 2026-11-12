@@ -49,7 +49,6 @@ const BILDER = [
     ['deko_pilzhaus', 6, 0], ['deko_katze_rosa', 7, 3], ['deko_katze_blau', 7, 4],
   ].map(([name, sp, ze]) => ({ name, datei: SPRITES + 'Objects/Mushrooms, Flowers, Stones.png', x: sp * 16, y: ze * 16, breite: 16, hoehe: 16 })),
   // Ackerboden und Gras als „Blob“-Kachelsatz (11 × 5 Teile je Nachbarschaft, Zuordnung in src/lib/landschaft.ts)
-  { name: 'acker', datei: SPRITES + 'Tilesets/ground tiles/New tiles/Darker_Soil_Ground_Tiles.png', x: 0, y: 0, breite: 176, hoehe: 80, bildBreite: 16, bildHoehe: 16 },
   { name: 'gras', datei: SPRITES + 'Tilesets/ground tiles/New tiles/Grass_tiles_v2.png', x: 0, y: 0, breite: 176, hoehe: 80, bildBreite: 16, bildHoehe: 16 },
   // Scheune von oben (offenes Dach wie im Titelbild): Wand-Rahmen (9 Teile), offene Tür, Heu, Wassertrog
   { name: 'wand', datei: SPRITES + 'Tilesets/Building parts/Wooden_House_Walls_Tilset.png', x: 0, y: 0, breite: 48, hoehe: 48, bildBreite: 16, bildHoehe: 16 },
@@ -80,6 +79,16 @@ const BILDER = [
   { name: 'milch', datei: SPRITES + 'Objects/Items/milk-items.png', x: 0, y: 16, breite: 16, hoehe: 16 },
   { name: 'milch_erdbeer', datei: SPRITES + 'Objects/Items/milk-items.png', x: 0, y: 112, breite: 16, hoehe: 16 },
   { name: 'milch_blaubeer', datei: SPRITES + 'Objects/Items/milk-items.png', x: 0, y: 80, breite: 16, hoehe: 16 },
+  // Obstbäume (Lehrkraft 2026-11-12): je 48 × 48, Zeile 0 im Wind wiegen (6 Bilder), Zeile 1 Früchte fallen (12 Bilder);
+  // ohne Früchte (nach der Ernte) dieselbe Bewegung aus dem Blatt ohne Obst
+  { name: 'baum_orange', datei: SPRITES + 'Objects/Tree animations/tree_orange_sprites.png', x: 0, y: 96, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
+  { name: 'baum_pfirsich', datei: SPRITES + 'Objects/Tree animations/tree_peach_sprites.png', x: 0, y: 96, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
+  { name: 'baum_birne', datei: SPRITES + 'Objects/Tree animations/tree_pear_sprites.png', x: 0, y: 96, breite: 576, hoehe: 96, bildBreite: 48, bildHoehe: 48 },
+  { name: 'baum_ohne_obst', datei: SPRITES + 'Objects/Tree animations/tree_sprites.png', x: 0, y: 96, breite: 288, hoehe: 48, bildBreite: 48, bildHoehe: 48 },
+  // Früchte: 0 Apfel, 1 Orange, 2 Birne, 3 Pfirsich
+  { name: 'fruechte', datei: SPRITES + 'Objects/Items/fruit-n-berries-items.png', x: 0, y: 0, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  // Boot (Deko), am Ufer festgebunden, schaukelt im Wasser (2 Bilder)
+  { name: 'deko_boot', datei: SPRITES + 'Objects/Boats.png', x: 0, y: 0, breite: 96, hoehe: 32, bildBreite: 48, bildHoehe: 32 },
   // Monster über der Aufgabe (docs/SPEC-monster.md), je ein ruhiges Standbild 32×32, Blick nach links zur Spielfigur:
   // ★ Rübchen „chomp“ (eigenes Werk der Lehrkraft), ★★ Schleim, ★★★ Ork (craftpix.net, frei)
   { name: 'monster_1', datei: 'assets/chomp_idle.png', x: 0, y: 0, breite: 32, hoehe: 32 },
@@ -99,6 +108,23 @@ for (const b of BILDER) {
   writeFileSync(`src/grafik/${b.name}.png`, PNG.sync.write(ziel))
   liste.push({ name: b.name, breite, hoehe, bildBreite: b.bildBreite ?? breite, bildHoehe: b.bildHoehe ?? hoehe })
   console.log(`${b.name}.png  ${breite}×${hoehe}`)
+}
+
+// Verkleinert (nächster Bildpunkt): Feld aus Soil_Ground_Tile_single (47 × 46) auf 14 × 14, damit zwischen Feldern
+// (je eine Kachel, 16 × 16) ein kleiner Abstand bleibt (Lehrkraft 2026-11-12)
+const KLEINER = [{ name: 'feld', datei: 'assets/Soil_Ground_Tile_single.png', breite: 14, hoehe: 14 }]
+for (const n of KLEINER) {
+  const q = PNG.sync.read(readFileSync(n.datei))
+  const ziel = new PNG({ width: n.breite, height: n.hoehe })
+  for (let y = 0; y < n.hoehe; y++)
+    for (let x = 0; x < n.breite; x++) {
+      const sx = Math.min(q.width - 1, Math.floor(((x + 0.5) * q.width) / n.breite))
+      const sy = Math.min(q.height - 1, Math.floor(((y + 0.5) * q.height) / n.hoehe))
+      for (let c = 0; c < 4; c++) ziel.data[(y * n.breite + x) * 4 + c] = q.data[(sy * q.width + sx) * 4 + c]
+    }
+  writeFileSync(`src/grafik/${n.name}.png`, PNG.sync.write(ziel))
+  liste.push({ name: n.name, breite: n.breite, hoehe: n.hoehe, bildBreite: n.breite, bildHoehe: n.hoehe })
+  console.log(`${n.name}.png  ${n.breite}×${n.hoehe} (verkleinert)`)
 }
 
 for (const z of ZUSAMMEN) {

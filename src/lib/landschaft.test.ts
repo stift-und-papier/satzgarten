@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  ablagePlaetze, belegung, blobTeil, DEKO_PLAETZE, FELD_PLAETZE, FIGUR_START, GRAS_DEKO, grundKacheln, HEU, hindernisse, HUHN_PLAETZE, istGras, KUH_PLAETZE,
+  ablagePlaetze, BAUM_PLAETZE, belegung, BOOT, blobTeil, DEKO_PLAETZE, FELD_PLAETZE, FIGUR_START, GRAS_DEKO, grundKacheln, HEU, hindernisse, HUHN_PLAETZE, istGras, KUH_PLAETZE,
   nebenan, SCHEUNE, SPALTEN, tierFlaeche, TROG, weg, ZEILEN,
 } from './landschaft'
 
@@ -65,6 +65,12 @@ describe('ablagePlaetze', () => {
     const feld = FELD_PLAETZE[0]
     expect(ablagePlaetze([[feld]], new Set(), new Set())[0]).toEqual(feld)
     expect(ablagePlaetze([[feld]], new Set(), new Set([`${feld.x},${feld.y}`]))[0]).not.toEqual(feld)
+  })
+  it('Boot liegt ganz im Wasser, Obstbäume sind mit allem anderen zusammen erreichbar', () => {
+    for (let dy = 0; dy < 2; dy++) for (let dx = 0; dx < 3; dx++) expect(istGras(BOOT.x + dx, BOOT.y + dy)).toBe(false)
+    const besetzt = hindernisse({ deko: DEKO_PLAETZE.length, brunnen: true, huehner: 4, kuehe: 4, obstbaeume: Object.keys(BAUM_PLAETZE) })
+    for (const o of Object.values(BAUM_PLAETZE)) expect(weg(FIGUR_START, nebenan(tierFlaeche(o, 2)), besetzt)).not.toBeNull()
+    for (const o of FELD_PLAETZE) expect(weg(FIGUR_START, nebenan([o]), besetzt)).not.toBeNull()
   })
   it('eine Kuh allein läuft durch die ganze Scheune: beide Plätze drinnen gesperrt, die Kuh bleibt erreichbar', () => {
     const besetzt = hindernisse({ deko: 0, brunnen: false, huehner: 0, kuehe: 1 })

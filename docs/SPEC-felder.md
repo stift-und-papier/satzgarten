@@ -37,6 +37,21 @@ Antworten der Lehrkraft vom 2026-11-12 auf die offenen Fragen 8, 9 und 12. Zahle
 
 - Ungefüttert passiert nichts Schlimmes, das Tier gibt nur nichts.
 
+## Obstbäume und Boot (Lehrkraft 2026-11-12)
+
+- Orangenbaum, Pfirsichbaum, Birnenbaum im Shop, **je einer**, auf festen Plätzen (zwei über dem Acker, einer vor dem Stall).
+- Ohne Gießen **einmal pro Woche** erntbar (7 Kalendertage nach der letzten Ernte; gleich nach dem Kauf reif), je **3 Früchte**.
+  Die Früchte fallen unter den Baum, man sammelt sie ein und verkauft sie im Shop. Füttern kann man mit Obst nicht.
+- Preise (von Claude, Bestätigung offen):
+
+  | Baum | Preis | im Shop ab verdient | Frucht (Verkauf) |
+  |---|---|---|---|
+  | Orangenbaum | 300 | 600 | Orange 30 |
+  | Pfirsichbaum | 350 | 1200 | Pfirsich 35 |
+  | Birnenbaum | 400 | 2200 | Birne 40 |
+
+- **Boot** (Deko, 120 Münzen, ab 600 verdient, nur eins): liegt unten am Ufer im Wasser und schaukelt.
+
 ## Belohnung für Lernfortschritt (offene Frage 12)
 
 - Wird eine Kompetenz in „Mein Lernweg“ zu **„Hier wirst du besser“**, gibt es einmalig einen **besonderen Samen**

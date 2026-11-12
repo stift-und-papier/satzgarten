@@ -21,6 +21,12 @@ mit denselben Bedingungen (nicht kommerziell, Paket nicht weitergeben).
 Deshalb liegen hier nur einzelne, ausgeschnittene Bilder, die die App wirklich benutzt
 (erzeugt von `scripts/grafik-holen.mjs`), nie die Pakete.
 
+Obstbäume (`baum_*.png`), Früchte (`fruechte.png`) und Boot (`deko_boot.png`) kommen aus dem Premium-Paket (Tree animations, Items, Boats).
+
+## Von der Lehrkraft bereitgestellt
+
+- `feld.png`: aus `assets/Soil_Ground_Tile_single.png` (auf 14 × 14 verkleinert). Herkunft bitte noch eintragen.
+
 ## Eigene Werke der Lehrkraft
 
 - `einstein.png`: Maskottchen Einstein, Posen freundlich, blinzelt, lob, freut sich, huch, erklärt (aus der eigenen Vorlage

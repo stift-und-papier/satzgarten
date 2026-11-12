@@ -6,10 +6,10 @@ import { Sprite } from '../gemeinsam/Sprite'
 import { GRAFIK } from '../grafik'
 import { fehlerText } from '../lib/fehler'
 import {
-  ablagePlaetze, BAEUME, blobTeil, BRUNNEN, DEKO_PLAETZE, FELD_PLAETZE, FIGUR_START, grundKacheln, HEU, hindernisse, HUHN_PLAETZE, istGras, KACHEL,
+  ablagePlaetze, BAEUME, BAUM_PLAETZE, BOOT, BRUNNEN, DEKO_PLAETZE, FELD_PLAETZE, FIGUR_START, grundKacheln, HEU, hindernisse, HUHN_PLAETZE, istGras, KACHEL,
   KUH_PLAETZE, nebenan, scheunenKacheln, SPALTEN, STALL, tierFlaeche, TROG, weg, ZEILEN, type Ort,
 } from '../lib/landschaft'
-import { artikelBild, SORTE, SORTE_NAME, vorratDing, type Farm as FarmDaten } from '../lib/shop'
+import { artikelBild, OBSTBAUM, SORTE, SORTE_NAME, vorratDing, type Farm as FarmDaten } from '../lib/shop'
 import { einzelbild, type Grafik } from '../lib/sprite'
 import { supabase } from '../lib/supabase'
 import { FarmTier } from './FarmTier'
@@ -30,6 +30,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
   const [fehler, setFehler] = useState<string | null>(null)
   const [menue, setMenue] = useState<Menue | null>(null)
   const [herz, setHerz] = useState<string | null>(null) // Tier, über dem gerade ein Herz erscheint
+  const [faellt, setFaellt] = useState<string | null>(null) // Obstbaum, von dem gerade die Früchte fallen
   const [mal, setMal] = useState(2)
   const [figur, setFigur] = useState({ ...mitte(FIGUR_START), richtung: 4, dauer: 0 })
   const rahmen = useRef<HTMLDivElement>(null)
@@ -63,7 +64,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
   useEffect(() => {
     const ctx = leinwand.current?.getContext('2d')
     if (!ctx || !daten) return
-    const namen = ['wasser', 'gras', 'gras_deko', 'acker', 'wand', 'heu', 'trog', 'baum', 'baum_klein', 'stall'] as const
+    const namen = ['wasser', 'gras', 'gras_deko', 'feld', 'wand', 'heu', 'trog', 'baum', 'baum_klein', 'stall'] as const
     const bilder = Object.fromEntries(namen.map((n) => [n, Object.assign(new Image(), { src: GRAFIK[n].url })])) as Record<(typeof namen)[number], HTMLImageElement>
     const kachel = (name: (typeof namen)[number], nummer: number, x: number, y: number) => {
       const q = einzelbild(GRAFIK[name], nummer)
@@ -74,9 +75,8 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
       if (!aktiv) return
       ctx.clearRect(0, 0, SPALTEN * KACHEL, ZEILEN * KACHEL)
       for (const k of grundKacheln()) kachel(k.grafik, k.nummer, k.x, k.y)
-      // Acker: zusammenhängend wie im Titelbild
-      const istFeld = (x: number, y: number) => FELD_PLAETZE.slice(0, felder).some((o) => o.x === x && o.y === y)
-      for (const o of FELD_PLAETZE.slice(0, felder)) kachel('acker', blobTeil(o.x, o.y, istFeld), o.x, o.y)
+      // Felder einzeln (Lehrkraft 2026-11-12): Ackerstück 14 × 14 mitten in der Kachel, so bleibt ringsum ein kleiner Abstand
+      for (const o of FELD_PLAETZE.slice(0, felder)) ctx.drawImage(bilder.feld, o.x * KACHEL + 1, o.y * KACHEL + 1)
       if (huehner.length) ctx.drawImage(bilder.stall, STALL.x * KACHEL, STALL.y * KACHEL)
       if (kuehe.length) {
         for (const k of scheunenKacheln()) kachel('wand', k.nummer, k.x, k.y)
@@ -120,7 +120,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
     schritt(0, figur)
   }
 
-  async function ausfuehren(rpc: 'pflanzen' | 'ernten' | 'fuettern' | 'einsammeln', args: Record<string, unknown>, erfolg: string | ((neu: FarmDaten) => string)) {
+  async function ausfuehren(rpc: 'pflanzen' | 'ernten' | 'fuettern' | 'einsammeln' | 'baum_ernten', args: Record<string, unknown>, erfolg: string | ((neu: FarmDaten) => string)) {
     setFehler(null)
     const { data, error } = await supabase.rpc(rpc, { p_token: token, ...args })
     if (error) return setFehler(fehlerText(error))
@@ -151,16 +151,21 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
 
   const px = (kacheln: number) => kacheln * KACHEL * mal
   const deko = daten.dinge
-    .filter((d) => !['huhn', 'kuh', 'brunnen'].includes(d.artikel))
+    .filter((d) => !['huhn', 'kuh', 'brunnen', 'boot'].includes(d.artikel))
     .flatMap((d) => Array(d.anzahl).fill(d.artikel) as string[])
     .slice(0, DEKO_PLAETZE.length)
   const hatBrunnen = daten.dinge.some((d) => d.artikel === 'brunnen')
-  const besetzt = hindernisse({ deko: deko.length, brunnen: hatBrunnen, huehner: huehner.length, kuehe: kuehe.length })
+  const hatBoot = daten.dinge.some((d) => d.artikel === 'boot')
+  const baeume = daten.baeume.filter((b) => BAUM_PLAETZE[b.art])
+  const besetzt = hindernisse({
+    deko: deko.length, brunnen: hatBrunnen, huehner: huehner.length, kuehe: kuehe.length, obstbaeume: baeume.map((b) => b.art),
+  })
   const ernte = daten.vorrat.filter((v) => v.sorte in SORTE)
   // Was auf der Farm liegt: Ernte beim Feld, Ei/Milch beim Tier (Plätze rechnet ablagePlaetze, nichts überdeckt sich)
   const tierOrt = new Map<string, Ort[]>([
     ...huehner.map((t, i) => [`tier:${t.id}`, tierFlaeche(HUHN_PLAETZE[i], 1)] as const),
     ...kuehe.map((t, i) => [`tier:${t.id}`, tierFlaeche(KUH_PLAETZE[i], 2)] as const),
+    ...baeume.map((b) => [`baum:${b.id}`, tierFlaeche(BAUM_PLAETZE[b.art], 2)] as const),
   ])
   const bepflanzt = new Set(daten.pflanzen.map((p) => `${FELD_PLAETZE[p.feld].x},${FELD_PLAETZE[p.feld].y}`))
   const liegenOrte = ablagePlaetze(
@@ -173,6 +178,48 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
   // siehe hindernisse), zwei Kühe drinnen nur wenig; draußen und Hühner ein kleines Stück.
   const bereich = (art: string, i: number): [number, number] =>
     art === 'huhn' ? [-6, 6] : i >= 2 ? [-8, 8] : kuehe.length === 1 ? [0, 2 * KACHEL] : i === 0 ? [-2, 4] : [-4, 2]
+
+  // Obstbaum: wiegt sich im Wind (mit Obst, wenn reif); beim Ernten fallen die Früchte einmal herunter
+  function baumKnopf(b: { id: string; art: string; tage: number }) {
+    const o = BAUM_PLAETZE[b.art]
+    const info = OBSTBAUM[b.art]
+    const reif = b.tage === 0
+    const zeile =
+      faellt === b.id
+        ? { grafik: info.grafik, nummer: 12, bilder: 12 }
+        : reif
+          ? { grafik: info.grafik, nummer: 0, bilder: 6 }
+          : { grafik: GRAFIK.baum_ohne_obst, nummer: 0, bilder: 6 }
+    const wann = b.tage === 1 ? 'morgen' : `in ${b.tage} Tagen`
+    return (
+      <button
+        key={b.id}
+        type="button"
+        className="farm-ding farm-baum"
+        style={{ left: px(o.x), top: px(o.y), width: px(2), height: px(2), zIndex: (o.y + 2) * KACHEL }}
+        aria-label={reif ? `${info.name}: reif, antippen zum Ernten` : `${info.name}: trägt ${wann} wieder Früchte`}
+        onClick={() =>
+          gehe(nebenan(tierFlaeche(o, 2)), () => {
+            if (!reif) return setMeldung(`Der ${info.name} trägt ${wann} wieder Früchte. Einmal in der Woche kannst du ernten.`)
+            void ausfuehren('baum_ernten', { p_baum: b.id }, `Geerntet! 3 ${info.fruechte} liegen unter dem Baum. Tippe sie an zum Einsammeln.`).then((ok) => {
+              if (!ok) return
+              setFaellt(b.id)
+              window.setTimeout(() => setFaellt(null), 1300)
+            })
+          })
+        }
+      >
+        <span
+          className="farm-baum__bild"
+          data-faellt={faellt === b.id || undefined}
+          style={{ left: -8 * mal, top: -12 * mal, ['--bilder' as string]: zeile.bilder, ['--lauf' as string]: `${-zeile.bilder * 48 * mal}px` }}
+        >
+          <Sprite key={zeile.grafik.url + zeile.nummer} grafik={zeile.grafik} nummer={zeile.nummer} mal={mal} />
+        </span>
+        {reif && <span className="farm-feld__reif" aria-hidden="true">✓</span>}
+      </button>
+    )
+  }
 
   function tierKnopf(t: { id: string; art: string }, o: { x: number; y: number }, groesse: number, i: number) {
     return (
@@ -199,7 +246,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
   return (
     <section className="karte farm">
       <h2>Deine Farm</h2>
-      <p className="leise">Tippe irgendwohin, dann läuft deine Figur dorthin. Tippe ein Feld oder ein Tier an.</p>
+      <p className="leise">Tippe irgendwohin, dann läuft deine Figur dorthin. Tippe ein Feld, ein Tier oder einen Obstbaum an.</p>
       <div ref={rahmen} className="farm-rahmen">
         <div className="farm-landschaft" style={{ width: px(SPALTEN), height: px(ZEILEN) }} onClick={inDieLandschaft}>
           <canvas ref={leinwand} width={SPALTEN * KACHEL} height={ZEILEN * KACHEL} style={{ width: px(SPALTEN), height: px(ZEILEN) }} aria-hidden="true" />
@@ -225,6 +272,12 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
             )
           })}
 
+          {hatBoot && (
+            <span className="farm-ding farm-boot" style={{ left: px(BOOT.x), top: px(BOOT.y), zIndex: BOOT.y * KACHEL, ['--lauf' as string]: `${-96 * mal}px` }}>
+              <Sprite grafik={GRAFIK.deko_boot} mal={mal} />
+            </span>
+          )}
+          {baeume.map((b) => baumKnopf(b))}
           {hatBrunnen && <Ding grafik={GRAFIK.brunnen} x={px(BRUNNEN.x)} y={px(BRUNNEN.y)} mal={mal} z={(BRUNNEN.y + 2) * KACHEL} />}
           {deko.map((id, i) => {
             const b = artikelBild(id)

@@ -12,6 +12,7 @@ type Verkauf = { kontostand: number; vorrat: { sorte: string; name: string; anza
 const BEREICHE: { art: ArtikelArt; titel: string }[] = [
   { art: 'samen', titel: 'Samen' },
   { art: 'tier', titel: 'Tiere' },
+  { art: 'baum', titel: 'Obstbäume' },
   { art: 'deko', titel: 'Deko' },
   { art: 'feld', titel: 'Felder' },
 ]
