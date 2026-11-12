@@ -36,6 +36,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
   const rahmen = useRef<HTMLDivElement>(null)
   const leinwand = useRef<HTMLCanvasElement>(null)
   const ankunft = useRef<number>(undefined)
+  const [blase, setBlase] = useState(true) // Sprechblase „… kann geerntet werden!“, bis man zum ersten Mal tippt
 
   const laden = useCallback(async () => {
     const { data, error } = await supabase.rpc('schueler_farm', { p_token: token })
@@ -98,6 +99,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
    */
   function gehe(ziel: (o: Ort) => boolean, dann?: () => void) {
     window.clearTimeout(ankunft.current)
+    setBlase(false)
     const start = { x: Math.floor(figur.x / KACHEL), y: Math.floor(figur.y / KACHEL) }
     const pfad = weg(start, ziel, besetzt)
     if (!pfad) return dann?.()
@@ -227,7 +229,6 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
         >
           <Sprite key={zeile.grafik.url + zeile.nummer} grafik={zeile.grafik} nummer={zeile.nummer} mal={mal} />
         </span>
-        {reif && <span className="farm-feld__reif" aria-hidden="true">✓</span>}
       </button>
     )
   }
@@ -254,6 +255,14 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
 
   const tier = menue?.art === 'tier' ? daten.tiere.find((t) => t.id === menue.id) : undefined
 
+  // Lehrkraft 2026-11-12: statt Haken sagt die Figur, was reif ist
+  const reifes = [
+    ...daten.pflanzen.filter((p) => p.feld < felder && p.reif).map((p) => SORTE_NAME[p.sorte]),
+    ...daten.baeume.filter((b) => b.tage === 0 && b.art in BAUM_PLAETZE).map((b) => OBSTBAUM[b.art].name),
+  ]
+  const blasenText = reifes.length > 1 ? 'Ich kann heute vieles ernten!' : reifes.length ? `${reifes[0]} kann geerntet werden!` : null
+  const blaseLinks = figur.x > (SPALTEN * KACHEL) / 2
+
   return (
     <section className="karte farm">
       <h2>Deine Farm</h2>
@@ -278,7 +287,6 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
                 onClick={() => gehe(nebenan([ort]), () => feldAntippen(feld))}
               >
                 {p && <Sprite grafik={GRAFIK.pflanzen} nummer={SORTE[p.sorte] * 4 + p.bild} mal={mal} />}
-                {p?.reif && <span className="farm-feld__reif" aria-hidden="true">✓</span>}
               </button>
             )
           })}
@@ -336,6 +344,18 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
               ['--lauf' as string]: `${-96 * mal}px`,
             }}
           />
+
+          {blase && blasenText && (
+            <span
+              className={`sprechblase farm-blase${blaseLinks ? ' farm-blase--links' : ''}`}
+              style={{
+                [blaseLinks ? 'right' : 'left']: blaseLinks ? (SPALTEN * KACHEL - figur.x + 10) * mal : (figur.x + 10) * mal,
+                top: (figur.y - 22) * mal,
+              }}
+            >
+              {blasenText}
+            </span>
+          )}
         </div>
       </div>
 

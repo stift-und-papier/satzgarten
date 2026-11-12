@@ -559,11 +559,9 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .farm-baum__bild[data-faellt] > .sprite { animation: farm-laufen 1.2s steps(12) 1 forwards; }
 /* Boot schaukelt am Ufer (2 Bilder) */
 .farm-boot > .sprite { animation: farm-laufen 1.6s steps(2) infinite; }
-.farm-feld__reif {
-  position: absolute; top: -10px; right: -10px; display: grid; place-items: center; width: 22px; height: 22px;
-  border-radius: 50%; background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); font-weight: 800; font-size: 14px;
-  border: 2px solid currentColor; line-height: 1;
-}
+/* Sprechblase neben der Figur (was reif ist); Spitze zeigt zur Figur, rechts von ihr oder (am rechten Rand) links */
+.farm-blase { position: absolute; z-index: 9999; white-space: nowrap; transform: translateY(-50%); pointer-events: none; font-weight: 700; }
+.farm-blase--links::before { left: auto; right: calc(-7 * var(--px)); transform: scaleX(-1); }
 /* Liegt zum Einsammeln bereit: hüpft leicht, damit man es bemerkt */
 .farm-liegt > .sprite { animation: farm-huepfen 1.2s ease-in-out infinite; }
 @keyframes farm-huepfen { 50% { transform: translateY(-15%); } }

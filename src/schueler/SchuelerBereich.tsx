@@ -260,7 +260,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
       {naechstesPaket && naechste && (
         <section className="karte">
           <div className="kopf-zeile">
-            <h2>Dein nächster Schritt</h2>
+            <h2>Dein nächster Schritt:</h2>
             {naechste.typ !== 'erklaerung' && (
               <span className="paket-liste__stufe">
                 <span className="leise">Schwierigkeit</span>
@@ -268,9 +268,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
               </span>
             )}
           </div>
-          <p>
-            {naechstesPaket.titel}: {naechste.titel}
-          </p>
+          <p>{naechste.titel}</p>
           <div className="knopf-reihe">
             <a className="knopf knopf--haupt" href={`#${basis}/p/${naechstesPaket.id}/a/${naechste.id}`}>
               Weiter üben
