@@ -52,7 +52,7 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
     return m
   }, [daten])
 
-  // Spalten der Einzelkompetenzen und Durchschnitte je Person (Bereiche und große Bereiche)
+  // Spalten der Einzelkompetenzen und Durchschnitte je Person (Bereiche und Kernkompetenzen)
   const { spalten, schnitt } = useMemo(() => {
     if (!daten) return { spalten: [] as Kompetenz[], schnitt: new Map<string, ReturnType<typeof zusammenfassen>>() }
     const mitDaten = new Set(daten.werte.map((w) => w.kompetenz_id))
@@ -71,7 +71,7 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
   const { klasse, schueler, kompetenzen, werte, einstellungen } = daten
 
   const person = schueler.find((s) => s.id === ausgewaehlt)
-  // Große Bereiche: die drei des KC, dazu „Weitere“ nur, falls es nicht zugeordnete Bereiche gibt
+  // Kernkompetenzen: die drei des KC, dazu „Weitere“ nur, falls es nicht zugeordnete Bereiche gibt
   const bereicheMitDaten = [...new Set(spalten.map((k) => k.bereich))]
   const grosse = [...GROSSE_BEREICHE, ...(bereicheMitDaten.some((b) => grosserBereich(b) === 'Weitere') ? ['Weitere'] : [])]
   const hatDaten = (g: string) => bereicheMitDaten.some((b) => grosserBereich(b) === g)
@@ -83,7 +83,7 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
   const feld = (punkte: number | undefined, titel: string) =>
     punkte === undefined ? undefined : { stufe: stufeAusPunkte(punkte, einstellungen), trend_gueltig: false, trend_punkte: null, titel }
 
-  // Alle Spalten der Tabelle: in der Übersicht große Bereiche (aufklappbar in ihre Bereiche), sonst Einzelkompetenzen
+  // Alle Spalten der Tabelle: in der Übersicht Kernkompetenzen (aufklappbar in ihre Bereiche), sonst Einzelkompetenzen
   type Spalte = { key: string; titel: string; erklaerung?: string; unter?: boolean; aufklappen?: string; feld: (sid: string) => ReturnType<typeof feld> | Auswertung | undefined }
   const tabelle: Spalte[] =
     ansicht === 'kompetenzen'
@@ -128,7 +128,7 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
       <div className="lk-zeile lk-nicht-drucken">
         <div className="lk-reiter" role="group" aria-label="Ansicht">
           <button type="button" className="lk-knopf" aria-pressed={ansicht === 'bereiche'} onClick={() => setAnsicht('bereiche')}>
-            Große Bereiche
+            Kernkompetenzen
           </button>
           <button type="button" className="lk-knopf" aria-pressed={ansicht === 'kompetenzen'} onClick={() => setAnsicht('kompetenzen')}>
             Einzelne Kompetenzen
@@ -140,7 +140,7 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
       </div>
       {ansicht === 'bereiche' && spalten.length > 0 && (
         <fieldset className="lk-nicht-drucken">
-          <legend>Diese großen Bereiche zeigen</legend>
+          <legend>Diese Kernkompetenzen zeigen</legend>
           {grosse.map((g) => (
             <label key={g} className="lk-haken">
               <input type="checkbox" checked={hatDaten(g) && !abgewaehlt.has(g)} disabled={!hatDaten(g)} onChange={() => umschalten(abgewaehlt, setAbgewaehlt, g)} />
@@ -149,7 +149,7 @@ export function KlassenLernstand({ klasseId }: { klasseId: string }) {
             </label>
           ))}
           <p className="lk-leise">
-            Ein großer Bereich ist der Durchschnitt seiner Bereiche, ein Bereich der Durchschnitt seiner Kompetenzen. Mit „aufklappen ▸“ im
+            Eine Kernkompetenz ist der Durchschnitt ihrer Bereiche, ein Bereich der Durchschnitt seiner Kompetenzen. Mit „aufklappen ▸“ im
             Tabellenkopf sehen Sie daneben die einzelnen Bereiche.
           </p>
         </fieldset>

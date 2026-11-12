@@ -10,6 +10,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 const { PNG } = createRequire(import.meta.url)('pngjs')
 
 const UI = 'assets/entpackt/Sprout Lands - UI Pack - Premium pack/UI Sprites/'
+const SPRITES = 'assets/entpackt/Sprout Lands - Sprites - premium pack/'
 
 // Was wir benutzen. x, y, breite, hoehe = Ausschnitt in Pixeln (ohne Angabe: ganzes Bild).
 // bildBreite/bildHoehe: Größe eines Einzelbilds, wenn der Ausschnitt mehrere Bilder (Spritesheet) enthält.
@@ -18,6 +19,8 @@ const BILDER = [
   // Einstein: eigene Zeichnung der Lehrkraft (assets/1794384222202.jpg), am 2026-11-11 auf ihr Pixelraster
   // (6,715 Bildpunkte je Pixel) verkleinert, Hintergrund entfernt. Bilder: freundlich, blinzelt, lob, freut sich, huch, erklärt,
   // erklärt mit Augen zu, lob mit geneigtem Arm (Winken).
+  // Tulpe in 4 Wachstumsstufen (Samen, Sprössling, wächst, blüht) für „Mein Lernweg“ (Lehrkraft 2026-11-12)
+  { name: 'blume', datei: SPRITES + 'Objects/Farming Plants.png', x: 0, y: 96, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   { name: 'einstein', datei: 'assets/einstein-blatt.png', bildBreite: 52, bildHoehe: 47 }, // 8 Bilder
 ]
 

@@ -179,3 +179,6 @@
   „Löschen“ (Schüler:in, Klasse, Aufgabe, Paket) rot (`--color-lk-gefahr`, `lk-knopf--gefahr`; Rot nur Lehrkraft), Kopieren/Öffnen/Entfernen weiß.
   „Mein Lernweg“ nach großen Bereichen sortiert, Rückmeldungen farbig: deutlich besser kräftig grün, besser hellgrün,
   dranbleiben Pfirsich, erste Ergebnisse Papier (immer mit Satz, nie Rot).
+- 2026-11-12 (Lehrkraft): „Große Bereiche“ heißen in der Lehrkraft-Ansicht **Kernkompetenzen**. „Mein Lernweg“ zeigt je Rückmeldung eine
+  Tulpe aus Sprout Lands (`GRAFIK.blume`, 4 Stufen): erste Ergebnisse = Samen, dranbleiben = Sprössling, wird besser = wächst,
+  deutlich besser = blüht.

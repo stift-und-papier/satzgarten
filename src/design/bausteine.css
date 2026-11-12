@@ -484,3 +484,6 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .lernweg-marke[data-art='besser'] { background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); }
 .lernweg-thema[data-art='dranbleiben'] { border-left-color: var(--color-nochmal-flaeche); }
 .lernweg-marke[data-art='dranbleiben'] { background: var(--color-nochmal-flaeche); color: var(--color-nochmal-tinte); }
+/* Tulpe vorn (Samen → blüht), Text daneben, Rückmeldung rechts bzw. darunter */
+.lernweg-thema > .sprite { flex: none; }
+.lernweg-thema__text { flex: 1 1 10rem; }

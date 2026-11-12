@@ -1,6 +1,8 @@
 // alt (Übungswiese, Entwicklung.tsx), im Pixel-Look: „Mein Lernweg“ – nur die eigene Entwicklung in Worten.
 // Keine Stufen, Punkte, Prozente oder Noten: Die Datenbank liefert hier gar keine absoluten Werte (schueler_entwicklung).
 import { useEffect, useState } from 'react'
+import { Sprite } from '../gemeinsam/Sprite'
+import { GRAFIK } from '../grafik'
 import { fehlerText } from '../lib/fehler'
 import { GROSSE_BEREICHE, grosserBereich } from '../lib/lernstand'
 import { supabase } from '../lib/supabase'
@@ -13,6 +15,9 @@ type Daten = {
 }
 
 const REIHENFOLGE: Kategorie[] = ['deutlich', 'besser', 'dranbleiben', 'erste']
+// Bild der Tulpe je Rückmeldung: Samen → Sprössling → wächst → blüht (nur Verzierung, der Satz trägt die Bedeutung)
+const BLUME: Record<Kategorie, number> = { erste: 0, dranbleiben: 1, besser: 2, deutlich: 3 }
+const Blume = ({ art }: { art: Kategorie }) => <Sprite grafik={GRAFIK.blume} nummer={BLUME[art]} mal={4} />
 
 export function Lernweg({ token, uebungen }: { token: string; uebungen: string }) {
   const [daten, setDaten] = useState<Daten | null>(null)
@@ -32,7 +37,7 @@ export function Lernweg({ token, uebungen }: { token: string; uebungen: string }
   // Themen mit Entwicklung nach Bereich; Themen mit ersten Ergebnissen eingeklappt am Ende.
   const mitWeg = daten.kompetenzen.filter((k) => k.kategorie !== 'erste')
   const ersteSchritte = daten.kompetenzen.filter((k) => k.kategorie === 'erste')
-  // Sortiert nach großen Bereichen (wie in der Lehrkraft-Übersicht), darin nach Bereichen; innerhalb das Beste zuerst
+  // Sortiert nach Kernkompetenzen (wie in der Lehrkraft-Übersicht), darin nach Bereichen; innerhalb das Beste zuerst
   const grosse = [...new Set(mitWeg.map((k) => grosserBereich(k.bereich)))]
     .sort((a, b) => (GROSSE_BEREICHE as readonly string[]).indexOf(a) - (GROSSE_BEREICHE as readonly string[]).indexOf(b))
     .map((gross) => ({
@@ -79,7 +84,8 @@ export function Lernweg({ token, uebungen }: { token: string; uebungen: string }
               <ul className="lernweg-liste">
                 {themen.map((k) => (
                   <li key={k.name} className="lernweg-thema" data-art={k.kategorie}>
-                    <div>
+                    <Blume art={k.kategorie} />
+                    <div className="lernweg-thema__text">
                       <p className="lernweg-thema__name">{k.name}</p>
                       {k.geloest > 0 && <p className="leise">{gelungen(k.geloest)}</p>}
                     </div>
@@ -102,7 +108,8 @@ export function Lernweg({ token, uebungen }: { token: string; uebungen: string }
           <ul className="lernweg-liste">
             {ersteSchritte.map((k) => (
               <li key={k.name} className="lernweg-thema">
-                <div>
+                <Blume art="erste" />
+                <div className="lernweg-thema__text">
                   <h3>{k.name}</h3>
                   <p className="leise">{k.bereich}</p>
                 </div>
