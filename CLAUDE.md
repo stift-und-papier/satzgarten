@@ -195,3 +195,6 @@
   ploppt bei Schüler:innen einmal als Fenster „Post von deiner Lehrkraft!“ auf. „Lernstand“-Knöpfe grün (`--color-lk-gut`, 4 Varianten,
   Kontrast 6,5 / 9,9 / 9,3 / 15,1). Lernweg: Emoji hinter dem Satz statt Tulpen-Bild (🌱 erste Ergebnisse, 🌿 dranbleiben, 🪴 besser,
   🌷 deutlich besser). **Kein Gedankenstrich „–“ als Satzzeichen** in Oberflächentexten (Punkt, Komma oder Doppelpunkt statt dessen).
+- 2026-11-12 (Lehrkraft, Aufgabe 36): Pflanzen wachsen durch Üben (jede Aufgabe mit Münzen gießt alle Felder) **und** etwas Zeit
+  (einmal pro Tag von selbst, höchstens halb). Pausen: nichts welkt, alles wartet. Füttern: Herz + Ei/Milch zum Verkaufen.
+  Lernfortschritt („besser“/„deutlich besser“) bringt einmalig besonderen Samen bzw. Deko. Zahlen in `docs/SPEC-felder.md`.
