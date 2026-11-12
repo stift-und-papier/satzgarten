@@ -1,0 +1,138 @@
+bereich: Satzglieder und Sätze
+stufe: 6
+
+== Satzglieder und Umstellprobe | RS-SA-6-01 RS-SA-6-03 RS-SA-6-04 GYM-SA-6-01 GYM-SA-6-03
+Ein Satz besteht aus Satzgliedern. Ein Satzglied kann ein einzelnes Wort sein oder eine ganze Wortgruppe.
+
+Mit der Umstellprobe findest du die Satzglieder: Wörter, die beim Umstellen immer zusammenbleiben, bilden ein Satzglied.
+
+Meine Oma | backt | am Sonntag | einen Kuchen.
+Am Sonntag | backt | meine Oma | einen Kuchen.
+
+Das Verb (Prädikat) bleibt im Aussagesatz immer an zweiter Stelle.
+merke: Was beim Umstellen zusammenbleibt, ist ein Satzglied.
+beispiel: [Der kleine Hund] bellt [laut].
+beispiel: [Laut] bellt [der kleine Hund].
+
+-- 1 | reihenfolge | Sätze bauen
+Varianten: 1
+der Hund | bellt | laut.
+laut | bellt | der Hund.
+
+wir | spielen | im Garten | Fußball.
+im Garten | spielen | wir | Fußball.
+Fußball | spielen | wir | im Garten.
+
+-- 2 | reihenfolge | Umstellprobe
+anweisung: Stelle den Satz auf zwei verschiedene Arten um.
+Varianten: 2
+meine Schwester | liest | am Abend | ein spannendes Buch.
+am Abend | liest | meine Schwester | ein spannendes Buch.
+ein spannendes Buch | liest | meine Schwester | am Abend.
+
+-- 3 | auswahl | Wie viele Satzglieder?
+anweisung: Wie viele Satzglieder hat der Satz? Mach die Umstellprobe im Kopf.
+Der freundliche Busfahrer wartet jeden Morgen auf die Kinder. [3 | *4 | 5 | 9]
+Nach der Schule essen wir zusammen. [2 | *4 | 5]
+
+== Subjekt und Prädikat | RS-SA-6-01 RS-SA-6-02 GYM-SA-6-01 GYM-SA-6-03
+Das Prädikat ist der Kern des Satzes. Es ist immer ein Verb: Der Hund [bellt].
+
+Das Subjekt sagt, wer oder was etwas tut. Du fragst: Wer oder was bellt? Der Hund.
+
+Manchmal hat das Prädikat zwei Teile: Ich [rufe] dich morgen [an]. Wir [haben] Pizza [gegessen].
+merke: Frage nach dem Subjekt mit „Wer oder was?“ und dem Prädikat.
+beispiel: [Lena] [spielt] Klavier. (Wer spielt? Lena.)
+beispiel: Wir [sind] gestern ins Kino [gegangen].
+
+-- 1 | zuordnen | Subjekt und Prädikat
+[Die Katze = Subjekt] [schläft = Prädikat] auf dem Sofa. [Mein Bruder = Subjekt] [spielt = Prädikat] Fußball. Heute [scheint = Prädikat] [die Sonne = Subjekt].
+kategorien: Subjekt, Prädikat
+
+-- 2 | zuordnen | Zweiteiliges Prädikat
+anweisung: Markiere das Subjekt und beide Teile des Prädikats.
+[Wir = Subjekt] [haben = Prädikat] gestern einen Ausflug [gemacht = Prädikat]. Morgen [ruft = Prädikat] [Oma = Subjekt] uns [an = Prädikat].
+kategorien: Subjekt, Prädikat
+
+-- 3 | zuordnen | Das Subjekt steht nicht vorn
+anweisung: Das Subjekt steht nicht immer am Anfang. Markiere Subjekt und Prädikat.
+Im Garten [blühen = Prädikat] [viele bunte Blumen = Subjekt]. Gestern [hat = Prädikat] [unser Lehrer = Subjekt] einen Witz [erzählt = Prädikat]. Endlich [beginnen = Prädikat] [die Ferien = Subjekt].
+kategorien: Subjekt, Prädikat
+
+== Objekte | RS-SA-6-01 GYM-SA-6-01
+Objekte ergänzen das Prädikat.
+
+Das Akkusativobjekt erfragst du mit „Wen oder was?“: Ich lese [ein Buch]. Wen oder was lese ich? Ein Buch.
+
+Das Dativobjekt erfragst du mit „Wem?“: Ich helfe [meiner Oma]. Wem helfe ich? Meiner Oma.
+merke: Wen oder was? Akkusativobjekt. Wem? Dativobjekt.
+beispiel: Tim schenkt [seiner Mutter] [eine Blume].
+beispiel: Wem schenkt Tim etwas? Seiner Mutter. Wen oder was? Eine Blume.
+
+-- 1 | auswahl | Nach dem Objekt fragen
+Lisa malt ein Bild. Wie fragst du nach „ein Bild“? [Wem? | *Wen oder was? | Wer?]
+Der Lehrer hilft dem Schüler. Wie fragst du nach „dem Schüler“? [*Wem? | Wen oder was? | Wo?]
+
+-- 2 | zuordnen | Dativ- und Akkusativobjekt
+[Tim = Subjekt] schenkt [seiner Mutter = Dativobjekt] [eine Blume = Akkusativobjekt]. [Ich = Subjekt] gebe [dem Hund = Dativobjekt] [einen Knochen = Akkusativobjekt].
+kategorien: Subjekt, Dativobjekt, Akkusativobjekt
+
+-- 3 | zuordnen | Satzglieder bestimmen
+[Der Nachbar = Subjekt] [leiht = Prädikat] [uns = Dativobjekt] [seine Leiter = Akkusativobjekt]. [Die Kinder = Subjekt] [zeigen = Prädikat] [dem Besuch = Dativobjekt] [ihre Schule = Akkusativobjekt].
+kategorien: Subjekt, Prädikat, Dativobjekt, Akkusativobjekt
+
+== Adverbiale Bestimmungen | RS-SA-6-01 GYM-SA-6-02
+Adverbiale Bestimmungen geben genauere Umstände an:
+Zeit: Wann? Wie lange? (am Morgen)
+Ort: Wo? Wohin? (im Park)
+Art und Weise: Wie? (leise)
+Grund: Warum? (wegen des Regens)
+merke: Adverbiale Bestimmungen beantworten Fragen wie wann, wo, wie und warum.
+beispiel: [Am Morgen] joggt Papa [im Park].
+beispiel: [Wegen des Regens] bleiben wir drinnen.
+
+-- 1 | auswahl | Wann oder wo?
+anweisung: Tippe alle Angaben an, die sagen, WANN etwas passiert.
+Wir fahren [*morgen | nach Berlin]. Lea joggt [im Park | *jeden Morgen]. [*Nach dem Essen | Im Garten] spielen wir Karten.
+
+-- 2 | auswahl dropdown | Welche Frage passt?
+anweisung: Mit welcher Frage findest du das markierte Satzglied?
+Wir treffen uns am Nachmittag. „am Nachmittag“: [*Wann? | Wo? | Wie?]
+Die Katze schläft unter dem Tisch. „unter dem Tisch“: [Wann? | *Wo? | Warum?]
+Er rennt sehr schnell. „sehr schnell“: [Wo? | Warum? | *Wie?]
+Wegen der Hitze bleiben wir drinnen. „wegen der Hitze“: [Wann? | Wie? | *Warum?]
+
+-- 3 | zuordnen | Alle Satzglieder
+[Am Samstag = Adverbiale] [kauft = Prädikat] [meine Mutter = Subjekt] [auf dem Markt = Adverbiale] [frisches Obst = Akkusativobjekt].
+kategorien: Subjekt, Prädikat, Akkusativobjekt, Dativobjekt, Adverbiale
+
+== Satzarten und Nebensätze | RS-SA-6-06 GYM-SA-6-04 GYM-SA-6-05
+Es gibt drei Satzarten:
+Aussagesatz: Ich gehe nach Hause. Das Verb steht an zweiter Stelle, am Ende ein Punkt.
+Fragesatz: Gehst du nach Hause? Am Ende ein Fragezeichen.
+Aufforderungssatz: Geh nach Hause! Am Ende oft ein Ausrufezeichen.
+
+Ein Nebensatz kann nicht allein stehen. Er beginnt oft mit weil, dass, wenn oder als, und das Verb steht am Ende: Ich bleibe hier, [weil es regnet].
+merke: Im Nebensatz steht das gebeugte Verb am Ende.
+beispiel: Ich freue mich, [weil heute Ferien beginnen].
+beispiel: [Wenn es regnet], spielen wir drinnen.
+
+-- 1 | auswahl dropdown | Satzarten erkennen
+Kommst du heute mit ins Schwimmbad [. | *? | !]
+Mach bitte das Fenster zu [. | ? | *!]
+Wir fahren morgen zu Oma [*. | ? | !]
+Wie spät ist es [. | *? | !]
+
+-- 2 | zuordnen | Hauptsatz und Nebensatz
+[Ich bleibe heute zu Hause = Hauptsatz], [weil ich erkältet bin = Nebensatz]. [Wenn die Sonne scheint = Nebensatz], [gehen wir baden = Hauptsatz].
+kategorien: Hauptsatz, Nebensatz
+
+-- 2 | reihenfolge | Nebensatz bauen
+anweisung: Bilde den Nebensatz. Das Verb kommt ans Ende.
+Ich bleibe drinnen, | weil | es | regnet.
+
+Ich hoffe, | dass | du | morgen | kommst.
+
+-- 3 | auswahl | Satzgefüge erkennen
+anweisung: Tippe nur die Sätze an, die einen Nebensatz haben.
+[*Ich weiß nicht, ob er kommt. | Ich gehe nach Hause und esse. | *Als wir ankamen, regnete es. | Komm schnell her! | *Das ist der Hund, der immer bellt.]

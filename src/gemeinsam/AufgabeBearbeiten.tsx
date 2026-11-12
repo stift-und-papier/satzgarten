@@ -81,7 +81,7 @@ function ErklaerSeite({ aufgabe, pruefen, weiter }: Props) {
         .split(/\n\s*\n/)
         .filter((a) => a.trim())
         .map((absatz, i) => (
-          <p key={i}>{hervorheben(absatz.trim())}</p>
+          <p key={i} className="erklaerung__absatz">{hervorheben(absatz.trim())}</p>
         ))}
       {e.merke.trim() && (
         <aside className="merkkasten">

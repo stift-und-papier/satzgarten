@@ -1,0 +1,149 @@
+bereich: Satzglieder und Sätze
+stufe: 10
+
+== Lange Sätze untersuchen | RS-SA-10-01 GYM-SA-10-01
+Lange Sätze verstehst du, wenn du sie zerlegst:
+1. Suche das Prädikat des Hauptsatzes (gebeugtes Verb an 2. Stelle).
+2. Suche das Subjekt dazu.
+3. Grenze die Nebensätze ab (Kommas, Konjunktion, Verb am Ende).
+4. Prüfe, worauf sich jeder Nebensatz bezieht.
+
+Ein Nebensatz kann von einem anderen Nebensatz abhängen (Nebensatz 2. Grades): Ich glaube, dass er kommt, weil er es versprochen hat.
+merke: Erst den Hauptsatz finden, dann die Nebensätze abgrenzen.
+beispiel: [Ich glaube], dass er kommt, weil er es versprochen hat.
+beispiel: Der Film, [den wir gestern sahen], war spannend.
+
+-- 1 | zuordnen | Hauptsatz und Nebensätze
+[Wir bleiben zu Hause = Hauptsatz], [weil es regnet = Nebensatz]. [Der Junge = Hauptsatz], [der dort steht = Nebensatz], [heißt Jonas = Hauptsatz].
+kategorien: Hauptsatz, Nebensatz
+
+-- 1 | auswahl | Das Prädikat des Hauptsatzes
+anweisung: Tippe das Prädikat des Hauptsatzes an.
+Obwohl es spät war, blieben wir noch, weil der Film so spannend war: [war | *blieben | spannend]
+Die Frau, die neben mir wohnt, arbeitet im Krankenhaus: [wohnt | *arbeitet]
+
+-- 1 | auswahl | Wie viele Nebensätze?
+Ich hoffe, dass du kommst. [*1 | 2 | 3]
+Als wir ankamen, merkten wir, dass wir den Schlüssel vergessen hatten. [1 | *2 | 3]
+
+-- 2 | zuordnen | Satzbau bestimmen
+[Nachdem wir gegessen hatten = Nebensatz], [beschlossen wir = Hauptsatz], [dass wir spazieren gehen = Nebensatz], [weil das Wetter schön war = Nebensatz].
+kategorien: Hauptsatz, Nebensatz
+
+-- 2 | zuordnen | Nebensatzarten im langen Satz
+[Obwohl er krank war = Konzessivsatz], ging er zur Schule, [weil er die Arbeit nicht verpassen wollte = Kausalsatz], [die über die Note entschied = Relativsatz].
+kategorien: Kausalsatz, Konzessivsatz, Relativsatz, Temporalsatz
+
+-- 3 | auswahl | Worauf bezieht sich der Nebensatz?
+anweisung: Tippe das Wort an, auf das sich der Relativsatz bezieht.
+Wir besuchten das Museum in der Stadt, das im Sommer neu eröffnet wurde: [*Museum | Stadt | Sommer]
+Ich sprach mit der Lehrerin meines Bruders, die sehr freundlich war: [*Lehrerin | Bruder]
+
+-- 3 | ueberarbeiten | Verschachtelten Satz entwirren
+Kontext: Aus einem Sachtext.
+Die Gemeinde, die beschlossen hat, dass das Schwimmbad, das seit Jahren marode ist, saniert wird, sucht Geld.
+Hinweis: Mehrere ineinander geschachtelte Nebensätze machen den Satz schwer verständlich.
+*Das Schwimmbad ist seit Jahren marode. Die Gemeinde hat beschlossen, es zu sanieren, und sucht nun Geld.
+Hinweis: Aufgeteilt in zwei Sätze ist der Inhalt klar.
+
+-- 3 | zuordnen | Satzglieder im langen Satz
+[Am letzten Schultag = Adverbiale] [überreichte = Prädikat] [die Schulleiterin = Subjekt] [den Absolventen = Dativobjekt] [ihre Zeugnisse = Akkusativobjekt].
+kategorien: Subjekt, Prädikat, Dativobjekt, Akkusativobjekt, Adverbiale
+
+-- 2 | reihenfolge | Nebensatz einbauen
+anweisung: Bilde den Satz. Der Relativsatz steht hinter dem Nomen, auf das er sich bezieht.
+das Buch, | das | ich | dir | geliehen habe, | ist | spannend.
+
+-- 3 | zuordnen | Nebensatz 2. Grades
+anweisung: Bestimme Hauptsatz, Nebensatz 1. Grades (hängt vom Hauptsatz ab) und Nebensatz 2. Grades (hängt vom Nebensatz ab).
+[Sie sagt = Hauptsatz], [dass sie nicht kommt = Nebensatz 1. Grades], [weil sie krank ist = Nebensatz 2. Grades].
+kategorien: Hauptsatz, Nebensatz 1. Grades, Nebensatz 2. Grades
+
+== Satzbau beim Schreiben | RS-SA-10-02 GYM-SA-10-01
+Beim Schreiben setzt du Satzbau gezielt ein:
+Kurze Sätze wirken spannend oder eindringlich.
+Satzgefüge zeigen Zusammenhänge (Grund, Folge, Gegensatz).
+Abwechselnde Satzanfänge (Umstellprobe!) machen Texte lebendig.
+
+In Erörterungen und Bewerbungen helfen Satzgefüge, Argumente zu begründen: Ich halte das für sinnvoll, weil …
+merke: Die Satzglieder können umgestellt werden. Das Wichtigste steht oft am Anfang.
+beispiel: Plötzlich [ging das Licht aus]. Stille. (kurze Sätze: Spannung)
+beispiel: Ich bin für eine längere Pause, [weil wir uns dann besser erholen]. (Begründung)
+
+-- 1 | reihenfolge | Satzglieder umstellen
+anweisung: Stelle den Satz so um, dass die Zeitangabe vorn steht.
+seit drei Jahren | spielt | Lena | im Verein | Handball.
+
+-- 2 | reihenfolge | Betonung durch Umstellen
+anweisung: Bilde zwei verschiedene Sätze, die mit einem anderen Satzglied beginnen als „wir“.
+Varianten: 2
+wir | treffen | am Freitag | in der Mensa | unsere Partnerklasse.
+am Freitag | treffen | wir | in der Mensa | unsere Partnerklasse.
+in der Mensa | treffen | wir | am Freitag | unsere Partnerklasse.
+unsere Partnerklasse | treffen | wir | am Freitag | in der Mensa.
+
+-- 2 | ueberarbeiten | Argument mit Satzgefüge
+Kontext: Aus einer Erörterung zum Thema Schuluniform.
+Schuluniformen sind gut. Alle sehen gleich aus.
+Hinweis: Die Sätze stehen unverbunden. Der Zusammenhang (Begründung) fehlt.
+*Schuluniformen können sinnvoll sein, weil dann niemand wegen seiner Kleidung ausgegrenzt wird.
+Hinweis: Das Satzgefüge mit „weil“ macht die Begründung deutlich.
+
+-- 3 | ueberarbeiten | Spannung durch Satzbau
+Kontext: Der Höhepunkt einer Erzählung.
+Als ich die Tür öffnete, weil ich ein Geräusch gehört hatte, das aus dem Keller kam, sah ich einen Schatten.
+Hinweis: Der lange Satz bremst die Spannung am Höhepunkt.
+*Ich öffnete die Tür. Ein Geräusch. Aus dem Keller. Dann sah ich ihn: einen Schatten.
+Hinweis: Kurze Sätze und Satzfragmente erzeugen Spannung.
+
+-- 3 | lueckentext | Argumente verknüpfen
+anweisung: Verknüpfe die Argumente mit passenden Wörtern (weil, obwohl, deshalb, außerdem).
+Ein Smartphone ist praktisch, [weil/da] man damit schnell Informationen findet. [Außerdem] kann man Kontakt halten. [Obwohl] es viele Vorteile hat, sollte man die Zeit am Handy begrenzen.
+
+-- 1 | auswahl dropdown | Wirkung des Satzbaus
+Kurze Sätze wirken eher [*spannend | gemütlich]. Satzgefüge mit „weil“ zeigen eine [*Begründung | Aufzählung]. Mit der Umstellprobe kann man [*Satzanfänge abwechseln | Rechtschreibfehler finden].
+
+== Partizipialgruppen und Infinitivgruppen | RS-SA-10-03
+Partizipialgruppen sind verkürzte Nebensätze mit einem Partizip: Laut lachend verließ sie den Raum (= Während sie laut lachte, …).
+
+Infinitivgruppen sind Gruppen mit „zu“ + Infinitiv: Er ging, ohne zu grüßen.
+
+Beide machen Sätze kürzer. Sie dürfen aber nicht unverständlich werden.
+merke: Partizipialgruppe = verkürzter Nebensatz ohne gebeugtes Verb.
+beispiel: [Vom Regen durchnässt], kamen wir nach Hause.
+beispiel: Wir gingen los, [ohne auf Tim zu warten].
+
+-- 1 | auswahl | Partizipialgruppen finden
+anweisung: Tippe die Sätze an, die eine Partizipialgruppe enthalten.
+[*Laut singend fuhr er Rad. | Er sang und fuhr Rad. | *Von der Reise erschöpft, schlief sie ein. | Sie war müde und schlief.]
+
+-- 1 | auswahl | Infinitivgruppen finden
+anweisung: Tippe die Sätze an, die eine Infinitivgruppe enthalten.
+[*Ich versuche, pünktlich zu sein. | Ich bin pünktlich. | *Statt zu lernen, schlief er. | Er schlief lange.]
+
+-- 2 | lueckentext | Nebensatz verkürzen
+anweisung: Verkürze den Nebensatz zu einer Partizipialgruppe.
+Während sie laut lachte, verließ sie den Raum. → [Laut lachend] verließ sie den Raum.
+Weil er vom Training erschöpft war, ging er früh schlafen. → [Vom Training erschöpft], ging er früh schlafen.
+
+-- 2 | auswahl dropdown | Partizip I oder II in der Gruppe?
+[*Leise summend | Leise gesummt] räumte er auf. [Gut erholend | *Gut erholt] kamen wir aus dem Urlaub. [*Freundlich lächelnd | Freundlich gelächelt] öffnete sie die Tür.
+
+-- 3 | ueberarbeiten | Verständliche Partizipialgruppe
+Kontext: Aus einem Bericht.
+Aus dem Fenster schauend, fuhr ein Auto vorbei.
+Hinweis: Das klingt, als würde das Auto aus dem Fenster schauen. Der Bezug stimmt nicht.
+*Als ich aus dem Fenster schaute, fuhr ein Auto vorbei.
+Hinweis: Mit dem Nebensatz ist klar, wer aus dem Fenster schaut.
+
+-- 1 | auswahl dropdown | Partizip erkennen
+In „Laut lachend ging sie hinaus“ ist „lachend“ ein [*Partizip I | Partizip II]. In „Völlig erschöpft kam er an“ ist „erschöpft“ ein [Partizip I | *Partizip II].
+
+-- 2 | lueckentext | Infinitivgruppe bilden
+anweisung: Verkürze mit „um … zu“ oder „ohne … zu“.
+Er lernt viel, damit er die Prüfung besteht. → Er lernt viel, [um die Prüfung zu bestehen].
+Sie ging, und sie verabschiedete sich nicht. → Sie ging, [ohne sich zu verabschieden].
+
+-- 3 | lueckentext | Partizipialgruppe auflösen
+anweisung: Löse die Partizipialgruppe in einen Nebensatz auf.
+Vom Lärm geweckt, stand er auf. → [Weil er vom Lärm geweckt worden war/Da er vom Lärm geweckt worden war/Weil er vom Lärm geweckt wurde], stand er auf.

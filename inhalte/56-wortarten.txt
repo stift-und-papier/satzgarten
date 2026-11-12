@@ -1,0 +1,119 @@
+bereich: Wortarten
+stufe: 6
+
+== Nomen und Artikel | RS-WA-6-01 GYM-WA-6-02
+Nomen bezeichnen Menschen, Tiere, Dinge, Orte und auch Gefühle oder Ideen, zum Beispiel Kind, Katze, Tisch, Berlin, Freude.
+
+Nomen schreibt man groß. Meistens steht ein Artikel davor: der, die, das oder ein, eine. Am Artikel erkennst du das Geschlecht: männlich (der), weiblich (die) oder sächlich (das).
+merke: Kannst du „der“, „die“ oder „das“ davorsetzen, ist das Wort meistens ein Nomen.
+beispiel: [Der Hund] spielt mit [einem Ball].
+beispiel: [Die Freude] über [das Geschenk] war groß.
+
+-- 1 | auswahl | Nomen erkennen
+anweisung: Tippe alle Nomen an.
+[*Katze | laufen | *Schule | grün | *Freund | schnell | *Fahrrad | lesen]
+
+-- 1 | lueckentext | Der, die oder das?
+anweisung: Setze den passenden Artikel ein.
+[Der] Apfel liegt auf [dem] Tisch. [Die] Sonne scheint. [Das] Kind spielt im Garten.
+
+-- 2 | zuordnen | Nomen und Artikel im Satz
+Am Morgen holt [die = Artikel] [Mutter = Nomen] [das = Artikel] [Brot = Nomen] vom [Bäcker = Nomen].
+
+-- 3 | fehler korrigieren | Großschreibung von Nomen
+anweisung: Finde die Nomen, die klein geschrieben sind, und verbessere sie.
+Gestern war ich mit meiner [schwester -> Schwester] im [zoo -> Zoo]. Wir haben die [affen -> Affen] lange beobachtet. Am Ende gab es ein großes [eis -> Eis].
+
+== Pronomen | RS-WA-6-01 GYM-WA-6-02
+Pronomen sind Stellvertreter. Sie stehen für ein Nomen, damit man es nicht ständig wiederholen muss.
+
+Personalpronomen sind ich, du, er, sie, es, wir, ihr, sie. Possessivpronomen zeigen, wem etwas gehört: mein, dein, sein, ihr, unser, euer.
+merke: Ein Pronomen ersetzt ein Nomen oder begleitet es: Lena liest. Sie liest [ihr] Buch.
+beispiel: Tim hat einen Hund. [Er] füttert [ihn] jeden Tag.
+beispiel: Das ist [unser] Klassenzimmer.
+
+-- 1 | lueckentext | Pronomen einsetzen
+anweisung: Ersetze die Nomen in Klammern durch ein Pronomen.
+Mia hat eine Katze. [Sie : Mia] spielt jeden Tag mit [ihr : der Katze]. Die Katze heißt Luna. [Sie : die Katze] schläft gern auf dem Sofa.
+
+-- 2 | auswahl | Wem gehört es?
+Ben und ich haben ein Baumhaus gebaut. Das ist [*unser | euer | ihr] Baumhaus. Lisa, ist das [*dein | mein | sein] Rucksack? Die Kinder suchen [*ihre | seine | unsere] Jacken.
+
+-- 3 | zuordnen | Pronomen und Nomen
+Gestern hat [Paul = Nomen] [seinen = Pronomen] [Freund = Nomen] besucht. [Sie = Pronomen] haben zusammen [ihre = Pronomen] [Hausaufgaben = Nomen] gemacht.
+
+== Verben und Zeitformen | RS-WA-6-03 RS-WA-6-05 RS-WA-6-06 GYM-WA-6-01
+Verben sagen, was jemand tut oder was geschieht: laufen, lachen, regnen. Im Satz passt sich das Verb der Person an: ich spiele, du spielst, er spielt.
+
+Mit den Zeitformen zeigst du, wann etwas passiert:
+Präsens: Ich spiele.
+Präteritum: Ich spielte.
+Perfekt: Ich habe gespielt.
+Futur I: Ich werde spielen.
+
+Starke Verben ändern im Präteritum ihren Vokal: singen, sang, gesungen. Schwache Verben bekommen ein -te: spielen, spielte.
+merke: Das Perfekt bildest du mit „haben“ oder „sein“ und dem Partizip II: ich [bin gelaufen], ich [habe gelacht].
+beispiel: Heute [spiele] ich Fußball. (Präsens)
+beispiel: Gestern [spielte] ich Fußball. (Präteritum)
+
+-- 1 | lueckentext | Verben konjugieren
+anweisung: Setze das Verb in der richtigen Form ein.
+Ich [spiele : spielen] gern Fußball. Du [spielst : spielen] lieber Tennis. Meine Schwester [liest : lesen] ein Buch. Wir [gehen : gehen] heute ins Kino.
+
+-- 2 | zuordnen | Zeitformen bestimmen
+anweisung: Bestimme die Zeitform der Verben.
+Gestern [regnete = Präteritum] es. Heute [scheint = Präsens] die Sonne. Morgen [werden wir schwimmen = Futur I]. Ich [habe gestern gelesen = Perfekt].
+
+-- 2 | lueckentext | Präteritum bilden
+anweisung: Setze das Verb im Präteritum ein.
+Am Samstag [fuhren : fahren] wir an den See. Wir [schwammen : schwimmen] lange. Danach [aßen : essen] wir Eis und [spielten : spielen] Ball.
+
+-- 3 | fehler korrigieren | Starke und schwache Verben
+anweisung: Hier stimmen einige Verbformen nicht. Verbessere sie.
+Letzte Woche [gehte -> ging] ich mit Opa angeln. Er [fangte -> fing] drei Fische. Ich habe leider keinen [gefangt -> gefangen]. Trotzdem [lachten] wir viel.
+
+-- 3 | auswahl dropdown | haben oder sein?
+anweisung: Wähle das passende Hilfsverb für das Perfekt.
+Wir [sind | *haben] einen Kuchen gebacken. Lea [*ist | hat] nach Hause gelaufen. Ich [bin | *habe] meine Oma angerufen. Der Zug [*ist | hat] pünktlich angekommen.
+
+== Adjektive | RS-WA-6-02 GYM-WA-6-03
+Adjektive beschreiben, wie etwas ist: groß, leise, freundlich. Sie stehen oft vor einem Nomen (der große Baum) oder beim Verb (Der Baum ist groß).
+
+Viele Adjektive kann man steigern:
+Grundform: schnell
+Komparativ: schneller
+Superlativ: am schnellsten
+merke: Beim Vergleich sagst du „so schnell wie“ in der Grundform, aber „schneller als“ im Komparativ.
+beispiel: Mein Bruder ist [größer] als ich.
+beispiel: Der Gepard ist das [schnellste] Tier.
+
+-- 1 | auswahl | Adjektive finden
+anweisung: Tippe alle Adjektive an.
+[*rot | Tisch | *lustig | singen | *warm | Garten | *leise]
+
+-- 2 | lueckentext | Adjektive steigern
+anweisung: Setze die richtige Form ein.
+Ein Hund ist groß. Ein Pferd ist [größer : groß, Komparativ]. Ein Elefant ist am [größten : groß, Superlativ]. Mein Rad ist [schneller : schnell, Komparativ] als deins. Dieser Witz war der [lustigste : lustig, Superlativ].
+
+-- 3 | auswahl | als oder wie?
+Lisa ist genauso alt [als | *wie] Tom. Der Film war spannender [*als | wie] das Buch. Heute ist es so warm [als | *wie] gestern. Mein Zimmer ist kleiner [*als | wie] deins.
+
+== Präpositionen und Konjunktionen | RS-WA-6-04 RS-WA-6-07 GYM-WA-6-04 GYM-WA-6-05
+Präpositionen zeigen, wie Dinge zueinander stehen, zum Beispiel wo etwas ist oder wann etwas passiert: auf, unter, neben, in, vor, nach, mit.
+
+Konjunktionen verbinden Wörter oder Sätze: und, oder, aber, denn, weil, dass, wenn.
+merke: Präpositionen stehen vor einem Nomen (auf dem Tisch). Konjunktionen verbinden Sätze (Ich bleibe drinnen, weil es regnet).
+beispiel: Die Katze sitzt [unter] dem Tisch.
+beispiel: Ich komme mit, [aber] erst später.
+
+-- 1 | auswahl dropdown | Wo ist die Katze?
+anweisung: Wähle die passende Präposition.
+Die Katze sitzt [*auf | durch | seit] dem Sofa. Der Ball liegt [*unter | ohne | gegen] dem Bett. Das Bild hängt [*an | für | um] der Wand. Der Hund schläft [*neben | bis | ohne] der Tür.
+
+-- 2 | auswahl dropdown | Konjunktionen einsetzen
+anweisung: Wähle die passende Konjunktion.
+Ich bleibe zu Hause, [*weil | aber | oder] ich krank bin. Willst du Saft [und | *oder | weil] Wasser? Es ist kalt, [*aber | weil | oder] die Sonne scheint. Ich hoffe, [*dass | weil | aber] du kommst.
+
+-- 3 | zuordnen | Präposition oder Konjunktion?
+Nach [dem = Artikel] Training gehen wir [in = Präposition] die Stadt, [weil = Konjunktion] wir Hunger haben. Mia wartet [vor = Präposition] dem Kino [und = Konjunktion] liest.
+kategorien: Präposition, Konjunktion, Artikel

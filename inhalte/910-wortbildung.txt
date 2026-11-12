@@ -1,0 +1,134 @@
+bereich: Wortbildung und Wortschatz
+stufe: 10
+
+== Redewendungen und Sprichwörter | RS-WB-6-10-01
+Redewendungen haben eine übertragene (bildliche) Bedeutung. Viele stammen aus früheren Zeiten: „Etwas auf dem Kerbholz haben“ kommt von einem Holzstab, in den man Schulden ritzte. Heute heißt es: etwas angestellt haben.
+
+Sprichwörter sind feste Sätze mit einer allgemeinen Lebenserfahrung: „Wer A sagt, muss auch B sagen.“
+
+In Texten machen Redewendungen die Sprache bildhaft. In sachlichen Texten (Bewerbung, Bericht) passen sie meist nicht.
+merke: Redewendungen nicht wörtlich nehmen. In sachlichen Texten sparsam verwenden.
+beispiel: [jemandem reinen Wein einschenken]: die Wahrheit sagen
+beispiel: [Wer A sagt, muss auch B sagen]: Wer etwas anfängt, muss es zu Ende bringen.
+
+-- 1 | auswahl dropdown | Bedeutung von Redewendungen
+Er hat Schwein gehabt: [*Er hatte Glück. | Er hat ein Haustier.] Sie lässt die Katze aus dem Sack: [Sie lässt ein Tier frei. | *Sie verrät ein Geheimnis.] Das ist nicht mein Bier: [*Das geht mich nichts an. | Ich trinke kein Bier.]
+
+-- 1 | auswahl dropdown | Sprichwörter vervollständigen
+Wer A sagt, muss auch [*B | C | nein] sagen. Lügen haben kurze [Arme | *Beine | Haare]. Der Apfel fällt nicht weit vom [Haus | *Stamm | Baum].
+
+-- 1 | zuordnen | Redewendung oder wörtlich?
+anweisung: Ist der Satz wörtlich gemeint oder eine Redewendung?
+[Er hat Tomaten auf den Augen. = Redewendung] [Er hat Tomaten im Korb. = wörtlich] [Sie hat ein Brett vor dem Kopf. = Redewendung] [Sie trägt ein Brett in den Keller. = wörtlich]
+kategorien: Redewendung, wörtlich
+
+-- 2 | zuordnen | Bedeutungen zuordnen
+[den Nagel auf den Kopf treffen = genau das Richtige sagen] [jemandem die kalte Schulter zeigen = jemanden abweisen] [etwas auf die lange Bank schieben = etwas aufschieben]
+kategorien: genau das Richtige sagen, jemanden abweisen, etwas aufschieben
+
+-- 2 | lueckentext | Redewendungen ergänzen
+anweisung: Ergänze das fehlende Wort der Redewendung.
+Ich drücke dir die [Daumen : Glück wünschen]. Er hat zwei linke [Hände : ungeschickt sein]. Das ist ein Tropfen auf den heißen [Stein : viel zu wenig].
+
+-- 2 | ueberarbeiten | Redewendung im Bericht
+Kontext: Aus einem Praktikumsbericht.
+In der ersten Woche habe ich nur Bahnhof verstanden.
+Hinweis: Die Redewendung ist umgangssprachlich und passt nicht in einen sachlichen Bericht.
+*In der ersten Woche waren mir viele Abläufe noch unklar.
+Hinweis: Sachlich formuliert passt die Aussage zum Bericht.
+
+-- 3 | lueckentext | Redewendungen verwenden
+anweisung: Setze eine passende Redewendung ein (Hinweis in Klammern).
+Wir sitzen alle im selben [Boot : haben dasselbe Problem]. Jetzt ist der [Groschen : endlich verstanden] gefallen. Sie hat den [Bogen : etwas übertreiben] überspannt.
+
+-- 3 | ueberarbeiten | Bildhaft erzählen
+Kontext: Aus einer Erzählung.
+Als ich die Note sah, war ich sehr enttäuscht.
+Hinweis: Die Aussage ist klar, aber blass.
+*Als ich die Note sah, fiel ich aus allen Wolken.
+Hinweis: In einer Erzählung macht eine passende Redewendung das Gefühl anschaulich.
+
+-- 1 | auswahl | Redewendungen erkennen
+anweisung: Tippe alle Sätze an, die eine Redewendung enthalten.
+[*Mir fällt ein Stein vom Herzen. | Der Stein liegt im Garten. | *Er hat den Kopf in den Sand gesteckt. | Der Hund gräbt im Sand.]
+
+-- 2 | auswahl dropdown | Passende Situation
+Du hast endlich eine schwere Prüfung bestanden. Dir [*fällt ein Stein vom Herzen | geht ein Licht auf]. Du verstehst plötzlich eine Matheaufgabe. Dir [fällt ein Stein vom Herzen | *geht ein Licht auf].
+
+-- 3 | fehler korrigieren | Vermischte Redewendungen
+anweisung: In den Redewendungen ist jeweils ein Wort falsch. Verbessere es.
+Das ist ein Tropfen auf den [kalten -> heißen] Stein. Ich drücke dir die [Finger -> Daumen]. Er hat zwei linke [Füße -> Hände].
+
+== Fachwörter und Fremdwörter | RS-WB-8-02
+In Bewerbungen, Referaten und Sachtexten begegnen dir viele Fach- und Fremdwörter. Du verstehst sie, wenn du auf Bausteine achtest, den Zusammenhang nutzt oder nachschlägst.
+
+Anglizismen sind Wörter aus dem Englischen: das Meeting, der Job, online. Oft gibt es auch ein deutsches Wort.
+merke: Nutze Fachwörter, wenn sie genau passen. Erkläre sie, wenn deine Leser sie vielleicht nicht kennen.
+beispiel: die [Kommunikation]: der Austausch, das Gespräch
+beispiel: das [Praktikum]: eine Zeit, in der man in einem Betrieb mitarbeitet
+
+-- 1 | auswahl dropdown | Was bedeutet das Wort?
+die Qualifikation: [*Eignung, Fähigkeit | Wiederholung]. flexibel: [*anpassungsfähig | langsam]. die Kommunikation: [Rechnung | *Austausch]
+
+-- 1 | auswahl | Anglizismen erkennen
+anweisung: Tippe alle Anglizismen an.
+[*Meeting | Besprechung | *Job | Arbeit | *Feedback | Rückmeldung | *online]
+
+-- 2 | lueckentext | Deutsche Entsprechungen
+anweisung: Ersetze den Anglizismus durch ein deutsches Wort.
+das Feedback: die [Rückmeldung]. das Meeting: die [Besprechung/Sitzung]. der Job: die [Arbeit/Arbeitsstelle/Stelle]. downloaden: [herunterladen].
+
+-- 2 | zuordnen | Fachgebiete
+anweisung: Zu welchem Fachgebiet gehört das Fachwort?
+[Diagnose = Medizin] [Bilanz = Wirtschaft] [Therapie = Medizin] [Umsatz = Wirtschaft] [Paragraf = Recht] [Gesetz = Recht]
+kategorien: Medizin, Wirtschaft, Recht
+
+-- 3 | ueberarbeiten | Verständlich für alle
+Kontext: Aus einem Flyer für Eltern.
+Beim Elternabend gibt es ein Briefing zum neuen Learning-Management-System.
+Hinweis: Zu viele Fachbegriffe und Anglizismen. Nicht alle Eltern verstehen das.
+*Beim Elternabend erklären wir die neue Lernplattform, auf der Ihre Kinder Aufgaben finden.
+Hinweis: Einfache Wörter und eine kurze Erklärung machen den Text für alle verständlich.
+
+-- 3 | lueckentext | Fachwörter erklären
+anweisung: Ergänze das passende Fachwort.
+Eine Zeit, in der man in einem Betrieb mitarbeitet, heißt [Praktikum]. Ein Schreiben, mit dem man sich um eine Stelle bewirbt, heißt [Bewerbung/Anschreiben]. Eine Übersicht über den eigenen Werdegang heißt [Lebenslauf].
+
+-- 1 | lueckentext | Wörter aus dem Beruf
+anweisung: Ergänze das passende Wort: Ausbildung, Betrieb, Lohn.
+Nach der Schule beginne ich eine [Ausbildung]. Der [Betrieb] hat 50 Mitarbeiter. Am Monatsende bekomme ich meinen [Lohn].
+
+-- 2 | auswahl | Richtig verwendet?
+anweisung: Tippe die Sätze an, in denen das Fachwort richtig verwendet wird.
+[*Der Arzt stellte eine Diagnose. | Der Arzt stellte eine Bilanz. | *Die Firma machte mehr Umsatz. | Die Firma machte eine Therapie.]
+
+-- 3 | zuordnen | Wortbausteine in Fachwörtern
+anweisung: Was bedeutet der Baustein?
+[Mikroskop = klein] [Megafon = groß] [Mikrofon = klein] [Megastadt = groß] [Thermometer = Wärme] [Thermoskanne = Wärme]
+kategorien: klein, groß, Wärme
+
+== Wörter bilden | RS-WB-6-01 RS-WB-8-01
+Neue Wörter entstehen durch Zusammensetzung (Ausbildung + Platz = Ausbildungsplatz) und Ableitung mit Vor- und Nachsilben (bewerben, die Bewerbung, der Bewerber).
+
+Bei Zusammensetzungen steht oft ein Fugen-s oder Fugen-n: Arbeit-s-platz, Tasche-n-lampe.
+merke: Das Grundwort steht am Ende und bestimmt den Artikel: die Arbeit + der Platz = der Arbeitsplatz.
+beispiel: der Arbeit[s]platz
+beispiel: bewerben, die [Bewerbung], der [Bewerber]
+
+-- 1 | auswahl dropdown | Mit oder ohne Fugen-s?
+der Arbeit[*s | e]platz, die Tasche[*n | s]lampe, der Geburt[*s | e]tag
+
+-- 2 | lueckentext | Wortfamilie „bewerben“
+anweisung: Bilde Wörter aus der Wortfamilie „bewerben“.
+Ich schreibe eine [Bewerbung]. Viele [Bewerber/Bewerberinnen] wollen die Stelle. Ich möchte mich um die Stelle [bewerben].
+
+-- 3 | ueberarbeiten | Zusammengesetzte Wörter nutzen
+Kontext: Aus einem Lebenslauf.
+Ich habe ein Praktikum gemacht, und zwar in einer Werkstatt, in der Autos repariert werden.
+Hinweis: Der Satz ist umständlich und zu lang für einen Lebenslauf.
+*Praktikum in einer Autowerkstatt
+Hinweis: Das zusammengesetzte Wort „Autowerkstatt“ sagt alles in einem Wort. Ein Lebenslauf ist knapp.
+
+-- 3 | lueckentext | Zusammensetzungen bilden
+anweisung: Setze die Wörter zu einem Nomen zusammen. Achte auf das Fugenzeichen und den Artikel.
+die Bewerbung + das Schreiben: [das Bewerbungsschreiben]. die Ausbildung + der Platz: [der Ausbildungsplatz]. die Sonne + die Brille: [die Sonnenbrille].

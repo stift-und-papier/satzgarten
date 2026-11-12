@@ -1,0 +1,116 @@
+bereich: Texte überarbeiten
+stufe: 8
+
+== Sätze verknüpfen und Ausdruck verbessern | RS-TU-6-10-01 GYM-TU-8-01
+Ein guter Text ist verständlich und flüssig. Beim Überarbeiten achtest du darauf:
+Sind die Sätze sinnvoll verknüpft (deshalb, trotzdem, außerdem, während)?
+Ist der Ausdruck treffend und abwechslungsreich?
+Passt der Stil zur Textsorte (Bericht sachlich, Erzählung lebendig)?
+merke: Verknüpfungswörter zeigen den Zusammenhang: Grund (deshalb), Gegensatz (trotzdem), Ergänzung (außerdem).
+beispiel: Es regnete. [Trotzdem] gingen wir spazieren.
+beispiel: Ich war krank. [Deshalb] fehlte ich.
+
+-- 1 | auswahl dropdown | Verknüpfungswörter
+Es war kalt. [*Deshalb | Trotzdem | Außerdem] zog ich eine Mütze an. Ich hatte wenig Zeit. [Deshalb | *Trotzdem | Außerdem] half ich meiner Freundin. Das Hotel war schön. [Deshalb | Trotzdem | *Außerdem] lag es direkt am Strand.
+
+-- 2 | ueberarbeiten | Sachlich berichten
+Kontext: Aus einem Bericht über einen Unfall.
+Plötzlich krachte es total heftig und alle waren mega geschockt!
+Hinweis: Umgangssprache und Übertreibungen passen nicht in einen Bericht.
+*Gegen 14 Uhr stießen zwei Fahrräder zusammen. Niemand wurde verletzt.
+Hinweis: Ein Bericht ist sachlich und beantwortet die W-Fragen.
+
+Kontext: Aus einer Erzählung.
+Ich ging in den Keller. Es war dunkel. Ich hatte Angst.
+Hinweis: Die Sätze sind sehr kurz und gleich gebaut. Spannung entsteht kaum.
+*Langsam tastete ich mich die Kellertreppe hinunter. Es war stockdunkel, und mein Herz klopfte wie wild.
+Hinweis: Treffende Verben und Gefühle machen die Erzählung spannend.
+
+-- 3 | ueberarbeiten | Eine Stellungnahme überarbeiten
+Kontext: Aus einem Leserbrief zum Thema Handyverbot.
+Handys sind gut. Man kann damit viel machen. Deshalb sollte man sie erlauben.
+Hinweis: Die Begründung ist sehr allgemein. Ein Beispiel fehlt.
+*Handys sollten in der Pause erlaubt sein, weil man damit zum Beispiel schnell die Eltern erreichen kann.
+Hinweis: Eine genaue Begründung mit Beispiel überzeugt mehr.
+
+-- 3 | lueckentext | Text flüssiger machen
+anweisung: Verknüpfe die Sätze mit einem passenden Wort (deshalb, trotzdem, außerdem, danach).
+Wir hatten das Spiel verloren. [Trotzdem] feierten wir. Wir aßen zuerst Pizza. [Danach/Anschließend] gingen wir ins Kino. Der Film war lustig. [Außerdem] war er spannend.
+
+-- 1 | auswahl | Bericht oder Erzählung?
+anweisung: Tippe die Sätze an, die in einen sachlichen Bericht passen.
+[*Am Dienstag besuchte die 7b das Rathaus. | Wow, war das ein spannender Tag! | *Der Bürgermeister beantwortete Fragen. | Mir klopfte das Herz bis zum Hals.]
+
+-- 2 | lueckentext | Treffender Ausdruck
+anweisung: Ersetze „machen“ durch ein treffenderes Verb.
+Wir [bauten/errichteten : machten] eine Sandburg. Mama [kochte/bereitete : machte] das Essen. Tim [löste/erledigte : machte] die Aufgabe.
+
+-- 3 | ueberarbeiten | Einleitung einer Inhaltsangabe
+Kontext: Der erste Satz einer Inhaltsangabe.
+Also, in der Geschichte geht es um so einen Jungen, der voll Pech hat.
+Hinweis: Füllwörter und Umgangssprache passen nicht. Titel und Autor fehlen.
+*In der Kurzgeschichte „Die Brücke“ von Anna Berg geht es um einen Jungen, der seine Angst überwindet.
+Hinweis: Die Einleitung nennt Textsorte, Titel, Autorin und Thema.
+
+== Rechtschreibung berichtigen | RS-TU-6-10-02 GYM-TU-6-10-01
+Beim Korrekturlesen konzentrierst du dich auf eine Fehlerart nach der anderen: zuerst Großschreibung, dann das oder dass, dann Kommas, dann schwierige Wörter.
+
+Lies den Text auch einmal von hinten nach vorn. So achtest du nur auf die Wörter, nicht auf den Inhalt.
+merke: Korrekturlesen in mehreren Durchgängen: je Durchgang eine Fehlerart.
+beispiel: das [Lesen] (Nominalisierung: groß)
+beispiel: Ich hoffe, [dass] … (Konjunktion)
+
+-- 1 | fehler korrigieren | Korrekturlesen: Steckbrief
+Mein Name ist Can. Ich bin dreizehn Jahre alt und wohne in [Hanover -> Hannover]. In meiner Freizeit spiele ich gern [fusball -> Fußball]. Mein [lieblingsfach -> Lieblingsfach] ist Sport.
+
+-- 1 | fehler korrigieren | Korrekturlesen: Einladung
+Liebe Klasse, am Samstag feiere ich meinen [Geburtstak -> Geburtstag]. Wir treffen uns um drei Uhr im [park -> Park]. Bitte bringt gute Laune mit!
+
+-- 2 | fehler korrigieren | Korrekturlesen: Bericht
+anweisung: In diesem Bericht sind fünf Fehler. Finde und verbessere sie.
+Am Freitag fand unser [Sportfesst -> Sportfest] statt. Alle Klassen nahmen [Teil -> teil]. Besonders spannend war der [staffellauf -> Staffellauf]. Unsere Klasse [gewan -> gewann] knapp. Alle freuten sich, [das -> dass] es so gut lief.
+
+-- 3 | fehler korrigieren | Korrekturlesen: Leserbrief
+anweisung: In diesem Leserbrief sind sechs Fehler. Finde und verbessere sie.
+Ich finde es nicht gut, [das -> dass] der Jugendtreff schließen soll. Für viele Jugendliche ist er ein wichtiger [ort -> Ort]. Dort kann man sich [Treffen -> treffen], ohne Geld auszugeben zu müssen. Beim [kickern -> Kickern] und [Tischtenis -> Tischtennis] haben wir viel Spaß. Ich [hofe -> hoffe], der Treff bleibt offen.
+
+== Grammatik berichtigen | RS-TU-6-10-03 GYM-TU-6-10-01
+Typische Grammatikfehler sind: falscher Fall nach Präpositionen (wegen dem statt wegen des), falsche Zeitform, falsche Verbform (er hilft, nicht er helft) und falscher Bezug von Pronomen.
+merke: Prüfe: Passt der Fall? Bleibt die Zeitform gleich? Ist klar, worauf sich das Pronomen bezieht?
+beispiel: [Wegen des] Regens fiel das Spiel aus.
+beispiel: Er [half] mir. (nicht: helfte)
+
+-- 1 | auswahl dropdown | Die richtige Form
+Er [helft | *hilft] mir. Gestern [*half | helfte] er mir. Wir [*sind | haben] nach Hause gegangen.
+
+-- 2 | fehler korrigieren | Grammatikfehler im Text
+anweisung: Verbessere die Grammatikfehler. Es sind vier.
+Wegen [dem -> des] Regens fiel der Ausflug aus. Stattdessen [bleibten -> blieben] wir in der Schule. Unsere Lehrerin [lest -> liest] uns eine Geschichte vor. Danach [hat -> haben] alle Kinder gemalt.
+
+-- 2 | ueberarbeiten | Unklarer Bezug
+Kontext: Aus einer Erzählung.
+Tim traf seinen Freund. Er war traurig, weil er seinen Ball verloren hatte.
+Hinweis: Wer war traurig? Das Pronomen „er“ kann sich auf beide beziehen.
+*Tim traf seinen Freund Max. Max war traurig, weil er seinen Ball verloren hatte.
+Hinweis: Mit dem Namen ist klar, wer gemeint ist.
+
+-- 3 | fehler korrigieren | Grammatik im Bericht
+anweisung: Verbessere die fünf Grammatikfehler.
+Während [dem -> des] Unterrichts klingelte ein Handy. Die Lehrerin fragte, wem es [gehört -> gehörte]. Niemand [melden -> meldete] sich. Schließlich [gibt -> gab] Lena zu, dass es ihres war. Sie entschuldigte [ihr -> sich].
+
+-- 1 | ueberarbeiten | Zeitform im Bericht
+Kontext: Ein Bericht über die Projektwoche.
+Am Montag starteten wir. Am Dienstag bauen wir ein Modell.
+Hinweis: Die Zeitform wechselt vom Präteritum ins Präsens.
+*Am Montag starteten wir. Am Dienstag bauten wir ein Modell.
+Hinweis: Ein Bericht über Vergangenes bleibt im Präteritum.
+
+-- 2 | auswahl dropdown | Präposition und Fall
+Trotz [dem | *des] Regens spielten wir. Wegen [*des | dem] Streiks fiel der Bus aus. Während [*der | die] Pause aßen wir.
+
+-- 3 | ueberarbeiten | Satzbau verbessern
+Kontext: Aus einer Beschreibung.
+Der Rucksack, der blau ist, der eine Tasche hat, die vorne ist, gehört mir.
+Hinweis: Viele Relativsätze hintereinander machen den Satz umständlich.
+*Der blaue Rucksack mit der Vordertasche gehört mir.
+Hinweis: Attribute statt Relativsätze machen den Satz kurz und klar.

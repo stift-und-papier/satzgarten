@@ -1,0 +1,108 @@
+bereich: Zeichensetzung
+stufe: 8
+
+== Komma im Satzgefüge | RS-ZS-8-02 GYM-ZS-6-03
+Haupt- und Nebensatz trennst du immer durch ein Komma. Steht der Nebensatz in der Mitte, steht vorn und hinten ein Komma.
+
+Nebensätze erkennst du an der Konjunktion am Anfang (weil, dass, ob, wenn, als, obwohl, damit, nachdem) oder am Relativpronomen (der, die, das) und am Verb am Ende.
+merke: Nebensatz in der Mitte: zwei Kommas. Der Nebensatz ist „eingeklammert“.
+beispiel: Der Hund[,] der dort bellt[,] gehört meiner Tante.
+beispiel: [Als] es dunkel wurde[,] gingen wir heim.
+
+-- 1 | auswahl dropdown | Komma oder kein Komma?
+Ich weiß nicht[*, | kein Komma] ob ich kommen kann. Wir gehen ins Kino[, | *kein Komma] und essen danach Pizza. Nachdem wir gegessen hatten[*, | kein Komma] spielten wir.
+
+-- 1 | auswahl | Wo steht der Nebensatz?
+anweisung: Tippe die Sätze an, in denen der Nebensatz in der Mitte steht (zwei Kommas).
+[*Das Haus, das dort steht, ist alt. | Ich hoffe, dass du kommst. | *Mein Bruder, der in Kiel wohnt, besucht uns. | Weil es regnet, bleiben wir hier.]
+
+-- 2 | fehler korrigieren | Kommas bei Relativsätzen
+anweisung: Bei den markierten Wörtern fehlt ein Komma.
+Das [Buch -> Buch,] das ich gerade [lese -> lese,] ist spannend. Der [Junge -> Junge,] der neben mir [sitzt -> sitzt,] heißt Ali.
+
+-- 2 | auswahl dropdown | Kommas im Text
+Wenn du Zeit hast[*, | kein Komma] komm vorbei. Die Jacke[*, | kein Komma] die du mir geliehen hast[*, | kein Komma] ist warm. Ich gehe früh ins Bett[, | *kein Komma] und lese noch.
+
+-- 3 | fehler korrigieren | Satzgefüge ohne Kommas
+anweisung: In diesem Text fehlen fünf Kommas. Verbessere die Wörter, hinter denen ein Komma fehlt.
+Als wir am Bahnhof [ankamen -> ankamen,] war der Zug schon weg. Der [Mann -> Mann,] der am Schalter [saß -> saß,] sagte [uns -> uns,] dass der nächste Zug erst in einer Stunde fährt. Obwohl wir sauer [waren -> waren,] blieben wir ruhig.
+
+-- 1 | auswahl | Komma vor dass
+anweisung: Tippe die Sätze an, die richtig geschrieben sind.
+[*Ich glaube, dass es klappt. | Ich glaube dass es klappt. | *Sie sagt, dass sie kommt. | Er weiß dass, es stimmt.]
+
+-- 3 | ueberarbeiten | Ein langer Satz
+Kontext: Aus einer Erzählung.
+Der Hund der uns gestern als wir spazieren gingen gefolgt ist wohnt im Nachbarhaus.
+Hinweis: Ohne Kommas sind die eingeschobenen Nebensätze kaum zu erkennen.
+*Der Hund, der uns gestern, als wir spazieren gingen, gefolgt ist, wohnt im Nachbarhaus.
+Hinweis: Jeder Nebensatz wird vorn und hinten durch ein Komma abgegrenzt.
+
+== Komma beim Infinitiv mit zu | RS-ZS-8-01
+Eine Infinitivgruppe besteht aus „zu“ und einem Verb in der Grundform, oft mit weiteren Wörtern: Ich habe vergessen[,] das Fenster zu schließen.
+
+Ein Komma musst du setzen, wenn die Gruppe mit um, ohne, statt, anstatt, außer oder als eingeleitet wird: Ich lerne[,] um gute Noten zu bekommen.
+
+Ein Komma musst du auch setzen, wenn ein Nomen oder ein Hinweiswort (es, daran, darauf) auf die Gruppe verweist: Ich habe den Plan[,] Gitarre zu lernen.
+merke: Bei um zu, ohne zu, statt zu immer ein Komma. Im Zweifel ist das Komma nie falsch.
+beispiel: Wir gehen früh los[,] [um] den Bus zu erreichen.
+beispiel: Er ging[,] [ohne] sich zu verabschieden.
+
+-- 1 | auswahl dropdown | um zu, ohne zu
+Ich spare[*, | kein Komma] um ein Fahrrad zu kaufen. Sie ging[*, | kein Komma] ohne Tschüss zu sagen. Statt zu lernen[*, | kein Komma] spielte er.
+
+-- 2 | lueckentext | Infinitivgruppen bilden
+anweisung: Verbinde mit „um … zu“. Achte auf das Komma.
+Ich stehe früh auf. Ich will den Bus erreichen. → Ich stehe früh auf[, um den Bus zu erreichen].
+Wir üben viel. Wir wollen gewinnen. → Wir üben viel[, um zu gewinnen].
+
+-- 3 | fehler korrigieren | Kommas bei Infinitivgruppen
+anweisung: Hier fehlen Kommas. Verbessere die Wörter, hinter denen eines fehlt.
+Ich habe keine [Lust -> Lust,] heute zu lernen. Tim fuhr [los -> los,] ohne auf uns zu warten. Wir freuen uns [darauf -> darauf,] dich bald zu sehen.
+
+-- 1 | auswahl | Infinitivgruppe finden
+anweisung: Tippe die Sätze an, die eine Infinitivgruppe mit „um … zu“ oder „ohne … zu“ enthalten.
+[*Ich lerne, um die Prüfung zu schaffen. | Ich lerne für die Prüfung. | *Er ging, ohne zu fragen. | Er ging und fragte nicht.]
+
+-- 2 | auswahl dropdown | Hinweiswort oder Nomen
+Ich denke daran[*, | kein Komma] die Blumen zu gießen. Sie hatte die Idee[*, | kein Komma] ein Fest zu feiern. Es macht mir Spaß[*, | kein Komma] Gitarre zu spielen.
+
+-- 3 | ueberarbeiten | Satz mit statt zu
+Kontext: Lena schreibt über ihren Bruder.
+Mein Bruder spielt am Handy. Er macht seine Hausaufgaben nicht.
+Hinweis: Zwei Sätze, der Zusammenhang wird nicht klar.
+*Statt seine Hausaufgaben zu machen, spielt mein Bruder am Handy.
+Hinweis: Die Infinitivgruppe mit „statt … zu“ (mit Komma) zeigt den Gegensatz.
+
+== Einschübe und Appositionen | GYM-ZS-8-01
+Ein Einschub unterbricht den Satz und wird durch zwei Kommas abgetrennt.
+
+Eine Apposition ist ein Nachtrag zu einem Nomen, der dasselbe noch einmal anders benennt: Herr Meyer[,] unser Hausmeister[,] repariert die Tür.
+
+Auch nachgestellte Erläuterungen mit „und zwar“, „vor allem“, „zum Beispiel“ trennst du mit Komma ab.
+merke: Ein Einschub braucht zwei Kommas: vorn und hinten.
+beispiel: Berlin[,] die Hauptstadt Deutschlands[,] ist groß.
+beispiel: Ich esse gern Obst[,] vor allem Erdbeeren.
+
+-- 1 | auswahl | Apposition erkennen
+anweisung: Tippe die Apposition an.
+Frau Kaya, unsere Klassenlehrerin, ist krank: [Frau Kaya | *unsere Klassenlehrerin | ist krank]
+Bello, mein Hund, liebt Wurst: [*mein Hund | Bello | liebt Wurst]
+
+-- 2 | fehler korrigieren | Kommas bei Einschüben
+anweisung: Bei den markierten Wörtern fehlt ein Komma.
+[Paris -> Paris,] die Hauptstadt [Frankreichs -> Frankreichs,] ist sehr schön. Ich mag [Sport -> Sport,] vor allem Schwimmen.
+
+-- 2 | auswahl dropdown | Ein oder zwei Kommas?
+Herr Lange[*, | kein Komma] unser Trainer[*, | kein Komma] ist streng. Mein Freund[, | *kein Komma] kommt heute. Ich esse gern Gemüse[*, | kein Komma] zum Beispiel Brokkoli.
+
+-- 3 | auswahl | Alle Kommas richtig?
+anweisung: Tippe die Sätze an, in denen alle Kommas richtig stehen.
+[*Goethe, ein berühmter Dichter, lebte in Weimar. | Goethe, ein berühmter Dichter lebte in Weimar. | *Wir fahren in den Ferien weg, und zwar nach Spanien. | Meine Tante, wohnt in Kiel.]
+
+-- 3 | ueberarbeiten | Mit Apposition verbinden
+Kontext: Aus einem Zeitungsbericht.
+Herr Özdemir ist Bürgermeister. Herr Özdemir eröffnete das neue Schwimmbad.
+Hinweis: Zwei Sätze mit demselben Namen wirken umständlich.
+*Herr Özdemir, der Bürgermeister, eröffnete das neue Schwimmbad.
+Hinweis: Mit einer Apposition (zwischen zwei Kommas) wird daraus ein Satz.

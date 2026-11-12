@@ -1,0 +1,148 @@
+bereich: Texte überarbeiten
+stufe: 10
+
+== Texte überarbeiten und kommentieren | GYM-TU-10-01 RS-TU-6-10-01
+Beim Überarbeiten prüfst du einen Text in mehreren Durchgängen:
+Inhalt: Ist alles Wichtige drin? Ist die Reihenfolge logisch?
+Aufbau: Gibt es Einleitung, Hauptteil, Schluss? Sind Absätze sinnvoll?
+Sprache: Passt der Stil zur Textsorte? Sind die Sätze verständlich verknüpft?
+Richtigkeit: Rechtschreibung, Zeichensetzung, Grammatik.
+
+Wenn du einen fremden Text kommentierst, nennst du zuerst Stärken und machst dann konkrete Verbesserungsvorschläge.
+merke: Überarbeite in Durchgängen: Inhalt, Aufbau, Sprache, Richtigkeit.
+beispiel: Kommentar: [Deine Einleitung weckt Interesse. Im Hauptteil fehlt ein Beispiel zum zweiten Argument.]
+beispiel: Überleitung: [Ein weiteres Argument ist …]
+
+-- 1 | auswahl dropdown | Welcher Durchgang?
+„Im Text fehlt der Schluss.“ betrifft [Inhalt | *Aufbau | Richtigkeit]. „Hier steht dreimal ‚dann‘.“ betrifft [Aufbau | *Sprache | Richtigkeit]. „Das Komma fehlt.“ betrifft [Inhalt | Sprache | *Richtigkeit].
+
+-- 1 | auswahl | Hilfreiche Rückmeldung
+anweisung: Tippe die Rückmeldungen an, die einem Mitschüler wirklich helfen.
+[*Dein zweites Argument braucht noch ein Beispiel. | Ist schlecht. | *Die Einleitung ist spannend, weil du mit einer Frage beginnst. | Keine Ahnung, passt schon.]
+
+-- 1 | ueberarbeiten | Überleitung zum nächsten Argument
+Kontext: Aus einer Erörterung.
+Außerdem und dann noch ist wichtig, dass man Geld spart.
+Hinweis: Die Überleitung ist holprig.
+*Ein weiteres Argument für das Fahrrad ist, dass man Geld spart.
+Hinweis: Eine klare Überleitung führt den Leser zum nächsten Argument.
+
+-- 2 | ueberarbeiten | Argument ausbauen
+Kontext: Aus einer Erörterung zum Thema Ganztagsschule.
+Ganztagsschulen sind gut, weil man länger in der Schule ist.
+Hinweis: Die Begründung wiederholt nur die Behauptung. Ein Beispiel fehlt.
+*Ganztagsschulen sind sinnvoll, weil Schüler dort Hilfe bei den Hausaufgaben bekommen. So können zum Beispiel auch Kinder, deren Eltern lange arbeiten, gut lernen.
+Hinweis: Behauptung, Begründung und Beispiel bilden ein überzeugendes Argument.
+
+-- 2 | reihenfolge | Aufbau einer Erörterung
+anweisung: Bring die Teile einer Erörterung in die richtige Reihenfolge.
+Einleitung mit Thema | Argumente dafür | Argumente dagegen | eigene Meinung als Schluss.
+
+-- 2 | zuordnen | Stärke oder Vorschlag?
+anweisung: Ordne die Sätze aus einem Kommentar zu.
+[Deine Sätze sind gut verknüpft. = Stärke] [Ergänze ein Beispiel zum ersten Argument. = Vorschlag] [Die Einleitung macht neugierig. = Stärke] [Achte auf die Zeitform im Schluss. = Vorschlag]
+kategorien: Stärke, Vorschlag
+
+-- 3 | ueberarbeiten | Einleitung verbessern
+Kontext: Die Einleitung einer Erörterung zum Thema Handyverbot.
+In diesem Text geht es um Handys. Ich schreibe jetzt was dazu.
+Hinweis: Die Einleitung ist inhaltsleer und weckt kein Interesse.
+*Immer mehr Schulen verbieten Handys im Unterricht. Doch ist ein generelles Verbot wirklich sinnvoll?
+Hinweis: Ein aktueller Anlass und eine Leitfrage führen gezielt zum Thema.
+
+-- 3 | ueberarbeiten | Schluss formulieren
+Kontext: Der Schluss einer Erörterung.
+So, das war's. Jeder muss das selbst wissen.
+Hinweis: Der Schluss zieht kein Fazit und nennt keine eigene Meinung.
+*Insgesamt überwiegen für mich die Vorteile. Deshalb sollte das Handy im Unterricht unter klaren Regeln erlaubt sein.
+Hinweis: Ein gutes Fazit fasst zusammen und nennt eine begründete Meinung.
+
+== Rechtschreibung und Grammatik berichtigen | RS-TU-6-10-02 RS-TU-6-10-03 GYM-TU-6-10-01
+Wer selbst überarbeitet, sucht systematisch: erst Rechtschreibung, dann Zeichensetzung, dann Grammatik (Fall, Zeitform, Satzbau). Rechtschreibprogramme helfen, finden aber nicht alles: „das“ statt „dass“ oder „seid“ statt „seit“ übersehen sie oft.
+merke: Prüfe besonders die Fehler, die ein Programm nicht findet: das/dass, seit/seid, Groß- und Kleinschreibung bei Nominalisierungen.
+beispiel: [Seit] Montag regnet es. Ihr [seid] spät dran.
+beispiel: Wegen [des] Regens (Genitiv)
+
+-- 1 | auswahl dropdown | seit oder seid?
+[*Seit | Seid] drei Jahren spiele ich Gitarre. Ihr [seit | *seid] herzlich eingeladen. [Seit | *Seid] leise, bitte!
+
+-- 1 | fehler korrigieren | Kurze Nachricht prüfen
+Hallo zusammen, [seid -> seit] gestern ist der Drucker kaputt. Bitte [schikt -> schickt] eure Texte per Mail.
+
+-- 2 | fehler korrigieren | Leserbrief prüfen
+anweisung: In diesem Leserbrief sind fünf Fehler. Verbessere sie.
+[Seid -> Seit] Wochen ist der Radweg gesperrt. Wegen [dem -> des] Umbaus müssen viele Schüler einen Umweg fahren. Ich finde, [das -> dass] die Stadt schneller handeln [muß -> muss]. Viele Eltern [Sorgen -> sorgen] sich.
+
+-- 2 | auswahl | Was findet ein Rechtschreibprogramm nicht?
+anweisung: Tippe die Fehler an, die ein Rechtschreibprogramm meist NICHT findet.
+[*das statt dass | Hauss statt Haus | *seid statt seit | Schuhle statt Schule | *wieder statt wider]
+
+-- 3 | fehler korrigieren | Bewerbung prüfen
+anweisung: In diesem Ausschnitt sind fünf Fehler. Verbessere sie.
+[Seid -> Seit] meinem Praktikum weiß ich, [das -> dass] mir der Beruf gefällt. Besonders das [beraten -> Beraten] von Kunden hat mir Spaß gemacht. Ich arbeite gern im Team und bin [zuverläsig -> zuverlässig]. Über eine Antwort freue ich mich [Sehr -> sehr].
+
+-- 3 | ueberarbeiten | Grammatik im Bericht
+Kontext: Aus einem Praktikumsbericht.
+Am ersten Tag zeigte mir der Chef den Betrieb. Danach darf ich gleich mitarbeiten, was mir gefallen hat.
+Hinweis: Die Zeitformen wechseln (zeigte, darf, hat gefallen).
+*Am ersten Tag zeigte mir der Chef den Betrieb. Danach durfte ich gleich mitarbeiten, was mir gefiel.
+Hinweis: Der Bericht bleibt durchgehend im Präteritum.
+
+== Inhaltsangabe überarbeiten | GYM-TU-10-01 RS-TU-6-10-01
+Eine Inhaltsangabe fasst einen Text sachlich zusammen. Sie hat besondere Regeln:
+Zeitform: Präsens (bei Vorzeitigkeit Perfekt).
+Keine wörtliche Rede: Wichtige Aussagen gibst du indirekt wieder.
+Sachlich: keine Spannung, keine eigene Wertung.
+Einleitung: Textsorte, Titel, Autor, Thema.
+merke: Präsens, sachlich, keine wörtliche Rede, eigene Worte.
+beispiel: Die Mutter [erklärt], sie [habe] keine Zeit. (indirekte Rede)
+beispiel: In der Kurzgeschichte [„Das Brot“ von Wolfgang Borchert] geht es um …
+
+-- 1 | auswahl | Passt in eine Inhaltsangabe
+anweisung: Tippe die Sätze an, die in eine Inhaltsangabe passen.
+[*Der Junge findet einen verletzten Vogel. | Plötzlich – oh Schreck! – lag da ein Vogel! | *Er bringt ihn zu einem Tierarzt. | „Komm schnell!“, rief er.]
+
+-- 1 | auswahl dropdown | Zeitform der Inhaltsangabe
+Der Junge [fand | *findet] einen Vogel. Er [*bringt | brachte] ihn nach Hause. Nachdem der Vogel [*gefressen hat | fraß], schläft er ein.
+
+-- 1 | zuordnen | Was gehört in die Einleitung?
+[Kurzgeschichte = Textsorte] [„Die Brücke“ = Titel] [Anna Berg = Autorin] [Angst überwinden = Thema]
+kategorien: Textsorte, Titel, Autorin, Thema
+
+-- 2 | ueberarbeiten | Wörtliche Rede umformen
+Kontext: Aus einer Inhaltsangabe.
+Die Lehrerin sagt: „Morgen schreiben wir einen Test.“
+Hinweis: Wörtliche Rede gehört nicht in eine Inhaltsangabe.
+*Die Lehrerin kündigt für den nächsten Tag einen Test an.
+Hinweis: Die Aussage wird in eigenen Worten wiedergegeben.
+
+-- 2 | fehler korrigieren | Zeitform korrigieren
+anweisung: Die Inhaltsangabe steht im Präsens. Verbessere die Verben, die nicht passen.
+Lisa [kam -> kommt] neu in die Klasse. Am Anfang [fühlte -> fühlt] sie sich allein. Doch dann [lernte -> lernt] sie Mia kennen.
+
+-- 2 | lueckentext | Indirekte Rede in der Inhaltsangabe
+anweisung: Gib die Aussage mit dem Konjunktiv I wieder.
+Der Vater sagt: „Ich habe keine Zeit.“ → Der Vater sagt, er [habe] keine Zeit.
+Tom sagt: „Ich bin müde.“ → Tom sagt, er [sei] müde.
+
+-- 3 | ueberarbeiten | Sachlich zusammenfassen
+Kontext: Aus einer Inhaltsangabe.
+Dann passiert etwas total Spannendes: Der arme, mutige Junge rettet den kleinen Hund, das finde ich toll!
+Hinweis: Spannungswörter, Wertungen und die eigene Meinung gehören nicht in eine Inhaltsangabe.
+*Der Junge rettet den Hund aus dem Fluss.
+Hinweis: Sachlich und knapp gibt der Satz das Wichtigste wieder.
+
+-- 3 | fehler korrigieren | Inhaltsangabe korrigieren
+anweisung: In dieser Inhaltsangabe stehen vier Verben in der falschen Zeitform. Verbessere sie.
+In der Kurzgeschichte geht es um einen Jungen, der seinen Schlüssel [verlor -> verliert]. Er [suchte -> sucht] überall. Schließlich [fand -> findet] ihn seine Schwester. Am Ende [lachten -> lachen] beide darüber.
+
+-- 3 | ueberarbeiten | Einleitungssatz
+Kontext: Der erste Satz einer Inhaltsangabe.
+Die Geschichte ist von Borchert und handelt von Brot.
+Hinweis: Textsorte, genauer Titel und das eigentliche Thema fehlen.
+*In der Kurzgeschichte „Das Brot“ von Wolfgang Borchert geht es um ein altes Ehepaar, bei dem eine kleine Lüge die gegenseitige Rücksicht zeigt.
+Hinweis: Der Einleitungssatz nennt Textsorte, Titel, Autor und Thema.
+
+-- 3 | auswahl | Fehler in der Inhaltsangabe erkennen
+anweisung: Tippe die Sätze an, die gegen die Regeln der Inhaltsangabe verstoßen.
+[*Ich finde die Mutter sehr gemein. | Die Mutter verbietet dem Sohn das Treffen. | *„Du bleibst hier!“, schreit sie. | Der Sohn verlässt trotzdem das Haus. | *Dann passierte etwas Unglaubliches.]

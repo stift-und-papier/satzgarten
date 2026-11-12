@@ -1,0 +1,99 @@
+bereich: Texte überarbeiten
+stufe: 6
+
+== Abwechslungsreich schreiben | RS-TU-6-10-01 GYM-TU-6-01
+Ein Text wird lebendiger, wenn die Sätze nicht immer gleich anfangen. Statt „Dann … Dann … Dann …“ kannst du schreiben: Danach, Später, Plötzlich, Zum Schluss.
+
+Vermeide Wiederholungen. Statt dasselbe Nomen immer wieder zu benutzen, nimm ein Pronomen oder ein anderes Wort.
+merke: Lies deinen Text laut. Wo es eintönig klingt, ändere den Satzanfang oder ersetze ein Wort.
+beispiel: Wir gingen in den Zoo. [Zuerst] sahen wir die Löwen, [danach] die Affen.
+beispiel: Ich habe eine Katze. [Sie] heißt Mimi.
+
+-- 1 | ueberarbeiten | Satzanfänge
+Kontext: Ein Ausflug wird erzählt.
+Dann gingen wir los. Dann kamen wir an einen See. Dann haben wir gegessen.
+Hinweis: Jeder Satz beginnt mit „Dann“. Das ist eintönig.
+*Zuerst gingen wir los. Bald kamen wir an einen See. Dort haben wir gegessen.
+Hinweis: Verschiedene Satzanfänge machen den Text lebendig.
+
+-- 1 | auswahl dropdown | Pronomen statt Wiederholung
+Mein Bruder heißt Leo. [*Er | Leo | Mein Bruder] ist acht Jahre alt. Leo hat ein Fahrrad. [Leo | Er | *Es] ist rot.
+
+-- 2 | ueberarbeiten | Wiederholungen vermeiden
+Kontext: Aus einer Tiergeschichte.
+Der Hase hoppelte über die Wiese. Der Hase suchte Futter. Der Hase fand eine Möhre.
+Hinweis: Dreimal „Der Hase“ am Satzanfang klingt eintönig.
+*Der Hase hoppelte über die Wiese. Er suchte Futter und fand schließlich eine Möhre.
+Hinweis: Das Pronomen „er“ und das Verbinden der Sätze machen den Text flüssiger.
+
+Kontext: Aus einem Bericht über das Schulfest.
+Es gab Kuchen. Es gab Spiele. Es gab Musik.
+Hinweis: Dreimal „Es gab“ hintereinander wirkt langweilig.
+*Beim Schulfest gab es Kuchen, Spiele und Musik.
+Hinweis: Die Aufzählung fasst alles in einem Satz zusammen.
+
+-- 3 | lueckentext | Satzanfänge verbessern
+anweisung: Ersetze das „Dann“ in Klammern durch einen anderen Satzanfang (z. B. Danach, Plötzlich, Später, Zum Schluss).
+Wir bauten ein Zelt auf. [Danach/Später/Anschließend/Plötzlich/Zum Schluss : Dann] machten wir ein Feuer. [Danach/Später/Anschließend/Plötzlich/Zum Schluss : Dann] hörten wir ein Geräusch.
+
+-- 2 | auswahl dropdown | Passende Satzanfänge
+Am Morgen packten wir die Taschen. [*Danach | Gestern | Zuerst] fuhren wir los. [Zuerst | *Plötzlich | Danach] platzte ein Reifen. [Plötzlich | *Zum Glück | Zuerst] half uns ein netter Mann.
+
+-- 3 | ueberarbeiten | Einen Absatz verbessern
+Kontext: Der Schluss einer Erzählung.
+Dann war es spät. Dann sind wir nach Hause gegangen. Dann war ich sehr müde. Das war ein schöner Tag.
+Hinweis: Dreimal „Dann“ und ein Wechsel ins Perfekt (sind gegangen) machen den Schluss holprig.
+*Als es dunkel wurde, gingen wir nach Hause. Ich war todmüde, aber glücklich. Was für ein schöner Tag!
+Hinweis: Abwechslungsreiche Satzanfänge, eine Zeitform und treffende Wörter runden die Erzählung ab.
+
+== Rechtschreibung berichtigen | RS-TU-6-10-02 GYM-TU-6-10-01
+Beim Überarbeiten suchst du Rechtschreibfehler. Lies langsam, Wort für Wort. Gehe dabei auf Fehlerjagd: Großschreibung, doppelte Konsonanten, ie, das oder dass.
+merke: Nutze die Regeln: verlängern, ableiten, Nomen groß. Bei Zweifeln schlägst du nach.
+beispiel: Ich [lauffe -> laufe] nach Hause.
+beispiel: Der [hunt -> Hund] bellt.
+
+-- 1 | fehler korrigieren | Fehlerjagd im Tagebuch
+Heute war ein schöner [tag -> Tag]. Ich habe mit Mia im Garten [gespilt -> gespielt]. Später gab es [Kuchn -> Kuchen].
+
+-- 1 | auswahl | Welches Wort ist richtig?
+anweisung: Tippe jeweils das richtig geschriebene Wort an.
+[*Fahrrad | Farrad] [Schwimbad | *Schwimmbad] [*Fußball | Fusball] [Libe | *Liebe]
+
+-- 2 | fehler korrigieren | Fehlerjagd im Brief
+anweisung: Finde die Fehler im Brief und verbessere sie. Es sind vier.
+Liebe Oma, wir sind gut am [Mer -> Meer] angekommen. Das Wasser ist [kallt -> kalt], aber ich gehe trotzdem [schwimen -> schwimmen]. Ich [hofe -> hoffe], du kommst bald. Deine Lina
+
+-- 3 | fehler korrigieren | Fehlerjagd in der Geschichte
+anweisung: In diesem Text sind fünf Fehler versteckt. Finde und verbessere sie.
+Es war einmal ein kleiner [drache -> Drache]. Er wollte unbedingt fliegen lernen. Jeden Tag [ubte -> übte] er auf der Wiese. Eines Tages [vil -> fiel] er in einen Bach. Seine Mutter sagte, [das -> dass] er nicht aufgeben soll. Am Ende konnte er endlich [fligen -> fliegen].
+
+== Grammatik berichtigen | RS-TU-6-10-03 GYM-TU-6-10-01
+Auch Grammatikfehler kannst du beim Überarbeiten finden. Achte besonders darauf, dass die Zeitform gleich bleibt: Eine Erzählung steht meistens im Präteritum. Prüfe auch, ob das Verb zum Subjekt passt (ich gehe, wir gehen).
+merke: Bleib in einer Zeitform. In Erzählungen ist das meist das Präteritum.
+beispiel: Gestern [ging] ich in den Park und [sah] einen Hund. (nicht: und sehe)
+beispiel: Die Kinder [spielen]. (nicht: Die Kinder spielt.)
+
+-- 1 | auswahl dropdown | Passt das Verb?
+Die Kinder [spielt | *spielen] Fußball. Mein Freund [*kommt | kommen] mit. Wir [lacht | *lachen] viel.
+
+-- 2 | fehler korrigieren | Zeitform beibehalten
+anweisung: Die Geschichte steht im Präteritum. Verbessere die Verben, die nicht passen.
+Am Montag ging ich zur Schule. Unterwegs [sehe -> sah] ich eine Katze. Sie [läuft -> lief] über die Straße. Ich rief sie, aber sie [kommt -> kam] nicht.
+
+-- 2 | ueberarbeiten | Vollständige Sätze
+Kontext: Aus einer Erzählung.
+Plötzlich ein lauter Knall. Alle erschrocken.
+Hinweis: Hier fehlen die Verben. Das sind keine vollständigen Sätze.
+*Plötzlich gab es einen lauten Knall. Alle erschraken.
+Hinweis: Mit Verb sind es vollständige Sätze.
+
+-- 3 | fehler korrigieren | Grammatik im Text
+anweisung: Verbessere die Grammatikfehler. Es sind vier.
+Letzten Sommer [fahren -> fuhren] wir nach Italien. Meine Eltern [mietet -> mieteten] ein Haus am Strand. Jeden Tag [gehen -> gingen] wir schwimmen. Meine Schwester und ich [baute -> bauten] Sandburgen.
+
+-- 3 | ueberarbeiten | Zeitform im Bericht
+Kontext: Ein Bericht über den Wandertag.
+Wir trafen uns um acht Uhr am Bahnhof. Dann fahren wir mit dem Zug nach Goslar.
+Hinweis: Der erste Satz steht im Präteritum, der zweite im Präsens. Das passt nicht zusammen.
+*Wir trafen uns um acht Uhr am Bahnhof. Dann fuhren wir mit dem Zug nach Goslar.
+Hinweis: Beide Sätze stehen jetzt im Präteritum.

@@ -1,0 +1,140 @@
+bereich: Wortarten
+stufe: 8
+
+== Die vier Fälle | RS-WA-8-01 HS-WA-8-01
+Nomen, Artikel und Pronomen stehen im Satz immer in einem Fall (Kasus). Welcher Fall es ist, hängt vom Verb oder von einer Präposition ab.
+
+Nominativ: Wer oder was? Der Hund bellt.
+Genitiv: Wessen? Das Fell des Hundes.
+Dativ: Wem? Ich gebe dem Hund Futter.
+Akkusativ: Wen oder was? Ich sehe den Hund.
+
+Präpositionen verlangen einen bestimmten Fall: mit, nach, bei, seit, von, zu stehen mit Dativ; für, ohne, gegen, durch, um mit Akkusativ. Bei in, auf, unter, neben fragst du: Wo? (Dativ) oder Wohin? (Akkusativ).
+merke: Wo bin ich? Dativ (im Garten). Wohin gehe ich? Akkusativ (in den Garten).
+beispiel: Ich fahre [mit dem] Rad. (Dativ)
+beispiel: Das Geschenk ist [für den] Lehrer. (Akkusativ)
+
+-- 1 | zuordnen | Fälle bestimmen
+[Der Junge = Nominativ] schenkt [seiner Schwester = Dativ] [einen Ball = Akkusativ].
+[Das Auto = Nominativ] [des Nachbarn = Genitiv] ist neu.
+kategorien: Nominativ, Genitiv, Dativ, Akkusativ
+
+-- 1 | auswahl dropdown | Präposition und Fall
+Ich gehe mit [*meinem | meinen] Freund ins Kino. Das ist ein Geschenk für [meinem | *meinen] Vater. Wir spielen ohne [*unseren | unserem] Trainer. Seit [*einem | einen] Jahr lerne ich Gitarre.
+
+-- 2 | auswahl dropdown | Wo oder wohin?
+Die Katze springt auf [dem | *den] Tisch. Jetzt sitzt sie auf [*dem | den] Tisch. Ich hänge das Bild an [der | *die] Wand. Das Bild hängt an [*der | die] Wand.
+
+-- 2 | lueckentext | Artikel im richtigen Fall
+anweisung: Setze den Artikel im richtigen Fall ein.
+Ich helfe [dem : der Nachbar] Nachbarn. Wir warten auf [den : der Bus] Bus. Das Handy [des : der Lehrer] Lehrers klingelt. Ich danke [der : die Ärztin] Ärztin.
+
+-- 3 | fehler korrigieren | Fehler bei den Fällen
+anweisung: Hier stehen einige Wörter im falschen Fall. Verbessere sie.
+Nach [den -> dem] Unterricht gehe ich zu [meinen -> meiner] Oma. Wir fahren mit [den -> dem] Bus. Ich habe ein Geschenk für [meinem -> meinen] Bruder gekauft.
+
+== Aktiv und Passiv | RS-WA-8-02 HS-WA-8-02 GYM-WA-8-03
+Im Aktiv steht im Vordergrund, wer etwas tut: Der Koch bereitet das Essen zu.
+
+Im Passiv steht im Vordergrund, was geschieht. Wer es tut, ist oft unwichtig oder unbekannt: Das Essen wird zubereitet.
+
+Das Passiv bildest du mit „werden“ und dem Partizip II: wird gebaut, wurde gebaut.
+merke: Passiv = werden + Partizip II. Der Handelnde kann mit „von“ genannt werden.
+beispiel: Aktiv: Die Feuerwehr [löscht] den Brand.
+beispiel: Passiv: Der Brand [wird] von der Feuerwehr [gelöscht].
+
+-- 1 | zuordnen | Aktiv oder Passiv?
+[Der Hausmeister repariert die Tür. = Aktiv] [Die Tür wird repariert. = Passiv] [Das Fenster wurde geöffnet. = Passiv] [Lisa öffnet das Fenster. = Aktiv]
+kategorien: Aktiv, Passiv
+
+-- 2 | lueckentext | Ins Passiv setzen
+anweisung: Setze die Sätze ins Passiv (Präsens).
+Der Bäcker backt das Brot. → Das Brot [wird gebacken].
+Die Schüler schreiben einen Test. → Ein Test [wird geschrieben].
+Man repariert die Straße. → Die Straße [wird repariert].
+
+-- 3 | lueckentext | Passiv im Präteritum
+anweisung: Setze die Verben im Passiv Präteritum ein.
+Das Rathaus [wurde : bauen] 1890 [gebaut : bauen]. Die Bilder [wurden : malen] von einem berühmten Künstler [gemalt : malen].
+
+-- 3 | ueberarbeiten | Wann passt das Passiv?
+Kontext: Aus einer Anleitung zum Kuchenbacken.
+Du rührst die Eier unter den Teig. Dann backst du den Kuchen 40 Minuten.
+Hinweis: Das ist nicht falsch, wirkt aber wie eine Erzählung an eine Person.
+*Die Eier werden unter den Teig gerührt. Dann wird der Kuchen 40 Minuten gebacken.
+Hinweis: In Anleitungen und Berichten ist wichtig, WAS geschieht. Dafür passt das Passiv gut.
+
+== Imperativ | RS-WA-8-03 HS-WA-8-03
+Mit dem Imperativ (Befehlsform) forderst du jemanden auf, etwas zu tun.
+
+Eine Person: Lies! Komm! Gib mir das Buch!
+Mehrere Personen: Lest! Kommt! Gebt mir das Buch!
+Höflich: Lesen Sie! Kommen Sie bitte!
+
+Bei Verben mit e wechselt das e oft zu i: geben, gib; lesen, lies; helfen, hilf.
+merke: Imperativ: Verb an erster Stelle, oft mit Ausrufezeichen.
+beispiel: [Hilf] mir bitte!
+beispiel: [Kommt] alle her!
+
+-- 1 | auswahl | Imperativ erkennen
+anweisung: Tippe alle Sätze im Imperativ an.
+[*Mach die Tür zu! | Er macht die Tür zu. | *Gebt mir eure Hefte! | Wir lesen ein Buch. | *Setzen Sie sich bitte!]
+
+-- 2 | lueckentext | Imperativ bilden
+anweisung: Bilde den Imperativ für eine Person (du).
+[Lies : lesen] den Text! [Gib : geben] mir den Stift! [Hilf : helfen] mir bitte! [Komm : kommen] schnell!
+
+-- 2 | lueckentext | Imperativ für mehrere
+anweisung: Bilde den Imperativ für mehrere Personen (ihr).
+[Lest : lesen] den Text! [Gebt : geben] mir eure Hefte! [Seid : sein] bitte leise! [Kommt : kommen] her!
+
+== Plusquamperfekt und Futur II | RS-WA-8-05 HS-WA-8-05
+Mit dem Plusquamperfekt sagst du, was vor einem anderen Ereignis in der Vergangenheit geschah: Nachdem ich gegessen hatte, ging ich los.
+
+Bildung: hatte oder war + Partizip II.
+
+Mit dem Futur II sagst du, was in der Zukunft abgeschlossen sein wird: Morgen werde ich das Buch gelesen haben.
+
+Bildung: werden + Partizip II + haben oder sein.
+merke: Plusquamperfekt = Vorvergangenheit: [hatte gegessen], [war gegangen].
+beispiel: Als wir ankamen, [hatte] der Film schon [begonnen].
+beispiel: Bis Freitag [werde] ich das Referat [geschrieben haben].
+
+-- 1 | auswahl dropdown | hatte oder war?
+Nachdem ich die Hausaufgaben gemacht [*hatte | war], spielte ich. Als ich kam, [hatte | *war] Tom schon gegangen. Sie [*hatte | war] das Buch schon gelesen.
+
+-- 2 | zuordnen | Zeitformen unterscheiden
+Nachdem wir [gegessen hatten = Plusquamperfekt], [spielten = Präteritum] wir Karten. Morgen [werde = Futur II] ich alles [erledigt haben = Futur II]. Jetzt [lese = Präsens] ich.
+kategorien: Präsens, Präteritum, Plusquamperfekt, Futur II
+
+-- 3 | lueckentext | Vorher und nachher
+anweisung: Setze das Verb in Klammern im Plusquamperfekt ein.
+Als der Bus kam, [war : laufen] ich schon nach Hause [gelaufen : laufen]. Nachdem Mia ihr Zimmer [aufgeräumt hatte : aufräumen], durfte sie raus.
+
+== Pronomen und weitere Wortarten | RS-WA-8-04 HS-WA-8-04 GYM-WA-8-01 GYM-WA-8-02
+Neben Personal- und Possessivpronomen gibt es weitere Pronomen:
+Relativpronomen leiten Relativsätze ein: der Hund, der bellt.
+Demonstrativpronomen zeigen auf etwas: dieser, jener, derselbe.
+Indefinitpronomen sind unbestimmt: jemand, niemand, etwas, alle.
+
+Adverbien beschreiben die Umstände: hier, heute, gern, deshalb. Sie werden nicht gebeugt. Numeralien sind Zahlwörter: drei, der dritte, viele.
+merke: Relativpronomen beziehen sich auf ein Nomen davor: das Buch, [das] ich lese.
+beispiel: Der Film, [den] wir sahen, war toll.
+beispiel: [Niemand] war [heute] zu Hause.
+
+-- 1 | auswahl | Adverbien finden
+anweisung: Tippe alle Adverbien an.
+[*heute | Haus | *gern | schön | *dort | laufen | *deshalb]
+
+-- 2 | auswahl dropdown | Relativpronomen
+Das ist der Junge, [*der | die | den] neben mir sitzt. Die Jacke, [*die | der | das] ich trage, ist neu. Das ist der Film, [der | *den | dem] ich mag.
+
+-- 3 | zuordnen | Wortarten bestimmen
+[Gestern = Adverb] [hat = Verb] [niemand = Pronomen] [die = Artikel] [drei = Numerale] [Bücher = Nomen] [gelesen = Verb].
+kategorien: Nomen, Verb, Artikel, Pronomen, Adverb, Numerale
+
+-- 3 | lueckentext | Relativsätze verbinden
+anweisung: Verbinde die Sätze mit einem Relativpronomen.
+Ich habe einen Freund. Er wohnt in Hamburg. → Ich habe einen Freund, [der] in Hamburg wohnt.
+Das ist das Fahrrad. Ich habe es gekauft. → Das ist das Fahrrad, [das] ich gekauft habe.
+Wo ist die Lehrerin? Wir haben ihr geschrieben. → Wo ist die Lehrerin, [der] wir geschrieben haben?

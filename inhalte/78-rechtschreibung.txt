@@ -1,0 +1,110 @@
+bereich: Rechtschreibung
+stufe: 8
+
+== Fremdwörter schreiben | RS-RE-8-01 GYM-RE-8-01
+Fremdwörter behalten oft die Schreibung ihrer Herkunftssprache. Typische Bausteine helfen dir:
+-ieren: telefonieren, informieren
+-tion: Information, Nation
+-ik: Musik, Technik
+ph für f: Physik, Strophe
+th für t: Theater, Thema
+y für ü oder i: Gymnasium, Handy
+merke: Lerne typische Fremdwort-Bausteine. Bei Zweifeln: nachschlagen.
+beispiel: die Informa[tion], informi[eren]
+beispiel: die [Ph]ysik, das [Th]eater
+
+-- 1 | auswahl | Richtig geschrieben?
+anweisung: Tippe jeweils die richtige Schreibweise an.
+[*Theater | Teater] [Fysik | *Physik] [*Information | Informazion] [*Rhythmus | Rütmus]
+
+-- 2 | lueckentext | Typische Endungen
+anweisung: Setze die richtige Endung ein: -ieren, -tion, -ik.
+Wir telefon[ieren] jeden Abend. Die Situa[tion] ist schwierig. Ich höre gern Mus[ik]. Kannst du mir das erklären? Ich muss mich noch inform[ieren].
+
+-- 3 | fehler korrigieren | Fremdwörter im Text
+anweisung: Finde die falsch geschriebenen Fremdwörter und verbessere sie.
+Im [Teater -> Theater] gab es eine tolle [Vorstelung -> Vorstellung]. Danach haben wir über das [Tema -> Thema] [diskutirt -> diskutiert]. Die [Muhsik -> Musik] war super.
+
+-- 1 | lueckentext | ph, th oder y?
+anweisung: Setze ph, th oder y ein.
+die [Ph]ysik, das [Th]ema, das Gymnasi[u]m, die Stro[ph]e, das [Th]eater, das Hand[y]
+
+-- 2 | zuordnen | Fremdwort-Bausteine
+anweisung: Ordne die Wörter nach ihrem Baustein.
+[reparieren = -ieren] [Nation = -tion] [Technik = -ik] [Aktion = -tion] [Mathematik = -ik] [diskutieren = -ieren]
+kategorien: -ieren, -tion, -ik
+
+-- 3 | diktat merken | Merkdiktat: Fremdwörter
+Im Physikunterricht haben wir ein Experiment gemacht. | Danach diskutierten wir über das Thema Energie. | Die Theorie war schwierig, aber die Praxis hat Spaß gemacht.
+
+== Getrennt oder zusammen | RS-RE-6-07 GYM-RE-8-02
+Verbindungen aus Verb und Verb schreibst du meistens getrennt: spazieren gehen, kennen lernen (auch: kennenlernen).
+
+Verbindungen aus Nomen und Verb schreibst du meistens getrennt: Rad fahren, Fußball spielen. Aber: Werden sie als Nomen gebraucht, schreibst du zusammen und groß: das Radfahren.
+
+Zusammen schreibst du, wenn ein neues Wort mit neuer Bedeutung entsteht: Mathe wird mir schwerfallen (schwierig sein).
+merke: Nomen + Verb: getrennt (Rad fahren). Als Nomen gebraucht: zusammen und groß (beim Radfahren).
+beispiel: Wir wollen [Fußball spielen].
+beispiel: [Beim Fußballspielen] habe ich mich verletzt.
+
+-- 1 | auswahl | Getrennt oder zusammen?
+Wir gehen heute [*spazieren gehen | spazierengehen]. Ich möchte [*Rad fahren | radfahren]. Am Wochenende wollen wir [*Ski fahren | skifahren].
+
+-- 2 | auswahl | Verbindung als Nomen
+Beim [Rad fahren | *Radfahren] trage ich einen Helm. Wir gehen [*Eis essen | Eisessen]. Das [Schlittschuh laufen | *Schlittschuhlaufen] macht Spaß.
+
+-- 3 | fehler korrigieren | Getrennt- und Zusammenschreibung
+Am Samstag wollen wir [radfahren -> Rad fahren]. Danach gehen wir [eisessen -> Eis essen]. Beim [Fußball spielen -> Fußballspielen] hat sich Tim verletzt.
+
+-- 1 | auswahl | Nomen und Verb
+anweisung: Tippe jeweils die richtige Schreibweise an.
+[*Auto fahren | autofahren] [*Klavier spielen | klavierspielen] [*Zähne putzen | zähneputzen]
+
+-- 2 | lueckentext | Klein oder groß, getrennt oder zusammen?
+anweisung: Setze die Wörter in Klammern richtig ein.
+Ich möchte heute [Rad fahren : Rad + fahren]. Beim [Radfahren : Rad + fahren] trage ich einen Helm. Kannst du gut [Schlittschuh laufen : Schlittschuh + laufen]?
+
+-- 3 | ueberarbeiten | Bedeutung entscheidet
+Kontext: Mia spricht über die Matheprüfung.
+Die Prüfung wird mir schwer fallen.
+Hinweis: Getrennt würde es bedeuten: Ich falle heftig hin.
+*Die Prüfung wird mir schwerfallen.
+Hinweis: Gemeint ist: Sie ist schwierig für mich. Neue Bedeutung, also zusammen.
+
+== Großschreibung von Nominalisierungen | RS-RE-6-10-02 GYM-RE-6-04
+Verben und Adjektive werden groß, wenn sie als Nomen gebraucht werden (Nominalisierung). Signalwörter davor helfen:
+Artikel: das Laufen, das Gute
+Präposition mit Artikel: beim Lesen, zum Schreiben, im Dunkeln
+Mengenwörter: viel Neues, etwas Schönes, nichts Wichtiges, alles Gute
+merke: Prüfe: Steht ein Signalwort davor? Kann man einen Artikel davorsetzen? Dann groß.
+beispiel: Beim [Lesen] vergesse ich die Zeit.
+beispiel: Ich wünsche dir [alles Gute].
+
+-- 1 | auswahl | Groß oder klein?
+Das [*Schwimmen | schwimmen] tut gut. Wir wollen [Schwimmen | *schwimmen]. Ich habe etwas [*Spannendes | spannendes] erlebt. Das Buch ist [Spannend | *spannend].
+
+-- 2 | zuordnen | Signalwörter finden
+anweisung: Markiere das Signalwort und die Nominalisierung.
+[Beim = Signalwort] [Joggen = Nominalisierung] höre ich Musik. Ich wünsche dir [viel = Signalwort] [Erfolg = Nominalisierung] und [alles = Signalwort] [Gute = Nominalisierung].
+kategorien: Signalwort, Nominalisierung
+
+-- 3 | fehler korrigieren | Nominalisierungen im Text
+anweisung: Finde die Nominalisierungen, die klein geschrieben sind.
+Das [lesen -> Lesen] macht mir viel Spaß. Beim [vorlesen -> Vorlesen] werde ich aber nervös. Ich wünsche mir etwas [neues -> Neues] zum [spielen -> Spielen].
+
+== Fehler finden und berichtigen | RS-RE-6-10-01 RS-RE-6-10-03 GYM-RE-8-03
+Beim Berichtigen gehst du so vor: Lies den Text langsam. Markiere Wörter, bei denen du unsicher bist. Prüfe sie mit einer Regel (verlängern, ableiten, Signalwort) oder schlag im Wörterbuch nach.
+
+Im Wörterbuch findest du nicht nur die Schreibung, sondern auch die Trennung (Fens|ter), die Wortart und den Plural.
+merke: Kennst du deine Fehlerschwerpunkte, kannst du gezielt üben.
+beispiel: Sie [lief] nach Hause. (langes i: ie)
+beispiel: Ich hoffe, [dass] du kommst. (Konjunktion)
+
+-- 1 | diktat | Abschreiben: Klassenfahrt
+Unsere Klassenfahrt ging an die Nordsee. Wir wohnten in einer Jugendherberge direkt am Deich. Jeden Tag machten wir einen Ausflug.
+
+-- 2 | diktat merken | Merkdiktat: Im Museum
+Im Museum gab es eine Ausstellung über Dinosaurier. | Die riesigen Skelette waren beeindruckend. | Am Ende durften wir selbst nach Fossilien graben.
+
+-- 3 | diktat merken | Merkdiktat: Das Theaterstück
+Gestern haben wir im Theater ein spannendes Stück gesehen. | Die Schauspieler spielten so gut, dass niemand auf sein Handy schaute. | Beim Klatschen am Ende taten uns die Hände weh.

@@ -1,0 +1,126 @@
+bereich: Zeichensetzung
+stufe: 10
+
+== Doppelpunkt, Semikolon, Gedankenstrich | GYM-ZS-10-01
+Der Doppelpunkt kündigt etwas an: eine Aufzählung, eine Erklärung, eine Zusammenfassung oder wörtliche Rede. Beispiel: Wir brauchen drei Dinge: Mehl, Eier und Milch.
+
+Das Semikolon (;) trennt stärker als ein Komma, aber schwächer als ein Punkt. Es verbindet eng zusammengehörende Hauptsätze. Beispiel: Es war spät; trotzdem arbeiteten wir weiter.
+
+Der Gedankenstrich (–) kennzeichnet einen Einschub, eine Pause oder etwas Unerwartetes. Beispiel: Er öffnete die Tür – niemand war da.
+merke: Doppelpunkt kündigt an. Semikolon verbindet Hauptsätze. Gedankenstrich setzt einen besonderen Akzent.
+beispiel: Merke dir eins[:] Übung macht den Meister.
+beispiel: Der Test war schwer[;] die meisten haben ihn trotzdem geschafft.
+
+-- 1 | auswahl dropdown | Welches Zeichen passt?
+Für die Wanderung brauchst du[*: | ;] Wasser, Brot und eine Jacke. Es regnete stark[: | *;] dennoch fand das Spiel statt. Er öffnete das Paket und darin war[, | *–] nichts.
+
+-- 1 | auswahl | Doppelpunkt richtig gesetzt?
+anweisung: Tippe die Sätze an, in denen der Doppelpunkt richtig steht.
+[*Sie hatte nur einen Wunsch: Ferien. | Wir: gehen ins Kino. | *Der Lehrer sagte: „Fangt an!“ | Ich kaufe: im Supermarkt ein.]
+
+-- 1 | zuordnen | Funktion des Doppelpunkts
+[Wir brauchen: Mehl, Zucker, Eier. = Aufzählung] [Sie sagte: „Komm her!“ = wörtliche Rede] [Das Ergebnis: Wir haben gewonnen. = Zusammenfassung]
+kategorien: Aufzählung, wörtliche Rede, Zusammenfassung
+
+-- 2 | auswahl dropdown | Semikolon oder Komma?
+Die Sonne schien[*; | ,] die Kinder spielten im Garten. Ich kaufe Brot[; | *,] Käse und Obst. Die Arbeit war hart[*; | ,] am Ende waren alle zufrieden.
+
+-- 2 | zuordnen | Was leistet der Gedankenstrich?
+[Er drehte sich um – und erstarrte. = Überraschung] [Mein Onkel – er ist Pilot – besucht uns. = Einschub]
+kategorien: Überraschung, Einschub
+
+-- 3 | ueberarbeiten | Satzzeichen gezielt einsetzen
+Kontext: Aus einer Erzählung.
+Sie öffnete den Brief und las ihn und dann lachte sie.
+Hinweis: Der Satz wirkt atemlos und die Pointe geht verloren.
+*Sie öffnete den Brief, las ihn – und lachte.
+Hinweis: Der Gedankenstrich setzt eine Pause vor der Überraschung.
+
+-- 3 | auswahl dropdown | Zeichen im Sachtext
+Drei Ursachen sind entscheidend[*: | –] Bevölkerungswachstum, Verkehr und Industrie. Die Werte sind gestiegen[*; | :] eine schnelle Lösung ist nicht in Sicht. Das Ergebnis[: | *–] wenn auch knapp[: | *–] überraschte alle.
+
+-- 1 | auswahl | Semikolon richtig?
+anweisung: Tippe die Sätze an, in denen das Semikolon richtig steht (zwischen zwei Hauptsätzen).
+[*Es wurde dunkel; wir gingen heim. | Ich; gehe heute ins Kino. | *Das Spiel war spannend; am Ende stand es 2:2. | Wir kaufen Äpfel; und Birnen.]
+
+-- 1 | auswahl | Gedankenstriche finden
+anweisung: In welchen Sätzen steht ein Einschub zwischen Gedankenstrichen?
+[*Meine Oma – sie ist 90 – fährt noch Rad. | Meine Oma fährt noch Rad. | *Der Film – endlich! – begann. | Der Film begann pünktlich.]
+
+-- 2 | fehler korrigieren | Fehlende Doppelpunkte
+anweisung: Hinter den markierten Wörtern fehlt ein Doppelpunkt.
+Für das Experiment brauchst [du -> du:] ein Glas, Wasser und Salz. Am Ende stand [fest -> fest:] Wir hatten gewonnen.
+
+-- 2 | ueberarbeiten | Sätze mit Semikolon verbinden
+Kontext: Aus einem Bericht.
+Die Halle war voll. Die Stimmung war großartig.
+Hinweis: Zwei kurze Sätze, die eng zusammengehören, wirken abgehackt.
+*Die Halle war voll; die Stimmung war großartig.
+Hinweis: Das Semikolon verbindet die zusammengehörenden Hauptsätze, ohne sie ganz zu trennen.
+
+-- 3 | fehler korrigieren | Satzzeichen im Kommentar
+anweisung: Hinter den markierten Wörtern fehlt ein Doppelpunkt oder ein Semikolon. Verbessere.
+Eins ist [klar -> klar:] So geht es nicht weiter. Viele Busse fahren zu [selten -> selten;] die Schüler kommen zu spät.
+
+-- 3 | ueberarbeiten | Zusammenfassung mit Doppelpunkt
+Kontext: Der Schluss einer Erörterung.
+Also kann man sagen, dass es insgesamt mehr Vorteile als Nachteile gibt.
+Hinweis: Die Zusammenfassung ist umständlich formuliert.
+*Mein Fazit: Die Vorteile überwiegen.
+Hinweis: Der Doppelpunkt kündigt die Zusammenfassung knapp und wirkungsvoll an.
+
+== Komma in schwierigen Fällen | GYM-ZS-8-01 GYM-ZS-6-03
+Komma bei Infinitivgruppen: Pflicht nach um, ohne, statt, anstatt, außer, als und wenn ein Nomen oder Hinweiswort darauf verweist.
+
+Komma bei Partizipgruppen: Es kann gesetzt werden, um die Gruppe deutlich zu machen. Pflicht ist es, wenn ein Hinweiswort darauf verweist: So, von allen gelobt, ging sie nach Hause.
+
+Kein Komma vor „und“ bei Aufzählungen. Aber: Verbindet „und“ zwei Hauptsätze, ist ein Komma erlaubt.
+merke: Im Zweifel klärt die Frage: Ist es ein Nebensatz, eine Infinitivgruppe mit Pflichtkomma oder ein Einschub?
+beispiel: Wir gingen los[,] ohne zu frühstücken.
+beispiel: Mein Freund[,] ein großer Fußballfan[,] kommt mit.
+
+-- 1 | auswahl dropdown | Komma nötig?
+Er kam herein[*, | kein Komma] ohne anzuklopfen. Ich kaufe Brot[, | *kein Komma] und Butter. Sie freut sich darauf[*, | kein Komma] dich zu sehen.
+
+-- 2 | fehler korrigieren | Kommas im Zeitungsbericht
+anweisung: Hier fehlen vier Kommas. Verbessere die Wörter, hinter denen eines fehlt.
+Die [Bürgermeisterin -> Bürgermeisterin,] Frau Lang, eröffnete das [Fest -> Fest,] das jedes Jahr stattfindet. Sie bat alle [Gäste -> Gäste,] den Müll mitzunehmen. Statt lange zu [reden -> reden,] gab sie das Startsignal.
+
+-- 3 | fehler korrigieren | Kommafehler finden
+anweisung: Hier stehen Kommas, wo keine hingehören, oder sie fehlen. Verbessere die markierten Wörter.
+Wir [kauften, -> kauften] Brot und Käse. Als wir [ankamen -> ankamen,] war der Laden zu. Der [Mann, -> Mann] lachte.
+
+-- 1 | auswahl | Pflichtkomma bei Infinitivgruppen
+anweisung: Tippe die Sätze an, in denen das Komma Pflicht ist.
+[*Wir lernen, um zu bestehen. | *Er ging, ohne zu grüßen. | Ich beginne zu lesen. | *Sie hat den Wunsch, Ärztin zu werden.]
+
+-- 1 | auswahl dropdown | Apposition
+Herr Weber[*, | kein Komma] unser Hausmeister[*, | kein Komma] hat Geburtstag. Die Schule[, | *kein Komma] beginnt um acht.
+
+-- 2 | auswahl dropdown | Partizipgruppen
+[*So | Und], von allen bewundert, verließ sie die Bühne. Vom Lärm geweckt[*, | ;] stand er auf.
+
+-- 2 | auswahl | Kommas richtig?
+anweisung: Tippe die Sätze an, in denen alle Kommas richtig stehen.
+[*Ich hoffe, dass du kommst, weil ich dich vermisse. | Ich hoffe dass du kommst, weil ich dich vermisse. | *Statt zu warten, gingen wir los. | Wir gingen, und los.]
+
+-- 2 | ueberarbeiten | Infinitivgruppe abgrenzen
+Kontext: Aus einer Mitteilung.
+Wir bitten alle Eltern ihre Kinder pünktlich abzuholen.
+Hinweis: Ohne Komma ist die Infinitivgruppe schwer zu erkennen.
+*Wir bitten alle Eltern, ihre Kinder pünktlich abzuholen.
+Hinweis: Das Komma grenzt die Infinitivgruppe ab und erleichtert das Lesen.
+
+-- 3 | auswahl | Alles richtig?
+anweisung: Tippe die Sätze an, in denen alle Satzzeichen richtig stehen.
+[*Mein Bruder, der in Köln studiert, kommt am Wochenende; wir freuen uns. | Mein Bruder der in Köln studiert, kommt am Wochenende. | *Sie hatte nur ein Ziel: den Sieg. | Sie hatte nur ein Ziel, den Sieg: zu holen.]
+
+-- 3 | ueberarbeiten | Langer Satz mit allen Zeichen
+Kontext: Aus einem Sachtext.
+Der Wald ein wichtiger Lebensraum ist bedroht denn viele Bäume sterben weil es zu trocken ist.
+Hinweis: Ohne Satzzeichen ist der Satz kaum zu verstehen.
+*Der Wald, ein wichtiger Lebensraum, ist bedroht; viele Bäume sterben, weil es zu trocken ist.
+Hinweis: Kommas grenzen Einschub und Nebensatz ab, das Semikolon verbindet die Hauptsätze.
+
+-- 3 | auswahl dropdown | Komma oder kein Komma im Satzgefüge
+Anstatt zu lernen[*, | kein Komma] spielte er. Das Buch[*, | kein Komma] das ich lese[*, | kein Komma] ist spannend. Ich kaufe Äpfel[, | *kein Komma] und Birnen.

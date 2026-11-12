@@ -211,7 +211,7 @@ Die alte Satzgarten-Liste steht im Git-Verlauf (Commit `bb6e9e6`); ihre erledigt
 
 ## Phase 9: Übernahme und Abschluss (`uebernahme`)
 
-- [ ] **42 Alte Aufgaben, Pakete und Kurznamen übernehmen** (M) – Export aus der Übungswiese (keine Schülerdaten); Skript trennt `inhalt` und `loesung`; Probelauf, dann echter Lauf. Prüfen: Tests des Skripts; Anzahl alt = neu.
+- [x] **42 Übungspakete statt Übernahme** (L, Lehrkraft 2026-11-12: alte Aufgaben werden nicht übernommen) – je Doppeljahrgang (5/6, 7/8, 9/10), Bereich und Schwierigkeit (leicht/mittel/schwer) ein Paket je Zweig, 180 Pakete, 475 Aufgaben mit Erklärseiten. Quelle `inhalte/*.txt`, Einspielen mit `node scripts/inhalte-sql.ts <datei.sql>` und `npx supabase db query --linked -f <datei.sql>` (wiederholbar). Prüfen: Lehrkraft sieht Pakete durch.
 - [ ] **43 Datenschutz und Texte** (S) – `DATENSCHUTZ.md` (alt) angepasst: Münzen, Farm, Diktat; Hilfe-Texte; README „Supabase wieder starten“. Prüfen: Lehrkraft liest gegen.
 - [ ] **44 Abnahme** (S) – alle 8 Erfolgskriterien der Spec (Abschnitt 11). Prüfen: Lehrkraft am Laptop und iPad.
 

@@ -1,0 +1,101 @@
+bereich: Wortbildung und Wortschatz
+stufe: 6
+
+== Wortbausteine | RS-WB-6-01 GYM-WB-6-01
+Viele Wörter sind aus Bausteinen gebaut. In der Mitte steht der Wortstamm. Davor kann eine Vorsilbe stehen, dahinter eine Nachsilbe oder Endung.
+
+ver-kauf-en: Vorsilbe ver, Stamm kauf, Endung en.
+freund-lich: Stamm freund, Nachsilbe lich.
+
+Zwei Nomen kann man auch zu einem neuen Wort zusammensetzen: Haus + Tür = Haustür. Das letzte Wort bestimmt den Artikel: die Tür, also die Haustür.
+merke: Nachsilben wie -ung, -heit, -keit machen aus einem Wort ein Nomen: die Hoffnung, die Freiheit.
+beispiel: [ver]-[lauf]-[en]
+beispiel: der Schuh + der Schrank = [der Schuhschrank]
+
+-- 1 | zuordnen | Vorsilbe, Stamm, Nachsilbe
+anweisung: Bestimme die Bausteine der Wörter.
+[un = Vorsilbe][freund = Stamm][lich = Nachsilbe], [ver = Vorsilbe][kauf = Stamm][en = Endung], [Frei = Stamm][heit = Nachsilbe]
+kategorien: Vorsilbe, Stamm, Nachsilbe, Endung
+
+-- 1 | auswahl | Welcher Artikel?
+anweisung: Das letzte Wort bestimmt den Artikel. Wähle den richtigen Artikel.
+[*die | der | das] Haustür, [die | *der | das] Schulhof, [die | der | *das] Fahrrad, [*die | der | das] Gartenbank
+
+-- 1 | lueckentext | Wörter zusammensetzen
+anweisung: Setze die Wörter zu einem neuen Nomen zusammen. Achte auf den Artikel.
+Haus + Tür: [die Haustür]. Hand + Schuh: [der Handschuh]. Schule + Hof: [der Schulhof]. Apfel + Baum: [der Apfelbaum].
+
+-- 2 | lueckentext | Nomen mit -ung, -heit, -keit
+anweisung: Bilde mit der passenden Nachsilbe ein Nomen.
+hoffen: die [Hoffnung]. frei: die [Freiheit]. freundlich: die [Freundlichkeit]. wohnen: die [Wohnung]. krank: die [Krankheit].
+
+-- 2 | auswahl | Welche Vorsilbe passt?
+Ich habe meinen Schlüssel [*ver | be | ent]loren. Wir müssen die Hausaufgaben noch [ver | *be | zer]enden. Der Dieb konnte [ver | be | *ent]kommen. Das Glas ist [ent | be | *zer]brochen.
+
+-- 3 | zuordnen | Zusammengesetzte Wörter zerlegen
+anweisung: Bestimme bei jedem Wort das Grundwort (es bestimmt den Artikel) und das Bestimmungswort.
+[Kinder = Bestimmungswort][zimmer = Grundwort], [Regen = Bestimmungswort][schirm = Grundwort], [Fußball = Bestimmungswort][platz = Grundwort]
+kategorien: Bestimmungswort, Grundwort
+
+== Wortfamilien und Wortfelder | RS-WB-6-02 GYM-WB-6-02
+Zu einer Wortfamilie gehören Wörter mit dem gleichen Wortstamm: fahren, die Fahrt, der Fahrer, abfahren, die Fahrkarte.
+
+Zu einem Wortfeld gehören Wörter mit ähnlicher Bedeutung, auch wenn sie ganz anders aussehen: gehen, laufen, rennen, schlendern, eilen.
+merke: Wortfamilie: gleicher Stamm. Wortfeld: ähnliche Bedeutung.
+beispiel: Wortfamilie „spiel“: [spielen], [Spieler], [Spielplatz]
+beispiel: Wortfeld „sagen“: [rufen], [flüstern], [antworten]
+
+-- 1 | auswahl | Wortfamilie „fahr“
+anweisung: Welche Wörter gehören zur Wortfamilie „fahren“?
+[*Fahrrad | Ferien | *Fahrer | fallen | *abfahren | Farbe]
+
+-- 1 | auswahl | Wortfamilie „spiel“
+anweisung: Welche Wörter gehören zur Wortfamilie „spielen“?
+[*Spieler | Spiegel | *Spielplatz | *verspielt | spitz | *Brettspiel]
+
+-- 2 | auswahl | Wortfeld „sagen“
+anweisung: Welche Wörter gehören zum Wortfeld „sagen“?
+[*flüstern | schreiben | *rufen | *antworten | lesen | *erzählen]
+
+-- 2 | ueberarbeiten | Treffende Verben
+Kontext: In einer Geschichte steht:
+Der Hund ging schnell über die Straße.
+Hinweis: „ging schnell“ ist richtig, klingt aber blass.
+*Der Hund rannte über die Straße.
+Hinweis: „rannte“ zeigt in einem Wort, wie schnell der Hund ist.
+
+Kontext: Lea erzählt von ihrem Ausflug.
+Das Essen war gut und das Wetter war auch gut.
+Hinweis: Zweimal „gut“ wirkt eintönig.
+*Das Essen war lecker und das Wetter war sonnig.
+Hinweis: „lecker“ und „sonnig“ sagen genauer, wie es war.
+
+-- 3 | lueckentext | Treffende Wörter einsetzen
+anweisung: Ersetze „sagen“ durch ein passendes Wort. Der Hinweis in Klammern hilft dir.
+„Pst, das Baby schläft“, [flüsterte/wisperte : leise sagen] Mama. „Hilfe!“, [rief/schrie : laut sagen] der Junge. „Ja, ich komme mit“, [antwortete/erwiderte : auf eine Frage sagen] Lea.
+
+-- 3 | zuordnen | Wortfamilie oder Wortfeld?
+anweisung: Gehört das Wort zur Wortfamilie „laufen“ oder nur zum Wortfeld „sich fortbewegen“?
+[Läufer = Wortfamilie], [rennen = Wortfeld], [Anlauf = Wortfamilie], [schlendern = Wortfeld], [verlaufen = Wortfamilie], [hüpfen = Wortfeld]
+kategorien: Wortfamilie, Wortfeld
+
+-- 3 | ueberarbeiten | Genauer erzählen
+Kontext: Ein Satz aus einer Erlebniserzählung.
+Dann machte ich die Tür auf und sah etwas.
+Hinweis: „machte auf“ und „etwas“ sagen wenig. Die Leserin kann sich nichts vorstellen.
+*Vorsichtig öffnete ich die Tür und entdeckte einen kleinen, nassen Hund.
+Hinweis: Treffende Verben (öffnete, entdeckte) und genaue Nomen machen die Szene lebendig.
+
+Kontext: Ein Satz aus einer Tierbeschreibung.
+Die Katze ist schön und hat ein schönes Fell.
+Hinweis: Zweimal „schön“ ist ungenau.
+*Die Katze ist zierlich und hat ein weiches, getigertes Fell.
+Hinweis: Genaue Adjektive beschreiben, wie die Katze wirklich aussieht.
+
+-- 3 | lueckentext | Neue Wörter bilden
+anweisung: Bilde aus dem Wort in Klammern ein passendes Wort.
+Die [Freundschaft : Freund] der beiden hält schon lange. Das war eine [gefährliche : Gefahr] Kletterei. Wir warten auf die [Abfahrt : fahren] des Zuges.
+
+-- 2 | auswahl | Was passt nicht?
+anweisung: In jeder Reihe passt ein Wort nicht zur Wortfamilie. Tippe es an.
+spielen, Spieler, [*spitz | Spielzeug]. fahren, Fahrt, [Fahrer | *Farbe]. Freund, freundlich, [*fremd | Freundin].

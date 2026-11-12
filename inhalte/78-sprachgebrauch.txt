@@ -1,0 +1,104 @@
+bereich: Sprachgebrauch
+stufe: 8
+
+== Indirekte Rede | GYM-SG-8-01 RS-WA-8-05
+Mit der indirekten Rede gibst du wieder, was jemand gesagt hat, ohne Anführungszeichen. Dafür benutzt du den Konjunktiv I. So zeigst du: Das hat jemand anderes gesagt.
+
+Direkt: Tim sagt: „Ich bin müde.“
+Indirekt: Tim sagt, er sei müde.
+
+Wichtige Formen: er sei, er habe, er komme, er könne, er werde. Ist der Konjunktiv I gleich dem Indikativ (sie haben), nimmst du den Konjunktiv II (sie hätten) oder „würde“.
+merke: Indirekte Rede: Konjunktiv I (er sei, sie habe). Die Pronomen ändern sich (ich wird zu er oder sie).
+beispiel: Lisa sagt, sie [habe] keine Zeit.
+beispiel: Der Trainer meint, das Spiel [sei] wichtig.
+
+-- 1 | auswahl dropdown | Konjunktiv I wählen
+Mia sagt, sie [ist | *sei] krank. Der Lehrer sagt, er [*habe | hat] die Tests korrigiert. Tom erzählt, er [kommt | *komme] später.
+
+-- 1 | zuordnen | Direkte oder indirekte Rede?
+[Ben sagt: „Ich gehe heim.“ = direkte Rede] [Ben sagt, er gehe heim. = indirekte Rede] [Oma meint, das Essen sei fertig. = indirekte Rede] [Oma ruft: „Das Essen ist fertig!“ = direkte Rede]
+kategorien: direkte Rede, indirekte Rede
+
+-- 2 | lueckentext | In indirekte Rede umwandeln
+anweisung: Setze das Verb im Konjunktiv I ein.
+Lea sagt: „Ich bin müde.“ → Lea sagt, sie [sei] müde.
+Paul sagt: „Ich habe Hunger.“ → Paul sagt, er [habe] Hunger.
+Die Ärztin sagt: „Das Kind kann nach Hause.“ → Die Ärztin sagt, das Kind [könne] nach Hause.
+
+-- 2 | auswahl dropdown | Pronomen anpassen
+Jan sagt: „Ich mag meinen Hund.“ → Jan sagt, [ich | *er] möge [meinen | *seinen] Hund.
+Die Kinder sagen: „Wir haben Ferien.“ → Die Kinder sagen, [*sie | wir] hätten Ferien.
+
+-- 3 | lueckentext | Ein Interview wiedergeben
+anweisung: Gib die Aussagen in indirekter Rede wieder. Ergänze das fehlende Verb.
+Die Sportlerin sagt: „Ich trainiere jeden Tag.“ → Die Sportlerin sagt, sie [trainiere] jeden Tag.
+Sie sagt: „Ich werde nicht aufgeben.“ → Sie sagt, sie [werde] nicht aufgeben.
+Sie sagt: „Meine Familie hilft mir sehr.“ → Sie sagt, ihre Familie [helfe] ihr sehr.
+
+-- 3 | ueberarbeiten | Bericht mit indirekter Rede
+Kontext: Ein Bericht in der Schülerzeitung.
+Der Direktor sagte: „Die neue Mensa ist bald fertig. Ich freue mich sehr.“
+Hinweis: In einem Bericht wirken viele wörtliche Zitate wie ein Gespräch.
+*Der Direktor sagte, die neue Mensa sei bald fertig. Er freue sich sehr.
+Hinweis: Die indirekte Rede gibt die Aussage sachlich wieder und zeigt, dass sie vom Direktor stammt.
+
+-- 1 | auswahl | Konjunktiv-I-Formen
+anweisung: Tippe alle Formen im Konjunktiv I an.
+[*er sei | er ist | *sie habe | sie hat | *es komme | es kommt]
+
+-- 2 | auswahl dropdown | Ersatzform mit Konjunktiv II
+anweisung: Wenn der Konjunktiv I aussieht wie der Indikativ, nimmst du den Konjunktiv II.
+Die Schüler sagen, sie [haben | *hätten] keine Zeit. Meine Eltern meinen, sie [*würden | werden] uns abholen. Die Gäste sagen, sie [kommen | *kämen] später.
+
+-- 3 | fehler korrigieren | Fehler in der indirekten Rede
+anweisung: Hier steht nicht überall der Konjunktiv. Verbessere die markierten Verben.
+Der Bürgermeister erklärte, die Straße [wird -> werde] im Mai fertig. Die Bauarbeiten [sind -> seien] schwierig. Er [hofft -> hoffe], dass alle Geduld haben.
+
+== Sprachebenen und Situation | RS-SG-6-10-01
+Je nach Situation sprichst und schreibst du anders. Im Chat mit Freunden ist Jugendsprache in Ordnung. In einer E-Mail an eine Firma, bei einer Bewerbung für ein Praktikum oder in einem Referat brauchst du Standardsprache und einen höflichen Ton.
+
+Eine formelle E-Mail hat eine Anrede (Sehr geehrte Frau …), ganze Sätze und einen Gruß (Mit freundlichen Grüßen).
+merke: Frage dich: Wer liest das? Was will ich erreichen? Dann wählst du die Sprache.
+beispiel: Jugendsprache: [Lass mal chillen.]
+beispiel: Standardsprache: [Lass uns eine Pause machen.]
+
+-- 1 | auswahl | Formell oder locker?
+anweisung: Tippe die Sätze an, die in eine E-Mail an eine Firma passen.
+[*Sehr geehrte Damen und Herren, | Hey Leute, | *Ich interessiere mich für ein Praktikum. | Hab Bock auf Praktikum. | *Mit freundlichen Grüßen]
+
+-- 2 | zuordnen | Welche Situation?
+[Digga, voll nice! = Chat mit Freunden] [Vielen Dank für Ihre schnelle Antwort. = E-Mail an eine Firma] [Kommste mit? = Chat mit Freunden] [Ich bitte um einen Rückruf. = E-Mail an eine Firma]
+kategorien: Chat mit Freunden, E-Mail an eine Firma
+
+-- 2 | fehler korrigieren | Eine Anfrage verbessern
+anweisung: Ersetze die markierten lockeren Wörter durch Standardsprache.
+[Hallöchen -> Sehr geehrte/Guten Tag] Frau Brandt, ich würde [voll -> sehr] gern ein Praktikum bei Ihnen machen. Können Sie mir sagen, ob das [klargeht -> möglich ist/geht]?
+
+-- 3 | ueberarbeiten | Eine Beschwerde schreiben
+Kontext: Deine bestellte Jacke ist kaputt angekommen. Du schreibst dem Shop.
+Eure Jacke ist Schrott, ich will mein Geld zurück!!!
+Hinweis: Der Ärger ist verständlich, aber so wirkt die Nachricht unhöflich und wenig überzeugend.
+*Leider ist die bestellte Jacke beschädigt angekommen. Ich bitte Sie, mir den Kaufpreis zu erstatten.
+Hinweis: Sachlich und höflich formuliert hat die Beschwerde mehr Erfolg.
+
+-- 3 | ueberarbeiten | Ein Referat beginnen
+Kontext: Der Anfang eines Referats vor der Klasse.
+Also, ähm, ich erzähl euch jetzt mal was über Wale, die sind voll krass.
+Hinweis: Füllwörter und Umgangssprache wirken unvorbereitet.
+*Heute stelle ich euch die Wale vor, die größten Tiere der Erde.
+Hinweis: Ein klarer Einstieg in Standardsprache weckt Interesse.
+
+-- 1 | lueckentext | Höfliche Anrede
+anweisung: Ergänze die Anrede und den Gruß einer formellen E-Mail.
+[Sehr] geehrter Herr Wolf, … Mit freundlichen [Grüßen]
+
+-- 2 | lueckentext | Jugendsprache übersetzen
+anweisung: Ersetze das Wort in Klammern durch Standardsprache.
+Der Film war [spannend/großartig/toll/sehr gut : krass]. Ich habe heute [keine Lust : keinen Bock]. Das ist [peinlich/unangenehm : cringe].
+
+-- 3 | lueckentext | Eine Absage formulieren
+anweisung: Ergänze die E-Mail mit höflichen Wörtern.
+Sehr geehrte Frau Kühn, [leider/bedauerlicherweise : es tut mir leid] kann ich am Montag nicht zum Termin kommen. Könnten wir einen neuen Termin [vereinbaren/ausmachen : festlegen]? Mit freundlichen Grüßen
+
+-- 1 | auswahl dropdown | Passender Gruß
+Am Ende einer Bewerbung schreibst du: [Bis dann | *Mit freundlichen Grüßen | Liebe Grüße]. Am Anfang einer E-Mail an einen Lehrer schreibst du: [*Sehr geehrter Herr Kahn, | Hi Herr Kahn, | Na, Herr Kahn?]

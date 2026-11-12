@@ -1,0 +1,125 @@
+bereich: Rechtschreibung
+stufe: 10
+
+== Eigene Fehlerschwerpunkte | RS-RE-10-01 RS-RE-6-10-01 RS-RE-6-10-03 GYM-RE-10-01
+Jeder Mensch macht bestimmte Fehler immer wieder. Das sind deine Fehlerschwerpunkte. Typisch sind: das oder dass, Groß- und Kleinschreibung, s-Laute, Getrennt- und Zusammenschreibung, Fremdwörter.
+
+So gehst du vor: Sammle deine Fehler aus Arbeiten. Ordne sie nach Fehlerarten. Übe gezielt die häufigste Art und lies deine Texte gezielt auf diese Fehler hin.
+merke: Wer seine Fehlerschwerpunkte kennt, kann gezielt üben und beim Korrekturlesen gezielt suchen.
+beispiel: Fehlerart Großschreibung: [beim Lesen], [etwas Neues]
+beispiel: Fehlerart s-Laute: [dass], [groß], [Wasser]
+
+-- 1 | auswahl | Richtig geschrieben?
+anweisung: Tippe die richtig geschriebenen Wörter an.
+[*selbstständig | selbsständig | *Rhythmus | Rytmus | *nämlich | nähmlich | *Standard | Standart]
+
+-- 1 | auswahl dropdown | Fehlerart erkennen
+„Ich hoffe, das du kommst.“ Fehlerart: [*das oder dass | Großschreibung | s-Laut]. „Wir gehen auf die Strasse.“ Fehlerart: [das oder dass | Großschreibung | *s-Laut]. „Beim lesen schlafe ich ein.“ Fehlerart: [das oder dass | *Großschreibung | s-Laut].
+
+-- 1 | diktat | Abschreiben: Praktikum
+Mein Praktikum habe ich in einer Tischlerei gemacht. Dort durfte ich selbstständig kleine Regale bauen. Am meisten hat mir die Arbeit mit Holz gefallen.
+
+-- 2 | fehler korrigieren | Häufige Fehlerwörter
+anweisung: Diese Wörter werden oft falsch geschrieben. Verbessere sie.
+Ich habe [warscheinlich -> wahrscheinlich] keine Zeit. Das ist [nähmlich -> nämlich] mein Trainingstag. [Endgültich -> Endgültig] entscheide ich mich [Morgen -> morgen].
+
+-- 3 | diktat merken | Merkdiktat: Bewerbung
+Hiermit bewerbe ich mich um einen Ausbildungsplatz als Kauffrau für Büromanagement. | Während meines Praktikums habe ich gemerkt, dass mir die Arbeit im Büro Spaß macht. | Über eine Einladung zu einem Vorstellungsgespräch würde ich mich sehr freuen.
+
+-- 3 | fehler korrigieren | Korrekturlesen: Bewerbung
+anweisung: In diesem Ausschnitt einer Bewerbung sind fünf Fehler. Verbessere sie.
+Ich interessiere mich sehr für den Beruf, da ich gern mit [menschen -> Menschen] arbeite. In meinem Praktikum habe ich gelernt, [das -> dass] Teamarbeit wichtig ist. Ich bin zuverlässig und [Pünktlich -> pünktlich]. Über eine Einladung zu einem [Vorstellungsgesprech -> Vorstellungsgespräch] würde ich mich sehr [freun -> freuen].
+
+== Regeln sicher anwenden: das/dass und s-Laute | RS-RE-6-10-02 GYM-RE-10-01
+Zwei Regeln helfen bei vielen Fehlern:
+
+das oder dass: „das“ ist Artikel oder Pronomen. Es lässt sich durch „dieses“, „jenes“ oder „welches“ ersetzen. „dass“ ist eine Konjunktion und leitet einen Nebensatz ein.
+
+s, ss oder ß: Nach kurzem Vokal ss (Fluss, wissen). Nach langem Vokal oder ei, au, eu ß, wenn das s stimmlos ist (Gruß, beißen). Klingt es summend, schreibst du s (lesen).
+merke: Ersatzprobe für das/dass. Vokallänge für ss/ß.
+beispiel: Das Auto, [das] (welches) dort steht. Ich glaube, [dass] es regnet.
+beispiel: [wissen], aber er [weiß]
+
+-- 1 | auswahl | das oder dass?
+Ich bin sicher, [das | *dass] wir es schaffen. Das Projekt, [*das | dass] wir planen, ist groß. Es ist wichtig, [das | *dass] alle mitmachen.
+
+-- 2 | lueckentext | s, ss oder ß?
+anweisung: Setze s, ss oder ß ein.
+Ich wei[ß], da[ss] du recht hast. Wir mü[ss]en den Flu[ss] überqueren. Viele Grü[ß]e und bis bald! Sie lie[s]t gern.
+
+-- 2 | fehler korrigieren | das oder dass im Text
+anweisung: Verbessere die falschen das und dass. Es sind drei.
+Ich finde, [das -> dass] Schulen mehr Sport anbieten sollten. Das Angebot, [dass -> das] es jetzt gibt, reicht nicht. Viele wünschen sich, [das -> dass] es mehr AGs gibt.
+
+-- 3 | fehler korrigieren | Gemischte Fehler
+anweisung: In diesem Text sind fünf Fehler. Verbessere sie.
+Ich [weis -> weiß] nicht, ob [dass -> das] Wetter hält. Trotzdem wollen wir am [see -> See] grillen. Ich hoffe, [das -> dass] alle [Pünktlich -> pünktlich] kommen.
+
+-- 2 | auswahl dropdown | Ersatzprobe für das oder dass
+Ich denke, [das | *dass] das Projekt gelingt. Das Projekt, [*das | dass] wir planen, ist teuer. Es ist klar, [das | *dass] wir Hilfe brauchen.
+
+== Schwierige Fälle der Groß- und Kleinschreibung | RS-RE-6-10-02 GYM-RE-10-01
+Zeitangaben: Tageszeiten nach heute, gestern, morgen schreibst du groß (heute Abend). Mit -s am Ende schreibst du klein (abends, montags).
+
+Höflichkeitsanrede: Sie, Ihnen, Ihr schreibst du groß, wenn du jemanden höflich ansprichst.
+
+Nominalisierte Verben und Adjektive: groß nach Artikel, Präposition mit Artikel (beim, zum) und Mengenwörtern (viel, etwas, nichts, alles).
+merke: heute Abend (groß), abends (klein). Höfliches Sie immer groß.
+beispiel: Wir treffen uns [morgen Abend].
+beispiel: Vielen Dank für [Ihre] Nachricht.
+
+-- 1 | auswahl | Tageszeiten
+Wir treffen uns heute [*Abend | abend]. [Montags | *montags] habe ich Training. Am [*Morgen | morgen] trinke ich Tee.
+
+-- 1 | auswahl dropdown | Höfliche Anrede
+Sehr geehrte Frau Lenz, vielen Dank für [ihre | *Ihre] Antwort. Ich freue mich, [sie | *Sie] kennenzulernen. Meine Schwester sagt, [*sie | Sie] kommt später.
+
+-- 2 | lueckentext | Zeitangaben schreiben
+anweisung: Schreibe die Zeitangabe in Klammern richtig.
+Wir fahren [morgen früh : morgen + früh] los. Ich lese [abends : Abend + s]. Am [Nachmittag : nachmittag] habe ich frei. Seit [gestern Abend : gestern abend] regnet es.
+
+-- 2 | zuordnen | Signalwörter der Nominalisierung
+[Beim = Signalwort] [Zuhören = Nominalisierung] lernt man viel. Es gibt [nichts = Signalwort] [Besseres = Nominalisierung]. Ich wünsche dir [alles = Signalwort] [Liebe = Nominalisierung].
+kategorien: Signalwort, Nominalisierung
+
+-- 3 | fehler korrigieren | Groß oder klein im Brief
+anweisung: Verbessere die fünf Fehler bei der Groß- und Kleinschreibung.
+Sehr geehrter Herr Yilmaz, vielen Dank für [ihre -> Ihre] Einladung. Ich komme gern am Freitag [nachmittag -> Nachmittag]. Leider habe ich [Freitags -> freitags] bis 14 Uhr Unterricht. Ich wünsche [ihnen -> Ihnen] ein schönes Wochenende und alles [gute -> Gute].
+
+-- 3 | ueberarbeiten | Groß oder klein: Bedeutung
+Kontext: Eine Nachricht an die Trainerin.
+Ich komme heute abend nicht, weil ich Abends lerne.
+Hinweis: „heute abend“ und „Abends“ sind falsch geschrieben.
+*Ich komme heute Abend nicht, weil ich abends lerne.
+Hinweis: Nach heute, gestern, morgen groß (heute Abend). Mit -s klein (abends).
+
+-- 3 | lueckentext | Nominalisierungen
+anweisung: Schreibe das Wort in Klammern richtig (groß oder klein).
+Ich wünsche euch viel [Spaß : spaß] beim [Lernen : lernen]. Wir haben heute nichts [Neues : neues] erfahren. Es ist [wichtig : Wichtig], pünktlich zu sein.
+
+== Fremdwörter und Fachwörter | RS-RE-8-01 GYM-RE-8-01
+Viele Fach- und Fremdwörter haben eine eigene Schreibung. Häufig sind: -ieren (reparieren), -tion (Situation), -ik (Technik), -ität (Qualität), ph (Philosophie), th (Theorie), y (System), c (Computer).
+merke: Fremdwörter lernst du am besten als Merkwörter. Bei Zweifeln: nachschlagen.
+beispiel: die Qualifika[tion], die Qual[ität]
+beispiel: die [Th]eorie, das S[y]stem
+
+-- 1 | auswahl | Fremdwörter richtig schreiben
+anweisung: Tippe die richtigen Schreibweisen an.
+[*Qualität | Kwalität | *System | Süstem | *Philosophie | Filosofie]
+
+-- 1 | lueckentext | Typische Endungen
+anweisung: Setze -tion, -ität oder -ieren ein.
+die Präsenta[tion], die Realit[ät], organis[ieren], die Kommunika[tion], kontroll[ieren]
+
+-- 2 | diktat | Abschreiben: Technik
+Die Digitalisierung verändert viele Berufe. Computer und Maschinen übernehmen Routineaufgaben. Deshalb ist Kommunikation im Team immer wichtiger.
+
+-- 3 | diktat merken | Merkdiktat: Referat
+In meinem Referat präsentiere ich die Geschichte des Internets. | Zuerst erkläre ich die Theorie, danach zeige ich praktische Beispiele. | Zum Schluss diskutieren wir über Chancen und Risiken.
+
+-- 2 | auswahl dropdown | Fremdwort oder deutsches Wort?
+Für die Präsentation brauche ich einen [*Beamer | Bimer]. Wir analysieren die [*Statistik | Statisstik]. Das ist eine gute [Idehe | *Idee].
+
+-- 3 | fehler korrigieren | Fremdwörter im Referat
+anweisung: In diesem Text sind vier Fremdwörter falsch geschrieben. Verbessere sie.
+In meiner [Presentation -> Präsentation] geht es um das Klima. Viele [Experthen -> Experten] warnen vor den Folgen. Die [Teorie -> Theorie] ist kompliziert. Deshalb zeige ich eine [Grafick -> Grafik].

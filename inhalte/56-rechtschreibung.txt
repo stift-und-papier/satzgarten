@@ -1,0 +1,99 @@
+bereich: Rechtschreibung
+stufe: 6
+
+== Kurze und lange Vokale | RS-RE-6-01 RS-RE-6-08 GYM-RE-6-01 RS-RE-6-10-02
+Sprich das Wort deutlich in Silben und hör auf den Vokal (a, e, i, o, u).
+
+Nach einem kurzen Vokal verdoppelt man oft den folgenden Konsonanten: Ball, Sonne, schwimmen. Statt kk schreibt man ck (Decke), statt zz schreibt man tz (Katze).
+
+Ein langer Vokal bleibt oft ohne Zeichen (Hose), manchmal steht ein h (Zahn) oder ein Doppelvokal (Meer). Ein langes i schreibt man meistens ie (Biene).
+merke: Kurzer Vokal: oft doppelter Konsonant, ck oder tz. Langes i: meistens ie.
+beispiel: kurz: der [Ball], die [Katze], die [Decke]
+beispiel: lang: die [Biene], der [Zahn], das [Meer]
+
+-- 1 | auswahl | Kurz oder lang?
+anweisung: Tippe alle Wörter mit einem KURZEN Vokal an.
+[*Sonne | Hose | *Mutter | Blume | *Katze | Biene | *Hütte]
+
+-- 1 | lueckentext | ie oder i?
+anweisung: Setze ie oder i ein.
+die B[ie]ne, das K[i]nd, der Br[ie]f, die L[ie]be, der F[i]sch, sp[ie]len
+
+-- 2 | lueckentext | ck oder k, tz oder z?
+anweisung: Setze ck oder k, tz oder z ein.
+die De[ck]e, der Ha[k]en, die Ka[tz]e, der Pil[z], die Mü[tz]e, der Schran[k], die Ja[ck]e
+
+-- 3 | fehler korrigieren | Fehler bei Vokallänge
+Am Wochenende [schwimen -> schwimmen] wir im [Mer -> Meer]. Danach legen wir uns in die [Sone -> Sonne] und lesen einen [Brif -> Brief].
+
+== s, ss oder ß | RS-RE-6-08 GYM-RE-6-03 RS-RE-6-10-02
+Nach einem langen Vokal oder ei, au, eu schreibst du ß, wenn das s scharf (stimmlos) klingt: groß, Straße, heißen.
+
+Nach einem kurzen Vokal schreibst du ss: Wasser, Schloss, essen.
+
+Klingt das s weich (summend), schreibst du s: Hose, Rose.
+merke: Langer Vokal und scharfes s: ß. Kurzer Vokal: ss.
+beispiel: die [Straße] (lang), das [Wasser] (kurz)
+beispiel: der [Fuß], aber der [Fluss]
+
+-- 2 | auswahl | ss oder ß?
+Ich trinke gern Wa[*ss | ß]er. Wir gehen über die Stra[ss | *ß]e. Mein Fu[ss | *ß] tut weh. Das Schlo[*ss | ß] ist alt. Der Kuchen ist sü[ss | *ß].
+
+-- 3 | lueckentext | s, ss oder ß?
+anweisung: Setze s, ss oder ß ein.
+Am Flu[ss] steht ein gro[ß]es Hau[s]. Die Kinder e[ss]en drau[ß]en Ei[s]. Dann gie[ß]t Opa die Ro[s]en.
+
+== Verlängern und Ableiten | RS-RE-6-02 RS-RE-6-09 GYM-RE-6-02 GYM-RE-6-03 RS-RE-6-10-02
+Am Wortende hört man b und p, d und t, g und k gleich. Verlängere das Wort, dann hörst du es: der Hund, die Hunde. Also d.
+
+Bei ä oder e und äu oder eu hilft das Ableiten: Gibt es ein verwandtes Wort mit a oder au? die Bälle, weil der Ball. die Häuser, weil das Haus.
+merke: Verlängern hilft bei b/p, d/t, g/k. Ableiten hilft bei ä/e und äu/eu.
+beispiel: der Zwer[g], weil die Zwer[g]e
+beispiel: die B[äu]me, weil der B[au]m
+
+-- 1 | auswahl | d oder t?
+anweisung: Verlängere das Wort und wähle den richtigen Buchstaben.
+der Hun[*d | t] (die Hunde), das Kin[*d | t] (die Kinder), der Hu[d | *t] (die Hüte), das Bil[*d | t] (die Bilder)
+
+-- 2 | lueckentext | ä oder e, äu oder eu?
+anweisung: Leite ab und setze ä, e, äu oder eu ein.
+die B[ä]lle (Ball), das F[e]nster, die H[äu]ser (Haus), h[eu]te, die L[äu]fer (laufen), die K[ä]lte (kalt)
+
+-- 3 | fehler korrigieren | Verlängern und ableiten
+Unser [Hunt -> Hund] lief durch den [Walt -> Wald]. Hinter den [Beumen -> Bäumen] versteckte sich ein [Zwerk -> Zwerg]. Er trug eine rote Mütze.
+
+== Großschreibung | RS-RE-6-04 RS-RE-6-05 RS-RE-6-10 GYM-RE-6-04
+Groß schreibst du Satzanfänge, Nomen und Namen.
+
+Auch Verben und Adjektive werden groß, wenn sie als Nomen gebraucht werden. Das erkennst du an einem Begleiter davor: das Lesen, beim Spielen, viel Gutes, etwas Neues.
+merke: Steht ein Artikel oder „beim“, „zum“, „viel“, „etwas“ davor, wird das Wort meistens großgeschrieben.
+beispiel: [Das Lesen] macht Spaß.
+beispiel: Ich wünsche dir [alles Gute].
+
+-- 1 | fehler korrigieren | Satzanfänge und Nomen
+anweisung: Finde die Wörter, die großgeschrieben werden müssen.
+[am -> Am] Montag gehen wir ins [kino -> Kino]. [der -> Der] Film handelt von einem [drachen -> Drachen].
+
+-- 2 | auswahl | Groß oder klein?
+Beim [*Schwimmen | schwimmen] habe ich viel Spaß. Wir wollen heute [Schwimmen | *schwimmen]. Ich wünsche dir viel [*Glück | glück]. Das war etwas [*Besonderes | besonderes].
+
+-- 3 | fehler korrigieren | Verben und Adjektive als Nomen
+Zum [lernen -> Lernen] brauche ich Ruhe. Beim [laufen -> Laufen] hört Tim Musik. In der Zeitung stand nichts [neues -> Neues]. Das [lachen -> Lachen] der Kinder war laut.
+
+== Merkwörter und Wörterbuch | RS-RE-6-03 RS-RE-6-11 GYM-RE-6-07 GYM-RE-6-06
+Manche Wörter folgen keiner Regel. Diese Merkwörter musst du dir einprägen, zum Beispiel Vater, Vogel, Vase, Fuchs, Hexe, Saal, Boot.
+
+Wenn du unsicher bist, schlag im Wörterbuch nach. Die Wörter stehen nach dem Alphabet geordnet. Bei gleichem ersten Buchstaben entscheidet der zweite: Apfel steht vor Arm.
+merke: Bei Zweifeln: nachschlagen. Verben suchst du in der Grundform (lief: laufen).
+beispiel: [V]ogel, [V]ater, [V]ase
+beispiel: Hund, Katze, Maus (nach dem Alphabet)
+
+-- 1 | diktat | Merkwörter abschreiben
+Der Vater sieht einen Vogel. Die Hexe hat eine Vase. Im Saal steht ein Boot.
+
+-- 2 | reihenfolge | Nach dem Alphabet ordnen
+anweisung: Ordne die Wörter so, wie sie im Wörterbuch stehen.
+Apfel | Banane | Birne | Kirsche | Pflaume.
+
+-- 3 | diktat merken | Merkdiktat: Im Herbst
+Im Herbst fallen die Blätter von den Bäumen. | Der Fuchs sucht im Wald nach Futter. | Wir sammeln bunte Blätter und basteln eine Vase.

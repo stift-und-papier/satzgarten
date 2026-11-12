@@ -1,0 +1,94 @@
+bereich: Sprachgebrauch
+stufe: 6
+
+== Sprachebenen | RS-SG-6-10-01 GYM-SG-6-01
+Wir sprechen nicht überall gleich. Mit Freunden benutzt du Umgangssprache: „Hey, was geht?“ In der Schule, in Briefen oder mit Fremden benutzt du die Standardsprache: „Guten Tag, wie geht es Ihnen?“
+
+Erwachsene, die du nicht gut kennst, sprichst du mit „Sie“ an.
+merke: Überlege immer: Mit wem spreche oder schreibe ich? Dann wählst du die passende Sprache.
+beispiel: Umgangssprache: [Das ist voll cool!]
+beispiel: Standardsprache: [Das gefällt mir sehr gut.]
+
+-- 1 | zuordnen | Umgangssprache oder Standardsprache?
+[Hey, was geht? = Umgangssprache] [Guten Morgen, Frau Meier. = Standardsprache] [Das ist mega! = Umgangssprache] [Vielen Dank für Ihre Hilfe. = Standardsprache]
+kategorien: Umgangssprache, Standardsprache
+
+-- 1 | auswahl | Du oder Sie?
+anweisung: Du schreibst an deinen Schulleiter. Wähle die passende Form.
+Könnten [du | *Sie] mir bitte helfen? Ich danke [dir | *Ihnen] für [deine | *Ihre] Antwort.
+
+-- 1 | auswahl | Wo sprichst du Standardsprache?
+anweisung: Tippe alle Situationen an, in denen du Standardsprache benutzt.
+[*Referat in der Klasse | Chat mit deinem besten Freund | *Brief an die Bürgermeisterin | Spiel in der Pause | *Telefonat mit einer Arztpraxis]
+
+-- 2 | auswahl dropdown | Ein Brief an die Bücherei
+anweisung: Wähle, was in einen höflichen Brief passt.
+[Hallo Leute, | *Sehr geehrte Damen und Herren,] ich möchte fragen, ob [ihr | *Sie] auch Comics ausleiht. [Tschüss | *Mit freundlichen Grüßen]
+
+-- 2 | zuordnen | Wer sagt was?
+anweisung: Ordne zu: Passt der Satz eher zu Freunden oder zu einem Vorstellungsgespräch?
+[Na, alles klar bei dir? = Freunde] [Ich freue mich, Sie kennenzulernen. = Vorstellungsgespräch] [Lass uns abhängen! = Freunde] [Darf ich Ihnen eine Frage stellen? = Vorstellungsgespräch]
+kategorien: Freunde, Vorstellungsgespräch
+
+-- 2 | ueberarbeiten | Eine Nachricht an die Lehrerin
+Kontext: Du schreibst deiner Lehrerin, dass du krank bist.
+Hi, bin krank, komm morgen nicht.
+Hinweis: So schreibt man einer Freundin, aber nicht der Lehrerin.
+*Liebe Frau Schulz, ich bin leider krank und kann morgen nicht in die Schule kommen.
+Hinweis: Anrede, ganze Sätze und ein höflicher Ton passen zu einer Nachricht an die Lehrerin.
+
+Kontext: Du bittest den Hausmeister um Hilfe.
+Ey, mach mal die Tür auf!
+Hinweis: Das klingt unhöflich und passt nicht zu einem Erwachsenen, den du nicht gut kennst.
+*Entschuldigung, könnten Sie mir bitte die Tür aufschließen?
+Hinweis: Mit „Entschuldigung“, „Sie“ und „bitte“ ist die Bitte höflich.
+
+-- 3 | lueckentext | In Standardsprache übersetzen
+anweisung: Ersetze das umgangssprachliche Wort in Klammern durch ein Wort der Standardsprache.
+Der Film war [sehr gut/großartig/toll/spannend : voll krass]. Ich habe [keine Lust/keine Zeit : null Bock]. Wir haben uns [sehr/sehr stark : mega] gefreut.
+
+-- 3 | fehler korrigieren | Eine E-Mail an den Trainer
+anweisung: Diese E-Mail ist zu locker. Ersetze die markierten Wörter durch Standardsprache.
+[Hi -> Hallo/Lieber] Herr Kaya, ich kann am Samstag leider nicht zum Spiel kommen, weil wir zu meiner Oma fahren. Das finde ich echt [blöd -> schade]. Viele [Grüßle -> Grüße], Jonas
+
+== Wünsche ausdrücken | GYM-SG-6-02
+Mit dem Konjunktiv II drückst du Wünsche aus oder sagst, was sein könnte: Ich wäre gern ein Vogel. Wenn ich Zeit hätte, würde ich kommen.
+
+Wichtige Formen: wäre (sein), hätte (haben), könnte (können), würde (werden).
+merke: Wünsche und Vorstellungen: wäre, hätte, könnte, würde.
+beispiel: Ich [hätte] gern einen Hund.
+beispiel: Wenn ich fliegen [könnte], [würde] ich nach Afrika fliegen.
+
+-- 1 | auswahl dropdown | Wünsche
+Ich [ist | *wäre | war] gern am Meer. Wir [haben | *hätten | hatten] gern mehr Ferien. Wenn ich groß [bin | *wäre | sei], [werde | *würde | wurde] ich Pilotin.
+
+-- 2 | lueckentext | Was wäre, wenn …
+anweisung: Setze die Verben im Konjunktiv II ein.
+Wenn ich zaubern [könnte : können], [würde : werden] ich mein Zimmer aufräumen lassen. Wenn wir einen Garten [hätten : haben], [wäre : sein] alles perfekt.
+
+-- 3 | ueberarbeiten | Höflich bitten
+Kontext: Du möchtest dir ein Buch ausleihen.
+Gib mir das Buch!
+Hinweis: Ein Befehl klingt unfreundlich.
+*Könntest du mir bitte das Buch leihen?
+Hinweis: „Könntest“ (Konjunktiv II) und „bitte“ machen aus dem Befehl eine höfliche Bitte.
+
+-- 2 | auswahl | Wunsch oder Wirklichkeit?
+anweisung: Tippe nur die Sätze an, die einen Wunsch oder eine Vorstellung ausdrücken.
+[*Ich wäre gern Tierärztin. | Ich bin Schülerin. | *Wenn ich Zeit hätte, käme ich mit. | Ich habe einen Hund. | *Das würde mir gefallen.]
+
+-- 3 | lueckentext | Höflich fragen
+anweisung: Mach aus der Aufforderung eine höfliche Frage mit dem Verb in Klammern.
+Hilf mir! → [Könntest] du mir bitte helfen? (können)
+Mach das Fenster zu! → [Würdest] du bitte das Fenster zumachen? (werden)
+
+-- 1 | auswahl | Konjunktiv-II-Formen finden
+anweisung: Tippe alle Formen im Konjunktiv II an.
+[*wäre | war | *hätte | hat | *könnte | kann | *würde]
+
+-- 3 | ueberarbeiten | Wünsche formulieren
+Kontext: Lena schreibt in ihr Tagebuch, was sie sich wünscht.
+Ich will einen Hund. Ich will ihn Bello nennen.
+Hinweis: „Ich will“ klingt fordernd, und der Wunsch wird zweimal gleich ausgedrückt.
+*Ich hätte so gern einen Hund. Ich würde ihn Bello nennen.
+Hinweis: Mit „hätte gern“ und „würde“ wird klar, dass es ein Wunsch und eine Vorstellung ist.

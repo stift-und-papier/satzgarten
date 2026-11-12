@@ -1,0 +1,112 @@
+bereich: Wortbildung und Wortschatz
+stufe: 8
+
+== Kurzwörter und Wortartwechsel | RS-WB-8-01
+Kurzwörter entstehen, wenn man lange Wörter abkürzt: das Fahrrad wird zum Rad, der Omnibus zum Bus, die Lastkraftwagen zum Lkw.
+
+Mit Wortbausteinen kann ein Wort die Wortart wechseln:
+Verb wird Nomen: entscheiden, die Entscheidung.
+Adjektiv wird Nomen: schön, die Schönheit.
+Nomen wird Adjektiv: Glück, glücklich.
+merke: Nachsilben wie -ung, -heit, -keit, -nis bilden Nomen; -lich, -ig, -bar, -sam bilden Adjektive.
+beispiel: erleben, das [Erlebnis]
+beispiel: die Sonne, [sonnig]
+
+-- 1 | lueckentext | Kurzwörter
+anweisung: Wie lautet das Kurzwort?
+der Omnibus: der [Bus]. das Kraftfahrzeug: das [Kfz]. die Universität: die [Uni]. das Automobil: das [Auto].
+
+-- 2 | lueckentext | Aus Verben werden Nomen
+anweisung: Bilde ein Nomen aus dem Verb.
+entscheiden: die [Entscheidung]. erleben: das [Erlebnis]. erklären: die [Erklärung]. ergeben: das [Ergebnis].
+
+-- 3 | lueckentext | Die passende Wortart
+anweisung: Setze das Wort in Klammern in der passenden Wortart ein.
+Das war ein [glücklicher : Glück] Zufall. Die [Freundlichkeit : freundlich] der Verkäuferin hat mich gefreut. Das Wasser ist nicht [trinkbar : trinken].
+
+-- 1 | auswahl | Nomen erkennen
+anweisung: Tippe alle Wörter an, die durch eine Nachsilbe zu Nomen geworden sind.
+[*Freiheit | frei | *Erlebnis | erleben | *Heiterkeit | heiter]
+
+-- 2 | zuordnen | Welche Wortart?
+[Gesundheit = Nomen] [gesund = Adjektiv] [Entscheidung = Nomen] [entscheiden = Verb] [farbig = Adjektiv] [Farbe = Nomen]
+kategorien: Nomen, Verb, Adjektiv
+
+-- 3 | ueberarbeiten | Nominalstil vermeiden
+Kontext: Aus einem Schülerbericht.
+Nach der Durchführung der Reinigung des Klassenraums erfolgte die Verteilung der Hefte.
+Hinweis: Viele Nomen auf -ung machen den Satz schwer verständlich.
+*Nachdem wir den Klassenraum gereinigt hatten, verteilten wir die Hefte.
+Hinweis: Mit Verben statt Nomen wird der Satz klarer und lebendiger.
+
+== Fremdwörter verstehen | RS-WB-8-02
+Viele Wörter kommen aus anderen Sprachen, etwa aus dem Englischen, Französischen, Lateinischen oder Griechischen. Oft kann man sie durch ein deutsches Wort ersetzen.
+
+Manche Bausteine verraten die Bedeutung: tele heißt fern (Telefon), bio heißt Leben (Biologie), auto heißt selbst (Automat).
+merke: Wenn du ein Fremdwort nicht kennst, achte auf Bausteine oder schlag nach.
+beispiel: [Tele]fon: fern + Klang
+beispiel: das Event: die [Veranstaltung]
+
+-- 1 | auswahl dropdown | Was bedeutet das?
+die Information: [*Auskunft | Einladung | Ausflug], das Interview: [Kündigung | *Befragung | Werbung], kreativ: [*einfallsreich | langsam | teuer]
+
+-- 2 | zuordnen | Woher kommt das Wort?
+[Computer = Englisch] [Restaurant = Französisch] [Pizza = Italienisch] [Smartphone = Englisch] [Croissant = Französisch] [Spaghetti = Italienisch]
+kategorien: Englisch, Französisch, Italienisch
+
+-- 3 | ueberarbeiten | Fremdwörter ersetzen
+Kontext: Ein Aushang für die Schule.
+Das Event ist ein Highlight für alle Kids.
+Hinweis: Viele englische Wörter. Nicht alle Leserinnen und Leser verstehen das.
+*Die Veranstaltung ist ein Höhepunkt für alle Kinder.
+Hinweis: Deutsche Wörter verstehen hier alle.
+
+-- 1 | auswahl | Fremdwörter finden
+anweisung: Tippe alle Fremdwörter an.
+[*Computer | Tisch | *Restaurant | Haus | *Interview | Garten]
+
+-- 2 | lueckentext | Deutsche Wörter
+anweisung: Ersetze das Fremdwort durch ein deutsches Wort.
+das Ticket: die [Fahrkarte/Eintrittskarte/Karte]. der Song: das [Lied]. das Team: die [Mannschaft/Gruppe]. relaxen: sich [entspannen/ausruhen].
+
+-- 3 | lueckentext | Bausteine verstehen
+anweisung: Was bedeutet der Baustein? Die Wörter helfen dir.
+Telefon, Teleskop, Fernsehen (Television): tele heißt [fern]. Biologie, Biografie: bio heißt [Leben]. Automat, Autobiografie: auto heißt [selbst].
+
+== Synonyme, Gegenteile, Oberbegriffe | GYM-WB-8-01
+Synonyme haben (fast) die gleiche Bedeutung: anfangen, beginnen.
+Antonyme sind Gegenteile: hell, dunkel.
+Ein Oberbegriff fasst mehrere Wörter zusammen: Obst ist der Oberbegriff für Apfel, Birne, Kirsche. Die einzelnen Wörter sind Unterbegriffe.
+merke: Mit Synonymen vermeidest du Wiederholungen, mit Oberbegriffen fasst du zusammen.
+beispiel: Synonym: schnell, [rasch]
+beispiel: Oberbegriff: [Möbel] für Tisch, Stuhl, Schrank
+
+-- 1 | auswahl dropdown | Das Gegenteil
+laut: [*leise | hell | schnell], mutig: [stark | *ängstlich | fröhlich], gewinnen: [spielen | *verlieren | finden]
+
+-- 2 | lueckentext | Der Oberbegriff
+anweisung: Finde den Oberbegriff.
+Rose, Tulpe, Nelke: [Blumen/Blume]. Hammer, Säge, Zange: [Werkzeug/Werkzeuge]. Bus, Zug, Straßenbahn: [Verkehrsmittel/Fahrzeuge].
+
+-- 3 | auswahl | Synonyme
+anweisung: Tippe alle Synonyme für „anfangen“ an.
+[*beginnen | aufhören | *starten | enden | *loslegen | stoppen]
+
+== Redewendungen und Sprichwörter | RS-WB-6-10-01
+Redewendungen sind feste Ausdrücke mit einer übertragenen Bedeutung. Wer „Tomaten auf den Augen hat“, hat natürlich keine Tomaten im Gesicht, sondern übersieht etwas.
+
+Sprichwörter sind kurze Sätze mit einer Lebensweisheit: Übung macht den Meister.
+merke: Redewendungen darf man nicht wörtlich nehmen.
+beispiel: [Daumen drücken]: jemandem Glück wünschen
+beispiel: [Morgenstund hat Gold im Mund]: Wer früh anfängt, schafft viel.
+
+-- 1 | auswahl dropdown | Was ist gemeint?
+Ich drücke dir die Daumen. [*Ich wünsche dir Glück. | Ich tue dir weh.] Er hat zwei linke Hände. [*Er ist ungeschickt. | Er ist Linkshänder.]
+
+-- 2 | auswahl dropdown | Sprichwörter ergänzen
+Übung macht den [*Meister | Lehrer | Sieger]. Wer zuletzt lacht, lacht am [lautesten | *besten | längsten]. Aller Anfang ist [leicht | *schwer | schön].
+
+-- 3 | zuordnen | Redewendung und Bedeutung
+anweisung: Ordne jeder Redewendung ihre Bedeutung zu.
+[auf dem Holzweg sein = sich irren] [jemandem einen Bären aufbinden = jemanden anlügen] [ins Fettnäpfchen treten = etwas Peinliches sagen]
+kategorien: sich irren, jemanden anlügen, etwas Peinliches sagen

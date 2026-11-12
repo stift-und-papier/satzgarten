@@ -1,0 +1,122 @@
+bereich: Satzglieder und Sätze
+stufe: 8
+
+== Attribute | RS-SA-8-02 GYM-SA-8-01
+Attribute sind Beifügungen. Sie beschreiben ein Nomen genauer und gehören zum Satzglied dazu. Bei der Umstellprobe bleiben sie beim Nomen.
+
+Adjektivattribut: der [rote] Ball
+Genitivattribut: das Auto [meines Vaters]
+Präpositionalattribut: das Haus [am See]
+Relativsatz: der Hund, [der bellt]
+
+Du fragst: Was für ein …? oder Welcher …?
+merke: Ein Attribut ist kein eigenes Satzglied. Es gehört zu einem Nomen.
+beispiel: Der [kleine] Hund [mit dem roten Halsband] schläft.
+beispiel: Das Fahrrad [meiner Schwester] ist kaputt.
+
+-- 1 | auswahl | Attribute finden
+anweisung: Tippe die Attribute an, die das Nomen genauer beschreiben.
+Der alte Mann liest: [*alte | Mann | liest]
+Ich trinke heißen Kakao: [trinke | *heißen | Kakao]
+Das Haus am See ist groß: [Haus | *am See | ist | groß]
+
+-- 2 | zuordnen | Welches Attribut?
+Das [neue = Adjektivattribut] Handy [meines Bruders = Genitivattribut] liegt auf dem Tisch. Die Jacke [mit der Kapuze = Präpositionalattribut] gehört mir.
+kategorien: Adjektivattribut, Genitivattribut, Präpositionalattribut
+
+-- 3 | ueberarbeiten | Mit Attributen genauer beschreiben
+Kontext: Eine Personenbeschreibung für eine Suchmeldung.
+Gesucht wird ein Junge. Er trägt eine Jacke und eine Mütze.
+Hinweis: Die Beschreibung ist zu ungenau, um jemanden zu erkennen.
+*Gesucht wird ein etwa zehnjähriger Junge mit blonden Haaren. Er trägt eine grüne Jacke und eine rote Mütze.
+Hinweis: Attribute (zehnjährig, mit blonden Haaren, grün, rot) machen die Beschreibung genau.
+
+-- 1 | lueckentext | Genitivattribut
+anweisung: Setze das Nomen in Klammern als Genitivattribut ein.
+Das Fahrrad [meines Bruders : mein Bruder] ist rot. Die Farbe [des Autos : das Auto] gefällt mir. Der Hut [der Lehrerin : die Lehrerin] ist lustig.
+
+-- 2 | auswahl | Satzglied oder Attribut?
+anweisung: Tippe nur die Attribute an (sie beschreiben ein Nomen).
+Im Garten meiner Oma blühen Rosen: [Im Garten | *meiner Oma | blühen]
+Wir warten am Bahnhof auf den Zug nach Berlin: [am Bahnhof | auf den Zug | *nach Berlin]
+
+-- 3 | zuordnen | Attribute bestimmen
+Der [freundliche = Adjektivattribut] Hund [unserer Nachbarn = Genitivattribut], [der immer bellt = Relativsatz], schläft im Korb [neben der Tür = Präpositionalattribut].
+kategorien: Adjektivattribut, Genitivattribut, Präpositionalattribut, Relativsatz
+
+== Satzreihe und Satzgefüge | RS-SA-8-03 HS-SA-8-02 GYM-SA-6-05
+Eine Satzreihe besteht aus zwei oder mehr Hauptsätzen: Es regnet, wir bleiben drinnen. Sie werden oft mit und, oder, aber, denn verbunden.
+
+Ein Satzgefüge besteht aus Hauptsatz und Nebensatz: Wir bleiben drinnen, weil es regnet. Im Nebensatz steht das gebeugte Verb am Ende.
+merke: Hauptsatz + Hauptsatz = Satzreihe. Hauptsatz + Nebensatz = Satzgefüge.
+beispiel: Satzreihe: Ich lerne, [denn] morgen schreiben wir eine Arbeit.
+beispiel: Satzgefüge: Ich lerne, [weil] wir morgen eine Arbeit [schreiben].
+
+-- 1 | zuordnen | Satzreihe oder Satzgefüge?
+[Ich gehe schwimmen, aber Tim bleibt zu Hause. = Satzreihe] [Ich gehe schwimmen, weil es heiß ist. = Satzgefüge] [Es klingelt, und alle rennen raus. = Satzreihe] [Wenn es klingelt, rennen alle raus. = Satzgefüge]
+kategorien: Satzreihe, Satzgefüge
+
+-- 2 | reihenfolge | Nebensatz mit Verb am Ende
+anweisung: Bilde den Nebensatz. Achte auf die Stellung des Verbs.
+wir bleiben drinnen, | weil | es | heute | stark | regnet.
+
+ich weiß nicht, | ob | ich | morgen | kommen | kann.
+
+-- 3 | auswahl dropdown | denn oder weil?
+anweisung: Achte auf die Stellung des Verbs und wähle die passende Konjunktion.
+Ich trage eine Jacke, [*denn | weil] es ist kalt. Ich trage eine Jacke, [denn | *weil] es kalt ist. Wir gehen nicht raus, [*weil | denn] es heute stark regnet. Wir gehen nicht raus, [weil | *denn] es regnet heute stark.
+
+-- 1 | auswahl | Hauptsatz oder Nebensatz?
+anweisung: Tippe alle Nebensätze an.
+[Ich lese gern. | *weil ich müde bin | *dass du kommst | Wir spielen Fußball. | *als es dunkel wurde]
+
+-- 2 | ueberarbeiten | Kurze Sätze verbinden
+Kontext: Aus einem Bericht.
+Es war sehr heiß. Wir hatten Durst. Wir kauften Wasser.
+Hinweis: Drei kurze Hauptsätze wirken abgehackt.
+*Weil es sehr heiß war und wir Durst hatten, kauften wir Wasser.
+Hinweis: Das Satzgefüge zeigt den Zusammenhang (Grund und Folge) und liest sich flüssig.
+
+== Nebensatzarten | RS-SA-8-01 GYM-SA-8-02
+Nebensätze können wie Satzglieder Fragen beantworten:
+Kausalsatz (Grund, warum?): weil, da
+Temporalsatz (Zeit, wann?): als, wenn, nachdem, bevor, während
+Konditionalsatz (Bedingung, unter welcher Bedingung?): wenn, falls
+Finalsatz (Zweck, wozu?): damit
+Konzessivsatz (Gegengrund): obwohl
+Relativsatz: beschreibt ein Nomen genauer (der, die, das, welcher)
+merke: Die Konjunktion am Anfang verrät oft die Art des Nebensatzes.
+beispiel: [Obwohl] es regnet, gehen wir spazieren. (Konzessivsatz)
+beispiel: Ich übe, [damit] ich besser werde. (Finalsatz)
+
+-- 1 | auswahl dropdown | Welche Konjunktion passt?
+Ich gehe ins Bett, [*weil | obwohl | damit] ich müde bin. Ich gehe raus, [weil | *obwohl | damit] es regnet. Ich lerne Vokabeln, [weil | obwohl | *damit] ich die Arbeit schaffe.
+
+-- 1 | zuordnen | Kausal oder temporal?
+[Weil es regnet = Kausalsatz], bleiben wir drinnen. [Als ich klein war = Temporalsatz], hatte ich einen Hasen. Ich lache, [weil der Witz gut ist = Kausalsatz].
+kategorien: Kausalsatz, Temporalsatz
+
+-- 2 | zuordnen | Nebensätze bestimmen
+anweisung: Bestimme die Art der Nebensätze.
+Wir fahren los, [sobald alle da sind = Temporalsatz]. [Falls es regnet = Konditionalsatz], nehmen wir Schirme mit. Ich bleibe hier, [weil ich krank bin = Kausalsatz].
+kategorien: Temporalsatz, Konditionalsatz, Kausalsatz, Finalsatz, Konzessivsatz
+
+-- 2 | lueckentext | Sätze verbinden
+anweisung: Verbinde die Sätze mit der Konjunktion in Klammern. Achte auf das Verb.
+Es ist kalt. Wir gehen trotzdem schwimmen. (obwohl) → [Obwohl es kalt ist], gehen wir schwimmen.
+Ich spare Geld. Ich will ein Fahrrad kaufen. (weil) → Ich spare Geld, [weil ich ein Fahrrad kaufen will].
+
+-- 3 | zuordnen | Alle Nebensatzarten
+[Nachdem wir gegessen hatten = Temporalsatz], gingen wir spazieren. Ich nehme den Bus, [damit ich pünktlich bin = Finalsatz]. [Obwohl Tim müde war = Konzessivsatz], spielte er weiter. Das ist das Buch, [das mir Oma geschenkt hat = Relativsatz].
+kategorien: Temporalsatz, Kausalsatz, Konditionalsatz, Finalsatz, Konzessivsatz, Relativsatz
+
+-- 3 | lueckentext | Nebensätze bilden
+anweisung: Ergänze einen passenden Nebensatz mit der Konjunktion in Klammern. Achte auf das Verb am Ende.
+Ich ziehe eine Jacke an, [weil es kalt ist/da es kalt ist : weil, es ist kalt]. Wir warten, [bis der Bus kommt : bis, der Bus kommt].
+
+-- 3 | ueberarbeiten | Satzgefüge im Bericht
+Kontext: Aus einem Unfallbericht.
+Der Radfahrer fuhr bei Rot. Ein Auto musste bremsen. Der Radfahrer stürzte nicht.
+Hinweis: Die Zusammenhänge (Zeit, Gegengrund) fehlen.
+*Als der Radfahrer bei Rot fuhr, musste ein Auto bremsen. Obwohl es knapp war, stürzte er nicht.
+Hinweis: Temporal- und Konzessivsatz zeigen, wie die Ereignisse zusammenhängen.

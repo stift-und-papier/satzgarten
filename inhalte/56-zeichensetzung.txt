@@ -1,0 +1,90 @@
+bereich: Zeichensetzung
+stufe: 6
+
+== Satzschlusszeichen | RS-ZS-6-01 GYM-ZS-6-01
+Am Ende eines Satzes steht ein Satzschlusszeichen:
+Punkt nach einer Aussage: Ich lese ein Buch.
+Fragezeichen nach einer Frage: Liest du ein Buch?
+Ausrufezeichen nach einer Aufforderung oder einem Ausruf: Lies das Buch! Toll!
+merke: Nach dem Satzschlusszeichen schreibst du groß weiter.
+beispiel: Wo wohnst du[?] Ich wohne in Hannover[.]
+beispiel: Pass auf[!]
+
+-- 1 | auswahl dropdown | Punkt, Frage- oder Ausrufezeichen?
+Hast du deine Hausaufgaben gemacht [. | *? | !] Ja, ich bin fertig [*. | ? | !] Super, dann lass uns spielen [. | ? | *!]
+
+-- 2 | fehler korrigieren | Satzgrenzen
+anweisung: Hier fehlen Satzzeichen und Großbuchstaben. Verbessere die markierten Wörter.
+Gestern war ich im [Zoo -> Zoo.] [dort -> Dort] sah ich einen [Elefanten -> Elefanten.] [er -> Er] war riesig.
+
+-- 3 | fehler korrigieren | Ein Text ohne Punkte
+anweisung: In diesem Text fehlen Satzzeichen und Großbuchstaben. Verbessere die markierten Wörter.
+Heute ist [Sportfest -> Sportfest.] [alle -> Alle] Klassen treffen sich auf dem [Platz -> Platz.] [wer -> Wer] wird wohl [gewinnen -> gewinnen?] [lauft -> Lauft] schnell!
+
+== Komma bei Aufzählungen | RS-ZS-6-02 GYM-ZS-6-01
+Bei einer Aufzählung trennst du die einzelnen Teile mit einem Komma. Vor „und“ und „oder“ steht kein Komma.
+merke: Komma bei Aufzählungen, aber kein Komma vor „und“ oder „oder“.
+beispiel: Ich kaufe Äpfel[,] Birnen[,] Bananen und Kirschen.
+beispiel: Willst du Saft[,] Milch oder Wasser?
+
+-- 1 | auswahl dropdown | Komma oder nicht?
+anweisung: Wähle: Komma oder kein Komma.
+Im Garten wachsen Rosen[*, | kein Komma] Tulpen[*, | kein Komma] Nelken[, | *kein Komma] und Lilien. Wir spielen Fußball[, | *kein Komma] oder Basketball.
+
+-- 1 | auswahl | Richtig aufgezählt?
+anweisung: Tippe die Sätze an, in denen die Kommas richtig stehen.
+[*Ich mag Äpfel, Birnen und Kirschen. | Ich mag Äpfel, Birnen, und Kirschen. | *Wir singen, tanzen und lachen. | Wir singen tanzen, und lachen.]
+
+-- 2 | fehler korrigieren | Kommas in der Aufzählung
+anweisung: Bei den markierten Wörtern fehlt ein Komma oder es ist eines zu viel.
+In meiner Schultasche sind [Hefte -> Hefte,] [Bücher -> Bücher,] Stifte und mein Pausenbrot. Ich mag [Hunde, -> Hunde] und Katzen.
+
+-- 3 | lueckentext | Eine eigene Aufzählung
+anweisung: Schreibe die Aufzählung mit den richtigen Kommas ab: Hund Katze Maus und Pferd
+Auf dem Bauernhof leben [Hund, Katze, Maus und Pferd].
+
+== Komma vor Nebensätzen, das oder dass | RS-ZS-6-02 RS-ZS-6-03 GYM-ZS-6-03
+Zwischen Hauptsatz und Nebensatz steht ein Komma. Nebensätze beginnen oft mit weil, dass, wenn, als, ob.
+
+„das“ ist ein Artikel oder Pronomen. Du kannst es durch „dieses“ oder „welches“ ersetzen. „dass“ ist eine Konjunktion und leitet einen Nebensatz ein.
+merke: Geht „dieses“ oder „welches“, schreibst du „das“. Sonst „dass“.
+beispiel: Ich hoffe[,] [dass] du kommst.
+beispiel: Das Buch[,] [das] ich lese, ist spannend.
+
+-- 1 | auswahl | das oder dass?
+Ich weiß, [das | *dass] du gern malst. [*Das | Dass] Bild ist schön. Das Pferd, [*das | dass] dort steht, heißt Max. Er sagt, [das | *dass] er müde ist.
+
+-- 2 | auswahl dropdown | Komma vor dem Nebensatz
+anweisung: Wähle: Komma oder kein Komma.
+Ich bleibe zu Hause[*, | kein Komma] weil es regnet. Wir gehen baden[*, | kein Komma] wenn die Sonne scheint. Tim und Lea[, | *kein Komma] gehen zusammen nach Hause.
+
+-- 3 | lueckentext | das oder dass im Text
+anweisung: Setze „das“ oder „dass“ ein.
+Ich finde es toll, [dass] du mitkommst. [Das] Spiel, [das] wir spielen, ist neu. Hast du gehört, [dass] morgen keine Schule ist?
+
+-- 3 | fehler korrigieren | Kommas und dass
+Ich [glaube -> glaube,] [das -> dass] wir gewinnen. Mama [sagt -> sagt,] dass es Pizza gibt. Weil es kalt [ist -> ist,] ziehe ich eine Jacke an.
+
+== Wörtliche Rede | RS-ZS-6-04 GYM-ZS-6-02
+Die wörtliche Rede steht in Anführungszeichen. Der Begleitsatz sagt, wer spricht.
+
+Begleitsatz vorn: Mia sagt: „Ich komme mit.“ (Doppelpunkt)
+Begleitsatz hinten: „Ich komme mit“, sagt Mia. (Komma nach dem Anführungszeichen)
+merke: Begleitsatz vorn: Doppelpunkt. Begleitsatz hinten: Komma nach der Rede.
+beispiel: Tom ruft[:] [„]Warte auf mich![“]
+beispiel: [„]Ich habe Hunger[“], sagt Lea.
+
+-- 1 | auswahl dropdown | Doppelpunkt oder Komma?
+Oma fragt[*: | ,] „Wollt ihr Kuchen?“ „Ja, gern“[: | *,] rufen die Kinder. Papa sagt[*: | ,] „Wir fahren gleich los.“
+
+-- 2 | fehler korrigieren | Satzzeichen bei der wörtlichen Rede
+anweisung: Bei den markierten Wörtern fehlt ein Satzzeichen. Verbessere sie.
+Lea [sagt -> sagt:] „Ich komme gleich.“ „Wo ist mein [Ball?“ -> Ball?“,] fragt Tim. Mama [ruft -> ruft:] „Das Essen ist fertig!“
+
+-- 2 | auswahl | Richtig oder falsch?
+anweisung: Tippe die Sätze an, in denen die wörtliche Rede richtig steht.
+[*Ben fragt: „Kommst du mit?“ | Ben fragt „Kommst du mit?“ | *„Ich bin müde“, sagt Oma. | „Ich bin müde.“ sagt Oma.]
+
+-- 3 | auswahl dropdown | Satzzeichen einsetzen
+anweisung: Wähle das passende Satzzeichen oder „nichts“.
+Der Trainer ruft[*: | , | nichts] „Alle zu mir!“ „Wir kommen schon“[: | *, | nichts] antworten die Spieler. „Wann ist Pause?“[: | *, | nichts] fragt Lisa. Lisa [: | , | *nichts] fragt den Trainer nach der Pause.

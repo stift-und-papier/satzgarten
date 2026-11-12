@@ -1,0 +1,140 @@
+bereich: Sprachgebrauch
+stufe: 10
+
+== Modalität: sicher, möglich, nötig | GYM-SG-10-01
+Mit sprachlichen Mitteln zeigst du, wie sicher oder wichtig etwas ist (Modalität):
+Modalverben: können, müssen, sollen, dürfen, wollen, mögen
+Modalwörter: vielleicht, wahrscheinlich, sicherlich, bestimmt, leider
+Konjunktiv: Das wäre möglich. Er sei krank.
+
+In Erörterungen und Kommentaren ist das wichtig: „Das ist so“ klingt sicher, „Das könnte so sein“ vorsichtig.
+merke: Modalverben und Modalwörter zeigen deine Haltung zur Aussage: sicher, vermutet, gewünscht oder gefordert.
+beispiel: Es wird [wahrscheinlich] regnen. (Vermutung)
+beispiel: Die Schule [muss] mehr tun. (Forderung)
+
+-- 1 | zuordnen | Was drückt der Satz aus?
+[Es regnet bestimmt. = Sicherheit] [Es regnet vielleicht. = Vermutung] [Ihr müsst den Müll trennen. = Forderung] [Ich würde gern verreisen. = Wunsch]
+kategorien: Sicherheit, Vermutung, Forderung, Wunsch
+
+-- 1 | auswahl | Modalwörter finden
+anweisung: Tippe alle Modalwörter an.
+[*vielleicht | Haus | *wahrscheinlich | laufen | *sicherlich | grün | *leider]
+
+-- 1 | auswahl dropdown | Wie sicher?
+Ich bin mir nicht sicher. Ich komme [*vielleicht | bestimmt] mit. Das weiß ich genau: Morgen ist [vielleicht | *bestimmt] schulfrei, weil Feiertag ist.
+
+-- 2 | lueckentext | Modalverben einsetzen
+anweisung: Setze ein passendes Modalverb ein (Hinweis in Klammern).
+In der Bibliothek [darf : Erlaubnis/Verbot] man nicht laut sprechen. Vor der Prüfung [muss : Notwendigkeit] ich viel lernen. Wir [sollen : Auftrag von jemandem] das Referat bis Freitag abgeben.
+
+-- 2 | ueberarbeiten | Vorsichtig formulieren
+Kontext: Aus einer Erörterung.
+Handys machen alle Jugendlichen dumm.
+Hinweis: Die Aussage ist zu absolut und lässt sich nicht beweisen.
+*Zu viel Zeit am Handy kann die Konzentration von Jugendlichen beeinträchtigen.
+Hinweis: „kann“ und die genauere Aussage machen das Argument glaubwürdiger.
+
+-- 3 | ueberarbeiten | Eine Forderung formulieren
+Kontext: Aus einem Leserbrief an die Stadt.
+Vielleicht wäre es eventuell ganz gut, wenn man eventuell mehr Radwege bauen würde.
+Hinweis: Zu viele abschwächende Wörter. Die Forderung verliert an Kraft.
+*Die Stadt muss mehr sichere Radwege bauen, denn immer mehr Schüler fahren mit dem Rad.
+Hinweis: Das Modalverb „muss“ und eine Begründung machen die Forderung klar.
+
+-- 3 | zuordnen | Modalität im Kommentar
+[Sicherlich = Modalwort] [sollte = Modalverb] die Schule länger öffnen. Das [wäre = Konjunktiv II] für viele Familien hilfreich. [Leider = Modalwort] [kann = Modalverb] das nicht jede Schule leisten.
+kategorien: Modalverb, Modalwort, Konjunktiv II
+
+== Sprache in Bewerbung und Vorstellungsgespräch | RS-SG-6-10-01
+In Bewerbungen und Vorstellungsgesprächen zählt der erste Eindruck. Dazu gehören Standardsprache, ein höflicher Ton und eine klare Ausdrucksweise.
+
+Vermeide Umgangssprache, Floskeln („Hiermit bewerbe ich mich, weil ich Arbeit brauche“) und Übertreibungen. Begründe lieber mit Beispielen, warum du zum Beruf passt.
+merke: Konkret statt allgemein: Statt „Ich bin teamfähig“ besser ein Beispiel, wo du im Team gearbeitet hast.
+beispiel: [Sehr geehrte Frau Schmidt,]
+beispiel: [Im Praktikum habe ich gelernt, Kunden freundlich zu beraten.]
+
+-- 1 | auswahl | Passt in eine Bewerbung
+anweisung: Tippe die Sätze an, die gut in eine Bewerbung passen.
+[*Ich interessiere mich sehr für den Beruf der Mechatronikerin. | Ich brauche halt irgendeinen Job. | *Im Praktikum habe ich selbstständig Reparaturen erledigt. | Ich bin voll motiviert und so.]
+
+-- 1 | auswahl dropdown | Im Vorstellungsgespräch
+Zur Begrüßung sagst du: [Hi! | *Guten Tag, Frau Kraus.] Auf die Frage nach deinen Stärken sagst du: [*Ich bin zuverlässig und arbeite gern im Team. | Weiß nicht, alles Mögliche.]
+
+-- 2 | zuordnen | Floskel oder konkret?
+[Ich bin teamfähig. = Floskel] [In der Schülerfirma habe ich die Kasse geführt. = konkret] [Ich bin sehr motiviert. = Floskel] [Seit zwei Jahren trainiere ich eine Kindergruppe im Verein. = konkret]
+kategorien: Floskel, konkret
+
+-- 2 | fehler korrigieren | Bewerbung verbessern
+anweisung: Ersetze die markierten umgangssprachlichen Wörter durch Standardsprache.
+In meinem Praktikum habe ich [voll -> sehr] viel gelernt. Die Arbeit mit Menschen finde ich [mega -> sehr] spannend. Deshalb [will -> möchte] ich gern bei Ihnen eine Ausbildung machen.
+
+-- 2 | ueberarbeiten | Schluss der Bewerbung
+Kontext: Der letzte Satz eines Bewerbungsschreibens.
+Melden Sie sich mal, wenn Sie wollen.
+Hinweis: Der Satz wirkt gleichgültig und unhöflich.
+*Über eine Einladung zu einem Vorstellungsgespräch freue ich mich sehr.
+Hinweis: So endet eine Bewerbung höflich und zeigt Interesse.
+
+-- 3 | ueberarbeiten | Stärken belegen
+Kontext: Aus einem Bewerbungsschreiben.
+Ich bin kreativ, zuverlässig, teamfähig und belastbar.
+Hinweis: Eine Aufzählung von Eigenschaften ohne Beleg überzeugt wenig.
+*In der Theater-AG habe ich Bühnenbilder entworfen und mit anderen pünktlich zur Aufführung fertiggestellt.
+Hinweis: Ein konkretes Beispiel zeigt Kreativität, Teamarbeit und Zuverlässigkeit.
+
+-- 3 | lueckentext | Formelle Formulierungen
+anweisung: Ergänze die Bewerbung mit passenden formellen Wörtern.
+Sehr [geehrter] Herr Neumann, mit großem Interesse habe ich Ihre [Stellenanzeige/Anzeige] gelesen. Über eine Einladung zu einem [Vorstellungsgespräch] würde ich mich freuen. Mit freundlichen [Grüßen]
+
+== Sachlich oder wertend? | GYM-SG-10-01 RS-SG-6-10-01
+In Zeitungen und sozialen Medien begegnen dir sachliche und wertende Texte. Sachliche Sprache informiert neutral: „Der Bus kam zehn Minuten zu spät.“ Wertende Sprache zeigt eine Meinung: „Der Bus kam mal wieder viel zu spät.“
+
+Wertungen erkennst du an Adjektiven (skandalös, toll), an Wörtern wie „mal wieder“, „endlich“, „leider“ und an Übertreibungen.
+merke: Prüfe bei Texten: Wird informiert oder bewertet? So erkennst du Meinungen, die als Tatsachen auftreten.
+beispiel: sachlich: [Die Preise stiegen um fünf Prozent.]
+beispiel: wertend: [Die Preise explodierten mal wieder.]
+
+-- 1 | zuordnen | Sachlich oder wertend?
+[Der Zug hatte 20 Minuten Verspätung. = sachlich] [Die Bahn ist ein einziges Chaos! = wertend] [Die Gemeinde baut eine neue Schule. = sachlich] [Endlich tut die Gemeinde mal was! = wertend]
+kategorien: sachlich, wertend
+
+-- 1 | auswahl | Wertende Wörter
+anweisung: Tippe alle wertenden Wörter an.
+[*skandalös | Rathaus | *genial | Dienstag | *endlich | Schule | *peinlich]
+
+-- 2 | ueberarbeiten | Sachlich berichten
+Kontext: Aus einem Bericht in der Schülerzeitung.
+Das total geniale Schulfest war wie immer der absolute Hammer.
+Hinweis: In einem Bericht sind Wertungen und Übertreibungen fehl am Platz.
+*Am Samstag fand das Schulfest mit etwa 400 Gästen statt.
+Hinweis: Der sachliche Satz nennt Fakten (wann, was, wie viele).
+
+-- 3 | fehler korrigieren | Wertungen entfernen
+anweisung: Ersetze die markierten wertenden Wörter durch sachliche.
+Der Stadtrat hat die [lächerliche -> geplante] Erhöhung der Busfahrpreise [endlich -> nun] beschlossen. Die Preise steigen [dramatisch -> um zehn Prozent].
+
+-- 1 | auswahl dropdown | Tatsache oder Meinung?
+„Die Schule hat 600 Schüler.“ ist eine [*Tatsache | Meinung]. „Die Schule ist die beste der Stadt.“ ist eine [Tatsache | *Meinung].
+
+-- 2 | auswahl | Meinung als Tatsache
+anweisung: Tippe die Sätze an, die eine Meinung enthalten, auch wenn sie wie eine Tatsache klingen.
+[*Jeder weiß, dass Hausaufgaben sinnlos sind. | Die Hausaufgaben dauern meist 30 Minuten. | *Natürlich ist Fußball der schönste Sport. | Das Spiel endete 1:0.]
+
+-- 2 | lueckentext | Sachlich formulieren
+anweisung: Ersetze das wertende Wort in Klammern durch ein sachliches.
+Der Bus kam [später/verspätet : viel zu spät]. Das Konzert hatte [viele : unfassbar viele] Zuschauer. Die Mannschaft [verlor : ging gnadenlos unter] das Spiel.
+
+-- 3 | ueberarbeiten | Kommentar oder Bericht?
+Kontext: Ein Zeitungsbericht soll informieren.
+Die Stadt hat wieder einmal völlig unnötig Bäume gefällt.
+Hinweis: „wieder einmal“ und „völlig unnötig“ sind Wertungen. Sie gehören in einen Kommentar, nicht in einen Bericht.
+*Die Stadt hat am Montag zwölf Bäume im Park gefällt.
+Hinweis: Der Bericht nennt Fakten und überlässt die Bewertung den Lesern.
+
+-- 3 | zuordnen | Sprachliche Mittel der Wertung
+[skandalös = wertendes Adjektiv] [mal wieder = Signalwort] [Millionen Menschen warten stundenlang = Übertreibung] [endlich = Signalwort] [katastrophal = wertendes Adjektiv]
+kategorien: wertendes Adjektiv, Signalwort, Übertreibung
+
+-- 3 | auswahl | Glaubwürdige Quellen
+anweisung: Tippe die Aussagen an, die sachlich und überprüfbar sind.
+[*Laut Statistischem Bundesamt stieg die Zahl um 3 Prozent. | Alle sagen, das ist so. | *Die Studie befragte 2000 Jugendliche. | Das weiß doch jeder!]

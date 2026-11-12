@@ -1,0 +1,134 @@
+bereich: Wortarten
+stufe: 10
+
+== Wortarten im Text bestimmen | RS-WA-10-01 GYM-WA-10-01
+In der 9. und 10. Klasse bestimmst du Wortarten nicht nur, sondern fragst auch: Was leisten sie im Text?
+
+Verben tragen die Handlung, Adjektive machen anschaulich, Nomen benennen, Pronomen verknüpfen Sätze, Konjunktionen und Adverbien zeigen Zusammenhänge (deshalb, obwohl).
+
+Viele Wörter können die Wortart wechseln: das Laufen (Nomen), laufend (Partizip als Adjektiv).
+merke: Bestimme die Wortart immer im Satz. Dasselbe Wort kann je nach Gebrauch eine andere Wortart sein.
+beispiel: Wir [laufen] los. (Verb) [Das Laufen] tut gut. (Nomen)
+beispiel: Er kam [spät]. (Adjektiv, adverbial gebraucht)
+
+-- 1 | zuordnen | Wortarten bestimmen
+[Morgen = Adverb] [fährt = Verb] [unsere = Pronomen] [Klasse = Nomen] [mit = Präposition] [dem = Artikel] [neuen = Adjektiv] [Bus = Nomen] [nach = Präposition] [Berlin = Nomen].
+kategorien: Nomen, Verb, Adjektiv, Artikel, Pronomen, Adverb, Präposition
+
+-- 1 | auswahl | Konjunktionen finden
+anweisung: Tippe alle Konjunktionen an.
+[*obwohl | deshalb | *weil | trotzdem | *und | dort | *dass]
+
+-- 1 | auswahl dropdown | Wortart im Satz
+„Das Schwimmen macht Spaß.“ Schwimmen ist hier [Verb | *Nomen | Adjektiv]. „Wir schwimmen heute.“ schwimmen ist hier [*Verb | Nomen | Adjektiv]. „Der schwimmende Hund.“ schwimmende ist hier [Verb | Nomen | *Adjektiv].
+
+-- 2 | zuordnen | Adverb oder Konjunktion?
+Es regnete, [trotzdem = Adverb] gingen wir los, [weil = Konjunktion] wir verabredet waren. [Deshalb = Adverb] waren wir nass, [aber = Konjunktion] glücklich.
+kategorien: Adverb, Konjunktion
+
+-- 2 | zuordnen | Wortarten im Sachtext
+[Viele = Numerale] [Jugendliche = Nomen] [nutzen = Verb] [täglich = Adjektiv] [soziale = Adjektiv] [Netzwerke = Nomen], [obwohl = Konjunktion] [sie = Pronomen] [die = Artikel] [Risiken = Nomen] [kennen = Verb].
+kategorien: Nomen, Verb, Adjektiv, Artikel, Pronomen, Numerale, Konjunktion
+
+-- 3 | ueberarbeiten | Wirkung von Adjektiven
+Kontext: Der Anfang einer Kurzgeschichte.
+Es war ein Abend. Der Wind wehte. Sie ging nach Hause.
+Hinweis: Der Text ist richtig, aber die Leser können sich die Stimmung nicht vorstellen.
+*Es war ein kalter, grauer Abend. Der eisige Wind pfiff. Müde ging sie nach Hause.
+Hinweis: Die Adjektive (kalt, grau, eisig, müde) erzeugen eine bedrückte Stimmung.
+
+-- 3 | auswahl | Funktion im Text
+anweisung: Welche Wörter verknüpfen hier die Sätze miteinander? Tippe sie an.
+Der Fluss trat über die Ufer. Deshalb mussten viele Menschen ihre Häuser verlassen. Sie fanden in der Turnhalle Schutz. Dort gab es Decken und Essen.
+[*Deshalb | Fluss | Häuser | *Sie | Turnhalle | *Dort | Essen]
+
+-- 1 | auswahl | Pronomen finden
+anweisung: Tippe alle Pronomen an.
+[*niemand | Nachbar | *dieser | dort | *ihr | immer | *welche]
+
+-- 2 | lueckentext | Wortart wechseln
+anweisung: Setze das Wort in Klammern in der verlangten Wortart ein.
+Das [Rauchen : rauchen, als Nomen] ist hier verboten. Wir hörten ein [lautes : Lärm/laut, als Adjektiv] Geräusch. Sie antwortete [freundlich : Freund, als Adjektiv].
+
+-- 3 | fehler korrigieren | Wortarten richtig schreiben
+anweisung: Hier wurden Wortarten verwechselt, deshalb stimmt die Groß- und Kleinschreibung nicht. Verbessere.
+Beim [lesen -> Lesen] vergesse ich die Zeit. Ich finde das [Spannend -> spannend]. Wir wünschen euch alles [gute -> Gute]. Wir haben [Heute -> heute] frei.
+
+== Modalverben, Konjunktiv und Passiv im Text | RS-WA-8-05 GYM-SG-10-01 GYM-WA-8-03
+Mit Modalverben (können, dürfen, müssen, sollen, wollen, mögen) drückst du aus, ob etwas möglich, erlaubt, nötig oder gewollt ist.
+
+Der Konjunktiv II zeigt Möglichkeiten und Wünsche (Ich würde helfen, wenn ich könnte). Der Konjunktiv I zeigt die indirekte Rede (Sie sagt, sie komme).
+
+Das Passiv rückt das Geschehen in den Vordergrund und ist in Sachtexten häufig (Der Antrag wird geprüft).
+merke: Achte auf die Wirkung: Ein Modalverb verändert die Aussage. „Du musst“ ist eine Pflicht, „du kannst“ eine Möglichkeit.
+beispiel: Schüler [dürfen] das Handy in der Pause benutzen. (Erlaubnis)
+beispiel: Die Straße [wird] gesperrt. (Passiv)
+
+-- 1 | auswahl dropdown | Welches Modalverb passt?
+Im Unterricht [*dürfen | wollen] wir kein Handy benutzen. Ich [*kann | darf] sehr gut schwimmen. Vor dem Test [*muss | mag] ich lernen.
+
+-- 1 | zuordnen | Was drückt das Modalverb aus?
+Du [darfst = Erlaubnis] heute länger bleiben. Wir [müssen = Notwendigkeit] den Bus erreichen. Ich [kann = Fähigkeit] Gitarre spielen.
+kategorien: Erlaubnis, Notwendigkeit, Fähigkeit
+
+-- 2 | zuordnen | Konjunktiv oder Indikativ?
+[Wenn ich mehr Zeit hätte = Konjunktiv II], würde ich lesen. [Sie sagte, sie sei krank = Konjunktiv I]. [Er ist krank = Indikativ].
+kategorien: Indikativ, Konjunktiv I, Konjunktiv II
+
+-- 2 | lueckentext | Passiv in der Zeitung
+anweisung: Setze die Verben im Passiv ein (Präteritum).
+Gestern [wurde : eröffnen] die neue Brücke [eröffnet : eröffnen]. Sie [wurde : bauen] in nur zwei Jahren [gebaut : bauen].
+
+-- 2 | auswahl | Sachlich oder persönlich?
+anweisung: Tippe die Sätze an, die typisch für einen sachlichen Bericht sind (Passiv).
+[*Der Verletzte wurde ins Krankenhaus gebracht. | Ich brachte den Verletzten ins Krankenhaus. | *Die Straße wurde gesperrt. | Wir sperrten die Straße.]
+
+-- 3 | ueberarbeiten | Modalverben in Regeln
+Kontext: Aus der Hausordnung der Schule.
+Man sollte vielleicht nicht im Flur rennen.
+Hinweis: „sollte vielleicht“ klingt unverbindlich. Eine Regel muss klar sein.
+*Im Flur darf nicht gerannt werden.
+Hinweis: „darf nicht“ macht deutlich, dass es eine Regel ist.
+
+-- 3 | lueckentext | Konjunktiv II bilden
+anweisung: Setze die Verben im Konjunktiv II ein.
+Wenn wir mehr Geld [hätten : haben], [könnten : können] wir die Klassenfahrt verlängern. Wenn es nicht so weit [wäre : sein], [führen : fahren] wir mit dem Rad.
+
+== Partizipien | RS-SA-10-03
+Partizipien sind Verbformen, die oft wie Adjektive benutzt werden.
+
+Partizip I: Verb + d (lachend, singend). Es drückt aus, dass etwas gerade geschieht: das lachende Kind.
+Partizip II: ge... t / ge... en (gekocht, geschrieben). Es drückt aus, dass etwas abgeschlossen ist: das gekochte Ei.
+merke: Partizip I = gerade geschehend (der bellende Hund). Partizip II = abgeschlossen (der gefundene Schlüssel).
+beispiel: das [schlafende] Baby
+beispiel: der [reparierte] Fernseher
+
+-- 1 | auswahl | Partizip I oder II?
+anweisung: Tippe alle Partizipien I an (sie enden auf -end oder -ende).
+[*lachend | gelacht | *singende | gesungen | *weinend | geweint]
+
+-- 1 | lueckentext | Partizip I bilden
+anweisung: Bilde das Partizip I.
+das [schlafende : schlafen] Baby, der [bellende : bellen] Hund, die [lachenden : lachen] Kinder
+
+-- 2 | lueckentext | Partizip II als Adjektiv
+anweisung: Bilde aus dem Verb ein Partizip II.
+das [gekochte : kochen] Ei, der [verlorene : verlieren] Schlüssel, die [geschriebenen : schreiben] Briefe
+
+-- 2 | auswahl dropdown | Welches Partizip passt?
+Das [*weinende | geweinte] Kind sucht seine Mutter. Das [backende | *gebackene] Brot duftet. Der [*fallende | gefallene] Stern ist hell. Die [reparierende | *reparierte] Uhr geht wieder.
+
+-- 3 | ueberarbeiten | Mit Partizipien verdichten
+Kontext: Aus einer Beschreibung.
+Das Kind, das lacht, rennt zu dem Hund, der wartet.
+Hinweis: Zwei Relativsätze machen den Satz schwerfällig.
+*Das lachende Kind rennt zu dem wartenden Hund.
+Hinweis: Partizipien als Adjektive verdichten den Satz.
+
+-- 3 | lueckentext | Partizipien im Text
+anweisung: Setze das passende Partizip (I oder II) ein.
+Die [gestohlenen : stehlen] Bilder wurden gefunden. Der [flüchtende : flüchten] Dieb wurde gefasst. Die [erleichterten : erleichtern] Besitzer bedankten sich.
+
+-- 3 | zuordnen | Partizipien bestimmen
+Der [blühende = Partizip I] Baum steht neben dem [gefällten = Partizip II] Stamm. Die [spielenden = Partizip I] Kinder finden den [verlorenen = Partizip II] Ball.
+kategorien: Partizip I, Partizip II

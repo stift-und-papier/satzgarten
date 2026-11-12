@@ -253,3 +253,9 @@
   Blase immer links von der Figur; fehlt dort Platz, läuft die Figur zuerst von selbst nach rechts. Figur startet immer bei (10, 6), dort passt die Blase. „Dein nächster Schritt:“ nur mit dem Namen der Aufgabe. Übungen und „Dein nächster Schritt“: Sterne oben rechts im Kasten mit dem Wort „Schwierigkeit“.
 - 2026-11-12 (Lehrkraft): **Belohnung für Lernfortschritt** gebaut (Migration `belohnungen`): „besser“ = Samen, abwechselnd Tulpe/Rose;
   „deutlich besser“ = Deko, abwechselnd Katzenblume rosa/blau; Sprung direkt auf „deutlich“ gibt beides. Fenster „Ein Geschenk für deine Farm!“.
+- 2026-11-12 (Lehrkraft): **Alte Aufgaben werden nicht übernommen.** Stattdessen Übungspakete je Doppeljahrgang (5/6, 7/8, 9/10), Bereich
+  (Zuschnitt je Bereich statt je Kernkompetenz) und Schwierigkeit (leicht ★, mittel ★★, schwer ★★★), je Zweig ein eigenes Paket (180 Pakete).
+  Aufgaben aus einem **gemeinsamen Pool** für alle Zweige, mit den passenden Kompetenzen jedes Zweigs verknüpft (Hauptschule über gleiche Kurznamen
+  der Realschule). Umfang 5/6: 5, 7/8: 6, 9/10: 8 Aufgaben je Paket (ohne Erklärseiten). Jedes Thema beginnt mit einer Erklärseite (Referenz
+  `Erklärungen referenz/`, gekürzt). „Texte und Medien“ vorerst ohne Pakete (keine Kompetenzen). Quelle `inhalte/*.txt`, Skript
+  `scripts/inhalte-sql.ts` (prüft mit den Parsern des Editors, feste ids, wiederholbar). Erklärseiten zeigen einzelne Zeilenumbrüche (`.erklaerung__absatz`).
