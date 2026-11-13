@@ -132,6 +132,12 @@
   vorher der bekannte Ausreißer Block 15.0, danach zweimal bestanden). `npm test` 138, lint, build ohne Fehler.
   **Nicht getestet:** gleichzeitige Starts direkt in der Datenbank (nur im Browser: Fehler weg); Figur „hüpft“ bei Freundschaft mit Blau/Katze
   (bei Grün nicht neu angesehen); iPad.
+  **Nachtrag 2 (Jazz):** Blaue Figur war in der Seitenansicht unvollständig. Ursache: In der Vorlage sind Teile der Seitenansichten um ein
+  halbes Pixel verrutscht; das Umrechnen prüft jetzt je Block auch das um 4 verschobene Raster, Hintergrund nur noch vom Rand her
+  (helle Stellen innen bleiben). Blaue Figur, Schleime und Rübchen haben jetzt nur Farben der **Sprout-Lands-Palette** (97 Farben,
+  `aufPalette` in `scripts/grafik-holen.mjs`, nächste Farbe nach „redmean“). Dadurch sind grüner und blauer Schleim und die blaue Figur
+  etwas gedämpfter (die Palette hat keine kräftigen Türkis- und Blautöne). Angesehen: alle 24 Bilder der blauen Figur, Schleime und
+  Rübchen vorher/nachher, blaue Figur im Spiel (1024 × 768). `npm test` 138, lint, build ohne Fehler.
 
 ## Datenorte
 - **Datenbank Supabase** (Projekt `diwpqkxhmuetdpxxcoar`, Frankfurt): Klassen, Pseudonyme, Aufgaben, Pakete, Zuweisungen,

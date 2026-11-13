@@ -9,6 +9,25 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 // pngjs kommt mit qrcode mit; deshalb keine eigene Bibliothek nötig.
 const { PNG } = createRequire(import.meta.url)('pngjs')
 
+// Sprout-Lands-Farbpalette (97 Farben, aus dem Premium-Paket). Jazz 2026-11-13: Grafiken, die nicht aus Sprout Lands stammen
+// (blaue Figur, Schleime, Rübchen), bekommen nur Farben aus dieser Palette, damit alles zusammenpasst.
+const PALETTE = (() => {
+  const p = PNG.sync.read(readFileSync('assets/entpackt/Sprout Lands - Sprites - premium pack/Sprout Lands color pallet/Sprout Lands defautlt palette.png'))
+  const farben = new Map()
+  for (let i = 0; i < p.data.length; i += 4) if (p.data[i + 3] > 0) farben.set(p.data.readUIntBE(i, 3), [p.data[i], p.data[i + 1], p.data[i + 2]])
+  return [...farben.values()]
+})()
+// Abstand nach „redmean“ (berücksichtigt, dass das Auge Grün stärker sieht als Blau)
+function farbAbstand(a, b) {
+  const r = (a[0] + b[0]) / 2, dr = a[0] - b[0], dg = a[1] - b[1], db = a[2] - b[2]
+  return (2 + r / 256) * dr * dr + 4 * dg * dg + (2 + (255 - r) / 256) * db * db
+}
+const naechsteFarbe = (f) => PALETTE.reduce((m, p) => (farbAbstand(p, f) < farbAbstand(m, f) ? p : m))
+/** Jeden sichtbaren Bildpunkt auf die nächste Palettenfarbe setzen (Durchsichtigkeit bleibt). */
+function aufPalette(bild) {
+  for (let i = 0; i < bild.data.length; i += 4) if (bild.data[i + 3] > 0) bild.data.set(naechsteFarbe([bild.data[i], bild.data[i + 1], bild.data[i + 2]]), i)
+}
+
 const UI = 'assets/entpackt/Sprout Lands - UI Pack - Premium pack/UI Sprites/'
 const SPRITES = 'assets/entpackt/Sprout Lands - Sprites - premium pack/'
 const UI_BASIS = 'assets/entpackt/Sprout Lands - UI Pack - Basic pack/Sprite sheets/'
@@ -95,10 +114,10 @@ const BILDER = [
   { name: 'deko_boot', datei: SPRITES + 'Objects/Boats.png', x: 0, y: 0, breite: 96, hoehe: 32, bildBreite: 48, bildHoehe: 32 },
   // Monster für die Übungen (Übungsumbau Schritt 6): je die Ruhe-Animation mit Blick nach vorn, eine Zeile.
   // Rübchen: eigenes Werk der Lehrkraft; Schleime: craftpix (64 × 64, oben/unten leeren Rand abgeschnitten); Rest: Sprout Sorry Pack.
-  { name: 'monster_ruebchen', datei: 'assets/chomp_idle.png', x: 0, y: 0, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  { name: 'monster_ruebchen', datei: 'assets/chomp_idle.png', x: 0, y: 0, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32, palette: true },
   ...[['gruen', 1], ['blau', 2], ['feuer', 3]].map(([farbe, n]) => ({
     name: `monster_schleim_${farbe}`, datei: `${SCHLEIM}Slime${n}/Idle/Slime${n}_Idle_full.png`,
-    x: 0, y: 12, breite: 384, hoehe: 32, bildBreite: 64, bildHoehe: 32,
+    x: 0, y: 12, breite: 384, hoehe: 32, bildBreite: 64, bildHoehe: 32, palette: true,
   })),
   { name: 'monster_gespenst', datei: MOBS + 'chost_spritesheet.png', x: 0, y: 0, breite: 160, hoehe: 16, bildBreite: 16, bildHoehe: 16, spiegeln: true },
   ...['green', 'purple', 'golden'].map((farbe) => ({
@@ -123,6 +142,7 @@ for (const b of BILDER) {
   const ziel = new PNG({ width: breite, height: hoehe })
   PNG.bitblt(quelle, ziel, x, y, breite, hoehe, 0, 0)
   // spiegeln: jedes Einzelbild waagerecht umdrehen (Monster schauen im Original nach rechts, sollen zur Figur links schauen; Jazz, Schritt 8)
+  if (b.palette) aufPalette(ziel)
   if (b.spiegeln) {
     const bw = b.bildBreite ?? breite
     const kopie = Buffer.from(ziel.data)
@@ -158,7 +178,7 @@ for (const n of KLEINER) {
 // Spielfigur „Blau“ (Jazz, 2026-11-13: von der Lehrkraft umgefärbte Sprout-Lands-Figur, als großes Bild 1024 × 768 mit weißem Grund).
 // Gleicher Aufbau wie figur.png (8 Richtungen × 3 Bilder je 16 × 32), aber 8-fach, leicht verschoben und unscharf. Darum: je Einzelbild
 // den Versatz des 8er-Rasters suchen (kleinste Streuung in den Blöcken), Blockmitte nehmen (Median), Hintergrund und graue Ränder
-// durchsichtig, Farben bündeln (seltene der nächsten zuordnen), alleinstehende Pixel entfernen.
+// durchsichtig, Farben auf die Sprout-Lands-Palette, alleinstehende Pixel entfernen.
 function figurAusGrossbild(datei) {
   const p = PNG.sync.read(readFileSync(datei))
   const K = 8, SP = 8, ZE = 3, BW = 16, BH = 32
@@ -183,40 +203,56 @@ function figurAusGrossbild(datei) {
             }
           if (!best || v < best.v) best = { v, ox, oy }
         }
+      // Teile der Vorlage sind um ein halbes Pixel verrutscht (Seitenansichten): je Block auch die um 4 verschobenen Raster prüfen
+      // und das nehmen, in dem der Block am gleichmäßigsten ist.
+      const streuung = (x0, y0) => {
+        const m = px(x0 + 4, y0 + 4)
+        let v = 0
+        for (let dy = 1; dy < 7; dy += 2) for (let dx = 1; dx < 7; dx += 2) v += abstand(px(x0 + dx, y0 + dy), m)
+        return v
+      }
       for (let by = 0; by < BH; by++)
         for (let bx = 0; bx < BW; bx++) {
+          let x0 = zx + best.ox + bx * K, y0 = zy + best.oy + by * K, v = streuung(x0, y0)
+          for (const [sx, sy] of [[4, 0], [-4, 0], [0, 4], [0, -4]]) {
+            const w = streuung(x0 + sx, y0 + sy)
+            if (w < v * 0.5) ((v = w), (x0 += sx), (y0 += sy))
+          }
           const werte = []
-          for (let dy = 2; dy < 6; dy++) for (let dx = 2; dx < 6; dx++) werte.push(px(zx + best.ox + bx * K + dx, zy + best.oy + by * K + dy))
+          for (let dy = 2; dy < 6; dy++) for (let dx = 2; dx < 6; dx++) werte.push(px(x0 + dx, y0 + dy))
           bloecke.push({ x: c * BW + bx, y: r * BH + by, f: [0, 1, 2].map((k) => werte.map((w) => w[k]).sort((a, b) => a - b)[8]) })
         }
     }
-  const grau = (f) => Math.min(...f) > 120 && Math.max(...f) - Math.min(...f) < 40
-  const zentren = []
-  for (const b of bloecke) {
-    if (grau(b.f)) continue
-    let z = zentren.find((z) => abstand(z.f, b.f) < 48)
-    if (!z) zentren.push((z = { f: b.f, n: 0, s: [0, 0, 0] }))
-    z.n++
-    z.s = z.s.map((s, k) => s + b.f[k])
-  }
-  zentren.forEach((z) => (z.f = z.s.map((s) => Math.round(s / z.n))))
-  const farben = zentren.filter((z) => z.n >= 30)
+  // Hintergrund = helle, fast graue Blöcke, die mit dem Rand des Einzelbilds verbunden sind (so bleiben helle Stellen innen erhalten,
+  // z. B. das Shirt in der Seitenansicht). Alles andere bekommt die nächste Farbe aus der Sprout-Lands-Palette.
+  const hell = (f) => Math.min(...f) > 150 && Math.max(...f) - Math.min(...f) < 50
   const ziel = new PNG({ width: SP * BW, height: ZE * BH })
   ziel.data.fill(0)
+  const block = new Map(bloecke.map((b) => [b.y * ziel.width + b.x, b]))
+  const hintergrund = new Set()
+  for (let r = 0; r < ZE; r++)
+    for (let c = 0; c < SP; c++) {
+      const x0 = c * BW, y0 = r * BH, offen = []
+      for (let x = x0; x < x0 + BW; x++) offen.push([x, y0], [x, y0 + BH - 1])
+      for (let y = y0; y < y0 + BH; y++) offen.push([x0, y], [x0 + BW - 1, y])
+      while (offen.length) {
+        const [x, y] = offen.pop()
+        const k = y * ziel.width + x
+        if (x < x0 || y < y0 || x >= x0 + BW || y >= y0 + BH || hintergrund.has(k) || !hell(block.get(k).f)) continue
+        hintergrund.add(k)
+        offen.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1])
+      }
+    }
   for (const b of bloecke) {
-    if (grau(b.f)) continue
-    const z = farben.reduce((m, z) => (abstand(z.f, b.f) < abstand(m.f, b.f) ? z : m))
-    const i = (b.y * ziel.width + b.x) * 4
-    ziel.data.set([...z.f, 255], i)
+    const k = b.y * ziel.width + b.x
+    if (!hintergrund.has(k)) ziel.data.set([...naechsteFarbe(b.f), 255], k * 4)
   }
-  // alleinstehende Pixel (höchstens ein Nachbar) entfernen, zweimal
-  for (let runde = 0; runde < 2; runde++) {
-    const alt = Buffer.from(ziel.data)
-    const voll = (x, y) => x >= 0 && y >= 0 && x < ziel.width && y < ziel.height && alt[(y * ziel.width + x) * 4 + 3] > 0
-    for (let y = 0; y < ziel.height; y++)
-      for (let x = 0; x < ziel.width; x++)
-        if (voll(x, y) && [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dy]) => voll(x + dx, y + dy)).length <= 1) ziel.data[(y * ziel.width + x) * 4 + 3] = 0
-  }
+  // ganz alleinstehende Pixel (kein Nachbar) entfernen: Reste vom unscharfen Rand
+  const alt = Buffer.from(ziel.data)
+  const voll = (x, y) => x >= 0 && y >= 0 && x < ziel.width && y < ziel.height && alt[(y * ziel.width + x) * 4 + 3] > 0
+  for (let y = 0; y < ziel.height; y++)
+    for (let x = 0; x < ziel.width; x++)
+      if (voll(x, y) && ![[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => voll(x + dx, y + dy))) ziel.data[(y * ziel.width + x) * 4 + 3] = 0
   return ziel
 }
 {
