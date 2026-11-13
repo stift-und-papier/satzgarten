@@ -21,6 +21,7 @@ import { Erklaerungen } from './Erklaerungen'
 import { Hilfe } from './Hilfe'
 import { Lernweg } from './Lernweg'
 import { Shop } from './Shop'
+import { Einstellungen } from './Einstellungen'
 import { UebungSpiel } from './UebungSpiel'
 import { monster } from '../lib/monster'
 import { leseschriftVorgabe } from '../lib/leseschrift'
@@ -173,6 +174,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
             paketId={paket.id}
             aufgabe={aufgabe}
             nachAbschluss={() => void laden()}
+            figur={daten.figur ?? 'gruen'}
             naechste={paket.aufgaben[index + 1] ? `#${basis}/p/${paket.id}/a/${paket.aufgaben[index + 1].id}` : null}
             zumPaket={`#${basis}/p/${paket.id}`}
           />
@@ -300,6 +302,14 @@ export function SchuelerBereich({ token, pfad }: Props) {
     )
   }
 
+  if (bereich === 'einstellungen') {
+    return (
+      <Rahmen basis={basis} aktiv="einstellungen" muenzen={muenzen} fenster={fenster}>
+        <Einstellungen token={token} figur={daten.figur ?? 'gruen'} nachWahl={() => void laden()} />
+      </Rahmen>
+    )
+  }
+
   if (bereich === 'hilfe') {
     return (
       <Rahmen basis={basis} aktiv="hilfe" muenzen={muenzen} fenster={fenster}>
@@ -356,7 +366,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
           </div>
         </section>
       )}
-      <Farm key={farmStand} token={token} shop={`#${basis}/shop`} album={`#${basis}/album`} />
+      <Farm key={farmStand} token={token} figur={daten.figur ?? 'gruen'} shop={`#${basis}/shop`} album={`#${basis}/album`} />
     </Rahmen>
   )
 }
@@ -459,12 +469,13 @@ function AufgabeSeite({ token, paketId, aufgabe, neuesFormat, nachAbgabe, onWart
   )
 }
 
-const MENUE: { id: 'start' | 'shop' | 'uebungen' | 'erklaerungen' | 'lernweg' | 'hilfe'; symbol: SymbolName; text: string; ziel: string }[] = [
+const MENUE: { id: 'start' | 'shop' | 'uebungen' | 'erklaerungen' | 'lernweg' | 'einstellungen' | 'hilfe'; symbol: SymbolName; text: string; ziel: string }[] = [
   { id: 'start', symbol: 'garten', text: 'Farm', ziel: '' },
   { id: 'shop', symbol: 'shop', text: 'Shop', ziel: '/shop' },
   { id: 'uebungen', symbol: 'uebungen', text: 'Übungen', ziel: '/uebungen' },
   { id: 'erklaerungen', symbol: 'erklaerung', text: 'Erklärungen', ziel: '/erklaerungen' },
   { id: 'lernweg', symbol: 'lernweg', text: 'Lernweg', ziel: '/lernweg' },
+  { id: 'einstellungen', symbol: 'einstellungen', text: 'Einstellungen', ziel: '/einstellungen' },
   { id: 'hilfe', symbol: 'hilfe', text: 'Hilfe', ziel: '/hilfe' },
 ]
 

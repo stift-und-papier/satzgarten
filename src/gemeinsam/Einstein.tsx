@@ -11,8 +11,6 @@ const POSEN = {
   'freut-sich': { bild: 3 }, // Paket geschafft, Monster besiegt
   huch: { bild: 4 }, // erschrocken, z. B. wenn ein Monster auftaucht
   erklaert: { bild: 5, zweites: 6 }, // Erklären, Tipps, „nochmal versuchen“
-  // Übungsumbau: wirft ein Herz. shortcut: Platzhalter = Bild 0, bis assets/einstein-schiessend.png eingebaut ist
-  schiesst: { bild: 0 },
 } as const
 export type Pose = keyof typeof POSEN
 

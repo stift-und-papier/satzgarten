@@ -1,16 +1,18 @@
 // Übungsumbau Schritt 8: Spielszene über der Runde (Konzept Abschnitte 10 und 11).
-// Wiese, Einstein links, Monster rechts (Ruhe-Animation). Richtige Runde: Einstein wirft, Herz fliegt und trifft.
-// Falsche Runde: Herz fliegt vorbei, Einstein erschrickt und bleibt so bis zum nächsten Treffer. Kein Herzzähler.
+// Wiese, Spielfigur links (die in den Einstellungen gewählte; Jazz 2026-11-13 statt Einstein), Monster rechts (Ruhe-Animation).
+// Richtige Runde: Figur macht einen Schritt nach vorn, Herz fliegt und trifft. Falsche Runde: Herz fliegt vorbei, die Figur dreht sich
+// zu uns und wackelt; so bleibt sie bis zum nächsten Treffer. Befreundet: Figur hüpft. Kein Herzzähler.
 // Reine Verzierung (aria-hidden): was passiert ist, steht immer auch als Text in der Rückmeldung.
 import { useEffect, useState, type CSSProperties } from 'react'
-import { Einstein, type Pose } from '../gemeinsam/Einstein'
 import { Sprite } from '../gemeinsam/Sprite'
 import { GRAFIK } from '../grafik'
+import { figur, figurBild } from '../lib/figur'
 import { monster, spielMal } from '../lib/monster'
 
 export type Schuss = { nr: number; treffer: boolean }
 
 type Props = {
+  figurName: string
   monsterName: string
   /** letzter Schuss (nr startet die Animation neu) */
   schuss: Schuss | null
@@ -20,8 +22,8 @@ type Props = {
   ende?: 'freund' | 'morgen'
 }
 
-export function Spielszene({ monsterName, schuss, befreundet, ende }: Props) {
-  // nach einem Treffer kurz „wirft“, dann wieder normal
+export function Spielszene({ figurName, monsterName, schuss, befreundet, ende }: Props) {
+  // nach einem Treffer kurz ein Schritt nach vorn, dann wieder stehen
   const [wirft, setWirft] = useState(false)
   useEffect(() => {
     if (!schuss?.treffer) return
@@ -30,7 +32,9 @@ export function Spielszene({ monsterName, schuss, befreundet, ende }: Props) {
     return () => window.clearTimeout(t)
   }, [schuss])
 
-  const pose: Pose = ende === 'freund' ? 'freut-sich' : ende === 'morgen' ? 'erklaert' : schuss && !schuss.treffer ? 'huch' : wirft ? 'schiesst' : 'freundlich'
+  const pose = ende === 'freund' ? 'freut' : ende ? 'vorn' : schuss && !schuss.treffer ? 'huch' : wirft ? 'wirft' : 'steht'
+  // Richtung 2 = nach rechts zum Monster, 4 = zu uns; beim Werfen das erste Laufbild
+  const bild = pose === 'steht' ? figurBild(2) : pose === 'wirft' ? figurBild(2, 0) : figurBild(4)
   const m = monster(monsterName)
   const mal = spielMal(m.grafik)
   const bilder = Math.round(m.grafik.breite / m.grafik.bildBreite)
@@ -39,8 +43,8 @@ export function Spielszene({ monsterName, schuss, befreundet, ende }: Props) {
 
   return (
     <div className="spiel" aria-hidden="true" style={{ backgroundImage: `url(${GRAFIK.spiel_wiese.url})` }}>
-      <div className="spiel__einstein">
-        <Einstein pose={pose} mal={3} />
+      <div className={`spiel__figur spiel__figur--${pose}`}>
+        <Sprite grafik={figur(figurName).grafik} nummer={bild} mal={5} />
       </div>
       <div key={`monster-${schuss?.nr ?? 'start'}`} className={`spiel__monster${reaktion}`}>
         {befreundet && (

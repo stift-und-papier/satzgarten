@@ -27,6 +27,8 @@ type Props = {
   /** nach der letzten Runde: Startdaten neu laden (Münzen, Paketliste) */
   nachAbschluss: () => void
   naechste: string | null
+  /** gewählte Spielfigur (Einstellungen) */
+  figur: string
   zumPaket: string
 }
 
@@ -34,7 +36,7 @@ type Gespielt = { richtig: boolean; ergebnis: Pruefergebnis; loesung: Loesung }
 
 const loesungenAus = (l: Loesung) => Object.fromEntries(l.luecken.map((x) => [x.id, x.loesungen]))
 
-export function UebungSpiel({ token, paketId, aufgabe, nachAbschluss, naechste, zumPaket }: Props) {
+export function UebungSpiel({ token, paketId, aufgabe, nachAbschluss, naechste, zumPaket, figur }: Props) {
   const [daten, setDaten] = useState<Durchgang | null>(null)
   const [ladeFehler, setLadeFehler] = useState<string | null>(null)
   const [index, setIndex] = useState(0)
@@ -76,7 +78,7 @@ export function UebungSpiel({ token, paketId, aufgabe, nachAbschluss, naechste, 
   if (daten.status === 'morgen') {
     return (
       <>
-        <Spielszene monsterName={daten.monster} schuss={null} befreundet={daten.befreundet} ende="morgen" />
+        <Spielszene figurName={figur} monsterName={daten.monster} schuss={null} befreundet={daten.befreundet} ende="morgen" />
         <div className="karte aufgabe">
           <p>{daten.befreundet ? TEXT_SCHON_FREUND : 'Heute hast du mit diesem Monster schon geübt. Morgen kannst du es noch einmal versuchen!'}</p>
           <div className="knopf-reihe">
@@ -98,7 +100,7 @@ export function UebungSpiel({ token, paketId, aufgabe, nachAbschluss, naechste, 
     const text = allesRichtig ? TEXT_FREUND : abschluss.befreundet ? TEXT_SCHON_FREUND : TEXT_MORGEN
     return (
       <>
-        <Spielszene monsterName={daten.monster} schuss={null} befreundet={abschluss.befreundet} ende={allesRichtig ? 'freund' : 'morgen'} />
+        <Spielszene figurName={figur} monsterName={daten.monster} schuss={null} befreundet={abschluss.befreundet} ende={allesRichtig ? 'freund' : 'morgen'} />
         <div className="karte aufgabe">
           <EinsteinSagt pose={allesRichtig ? 'freut-sich' : 'erklaert'}>
             <p>{text}</p>
@@ -168,7 +170,7 @@ export function UebungSpiel({ token, paketId, aufgabe, nachAbschluss, naechste, 
 
   return (
     <>
-      <Spielszene monsterName={daten.monster} schuss={schuss} befreundet={befreundetVorher} />
+      <Spielszene figurName={figur} monsterName={daten.monster} schuss={schuss} befreundet={befreundetVorher} />
       <form
         className="karte aufgabe"
         onSubmit={(e) => {

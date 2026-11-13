@@ -116,6 +116,22 @@
   („Nochmal senden“), iPad (macht Jazz nach der Checkliste D), `npm run test:datenbank` (keine Datenbank-Änderung).
   Testdaten: Kater-73, Specht-01 und Dachs-19 haben Durchgänge und Münzen; Specht-01 hat Leseschrift an und (durch einen inzwischen
   behobenen Fehler) einen offenen Durchgang beim Merkdiktat.
+  **Nachtrag Schritt 8 (Jazz, nach Ansicht):**
+  - Sätze: falsche Runde „Daneben. Schau dir die richtige Lösung an!“; keine neuen Münzen „Diesmal gibt es keine neuen Münzen. Versuche dich
+    zu verbessern!“ (Satz „Ihr seid schon Freunde …“ bleibt). Gespenst, Maus und Spinnen werden schon beim Ausschneiden gespiegelt (überall).
+  - **Statt Einstein kämpft die Spielfigur.** Drei Figuren zur Wahl: **Grün** (bisherige), **Blau** (von Jazz umgefärbt, `assets/Female character.png`
+    auf 16 × 32 zurückgerechnet), **Katze** (Basic Charakter aus Sprout Lands, auf den gleichen Aufbau gebracht). Die gewählte Figur läuft auf
+    der Farm und kämpft im Spiel (5-fach): steht nach rechts, Treffer = Schritt nach vorn, daneben = dreht sich zu uns und wackelt (bis zum
+    nächsten Treffer), befreundet = hüpft. Einstein spricht weiter den Satz am Ende und begrüßt auf der Startseite.
+  - Neuer Reiter **„Einstellungen“** (Schüleransicht): Figur wählen (gespeichert in `schueler.figur`, Migration `figur`, Funktion `figur_waehlen`),
+    Dunkler Modus und Leseschrift (vorher oben auf der Hilfe-Seite).
+  - Fehler behoben (Migration `uebung_doppelt`): zwei gleichzeitige Starts derselben Übung (Doppeltipp, zwei Tabs) gaben „duplicate key“.
+  **Getestet** (Browser, 1024 × 768 und 1180 × 820): Kater-73 wählt „Blau“ → in der Datenbank `blau`, Farm zeigt die blaue Figur, Treffer im
+  Spiel (Schritt, Herz fliegt). Dachs-19 wählt „Katze“ → Fehlschuss: Katze dreht sich zu uns, neuer Satz. Freigeben „Für alle“ → „3 Übungen“.
+  Menüleiste mit 7 Reitern passt; Hilfe ohne Schalter. `npm run test:datenbank`: ALLE TESTS BESTANDEN (148) (neuer Block 18 Figur; einmal
+  vorher der bekannte Ausreißer Block 15.0, danach zweimal bestanden). `npm test` 138, lint, build ohne Fehler.
+  **Nicht getestet:** gleichzeitige Starts direkt in der Datenbank (nur im Browser: Fehler weg); Figur „hüpft“ bei Freundschaft mit Blau/Katze
+  (bei Grün nicht neu angesehen); iPad.
 
 ## Datenorte
 - **Datenbank Supabase** (Projekt `diwpqkxhmuetdpxxcoar`, Frankfurt): Klassen, Pseudonyme, Aufgaben, Pakete, Zuweisungen,
@@ -172,6 +188,9 @@
 - 2026-11-13 (Jazz, Schritt 8, alle Vorschläge): Pilot Lückentext; Satz befreundet „Juhu, ihr seid jetzt Freunde! Das Monster hat sich über
   deine Herzen gefreut.“; Ablauf und Größen wie vorgeschlagen; fliegendes Herz aus Sprout Lands; Paketseite mit Monster; Leseschrift-Haken
   auf der Klassenseite; kein TastenHeld-Code, darum noch keine `CREDITS.md`.
+- 2026-11-13 (Jazz, Nachtrag Schritt 8): Spielfigur kämpft statt Einstein; Figuren Grün, Blau, Katze (Namen ohne Geschlecht), Wahl im neuen
+  Reiter „Einstellungen“ (dort auch Dunkler Modus und Leseschrift), gespeichert je Schüler:in in der Datenbank. Blaue Figur hat Jazz selbst
+  mit einem Bildeditor umgefärbt. Gespenst, Maus, Spinnen gespiegelt; Sätze siehe Erledigt.
 
 ## Geänderte Dateien
 - Schritt 0: `docs/umbau/STATUS.md`, `docs/umbau/ARBEITSPLAN.md` (neu), `.gitignore`, `CLAUDE.md`
@@ -196,6 +215,10 @@
   `src/gemeinsam/Einstein.tsx`, `src/lib/monster.ts`, `src/lib/typen.ts`, `src/lib/leseschrift.ts`, `src/lehrkraft/KlasseDetail.tsx`,
   `src/design/bausteine.css`, `scripts/grafik-holen.mjs`, `src/grafik/index.ts`, `src/grafik/spiel_wiese.png` (neu), `src/grafik/herz_flug.png` (neu),
   `src/grafik/monster_fledermaus.png`, `src/grafik/LIZENZ.md`, `docs/umbau/STATUS.md`
+  Nachtrag: `supabase/migrations/20261113170000_figur.sql` (neu), `supabase/migrations/20261113180000_uebung_doppelt.sql` (neu),
+  `supabase/tests/zugriffsregeln.sql`, `src/lib/figur.ts` (neu), `src/schueler/Einstellungen.tsx` (neu), `src/schueler/Hilfe.tsx`, `src/schueler/Farm.tsx`,
+  `src/gemeinsam/Symbol.tsx`, `src/grafik/figur_blau.png` (neu), `src/grafik/figur_katze.png` (neu), `src/grafik/monster_gespenst.png`,
+  `src/grafik/monster_maus.png`, `src/grafik/monster_spinne_*.png`
 
 ## Offene Fragen
 - Ganz ohne Zeitdruck bei „Fallende Wörter“ ist zurückgestellt. Steht in Abschnitt B von ARBEITSPLAN.md noch als Wunsch;
@@ -208,11 +231,9 @@
 - Erklärungen sind innerhalb einer Klassenstufe alphabetisch nach Bereich geordnet (Rechtschreibung, Satzglieder …).
 
 - Merkdiktat: Genauigkeit des Durchgangs ist vorerst der Durchschnitt der Runden; genaue Zählung (alle Zeichen) in Schritt 10.
-- Einstein „schießt“ fehlt noch: Jazz legt das Gemini-Bild als `assets/einstein-schiessend.png` ab, dann freistellen, auf 52 × 47 bringen,
-  Farben angleichen und in `POSEN.schiesst` (`src/gemeinsam/Einstein.tsx`) eintragen.
-- Vorschlag Claude (bitte bestätigen): schon befreundet, diesmal nicht alles richtig → „Ihr seid schon Freunde. Morgen kannst du wieder mit dem
-  Monster üben.“; falsche Runde → „Daneben. Die richtige Lösung steht jetzt im Satz.“; keine neuen Münzen → „Diesmal gibt es keine neuen Münzen.
-  Beim Wiederholen bekommst du Münzen, wenn du besser bist als vorher.“
+- Einstein „schießt“ entfällt (die Spielfigur kämpft). `assets/einstein-schiessend.webp` bleibt ungenutzt liegen.
+- Die blaue Figur ist aus einem unscharfen Großbild zurückgerechnet; einzelne Bilder haben kleine Pixelfehler. Bei Bedarf sauberere Vorlage
+  (16 × 32 je Bild, durchsichtig) nach `assets/` legen.
 - Einsteins Format-Erklärung beim ersten Mal entfällt im Spiel (Platz); ggf. in Schritt 9 wieder einbauen.
 - Diktat: Server zählt Merkdiktat und Abschreiben vorerst als eine Runde; Herzen und Genauigkeit richtig in Schritt 10.
 

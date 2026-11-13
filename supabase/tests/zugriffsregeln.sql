@@ -1484,6 +1484,29 @@ begin
     n := n + 1;
   end;
 
+  -- Block 18: Spielfigur (Übungsumbau, Jazz 2026-11-13)
+  declare
+    t_fuchs text := (select token from public.schueler where pseudonym = 'Fuchs-01');
+  begin
+    if (public.schueler_start(t_fuchs) ->> 'figur') <> 'gruen' then raise exception 'Block 18.1: Standardfigur ist nicht Grün'; end if;
+    set local role anon;
+    perform public.figur_waehlen(t_fuchs, 'katze');
+    reset role;
+    if (public.schueler_start(t_fuchs) ->> 'figur') <> 'katze' then raise exception 'Block 18.2: Figur wurde nicht gespeichert'; end if;
+    begin
+      perform public.figur_waehlen(t_fuchs, 'drache');
+      raise exception 'Block 18.3: unbekannte Figur angenommen';
+    exception when invalid_parameter_value then null;
+    end;
+    begin
+      perform public.figur_waehlen('falscher-token-falscher-token-xx', 'blau');
+      raise exception 'Block 18.4: falscher Token angenommen';
+    exception when others then
+      if sqlerrm like 'Block 18%' then raise; end if;
+    end;
+    n := n + 1;
+  end;
+
   raise exception 'ALLE TESTS BESTANDEN (%)', n;
 end
 $test$;

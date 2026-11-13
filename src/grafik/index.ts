@@ -54,6 +54,8 @@ import herz_flug from './herz_flug.png'
 import monster_maus from './monster_maus.png'
 import monster_fledermaus from './monster_fledermaus.png'
 import feld from './feld.png'
+import figur_blau from './figur_blau.png'
+import figur_katze from './figur_katze.png'
 import album_seite from './album_seite.png'
 
 export const GRAFIK = {
@@ -112,5 +114,7 @@ export const GRAFIK = {
   monster_maus: { url: monster_maus, breite: 208, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   monster_fledermaus: { url: monster_fledermaus, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   feld: { url: feld, breite: 14, hoehe: 14, bildBreite: 14, bildHoehe: 14 },
+  figur_blau: { url: figur_blau, breite: 128, hoehe: 96, bildBreite: 16, bildHoehe: 32 },
+  figur_katze: { url: figur_katze, breite: 128, hoehe: 96, bildBreite: 16, bildHoehe: 32 },
   album_seite: { url: album_seite, breite: 96, hoehe: 96, bildBreite: 96, bildHoehe: 96 },
 } as const

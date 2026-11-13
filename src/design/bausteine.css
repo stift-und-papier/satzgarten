@@ -645,7 +645,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 }
 
 /* ---------- Übungsumbau Schritt 8: Spielszene (src/schueler/Spielszene.tsx) ----------
-   Wiese 2-fach (576 × 90 → 1152 × 180), Himmelfarbe aus dem Bild als Rand. Einstein 3-fach links, Monster rechts.
+   Wiese 2-fach (576 × 90 → 1152 × 180), Himmelfarbe aus dem Bild als Rand. Spielfigur 5-fach links, Monster rechts.
    Bewegung in ganzen Bildern (steps); bei „Bewegung reduzieren“ Standbilder, das Herz erscheint ohne Flug. */
 .spiel {
   position: relative; height: 180px; overflow: hidden; border-radius: var(--radius-feld);
@@ -654,7 +654,12 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 }
 .spiel-zeile { align-items: center; }
 .spiel-zeile .rueckmeldung { flex: 1 1 20rem; margin: 0; }
-.spiel__einstein { position: absolute; left: 6%; bottom: 6px; }
+.spiel__figur { position: absolute; left: 8%; bottom: 4px; line-height: 0; }
+/* Treffer: Schritt nach vorn und zurück; daneben: kurz wackeln; befreundet: hüpfen (wie Einstein) */
+.spiel__figur--wirft { animation: figur-schritt 0.5s steps(2); }
+.spiel__figur--huch { animation: einstein-zittern 2s steps(1) 1; }
+.spiel__figur--freut { animation: einstein-springen 1.6s steps(1) infinite; }
+@keyframes figur-schritt { 50% { transform: translateX(15px); } }
 .spiel__monster { position: absolute; right: 10%; bottom: 18px; display: flex; flex-direction: column; align-items: center; }
 .spiel__monster-bild { display: block; line-height: 0; }
 .spiel__monster-bild .sprite { animation: monster-lauf calc(var(--n) * 0.15s) steps(var(--n)) infinite; }
@@ -681,8 +686,12 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   100% { left: 104%; bottom: 180px; opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .spiel__monster-bild .sprite, .spiel__freund, .spiel__monster--treffer, .spiel__monster--daneben { animation: none; }
+  .spiel__figur, .spiel__monster-bild .sprite, .spiel__freund, .spiel__monster--treffer, .spiel__monster--daneben { animation: none; }
   .spiel__herz--treffer { left: calc(90% - 70px); bottom: 70px; animation: herz-still 1s steps(1) forwards; }
   .spiel__herz--daneben { display: none; }
 }
 @keyframes herz-still { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Einstellungen: Figurwahl, Figur über dem Namen; gewählt = gedrückter Chip mit ✓ */
+.figur-wahl { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.figur-wahl__knopf { display: inline-flex; flex-direction: column; align-items: center; gap: var(--space-2xs); padding: var(--space-xs) var(--space-md); }

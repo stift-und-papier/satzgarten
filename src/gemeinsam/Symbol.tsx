@@ -1,7 +1,7 @@
 // Eigene, einfache Symbole (Linienzeichnung, runde Enden). Immer aria-hidden: Der Text daneben trägt die Bedeutung.
 export type SymbolName =
   | 'garten' | 'uebungen' | 'lernweg' | 'sammelbuch' | 'hilfe'
-  | 'zurueck' | 'weiter' | 'tipp' | 'stern' | 'haus' | 'shop' | 'erklaerung'
+  | 'zurueck' | 'weiter' | 'tipp' | 'stern' | 'haus' | 'shop' | 'erklaerung' | 'einstellungen'
 
 const PFADE: Record<SymbolName, string> = {
   // Marktstand mit Vordach
@@ -17,6 +17,7 @@ const PFADE: Record<SymbolName, string> = {
   // Blatt mit Eselsohr und Zeilen (Erklärseite)
   erklaerung: 'M6 3h9l4 4v14H6Z M15 3v4h4 M9 11h7 M9 14h7 M9 17h5',
   // Fragezeichen im Kreis
+  einstellungen: 'M12 9a3 3 0 1 0 0 6 3 3 0 1 0 0-6Z M12 2.5v3 M12 18.5v3 M2.5 12h3 M18.5 12h3 M5.3 5.3l2.1 2.1 M16.6 16.6l2.1 2.1 M5.3 18.7l2.1-2.1 M16.6 7.4l2.1-2.1',
   hilfe: 'M12 3a9 9 0 1 0 0 18 9 9 0 1 0 0-18Z M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7 M12 16.5v.5',
   // Pfeile mit Schaft (deutlicher als nur eine Spitze)
   zurueck: 'M20 12H5 M11 5l-7 7 7 7',

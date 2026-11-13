@@ -155,6 +155,92 @@ for (const n of KLEINER) {
   console.log(`${n.name}.png  ${n.breite}×${n.hoehe} (verkleinert)`)
 }
 
+// Spielfigur „Blau“ (Jazz, 2026-11-13: von der Lehrkraft umgefärbte Sprout-Lands-Figur, als großes Bild 1024 × 768 mit weißem Grund).
+// Gleicher Aufbau wie figur.png (8 Richtungen × 3 Bilder je 16 × 32), aber 8-fach, leicht verschoben und unscharf. Darum: je Einzelbild
+// den Versatz des 8er-Rasters suchen (kleinste Streuung in den Blöcken), Blockmitte nehmen (Median), Hintergrund und graue Ränder
+// durchsichtig, Farben bündeln (seltene der nächsten zuordnen), alleinstehende Pixel entfernen.
+function figurAusGrossbild(datei) {
+  const p = PNG.sync.read(readFileSync(datei))
+  const K = 8, SP = 8, ZE = 3, BW = 16, BH = 32
+  const px = (x, y) => {
+    x = Math.max(0, Math.min(p.width - 1, x)); y = Math.max(0, Math.min(p.height - 1, y))
+    const i = (y * p.width + x) * 4
+    return [p.data[i], p.data[i + 1], p.data[i + 2]]
+  }
+  const abstand = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2])
+  const bloecke = []
+  for (let r = 0; r < ZE; r++)
+    for (let c = 0; c < SP; c++) {
+      const zx = c * BW * K, zy = r * BH * K
+      let best = null
+      for (let oy = 0; oy < K; oy++)
+        for (let ox = 0; ox < K; ox++) {
+          let v = 0
+          for (let by = 0; by < BH - 1; by++)
+            for (let bx = 0; bx < BW - 1; bx++) {
+              const m = px(zx + ox + bx * K + 4, zy + oy + by * K + 4)
+              for (const [dx, dy] of [[1, 1], [6, 1], [1, 6], [6, 6]]) v += abstand(px(zx + ox + bx * K + dx, zy + oy + by * K + dy), m)
+            }
+          if (!best || v < best.v) best = { v, ox, oy }
+        }
+      for (let by = 0; by < BH; by++)
+        for (let bx = 0; bx < BW; bx++) {
+          const werte = []
+          for (let dy = 2; dy < 6; dy++) for (let dx = 2; dx < 6; dx++) werte.push(px(zx + best.ox + bx * K + dx, zy + best.oy + by * K + dy))
+          bloecke.push({ x: c * BW + bx, y: r * BH + by, f: [0, 1, 2].map((k) => werte.map((w) => w[k]).sort((a, b) => a - b)[8]) })
+        }
+    }
+  const grau = (f) => Math.min(...f) > 120 && Math.max(...f) - Math.min(...f) < 40
+  const zentren = []
+  for (const b of bloecke) {
+    if (grau(b.f)) continue
+    let z = zentren.find((z) => abstand(z.f, b.f) < 48)
+    if (!z) zentren.push((z = { f: b.f, n: 0, s: [0, 0, 0] }))
+    z.n++
+    z.s = z.s.map((s, k) => s + b.f[k])
+  }
+  zentren.forEach((z) => (z.f = z.s.map((s) => Math.round(s / z.n))))
+  const farben = zentren.filter((z) => z.n >= 30)
+  const ziel = new PNG({ width: SP * BW, height: ZE * BH })
+  ziel.data.fill(0)
+  for (const b of bloecke) {
+    if (grau(b.f)) continue
+    const z = farben.reduce((m, z) => (abstand(z.f, b.f) < abstand(m.f, b.f) ? z : m))
+    const i = (b.y * ziel.width + b.x) * 4
+    ziel.data.set([...z.f, 255], i)
+  }
+  // alleinstehende Pixel (höchstens ein Nachbar) entfernen, zweimal
+  for (let runde = 0; runde < 2; runde++) {
+    const alt = Buffer.from(ziel.data)
+    const voll = (x, y) => x >= 0 && y >= 0 && x < ziel.width && y < ziel.height && alt[(y * ziel.width + x) * 4 + 3] > 0
+    for (let y = 0; y < ziel.height; y++)
+      for (let x = 0; x < ziel.width; x++)
+        if (voll(x, y) && [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dy]) => voll(x + dx, y + dy)).length <= 1) ziel.data[(y * ziel.width + x) * 4 + 3] = 0
+  }
+  return ziel
+}
+{
+  const ziel = figurAusGrossbild('assets/Female character.png')
+  writeFileSync('src/grafik/figur_blau.png', PNG.sync.write(ziel))
+  liste.push({ name: 'figur_blau', breite: ziel.width, hoehe: ziel.height, bildBreite: 16, bildHoehe: 32 })
+  console.log('figur_blau.png  128×96 (aus Großbild)')
+}
+
+// Spielfigur „Katze“ (Jazz, 2026-11-13): Basic Charakter aus Sprout Lands (48 × 48, Reihen runter/hoch/links/rechts, Spalten 0–1 stehen,
+// 2–3 laufen). Umgebaut auf den Aufbau von figur.png (8 Richtungen × Zeilen Laufbild 1 / Stehen / Laufbild 2, je 16 × 32),
+// Ausschnitt x 16–31, y 0–31 (Füße unten wie bei den anderen Figuren). Schrägen nehmen die Seitenansicht.
+{
+  const q = PNG.sync.read(readFileSync(SPRITES + 'Characters/Basic Charakter Spritesheet.png'))
+  const reiheFuer = [1, 3, 3, 3, 0, 2, 2, 2] // hoch, rechts oben, rechts, rechts unten, runter, links unten, links, links oben
+  const spalteFuer = [2, 0, 3] // Laufbild 1, Stehen, Laufbild 2
+  const ziel = new PNG({ width: 128, height: 96 })
+  ziel.data.fill(0)
+  reiheFuer.forEach((r, richtung) => spalteFuer.forEach((c, zeile) => PNG.bitblt(q, ziel, c * 48 + 16, r * 48, 16, 32, richtung * 16, zeile * 32)))
+  writeFileSync('src/grafik/figur_katze.png', PNG.sync.write(ziel))
+  liste.push({ name: 'figur_katze', breite: 128, hoehe: 96, bildBreite: 16, bildHoehe: 32 })
+  console.log('figur_katze.png  128×96 (umgebaut)')
+}
+
 for (const z of ZUSAMMEN) {
   const ziel = new PNG({ width: z.breite, height: z.hoehe })
   for (const t of z.teile) {

@@ -211,6 +211,6 @@ export type SchuelerPaket = {
 }
 
 /** formate_geuebt: Formate, die schon einmal abgegeben wurden (Einstein erklärt nur neue) */
-export type SchuelerStart = { pseudonym: string; leseschrift?: boolean; formate_geuebt: AufgabenTyp[]; pakete: SchuelerPaket[] }
+export type SchuelerStart = { pseudonym: string; leseschrift?: boolean; figur?: string; formate_geuebt: AufgabenTyp[]; pakete: SchuelerPaket[] }
 
 export type Loesung = { luecken: { id: number; loesungen: string[] }[] }

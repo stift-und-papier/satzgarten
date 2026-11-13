@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState, type MouseEvent, type ReactNo
 import { Sprite } from '../gemeinsam/Sprite'
 import { GRAFIK } from '../grafik'
 import { fehlerText } from '../lib/fehler'
+import { figur as figurAus } from '../lib/figur'
 import {
   ablagePlaetze, BAEUME, BAUM_PLAETZE, BOOT, BRUNNEN, DEKO_PLAETZE, FELD_PLAETZE, FIGUR_START, grundKacheln, HEU, hindernisse, HUHN_PLAETZE, istGras, KACHEL,
   KUH_PLAETZE, nebenan, scheunenKacheln, SPALTEN, STALL, tierFlaeche, TROG, weg, ZEILEN, type Ort,
@@ -24,7 +25,7 @@ const richtungZu = (dx: number, dy: number) => (Math.round(Math.atan2(dx, -dy) /
 
 type Menue = { art: 'feld'; feld: number } | { art: 'tier'; id: string }
 
-export function Farm({ token, shop, album }: { token: string; shop: string; album: string }) {
+export function Farm({ token, shop, album, figur: figurName }: { token: string; shop: string; album: string; figur: string }) {
   const [daten, setDaten] = useState<FarmDaten | null>(null)
   const [meldung, setMeldung] = useState<string | null>(null)
   const [fehler, setFehler] = useState<string | null>(null)
@@ -353,7 +354,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
               height: 32 * mal,
               zIndex: Math.round(figur.y),
               transition: `left ${figur.dauer}ms linear, top ${figur.dauer}ms linear`,
-              backgroundImage: `url(${GRAFIK.figur.url})`,
+              backgroundImage: `url(${figurAus(figurName).grafik.url})`, // gewählte Figur (Einstellungen)
               backgroundSize: `${128 * mal}px ${96 * mal}px`,
               backgroundPositionX: -figur.richtung * 16 * mal,
               backgroundPositionY: -32 * mal, // Stehen (mittlere Zeile)
