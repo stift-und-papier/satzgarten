@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { DOPPELJAHRGAENGE, LEERER_FILTER, passt, type Filter, type FilterKompetenz } from '../lib/filter'
 import { fehlerText } from '../lib/fehler'
 import { supabase } from '../lib/supabase'
-import type { Kompetenz } from '../lib/typen'
+import { ZWEIGE, type Kompetenz } from '../lib/typen'
 
 export type ListenKompetenz = FilterKompetenz & Pick<Kompetenz, 'kurzname' | 'kompetenz' | 'kerncurriculum'>
 
@@ -50,6 +50,15 @@ export function ListenFilter({ filter, onChange, verwendet, treffer, gesamt, suc
         <label>
           Suchen
           <input className="lk-feld" value={filter.suche} onChange={(e) => onChange({ ...filter, suche: e.target.value })} placeholder={suchText} />
+        </label>
+        <label>
+          Schulform
+          <select className="lk-feld" value={filter.schulform} onChange={(e) => onChange({ ...filter, schulform: e.target.value })}>
+            <option value="">alle</option>
+            {ZWEIGE.map((z) => (
+              <option key={z}>{z}</option>
+            ))}
+          </select>
         </label>
         <label>
           Jahrgang

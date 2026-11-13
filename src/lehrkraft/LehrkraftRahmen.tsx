@@ -13,7 +13,7 @@ import { Einstellungen } from './Einstellungen'
 import { KlassenLernstand, SchuelerLernstand } from './Lernstand'
 import { Linkliste } from './Linkliste'
 import { PaketDetail } from './PaketDetail'
-import { PaketListe } from './PaketListe'
+import { NeuesPaket, PaketListe } from './PaketListe'
 
 // Bereich nur für angemeldete Lehrkräfte (#/lehrkraft/…). Ohne Anmeldung erscheint auf jeder dieser Adressen
 // die Anmeldung; danach geht es auf derselben Adresse weiter. Die Daten schützt zusätzlich die Datenbank (RLS).
@@ -39,6 +39,7 @@ function Inhalt({ pfad }: { pfad: string[] }) {
   if (bereich === 'aufgaben' && id === 'neu') return <FormatWahl />
   if (bereich === 'aufgaben' && id) return <AufgabeEditor key={id} aufgabeId={id.startsWith('neu-') ? null : id} neuerTyp={formatAusAdresse(id) ?? undefined} />
   if (bereich === 'aufgaben') return <AufgabenListe />
+  if (bereich === 'pakete' && id === 'neu') return <NeuesPaket />
   if (bereich === 'pakete' && id) return <PaketDetail key={id} paketId={id} vorschau={unterseite === 'vorschau'} />
   if (bereich === 'pakete') return <PaketListe />
   const titel = MENUE.find(([ziel]) => ziel === bereich)?.[1] ?? 'Seite nicht gefunden'

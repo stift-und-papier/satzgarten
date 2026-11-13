@@ -16,8 +16,6 @@ type PaketMitAnzahl = Paket & {
 
 export function PaketListe() {
   const [pakete, setPakete] = useState<PaketMitAnzahl[] | null>(null)
-  const [titel, setTitel] = useState('')
-  const [tags, setTags] = useState<Pick<Paket, 'jahrgaenge' | 'zweige'>>({ jahrgaenge: [], zweige: [] })
   const [fehler, setFehler] = useState<string | null>(null)
   const [filter, setFilter] = useState(LEERER_FILTER)
   const kompetenzen = useKompetenzen(setFehler)
@@ -31,13 +29,18 @@ export function PaketListe() {
   }, [])
 
   const ids = (p: PaketMitAnzahl) => [...new Set(p.paket_aufgaben.flatMap((pa) => pa.aufgaben?.aufgabe_kompetenzen.map((z) => z.kompetenz_id) ?? []))]
-  const gefiltert = pakete?.filter((p) => passt(p.titel, ids(p), filter, kompetenzen))
+  const gefiltert = pakete?.filter((p) => passt(p.titel, ids(p), filter, kompetenzen, p.zweige))
   const verwendet = [...new Set((pakete ?? []).flatMap(ids))].flatMap((id) => kompetenzen.get(id) ?? [])
 
   return (
     <>
       <h1>Pakete</h1>
       <p className="lk-leise">Ein Paket bündelt mehrere Aufgaben. Pakete weisen Sie Klassen oder einzelnen Schüler:innen zu.</p>
+      <div className="lk-knopfreihe">
+        <a className="lk-knopf lk-knopf--haupt" href="#/lehrkraft/pakete/neu">
+          + Neues Paket
+        </a>
+      </div>
       {fehler && <p className="lk-hinweis" role="alert">{fehler}</p>}
       {pakete && pakete.length > 0 && (
         <ListenFilter filter={filter} onChange={setFilter} verwendet={verwendet} treffer={gefiltert?.length ?? 0} gesamt={pakete.length} suchText="Paketname …" />
@@ -45,7 +48,7 @@ export function PaketListe() {
       {gefiltert === undefined ? (
         <p className="lk-leise" role="status">Lädt …</p>
       ) : pakete?.length === 0 ? (
-        <p>Noch keine Pakete. Legen Sie unten das erste an.</p>
+        <p>Noch keine Pakete. Legen Sie mit „Neues Paket“ das erste an.</p>
       ) : gefiltert.length === 0 ? (
         <p>Kein Paket passt zu diesem Filter.</p>
       ) : (
@@ -64,7 +67,24 @@ export function PaketListe() {
           ))}
         </ul>
       )}
+    </>
+  )
+}
 
+// Eigene Seite: Titel und Tags festlegen; danach geht es zum Paket, wo die Aufgaben hinzukommen
+export function NeuesPaket() {
+  const [titel, setTitel] = useState('')
+  const [tags, setTags] = useState<Pick<Paket, 'jahrgaenge' | 'zweige'>>({ jahrgaenge: [], zweige: [] })
+  const [fehler, setFehler] = useState<string | null>(null)
+
+  return (
+    <>
+      <a className="lk-zurueck" href="#/lehrkraft/pakete">
+        ← Alle Pakete
+      </a>
+      <h1>Neues Paket</h1>
+      <p className="lk-leise">Geben Sie dem Paket einen Namen. Danach wählen Sie die Aufgaben aus.</p>
+      {fehler && <p className="lk-hinweis" role="alert">{fehler}</p>}
       <form
         className="lk-abschnitt"
         onSubmit={async (e) => {
@@ -74,7 +94,6 @@ export function PaketListe() {
           else gehe(`/lehrkraft/pakete/${data.id}`)
         }}
       >
-        <h2>Neues Paket</h2>
         <div className="lk-zeile">
           <label>
             Titel
@@ -83,7 +102,7 @@ export function PaketListe() {
         </div>
         <TagAuswahl wert={tags} onChange={setTags} />
         <div className="lk-knopfreihe">
-          <button className="lk-knopf lk-knopf--haupt">Anlegen</button>
+          <button className="lk-knopf lk-knopf--haupt">Anlegen und Aufgaben wählen</button>
         </div>
       </form>
     </>

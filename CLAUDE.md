@@ -259,3 +259,9 @@
   der Realschule). Umfang 5/6: 5, 7/8: 6, 9/10: 8 Aufgaben je Paket (ohne Erklärseiten). Jedes Thema beginnt mit einer Erklärseite (Referenz
   `Erklärungen referenz/`, gekürzt). „Texte und Medien“ vorerst ohne Pakete (keine Kompetenzen). Quelle `inhalte/*.txt`, Skript
   `scripts/inhalte-sql.ts` (prüft mit den Parsern des Editors, feste ids, wiederholbar). Erklärseiten zeigen einzelne Zeilenumbrüche (`.erklaerung__absatz`).
+- 2026-11-13 (Lehrkraft): Aufgaben auch in der **Aufgabenliste löschbar** (roter Knopf je Zeile, mit Nachfrage; im Editor gab es ihn schon).
+  Aufgaben und Pakete nach **Schulform** filterbar; Spalte „Schulform“ (statt „KC“) = Kerncurricula der Kompetenzen und Zweige der Pakete.
+  Zeilenumbrüche im Aufgabentext bleiben sichtbar (`.satz` mit `white-space: pre-line`); Satzzeichen hinter Wörtern/Lücken hängen am Wort
+  (`stelle__anhang`). Erklärseiten: Merkkasten Himmelblau hinterlegt (`--color-hilfe-flaeche`, 4 Varianten, Tinte 11,1 bis 16,5 : 1),
+  Beispiele kursiv, Fachbegriffe fett (ohne Farbe), markierte Beispielwörter immer dunkel auf Gelb (auch im dunklen Modus).
+  „+ Neues Paket“ oben in der Paketliste führt auf eine eigene Seite (`#/lehrkraft/pakete/neu`). Einstellungen als zugeklappte Bereiche.

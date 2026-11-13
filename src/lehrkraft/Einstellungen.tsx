@@ -48,6 +48,8 @@ export function Einstellungen() {
   return (
     <form
       className="lk-formular"
+      // Ungültiges Feld in einem zugeklappten Bereich: Bereich öffnen, sonst sieht man die Meldung nicht
+      onInvalidCapture={(ev) => (ev.target as HTMLElement).closest('details')?.setAttribute('open', '')}
       onSubmit={async (ev) => {
         ev.preventDefault()
         const { owner, ...rest } = e
@@ -62,9 +64,10 @@ export function Einstellungen() {
       }}
     >
       <h1>Einstellungen</h1>
+      <p className="lk-leise">Tippen Sie auf einen Bereich, um ihn aufzuklappen.</p>
 
-      <section className="lk-abschnitt">
-        <h2>Rückmeldetexte für „Mein Lernweg“</h2>
+      <details className="lk-abschnitt">
+        <summary className="lk-aufklapp">Rückmeldetexte für „Mein Lernweg“</summary>
         <p className="lk-leise">Schüler:innen sehen nur diese Texte, nie Stufen, Punkte oder Prozente.</p>
         {TEXT_FELDER.map((t) => (
           <label key={t.feld}>
@@ -72,10 +75,10 @@ export function Einstellungen() {
             <input className="lk-feld" value={e.texte[t.feld] ?? ''} onChange={text(t.feld)} required maxLength={200} />
           </label>
         ))}
-      </section>
+      </details>
 
-      <section className="lk-abschnitt">
-        <h2>Berechnung des Lernstands</h2>
+      <details className="lk-abschnitt">
+        <summary className="lk-aufklapp">Berechnung des Lernstands</summary>
         <p className="lk-leise">
           Pro Kompetenz zählen die letzten gewerteten Versuche (pro Aufgabe und Tag nur der erste, nicht nach „Lösung ansehen“).
           Jeder Versuch bringt „Anteil richtig × Höchstpunkte der Sterne-Stufe“. Neuere Versuche zählen mehr. Aus dem Durchschnitt
@@ -98,10 +101,10 @@ export function Einstellungen() {
           {zahl('grenze_plus', '„+“ ab', { min: 1, max: 100 })}
           {zahl('grenze_plusplus', '„++“ ab', { min: 1, max: 100 })}
         </div>
-      </section>
+      </details>
 
-      <section className="lk-abschnitt">
-        <h2>Entwicklung (Trend)</h2>
+      <details className="lk-abschnitt">
+        <summary className="lk-aufklapp">Entwicklung (Trend)</summary>
         <p className="lk-leise">
           Ein Trend erscheint nur, wenn seit dem Vergleich genug neue Versuche dazugekommen sind UND sich der Stand deutlich verändert hat.
           So wird Zufall nicht als Fortschritt gedeutet.
@@ -111,7 +114,7 @@ export function Einstellungen() {
           {zahl('trend_min_diff', 'Mindest-Veränderung (Punkte)', { min: 1, max: 100 })}
           {zahl('vergleich_wochen', 'Vergleich mit Stand vor … Wochen (leer = Startstand)', { min: 1, max: 52 })}
         </div>
-      </section>
+      </details>
 
       {fehler && <p className="lk-hinweis" role="alert">{fehler}</p>}
       <div>

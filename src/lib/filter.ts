@@ -5,8 +5,8 @@ import type { Kompetenz } from './typen'
 // (KC-Stufe „Ende Jg. 6/8/10“ → Doppeljahrgang). Alle gewählten Merkmale müssen bei DERSELBEN Kompetenz zutreffen.
 
 export type Doppeljahrgang = '5/6' | '7/8' | '9/10'
-export type Filter = { suche: string; jahrgang: '' | Doppeljahrgang | 'ohne'; bereich: string; kompetenz: string }
-export const LEERER_FILTER: Filter = { suche: '', jahrgang: '', bereich: '', kompetenz: '' }
+export type Filter = { suche: string; schulform: string; jahrgang: '' | Doppeljahrgang | 'ohne'; bereich: string; kompetenz: string }
+export const LEERER_FILTER: Filter = { suche: '', schulform: '', jahrgang: '', bereich: '', kompetenz: '' }
 export const DOPPELJAHRGAENGE: Doppeljahrgang[] = ['5/6', '7/8', '9/10']
 
 export type FilterKompetenz = Pick<Kompetenz, 'id' | 'bereich' | 'stufe'>
@@ -18,9 +18,10 @@ const JAHRGAENGE: Record<Kompetenz['stufe'], Doppeljahrgang[]> = {
   '6-10': ['5/6', '7/8', '9/10'],
 }
 
-/** Passt ein Eintrag (Titel + IDs seiner Kompetenzen) zum Filter? */
-export function passt(titel: string, kompetenzIds: string[], f: Filter, kompetenzen: Map<string, FilterKompetenz>): boolean {
+/** Passt ein Eintrag (Titel + IDs seiner Kompetenzen + seine Schulformen) zum Filter? */
+export function passt(titel: string, kompetenzIds: string[], f: Filter, kompetenzen: Map<string, FilterKompetenz>, schulformen: string[] = []): boolean {
   if (f.suche.trim() && !titel.toLowerCase().includes(f.suche.trim().toLowerCase())) return false
+  if (f.schulform && !schulformen.includes(f.schulform)) return false
   const ks = kompetenzIds.flatMap((id) => kompetenzen.get(id) ?? [])
   if (f.jahrgang === 'ohne') return ks.length === 0
   const jahrgang = f.jahrgang

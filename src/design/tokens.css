@@ -43,6 +43,7 @@
   /* Himmelblau = Hilfe */
   --color-hilfe: #006c98;
   --color-hilfe-kante: #004267;
+  --color-hilfe-flaeche: #d9ecf7;     /* Merkkasten (Erklärseite); Tinte darauf 11,4 : 1 */
 
   /* Sterne */
   --color-sonne: #eebc4a;
@@ -134,6 +135,7 @@
   --color-aktion-text: #2a1b11;
   --color-hilfe: #67b5e1;
   --color-hilfe-kante: #040c13;
+  --color-hilfe-flaeche: #1b3242;     /* Merkkasten; Tinte darauf 11,1 : 1 */
   --color-sonne: #f4c352;
   --color-sonne-hell: #fcebae;
   --color-stern-leer: #614731;
@@ -167,6 +169,7 @@
     --color-aktion: #3c220f;
     --color-aktion-2: #2c1302;
     --color-hilfe: #004776;
+    --color-hilfe-flaeche: #e3f2fb;     /* Merkkasten; Tinte darauf 16,5 : 1 */
     --color-fokus: #1c0e05;
     --color-lk-tinte: #050c14;
     --color-lk-leise: #263445;
@@ -194,6 +197,7 @@
     --color-aktion-2: #fff3d8;
     --color-aktion-text: #0f0703;
     --color-hilfe: #8fd5fd;
+    --color-hilfe-flaeche: #0c1f2c;     /* Merkkasten; Tinte darauf 16,3 : 1 */
     --color-fokus: #fffbf4;
     --color-lk-papier: #04080d;
     --color-lk-tinte: #fbfcfe;

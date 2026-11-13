@@ -19,6 +19,9 @@ type Props = {
 /** Farbe eines Fachbegriffs (z. B. „Subjekt“ → blau); eigene Kategorien der Lehrkraft bleiben neutral */
 const farbeVon = (kategorie: string) => kategorieAus(kategorie)?.farbe
 
+/** Satzzeichen direkt hinter einer Stelle – sie bleiben am Wort hängen, statt allein in die nächste Zeile zu rutschen */
+const SATZZEICHEN = /^[.,;:!?…)“"»]+/
+
 // alt (Übungswiese), im Pixel-Look: Text mit Lücken (.luecke), Auswahl (.chip), antippbaren Wörtern (.wort)
 // und – beim Zuordnen – Stiften für die Kategorien.
 // Nach dem Prüfen: richtige Stellen grün mit ✓ (gesperrt), andere Pfirsich mit ↻ – nie rot.
@@ -81,11 +84,15 @@ export function LueckentextAnzeige({ inhalt, antworten, onAntwort, ergebnis, loe
       )}
       <p className="satz">
         {inhalt.teile.map((teil, index) => {
-          if (teil.t === 'text') return <span key={index}>{teil.v}</span>
+          const vorher = inhalt.teile[index - 1]
+          if (teil.t === 'text') return <span key={index}>{vorher && vorher.t !== 'text' ? teil.v.replace(SATZZEICHEN, '') : teil.v}</span>
           if (teil.t === 'reihe' || teil.t === 'versionen') return null
           const richtig = status.get(teil.id)
+          const danach = inhalt.teile[index + 1]
+          const anhang = danach?.t === 'text' ? SATZZEICHEN.exec(danach.v)?.[0] : undefined
           const zeichen = (
             <>
+              {anhang && <span className="stelle__anhang">{anhang}</span>}
               {richtig === true && <span className="marke marke--richtig" aria-label="richtig">✓</span>}
               {richtig === false && <span className="marke marke--nochmal" aria-label="schau nochmal hin">↻</span>}
               {loesungen?.[teil.id] && <span className="loesung-anzeige">{loesungen[teil.id].join(' / ')}</span>}

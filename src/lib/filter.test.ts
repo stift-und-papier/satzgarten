@@ -22,6 +22,10 @@ describe('Filter für Aufgaben und Pakete', () => {
     expect(passt('a', ['r6'], f({ jahrgang: '7/8' }), k)).toBe(false)
     expect(passt('a', ['s610'], f({ jahrgang: '9/10' }), k)).toBe(true)
   })
+  it('Schulform muss unter den Schulformen des Eintrags sein', () => {
+    expect(passt('a', [], f({ schulform: 'Realschule' }), k, ['Hauptschule', 'Realschule'])).toBe(true)
+    expect(passt('a', [], f({ schulform: 'Gymnasium' }), k, ['Realschule'])).toBe(false)
+  })
   it('„ohne Zuordnung“ findet nur Aufgaben ohne Kompetenz', () => {
     expect(passt('a', [], f({ jahrgang: 'ohne' }), k)).toBe(true)
     expect(passt('a', ['r6'], f({ jahrgang: 'ohne' }), k)).toBe(false)

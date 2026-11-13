@@ -4,7 +4,7 @@ import { fehlerText } from '../lib/fehler'
 import { LEERER_FILTER, passt } from '../lib/filter'
 import { naechsteSortierung, sortiere, type Sortierung, type Spalte } from '../lib/sortierung'
 import { supabase } from '../lib/supabase'
-import type { Aufgabe } from '../lib/typen'
+import { ZWEIGE, type Aufgabe } from '../lib/typen'
 import { ListenFilter, useKompetenzen } from './ListenFilter'
 
 export const TYP_NAMEN: Record<Aufgabe['typ'], string> = { lueckentext: 'Lückentext', auswahl: 'Auswahl', zuordnen: 'Zuordnen', fehler: 'Fehler finden', reihenfolge: 'Reihenfolge', ueberarbeiten: 'Sätze verbessern', erklaerung: 'Erklärung', diktat: 'Diktat' }
@@ -14,10 +14,13 @@ const SPALTEN: { spalte: Spalte; name: string }[] = [
   { spalte: 'format', name: 'Format' },
   { spalte: 'stufe', name: 'Stufe' },
   { spalte: 'kompetenz', name: 'Kompetenz' },
-  { spalte: 'kc', name: 'KC' },
+  { spalte: 'kc', name: 'Schulform' },
 ]
 
-type AufgabeMitKompetenzen = Pick<Aufgabe, 'id' | 'typ' | 'titel' | 'stufe' | 'geaendert_am'> & { aufgabe_kompetenzen: { kompetenz_id: string }[] }
+type AufgabeMitKompetenzen = Pick<Aufgabe, 'id' | 'typ' | 'titel' | 'stufe' | 'geaendert_am'> & {
+  aufgabe_kompetenzen: { kompetenz_id: string }[]
+  paket_aufgaben: { pakete: { zweige: string[] } | null }[]
+}
 
 export function AufgabenListe() {
   const [aufgaben, setAufgaben] = useState<AufgabeMitKompetenzen[] | null>(null)
@@ -30,26 +33,42 @@ export function AufgabenListe() {
   useEffect(() => {
     void supabase
       .from('aufgaben')
-      .select('id, typ, titel, stufe, geaendert_am, aufgabe_kompetenzen(kompetenz_id)')
+      .select('id, typ, titel, stufe, geaendert_am, aufgabe_kompetenzen(kompetenz_id), paket_aufgaben(pakete(zweige))')
       .order('geaendert_am', { ascending: false })
-      .then(({ data, error }) => (error ? setFehler(fehlerText(error)) : setAufgaben(data as AufgabeMitKompetenzen[])))
+      .then(({ data, error }) => (error ? setFehler(fehlerText(error)) : setAufgaben(data as unknown as AufgabeMitKompetenzen[])))
   }, [])
 
   const ids = (a: AufgabeMitKompetenzen) => a.aufgabe_kompetenzen.map((z) => z.kompetenz_id)
+  // Schulform = Kerncurricula der Kompetenzen und Zweige der Pakete (Erklärseiten haben nur Pakete), feste Reihenfolge
+  const schulformen = (a: AufgabeMitKompetenzen) => {
+    const alle = [...ids(a).flatMap((id) => kompetenzen.get(id)?.kerncurriculum ?? []), ...a.paket_aufgaben.flatMap((pa) => pa.pakete?.zweige ?? [])]
+    return ZWEIGE.filter((z) => alle.includes(z))
+  }
   // Erklärseiten haben nie Kompetenzen – bei „ohne Zuordnung“ gibt es dort nichts nachzuarbeiten
   const gefiltert = aufgaben?.filter(
-    (a) => !(filter.jahrgang === 'ohne' && a.typ === 'erklaerung') && passt(a.titel, ids(a), filter, kompetenzen),
+    (a) => !(filter.jahrgang === 'ohne' && a.typ === 'erklaerung') && passt(a.titel, ids(a), filter, kompetenzen, schulformen(a)),
   )
   // Kurznamen und Kerncurricula der zugeordneten Kompetenzen (zum Anzeigen und Sortieren)
   const zeilen = gefiltert?.map((a) => {
     const ks = ids(a).flatMap((id) => kompetenzen.get(id) ?? [])
     return {
       ...a,
-      kompetenz: ks.map((k) => k.kurzname?.trim() || k.kompetenz).join(', '),
-      kc: [...new Set(ks.map((k) => k.kerncurriculum))].join(', '),
+      kompetenz: [...new Set(ks.map((k) => k.kurzname?.trim() || k.kompetenz))].join(', '),
+      kc: schulformen(a).join(', '),
     }
   })
   const sortiert = zeilen && sortiere(zeilen, sortierung, (typ) => TYP_NAMEN[typ])
+  async function loeschen(a: AufgabeMitKompetenzen) {
+    const ok = window.confirm(
+      `Aufgabe „${a.titel}“ endgültig löschen?
+
+Sie verschwindet aus allen Paketen, und alle Versuche der Schüler:innen zu dieser Aufgabe werden gelöscht.`,
+    )
+    if (!ok) return
+    const { error } = await supabase.from('aufgaben').delete().eq('id', a.id)
+    if (error) setFehler(fehlerText(error))
+    else setAufgaben((alt) => alt?.filter((x) => x.id !== a.id) ?? null)
+  }
   const verwendet = [...new Set((aufgaben ?? []).flatMap(ids))].flatMap((id) => kompetenzen.get(id) ?? [])
 
   return (
@@ -96,6 +115,7 @@ export function AufgabenListe() {
                   </th>
                 )
               })}
+              <th><span className="lk-unsichtbar">Löschen</span></th>
             </tr>
           </thead>
           <tbody>
@@ -108,6 +128,11 @@ export function AufgabenListe() {
                 <td>{a.typ !== 'erklaerung' && <span aria-label={`Stufe ${a.stufe} von 3`}>{'★'.repeat(a.stufe) + '☆'.repeat(3 - a.stufe)}</span>}</td>
                 <td>{a.kompetenz || <span className="lk-leise">{a.typ === 'erklaerung' ? '–' : 'keine'}</span>}</td>
                 <td>{a.kc || <span className="lk-leise">–</span>}</td>
+                <td>
+                  <button type="button" className="lk-knopf lk-knopf--gefahr" onClick={() => void loeschen(a)} aria-label={`„${a.titel}“ löschen`}>
+                    Löschen
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

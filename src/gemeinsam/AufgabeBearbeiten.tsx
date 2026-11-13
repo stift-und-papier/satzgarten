@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { fachbegriffeFaerben } from '../lib/kategorien'
 import type { Antwort, Antworten, Pruefergebnis, SchuelerAufgabe } from '../lib/typen'
 import { Anweisung } from './Anweisung'
 import { DiktatAufgabe } from './DiktatAnzeige'
@@ -48,9 +49,23 @@ function Kopf({ aufgabe }: { aufgabe: SchuelerAufgabe }) {
   )
 }
 
-/** Text mit [hervorgehobenen] Wörtern (Beispielsätze der Erklärseite) */
+/** Text mit [hervorgehobenen] Wörtern (Beispielsätze der Erklärseite); Fachbegriffe werden fett */
 function hervorheben(text: string) {
-  return text.split(/\[([^\]]*)\]/).map((stueck, i) => (i % 2 === 1 ? <mark key={i}>{stueck}</mark> : stueck))
+  return text.split(/\[([^\]]*)\]/).map((stueck, i) =>
+    i % 2 === 1 ? (
+      <mark key={i}>{stueck}</mark>
+    ) : (
+      fachbegriffeFaerben(stueck).map((teil, j) =>
+        teil.kategorie ? (
+          <strong key={`${i}-${j}`} className="fach-fett">
+            {teil.text}
+          </strong>
+        ) : (
+          teil.text
+        ),
+      )
+    ),
+  )
 }
 
 // Erklärseite: Erklärtext, Merkkasten, Beispiele. „Verstanden“ gilt als erledigt (zählt nie für den Lernstand).

@@ -175,7 +175,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .luecke:disabled { cursor: not-allowed; }
 .luecke--richtig { border-style: solid; border-color: var(--color-richtig-tinte); background: var(--color-richtig-flaeche); color: var(--color-richtig-tinte); }
 .luecke--nochmal { border-style: solid; border-color: var(--color-nochmal-tinte); background: var(--color-nochmal-flaeche); color: var(--color-nochmal-tinte); }
-.satz { line-height: 2.4; font-size: var(--text-body); }
+/* pre-line: Zeilenumbrüche aus dem Aufgabentext bleiben sichtbar (z. B. ein Satz je Zeile) */
+.satz { line-height: 2.4; font-size: var(--text-body); white-space: pre-line; }
 .marke { font-weight: 800; margin-left: var(--space-2xs); }
 .marke--richtig { color: var(--color-richtig-tinte); }
 .marke--nochmal { color: var(--color-nochmal-tinte); }
@@ -230,7 +231,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 
 /* Markiertes Wort: Kästchen in der Farbe des Begriffs (ohne data-farbe bleibt es neutral) */
 .wort[data-farbe] { background: var(--kat-flaeche); border-color: var(--kat); border-style: solid; color: var(--kat); }
-.wort-mit-name { display: inline-grid; justify-items: center; vertical-align: top; }
+.wort-mit-name { display: inline-grid; justify-items: center; }
 .wort-mit-name__name { font-size: var(--text-klein); line-height: 1.2; color: var(--kat, var(--color-tinte-leise)); }
 
 /* Stifte zum Markieren: Chip in der Farbe des Begriffs; der gewählte Stift hat einen dicken Rand und ✓ */
@@ -380,7 +381,9 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .aufgabe__kopf { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-xs) var(--space-md); }
 .aufgabe__anweisung p { font-weight: 800; }
 /* Lücke, Auswahl oder Wort mit seinem ✓/↻ bleibt beim Umbrechen zusammen */
-.stelle { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2xs); vertical-align: middle; }
+/* baseline: Wort, Lücke und angehängtes Satzzeichen stehen auf derselben Schriftlinie wie der Text daneben */
+.stelle { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2xs); vertical-align: baseline; }
+.stelle__anhang { margin-left: calc(-1 * var(--space-2xs)); }
 .auswahl .chip { margin: var(--space-2xs) 0; }
 .luecke--auswahl { width: auto; text-align: left; }
 .loesung-anzeige {
@@ -390,9 +393,12 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .tipp { padding: var(--space-sm); border: var(--kontur) solid var(--color-hilfe); border-radius: var(--radius-feld); background: var(--color-papier); }
 /* Erklärseite: einzelne Zeilenumbrüche bleiben sichtbar (Listen wie „Präsens: …“ untereinander) */
 .erklaerung__absatz { white-space: pre-line; }
-.merkkasten { display: grid; gap: var(--space-2xs); padding: var(--space-sm); border: var(--kontur) solid var(--color-hilfe); border-radius: var(--radius-feld); background: var(--color-papier); }
-.beispiele { margin: 0; padding-left: var(--space-lg); display: grid; gap: var(--space-2xs); }
-.aufgabe mark { background: var(--color-sonne-hell); color: var(--color-tinte); font-weight: 800; padding: 0 var(--space-2xs); }
+.merkkasten { display: grid; gap: var(--space-2xs); padding: var(--space-sm); border: var(--kontur) solid var(--color-hilfe); border-radius: var(--radius-feld); background: var(--color-hilfe-flaeche); }
+.beispiele { margin: 0; padding-left: var(--space-lg); display: grid; gap: var(--space-2xs); font-style: italic; }
+/* Fachbegriffe in Erklärseiten fett (ohne Farbe: lesbar auf Papier und im Merkkasten) */
+.fach-fett { font-weight: 800; }
+/* Sonnengelb bleibt auch im dunklen Modus hell: darum immer dunkle Schrift (wie im Sammelalbum) */
+.aufgabe mark { background: var(--color-sonne-hell); color: var(--color-album-tinte); font-weight: 800; padding: 0 var(--space-2xs); }
 
 /* Reihenfolge: Vorrat oben, Reihe darunter (gestrichelt = hier ablegen) */
 .reihen { display: grid; gap: var(--space-lg); }
