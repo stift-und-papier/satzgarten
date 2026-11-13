@@ -5,6 +5,7 @@
   Jeden Schritt kurz in einfachem Deutsch erklären, Fachwörter vermeiden oder erklären.
 - Git, Installationen, Konfiguration selbst übernehmen. Was im Browser selbst zu tun ist: Schritt für Schritt anleiten.
 - Arbeiten nach `tasks/todo.md` (Plan: `tasks/plan.md`, Spec: `docs/SPEC.md`, je Baustein `docs/SPEC-<kennung>.md`).
+  **Beim Übungsumbau zuerst `docs/umbau/ARBEITSPLAN.md` und `docs/umbau/STATUS.md` lesen** (Branch `uebungsumbau`).
   **Nach jeder Phase (Haltepunkt) stoppen** und testen lassen. Erledigte Aufgaben dort abhaken.
 - Fachlich-didaktische, Spiel- und Design-Entscheidungen **erfragen**, nicht raten. Entscheidungen unten protokollieren.
 - Vorgänger: „Satzgarten“ (dieses Repo bis 11. November 2026, Übergabe `docs/uebergabe-wortsalat.md`) und

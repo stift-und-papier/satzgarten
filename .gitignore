@@ -26,3 +26,9 @@ Erklärungen referenz/
 
 # Gekaufte Asset-Pakete (Sprout Lands): Lizenz verbietet Weitergabe – nur benutzte Einzelbilder kommen später ins Projekt
 assets/
+
+# Usability-Test (Bildschirmfotos, Bericht): nur lokal
+usability-test/
+
+# Datensicherungen der Datenbank (Pseudonyme, Lernstände): nur lokal
+sicherung-*/
