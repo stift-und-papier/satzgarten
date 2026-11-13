@@ -47,7 +47,12 @@ export function Shop({ token, nachKauf }: { token: string; nachKauf: () => void 
     setBeschaeftigt(false)
     setFrage(null)
     if (error) return setFehler(fehlerText(error))
-    setMeldung(`Gekauft: ${a.name}! Das kommt bald auf deine Farm.`)
+    // Usability-Test 2026-11-13: Samen erscheinen nicht von selbst, man pflanzt sie
+    setMeldung(
+      a.art === 'samen'
+        ? `Gekauft: ${a.name}! Tippe auf der Farm ein leeres Feld an, dann kannst du sie pflanzen.`
+        : `Gekauft: ${a.name}! Schau auf deine Farm, dort ist es jetzt.`,
+    )
     await laden()
     nachKauf()
   }

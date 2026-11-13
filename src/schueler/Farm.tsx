@@ -413,6 +413,8 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
           ) : ernte.length === 0 ? (
             <p>Ernte zuerst etwas auf deinen Feldern. Dann kannst du füttern.</p>
           ) : (
+            <>
+            <p>Gib {tier.art === 'huhn' ? 'dem Huhn' : 'der Kuh'} etwas aus deinem Vorrat. Dafür bekommst du {tier.art === 'huhn' ? 'ein Ei' : 'Milch'}.</p>
             <MenueListe>
               {ernte.map((v) => (
                 <MenuePlatz
@@ -429,7 +431,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
                         // das Neueste, was jetzt beim Tier liegt (Ei bzw. Milch in der Güte des Futters)
                         const ding = neu.liegen.filter((x) => x.bei === `tier:${tier.id}`).at(-1)
                         const was = ding ? vorratDing(ding.sorte).name : tier.art === 'huhn' ? 'Ei' : 'Milch'
-                        return `${tier.art === 'huhn' ? 'Das Huhn' : 'Die Kuh'} freut sich. Neben ihm liegt jetzt: ${was}. Tippe es an zum Einsammeln.`
+                        return `${tier.art === 'huhn' ? 'Das Huhn freut sich. Neben ihm' : 'Die Kuh freut sich. Neben ihr'} liegt jetzt: ${was}. Tippe es an zum Einsammeln.`
                       },
                     ).then((ok) => {
                       if (!ok) return
@@ -440,6 +442,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
                 />
               ))}
             </MenueListe>
+            </>
           )}
         </FarmMenue>
       )}

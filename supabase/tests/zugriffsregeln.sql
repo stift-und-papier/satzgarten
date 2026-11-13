@@ -266,6 +266,12 @@ begin
          from public.aufgaben where titel = 'T-ueberarbeiten') <> '["Hinweis A","Hinweis B"]'::jsonb then
     raise exception 'Block 4.11: nicht gefundener Fehler wird verraten oder Hinweise fehlen nach dem Prüfen';
   end if;
+  -- nur Groß/klein falsch → Hinweis gross_klein; anderer Fehler → kein Hinweis
+  if (select public.pruefe_aufgabe('lueckentext', loesung, '{"0":"Dass"}') -> 'luecken' -> 0 ->> 'gross_klein' from public.aufgaben where titel = 'T-lueckentext') is distinct from 'true'
+     or (select public.pruefe_aufgabe('lueckentext', loesung, '{"0":"das"}') -> 'luecken' -> 0 ? 'gross_klein' from public.aufgaben where titel = 'T-lueckentext') then
+    raise exception 'Block 4.12: Hinweis auf Groß- und Kleinschreibung falsch';
+  end if;
+  n := n + 1;
   n := n + 1;
 
   -- ---------- 5 Diktat (Phase 5) ----------

@@ -117,7 +117,7 @@ export interface Aufgabe {
 
 export type Pruefergebnis = {
   /** id null = nicht gefundener Fehler (Stelle wird bewusst nicht verraten) */
-  luecken: { id: number | null; richtig: boolean; positionen?: boolean[]; variante?: number; hinweise?: string[] }[]
+  luecken: { id: number | null; richtig: boolean; positionen?: boolean[]; variante?: number; hinweise?: string[]; /** nur Groß/klein falsch */ gross_klein?: boolean }[]
   anteil: number
   /** Diktat: ohne einen Fehler (besonders belohnt) */
   fehlerfrei?: boolean

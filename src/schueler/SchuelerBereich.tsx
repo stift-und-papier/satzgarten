@@ -269,7 +269,9 @@ export function SchuelerBereich({ token, pfad }: Props) {
   // Startseite (später mit der Farm): Einstein begrüßt, nächster Schritt
   const naechstesPaket = daten.pakete.find((p) => p.aufgaben.some((a) => !a.geloest))
   const naechste = naechstesPaket?.aufgaben.find((a) => !a.geloest)
-  const gruss = naechste ? 'begruessung' : daten.pakete.length ? 'begruessung-fertig' : 'begruessung-leer'
+  // Usability-Test 2026-11-13: beim ersten Mal (noch nichts gelöst) erklärt Einstein, wie Üben und Farm zusammenhängen
+  const neu = !daten.pakete.some((p) => p.aufgaben.some((a) => a.geloest))
+  const gruss = naechste ? (neu ? 'begruessung-neu' : 'begruessung') : daten.pakete.length ? 'begruessung-fertig' : 'begruessung-leer'
   return (
     <Rahmen basis={basis} aktiv="start" muenzen={muenzen} fenster={fenster}>
       {wartendHinweis}

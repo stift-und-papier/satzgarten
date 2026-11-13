@@ -73,15 +73,18 @@ function ErklaerSeite({ aufgabe, pruefen, weiter }: Props) {
   const [gelesen, setGelesen] = useState(aufgabe.geloest)
   const [beschaeftigt, setBeschaeftigt] = useState(false)
   const [meldung, setMeldung] = useState<string | null>(null)
+  const [muenzen, setMuenzen] = useState(0)
   const e = aufgabe.inhalt.erklaerung ?? { text: '', merke: '', beispiele: [] }
 
   async function verstanden() {
     setBeschaeftigt(true)
     setMeldung(null)
     try {
-      await pruefen({})
+      const antwort = await pruefen({})
       setGelesen(true)
-      weiter?.ziel()
+      // Usability-Test 2026-11-13: Münzen fürs erste Lesen sichtbar machen (stehen bleiben, „Weiter“ führt weiter)
+      if (antwort?.muenzen) setMuenzen(antwort.muenzen)
+      else weiter?.ziel()
     } catch (fehler) {
       setMeldung(fehler instanceof Error ? fehler.message : String(fehler))
     } finally {
@@ -115,6 +118,15 @@ function ErklaerSeite({ aufgabe, pruefen, weiter }: Props) {
         </>
       )}
       {meldung && <p role="alert">{meldung}</p>}
+      {muenzen > 0 && (
+        <div className="rueckmeldung rueckmeldung--richtig" role="status">
+          <span className="rueckmeldung__zeichen" aria-hidden="true">✓</span>
+          <p>
+            <strong>Gut gelesen!</strong>
+          </p>
+          <MuenzenPlus anzahl={muenzen} />
+        </div>
+      )}
       <div className="knopf-reihe">
         {gelesen && <span className="marke marke--richtig">✓ Gelesen</span>}
         {gelesen && weiter ? (
@@ -227,7 +239,12 @@ function AufgabeUeben({ aufgabe, pruefen, loesungHolen, weiter, startAntworten, 
   const falschMarkiert = ergebnis?.ergebnis.luecken.filter((l) => l.id !== null && !l.richtig).length ?? 0
   const plaetze = ergebnis?.ergebnis.luecken.flatMap((l) => l.positionen ?? []) ?? []
   const plaetzeRichtig = plaetze.filter(Boolean).length
-  const nochmalTitel = arten.has('reihe')
+  // Usability-Test 2026-11-13: Sind alle markierten Stellen geändert, passt die alte Rückmeldung nicht mehr („3 von 3 stimmen“)
+  const allesGeaendert =
+    !!ergebnis && !allesRichtig && !arten.has('wort') && !arten.has('einheit') && ergebnis.ergebnis.luecken.every((l) => l.richtig)
+  const nochmalTitel = allesGeaendert
+    ? 'Gut, du hast etwas geändert.'
+    : arten.has('reihe')
     ? plaetzeRichtig > 0
       ? 'Fast! Schau bei den Bausteinen mit ↻ nochmal hin.'
       : 'Schau nochmal hin.'
@@ -238,7 +255,9 @@ function AufgabeUeben({ aufgabe, pruefen, loesungHolen, weiter, startAntworten, 
         : arten.has('einheit')
           ? 'Fast! Schau bei den Wörtern mit ↻ nochmal hin.'
           : `Fast! Schau bei ${wort.eins} ${nochmalNummern.slice(0, -1).join(', ')}${nochmalNummern.length > 1 ? ' und ' : ''}${nochmalNummern[nochmalNummern.length - 1]} nochmal hin.`
-  const nochmalText = arten.has('reihe')
+  const nochmalText = allesGeaendert
+    ? 'Tippe jetzt auf „Nochmal prüfen“.'
+    : arten.has('reihe')
     ? (ergebnis?.rueckmeldung ??
       (plaetzeRichtig > 0 ? `Schon ${plaetzeRichtig} von ${plaetze.length} Bausteinen stehen an der richtigen Stelle.` : 'Lies den Satz laut: Was passt an den Anfang?'))
     : arten.has('versionen')
@@ -247,8 +266,14 @@ function AufgabeUeben({ aufgabe, pruefen, loesungHolen, weiter, startAntworten, 
         ? [fehlend > 0 ? `Es fehlen noch ${fehlend} Fehler.` : '', falschMarkiert > 0 ? 'Bei den Wörtern mit ↻ stimmt etwas noch nicht.' : '', ergebnis?.rueckmeldung ?? '']
             .filter(Boolean)
             .join(' ')
-        : (ergebnis?.rueckmeldung ??
-          (anzahlRichtig === 0 ? 'Lies den Satz noch einmal in Ruhe. Du schaffst das!' : `Schon ${anzahlRichtig} von ${gezaehlt} ${wort.viele} stimmen.`))
+        : [
+            ergebnis?.rueckmeldung ??
+              (anzahlRichtig === 0 ? 'Lies den Satz noch einmal in Ruhe. Du schaffst das!' : `Schon ${anzahlRichtig} von ${gezaehlt} ${wort.viele} stimmen.`),
+            // Usability-Test 2026-11-13: der Server meldet, wenn nur Groß/klein nicht stimmt
+            ergebnis?.ergebnis.luecken.some((l) => !l.richtig && l.gross_klein) ? 'Achte auf Groß- und Kleinschreibung.' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')
 
   return (
     <form

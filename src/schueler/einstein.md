@@ -8,6 +8,9 @@ Die Kennungen (Wörter nach ##) bitte nicht ändern. Regeln: Einstein sagt nie �
 ## begruessung
 Hallo {name}! Schön, dass du da bist.
 
+## begruessung-neu
+Hallo {name}! Hier übst du Deutsch. Für jede gelöste Aufgabe bekommst du Münzen. Damit kaufst du im Shop Samen für deine Farm, und jede Übung gießt deine Pflanzen. Tippe auf „Weiter üben“, dann geht es los.
+
 ## begruessung-fertig
 Hallo {name}! Du hast gerade alle Übungen geschafft. Super!
 
@@ -15,7 +18,7 @@ Hallo {name}! Du hast gerade alle Übungen geschafft. Super!
 Hallo {name}! Gerade gibt es keine Übungen für dich. Schau später noch einmal vorbei.
 
 ## lueckentext
-Hier fehlen Wörter. Tippe in eine Lücke und schreib das passende Wort hinein. Wenn alles ausgefüllt ist, tippst du auf „Prüfen“.
+Hier fehlen Wörter. Tippe in eine Lücke und schreib das Passende hinein. Wenn alles ausgefüllt ist, tippst du auf „Prüfen“.
 
 ## auswahl
 Hier wählst du aus. Tippe die Antwort an, die passt. Steht „Mehrere sind richtig“ dabei, darfst du mehrere antippen.

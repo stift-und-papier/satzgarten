@@ -240,7 +240,8 @@ function Auswahl({ teil, dropdown, gewaehlt, onWahl, klasse, gesperrt, zeichen }
       {teil.mehrfach && <span className="leise">Mehrere sind richtig:</span>}
       {teil.optionen.map((o, nr) => (
         <button key={nr} type="button" className="chip" aria-pressed={gewaehlt.includes(nr)} disabled={gesperrt} onClick={() => antippen(nr)}>
-          {gewaehlt.includes(nr) && <span aria-hidden="true">✓ </span>}
+          {/* Haken immer da, nur unsichtbar: so wird der Knopf beim Wählen nicht breiter und nichts verrutscht (Usability-Test 2026-11-13) */}
+          <span aria-hidden="true" className={gewaehlt.includes(nr) ? undefined : 'chip__haken--aus'}>✓ </span>
           {o}
         </button>
       ))}

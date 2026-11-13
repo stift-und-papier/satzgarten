@@ -138,6 +138,7 @@ function Abschreiben({ text, onFertig }: { text: string; onFertig: (a: Antworten
   const [pos, setPos] = useState(0)
   const [fehler, setFehler] = useState<number[]>([])
   const [wackeln, setWackeln] = useState(0)
+  const [daneben, setDaneben] = useState(false) // letztes Zeichen passte nicht (sichtbar auch ohne Wackeln)
   const feld = useRef<HTMLInputElement>(null)
   const schreibt = useRef(false) // Tottasten (^ ´) setzen erst nach dem zweiten Tastendruck ein Zeichen
   // aktueller Stand auch zwischen zwei Neuzeichnungen (sehr schnelles Tippen)
@@ -156,17 +157,22 @@ function Abschreiben({ text, onFertig }: { text: string; onFertig: (a: Antworten
     let p = stand.current.p
     const f = [...stand.current.f]
     if (p >= zeichen.length) return
+    let falsch = daneben
     for (const roh of eingabe) {
       for (const z of roh === ' ' ? [' '] : [...vereinheitliche(roh)]) {
         if (p >= zeichen.length) break
-        if (z === zeichen[p]) p++
-        else if (z === ' ' && (p === 0 || zeichen[p - 1] === ' ')) continue
+        if (z === zeichen[p]) {
+          p++
+          falsch = false
+        } else if (z === ' ' && (p === 0 || zeichen[p - 1] === ' ')) continue
         else {
           if (!f.includes(p)) f.push(p)
           setWackeln((w) => w + 1)
+          falsch = true
         }
       }
     }
+    setDaneben(falsch)
     stand.current = { p, f }
     setPos(p)
     setFehler(f)
@@ -182,7 +188,7 @@ function Abschreiben({ text, onFertig }: { text: string; onFertig: (a: Antworten
           <span
             key={i}
             aria-hidden="true"
-            className={`diktat__z${i < pos ? ' diktat__z--fertig' : i === pos ? ' diktat__z--jetzt' : ''}${fehler.includes(i) && i < pos ? ' diktat__z--fehler' : ''}`}
+            className={`diktat__z${i < pos ? ' diktat__z--fertig' : i === pos ? ` diktat__z--jetzt${daneben ? ' diktat__z--daneben' : ''}` : ''}${fehler.includes(i) && i < pos ? ' diktat__z--fehler' : ''}`}
             data-wackeln={i === pos && wackeln ? wackeln % 2 : undefined}
           >
             {z}
@@ -191,7 +197,7 @@ function Abschreiben({ text, onFertig }: { text: string; onFertig: (a: Antworten
         </span>
       </div>
       <p className="leise" aria-live="polite">
-        {pos} von {zeichen.length} Zeichen
+        {pos} von {zeichen.length} Zeichen{daneben && '. Schau genau hin: Welches Zeichen kommt jetzt?'}
       </p>
       <Eingabe
         ref={feld}

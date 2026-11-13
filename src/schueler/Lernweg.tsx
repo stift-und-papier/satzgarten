@@ -50,7 +50,8 @@ export function Lernweg({ token, uebungen }: { token: string; uebungen: string }
     <>
       <header className="karte">
         <h1>Mein Lernweg</h1>
-        <p>Schau, was du schon geschafft hast.</p>
+        {/* Usability-Test 2026-11-13: die Pflanzen erklären (sonst unklar) */}
+        <p>Hier siehst du, wie es in deinen Themen vorangeht. Die Pflanze wächst mit: 🌱 angefangen, 🌿 dranbleiben, 🪴 wird besser, 🌷 deutlich besser.</p>
       </header>
 
       <section className="karte">
@@ -99,9 +100,10 @@ export function Lernweg({ token, uebungen }: { token: string; uebungen: string }
       ))}
 
       {ersteSchritte.length > 0 && (
-        <details className="karte hilfe-eintrag">
+        // offen, solange es nichts anderes zu zeigen gibt (sonst sieht die Seite leer aus)
+        <details className="karte hilfe-eintrag" open={mitWeg.length === 0}>
           <summary>
-            {ersteSchritte.length === 1 ? 'Ein Thema' : `${ersteSchritte.length} Themen`}, bei denen wir noch deine ersten Ergebnisse sammeln
+            {ersteSchritte.length === 1 ? 'Ein Thema, das du gerade angefangen hast' : `${ersteSchritte.length} Themen, die du gerade angefangen hast`}
           </summary>
           <ul className="lernweg-liste">
             {ersteSchritte.map((k) => (

@@ -207,7 +207,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 }
 .wort:hover { border-color: var(--color-holz); border-style: dashed; }
 /* Markiert/gewählt – gleich für Auswahl-Chips und angetippte Wörter: helles Feld, Holzrand, Kante darunter */
-.chip[aria-pressed='true'] { font-weight: 800; }
+/* Gewählte Chips nicht fett: fette Schrift macht sie breiter, dann brechen Zeilen um und Knöpfe verrutschen (Usability-Test 2026-11-13) */
+.chip__haken--aus { visibility: hidden; }
 .wort[aria-pressed='true'] { background: var(--color-papier-2); border-color: var(--color-aktion); border-style: solid; box-shadow: 0 3px 0 var(--color-holz-schatten); }
 
 /* ---------- Fachbegriffe in Farbe: Wortarten, Satzglieder, Zeitformen ----------
@@ -385,6 +386,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .stelle { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2xs); vertical-align: baseline; }
 .stelle__anhang { margin-left: calc(-1 * var(--space-2xs)); }
 .auswahl .chip { margin: var(--space-2xs) 0; }
+/* Was zusammen zur Wahl steht, sitzt auf einem gemeinsamen hellen Feld (Paare sind schon vor dem Prüfen erkennbar) */
+.auswahl[role='group'] { background: var(--color-papier-2); border-radius: var(--radius-feld); padding: 0 var(--space-2xs); }
 .luecke--auswahl { width: auto; text-align: left; }
 .loesung-anzeige {
   padding: 0 var(--space-xs); border-radius: var(--radius-feld);
@@ -398,7 +401,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 /* Fachbegriffe in Erklärseiten fett (ohne Farbe: lesbar auf Papier und im Merkkasten) */
 .fach-fett { font-weight: 800; }
 /* Sonnengelb bleibt auch im dunklen Modus hell: darum immer dunkle Schrift (wie im Sammelalbum) */
-.aufgabe mark { background: var(--color-sonne-hell); color: var(--color-album-tinte); font-weight: 800; padding: 0 var(--space-2xs); }
+/* ohne Innenabstand: markierte Wortteile („Informa[tion]“) dürfen das Wort nicht auseinanderreißen (Usability-Test 2026-11-13) */
+.aufgabe mark { background: var(--color-sonne-hell); color: var(--color-album-tinte); font-weight: 800; padding: 0; }
 
 /* Reihenfolge: Vorrat oben, Reihe darunter (gestrichelt = hier ablegen) */
 .reihen { display: grid; gap: var(--space-lg); }
@@ -443,6 +447,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 /* aktuelles Zeichen: Holzrahmen; auch ein Leerzeichen bleibt sichtbar */
 .diktat__z--jetzt { color: var(--color-tinte); outline: var(--kontur) solid var(--color-holz); outline-offset: 1px; border-radius: 2px; background: var(--color-papier); padding: 0 1px; }
 /* Stelle mit Fehler (Pfirsich, gepunktet unterstrichen – Bedeutung nicht nur über Farbe, keine Wellenlinie) */
+.diktat__z--daneben { background: var(--color-nochmal-flaeche); outline-color: var(--color-nochmal-tinte); }
 .diktat__z--fehler { color: var(--color-nochmal-tinte); text-decoration: underline dotted; text-underline-offset: 4px; }
 .diktat__z[data-wackeln] { animation: diktat-wackeln var(--dur-short, 200ms) ease-out; }
 .diktat__z[data-wackeln='1'] { animation-name: diktat-wackeln-2; }

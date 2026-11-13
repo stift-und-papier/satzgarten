@@ -274,3 +274,11 @@
   Gesperrte Shop-Artikel zeigen „Kommt, wenn du noch N Münzen verdienst.“ (Migration `shop_fehlt`, Grenzen unverändert). Richtige Wiederholung
   ohne Münzen sagt „Für diese Aufgabe gibt es heute keine Münzen mehr.“ Hilfe hat neuen Abschnitt **„Deine Farm“** (Münzen, Shop, Pflanzen,
   Ernten, Tiere, Verkaufen, Lernweg-Pflanzen). Test-Schüler Biber-22, Luchs-44, Igel-11 haben Testdaten aus dem Usability-Test.
+- 2026-11-13 (Lehrkraft: „behebe auch die kleineren Punkte“): Nach Ändern aller ↻-Stellen „Gut, du hast etwas geändert. Tippe jetzt auf
+  ‚Nochmal prüfen‘.“ Lücken mit nur falscher Groß/klein-Schreibung melden `gross_klein` (Migrationen `gross_klein_hinweis` + `gross_klein_klammer`),
+  Rückmeldung „Achte auf Groß- und Kleinschreibung.“ Einstein: „schreib das Passende hinein“; neue Begrüßung `begruessung-neu` (noch nichts gelöst)
+  erklärt Münzen, Shop, Gießen. Shop-Kauf von Samen: „Tippe auf der Farm ein leeres Feld an …“. Füttern-Menü erklärt Futter → Ei/Milch, „Neben ihr“
+  bei der Kuh. Lernweg erklärt die Pflanzen oben, angefangene Themen offen, ohne „wir“. Markierungen in Erklär-Beispielen ohne Innenabstand.
+  Abschreiben: falsches Zeichen färbt den Cursor Pfirsich und sagt „Schau genau hin“. Erklärseite zeigt beim ersten Lesen „Gut gelesen! +5 Münzen“
+  und wartet auf „Weiter“. Auswahl-Chips: Haken immer da (unsichtbar), nicht fett, damit nichts verrutscht; jede Auswahl-Gruppe auf hellem Feld.
+  Halbe Münzen im 2. Versuch erklärt nur die Hilfe (kein Extra-Satz in der Rückmeldung).
