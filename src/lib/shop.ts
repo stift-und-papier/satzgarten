@@ -4,7 +4,7 @@ import type { Grafik } from './sprite'
 
 export type ArtikelArt = 'samen' | 'tier' | 'deko' | 'feld' | 'baum'
 export type Artikel = { id: string; art: ArtikelArt; name: string; preis: number; besitz: number }
-export type Shop = { kontostand: number; angebot: Artikel[]; gesperrt: { art: ArtikelArt }[] }
+export type Shop = { kontostand: number; angebot: Artikel[]; gesperrt: { art: ArtikelArt; fehlt: number }[] }
 
 // Zeile der Sorte in GRAFIK.pflanzen und GRAFIK.saatgut (ohne Mais); Namen wie in shop_artikel
 export const SORTE: Record<string, number> = {

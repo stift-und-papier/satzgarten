@@ -269,3 +269,8 @@
   Migration `muenz_tag_server`), nicht nach dem Datum vom iPad. Warteliste offline überschreibt keine neue Antwort mehr. Editor legt eine
   neue Aufgabe beim erneuten Speichern nicht doppelt an. Veröffentlichung läuft erst nach `lint` und `test`. Stilblatt `#/stil` entfernt.
   DB-Test Block 15 erzeugt seine Lernstand-Daten jetzt selbst (Igel-11 hat nach dem Löschen der alten Übungen keine Versuche mehr).
+- 2026-11-13 (Lehrkraft, Usability-Test mit zwei Personas, Bericht `usability-test/ergebnis.md`, nicht im Repo): die drei wichtigsten
+  Punkte behoben. Farm-Meldungen stehen **über** der Karte statt darunter (fester Platz, Karte springt nicht; „gepflanzt“ nennt das Gießen).
+  Gesperrte Shop-Artikel zeigen „Kommt, wenn du noch N Münzen verdienst.“ (Migration `shop_fehlt`, Grenzen unverändert). Richtige Wiederholung
+  ohne Münzen sagt „Für diese Aufgabe gibt es heute keine Münzen mehr.“ Hilfe hat neuen Abschnitt **„Deine Farm“** (Münzen, Shop, Pflanzen,
+  Ernten, Tiere, Verkaufen, Lernweg-Pflanzen). Test-Schüler Biber-22, Luchs-44, Igel-11 haben Testdaten aus dem Usability-Test.

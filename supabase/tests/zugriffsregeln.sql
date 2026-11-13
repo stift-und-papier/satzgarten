@@ -707,7 +707,8 @@ begin
     set local role anon;
     v := public.schueler_shop(t_eule);
     if (v ->> 'kontostand')::int <> 110 or v -> 'angebot' @> '[{"id":"tomate"}]' or not (v -> 'angebot' @> '[{"id":"karotte"}]')
-       or v -> 'angebot' @> '[{"id":"tulpe"}]' or (v -> 'gesperrt')::text ~ '"(name|preis|id|ab_verdient)"' then
+       or v -> 'angebot' @> '[{"id":"tulpe"}]' or (v -> 'gesperrt')::text ~ '"(name|preis|id|ab_verdient)"'
+       or (v -> 'gesperrt' -> 0 ->> 'fehlt')::int is distinct from 90 then -- verdient 110, nächste Stufe ab 200
       raise exception 'Block 9.1: Shop-Angebot falsch: %', v;
     end if;
     n := n + 1;

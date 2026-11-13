@@ -275,6 +275,8 @@ function AufgabeUeben({ aufgabe, pruefen, loesungHolen, weiter, startAntworten, 
               <strong>Richtig! Gut gemacht.</strong> Alle {wort.viele} stimmen.
             </p>
             <MuenzenPlus anzahl={ergebnis.muenzen} />
+            {/* Usability-Test 2026-11-13: sonst wirkt eine Wiederholung ohne Münzen wie ein Fehler (undefined = offline, noch nicht gezählt) */}
+            {ergebnis.muenzen === 0 && <p>Für diese Aufgabe gibt es heute keine Münzen mehr. Wie du Münzen bekommst, steht in der Hilfe.</p>}
           </div>
         ) : (
           <div className="rueckmeldung rueckmeldung--nochmal" role="status">

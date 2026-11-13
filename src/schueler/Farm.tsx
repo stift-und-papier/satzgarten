@@ -273,7 +273,16 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
   return (
     <section className="karte farm">
       <h2>Deine Farm</h2>
-      <p className="leise">Tippe irgendwohin, dann läuft deine Figur dorthin. Tippe ein Feld, ein Tier oder einen Obstbaum an.</p>
+      {/* Usability-Test 2026-11-13: Meldungen stehen über der Karte (unter ihr waren sie am iPad außer Sicht); fester Platz, damit die Karte nicht springt */}
+      <div className="farm-meldung">
+        {fehler ? (
+          <p role="alert">{fehler}</p>
+        ) : (
+          <p role="status" className={meldung ? undefined : 'leise'}>
+            {meldung ?? 'Tippe irgendwohin, dann läuft deine Figur dorthin. Tippe ein Feld, ein Tier oder einen Obstbaum an.'}
+          </p>
+        )}
+      </div>
       <div ref={rahmen} className="farm-rahmen">
         <div className="farm-landschaft" style={{ width: px(SPALTEN), height: px(ZEILEN) }} onClick={inDieLandschaft}>
           <canvas ref={leinwand} width={SPALTEN * KACHEL} height={ZEILEN * KACHEL} style={{ width: px(SPALTEN), height: px(ZEILEN) }} aria-hidden="true" />
@@ -373,8 +382,6 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
         </div>
       </div>
 
-      {meldung && <p role="status">{meldung}</p>}
-      {fehler && <p role="alert">{fehler}</p>}
 
       {menue?.art === 'feld' && (
         <FarmMenue titel={`Feld ${menue.feld + 1}: Was möchtest du pflanzen?`} schliessen={() => setMenue(null)}>
@@ -391,7 +398,7 @@ export function Farm({ token, shop, album }: { token: string; shop: string; albu
                   nummer={SORTE[s.sorte] * 2}
                   name={SORTE_NAME[s.sorte]}
                   anzahl={s.anzahl}
-                  waehlen={() => void ausfuehren('pflanzen', { p_feld: menue.feld, p_sorte: s.sorte }, `${SORTE_NAME[s.sorte]} gepflanzt!`)}
+                  waehlen={() => void ausfuehren('pflanzen', { p_feld: menue.feld, p_sorte: s.sorte }, `${SORTE_NAME[s.sorte]} gepflanzt! Jede gelöste Aufgabe gießt deine Felder.`)}
                 />
               ))}
             </MenueListe>

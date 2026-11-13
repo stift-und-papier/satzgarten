@@ -111,8 +111,8 @@ export function Shop({ token, nachKauf }: { token: string; nachKauf: () => void 
       )}
       {BEREICHE.map(({ art, titel }) => {
         const angebot = daten.angebot.filter((a) => a.art === art && a.preis > 0)
-        const gesperrt = daten.gesperrt.filter((g) => g.art === art).length
-        if (angebot.length === 0 && gesperrt === 0) return null
+        const gesperrt = daten.gesperrt.filter((g) => g.art === art)
+        if (angebot.length === 0 && gesperrt.length === 0) return null
         return (
           <section key={art} className="karte">
             <h2>{titel}</h2>
@@ -147,10 +147,11 @@ export function Shop({ token, nachKauf }: { token: string; nachKauf: () => void 
                   </li>
                 )
               })}
-              {Array.from({ length: gesperrt }, (_, i) => (
+              {gesperrt.map((g, i) => (
                 <li key={`?${i}`} className="shop-artikel shop-artikel--gesperrt">
                   <span className="shop-artikel__frage" aria-hidden="true">?</span>
-                  <span className="leise">Kommt, wenn du weiter übst.</span>
+                  {/* Usability-Test 2026-11-13: sagen, wie weit es noch ist (verdiente Münzen, Ausgeben zählt nicht) */}
+                  <span className="leise">Kommt, wenn du noch {g.fehlt} Münzen verdienst.</span>
                 </li>
               ))}
             </ul>

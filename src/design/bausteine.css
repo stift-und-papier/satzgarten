@@ -550,6 +550,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .album-platz__frage { font-size: 2.5rem; font-weight: 800; line-height: 1; }
 
 /* ---------- Farm (Landschaft) ---------- */
+.farm-meldung { min-height: 3.2em; }
+.farm-meldung p:not(.leise) { font-weight: 800; }
 .farm-rahmen { overflow-x: auto; margin-inline: calc(-1 * var(--space-xs)); }
 .farm-landschaft { position: relative; isolation: isolate; margin-inline: auto; cursor: pointer; touch-action: manipulation; }
 .farm-landschaft canvas { display: block; image-rendering: pixelated; }

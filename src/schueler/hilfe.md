@@ -45,6 +45,40 @@ Deine Seite öffnest du über deinen persönlichen Link von deiner Lehrkraft. Gi
 
 Steht da, dass eine Antwort auf Internet wartet? Dann ist sie sicher gespeichert und wird von selbst gesendet, sobald das Internet wieder da ist. Erscheint „Es gibt eine neue Version“, tippe auf **Neu laden**. Und wenn du bei einer Aufgabe nicht weiterkommst: Schau dir den Tipp an oder frag deine Lehrkraft.
 
+# Deine Farm
+
+## Wie bekomme ich Münzen?
+
+Für jede Aufgabe, die du richtig löst, bekommst du Münzen. Beim ersten Versuch gibt es am meisten, beim zweiten die Hälfte. Schwierigere Aufgaben mit mehr Sternen bringen mehr Münzen. Für dieselbe Aufgabe gibt es einmal am Tag Münzen. Wenn du dir die Lösung angesehen hast, gibt es für diese Aufgabe keine Münzen mehr. Für jede Erklärung bekommst du einmal Münzen, wenn du auf **Verstanden** tippst.
+
+## Wofür sind die Münzen?
+
+Im **Shop** kaufst du damit Samen, Tiere, Obstbäume, Deko und neue Felder für deine Farm. Am Anfang gibt es nur wenige Dinge. Je mehr Münzen du insgesamt verdienst, desto mehr kommt dazu. Beim Fragezeichen steht, wie viele Münzen dir dafür noch fehlen. Was du ausgibst, zählt trotzdem mit.
+
+## Wie pflanze ich etwas?
+
+Kauf im Shop einen Samen. Tippe dann auf der Farm ein leeres Feld an und wähle den Samen aus.
+
+## Wie wachsen meine Pflanzen?
+
+Jede Aufgabe, für die du Münzen bekommst, gießt alle deine Felder. Ein kleines Stück wachsen sie auch von selbst, einmal am Tag. Keine Sorge: Wenn du eine Pause machst, geht nichts kaputt. Alles wartet auf dich.
+
+## Wie ernte ich?
+
+Ist eine Pflanze reif, sagt deine Figur Bescheid. Tippe das Feld an, dann liegt die Ernte daneben. Tippe die Ernte an, dann sammelt deine Figur sie ein. Danach ist sie in deinem **Vorrat** unter der Farm.
+
+## Wann bekomme ich Tiere?
+
+Hühner und Kühe gibt es im Shop, sobald du genug Münzen verdient hast. Tippe ein Tier an und gib ihm etwas aus deinem Vorrat. Jedes Tier frisst einmal am Tag. Dafür legt das Huhn ein Ei und die Kuh gibt Milch. Bessere Ernte gibt besondere Eier und Milch.
+
+## Was mache ich mit Ernte, Eiern und Milch?
+
+Du kannst damit Tiere füttern oder alles im **Shop** verkaufen. Dann bekommst du wieder Münzen.
+
+## Was bedeuten die Pflanzen in „Mein Lernweg“?
+
+Sie zeigen, wie es in einem Thema bei dir vorangeht. 🌱 heißt: Du hast angefangen. 🌿 heißt: Bleib dran. 🪴 heißt: Du wirst besser. 🌷 heißt: Du bist deutlich besser geworden. Wenn du besser wirst, bekommst du manchmal auch ein Geschenk für deine Farm.
+
 # Für Eltern und Schüler:innen
 
 ## Was speichert Wortsalat über mich?
