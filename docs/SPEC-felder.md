@@ -10,6 +10,8 @@ Antworten der Lehrkraft vom 2026-11-12 auf die offenen Fragen 8, 9 und 12. Zahle
 - Pflanzen: Samen aus dem Shop auf ein leeres Feld setzen. Jede Sorte hat 4 Bilder (Keimling → reif, „Farming Plants“).
 - **Wachstum = Üben + etwas Zeit** (Lehrkraft):
   - Jede Aufgabe, die Münzen bringt (Spec Münzen: richtig gelöst, einmal pro Tag je Aufgabe), **gießt alle Felder**: +1.
+  - Seit dem Übungsumbau (Jazz 2026-11-13): **jede fertige Übung gießt alle Felder, +1 je richtiger Runde, mindestens +1**, auch beim
+    Wiederholen ohne neue Münzen. Freundschafts- und Diktat-Zusatzmünzen, Lehrkraft-Münzen und Verkäufe gießen nicht.
   - Zusätzlich wächst jede Pflanze **einmal pro Tag ein kleines Stück von selbst**: +1 je Kalendertag seit dem Pflanzen,
     aber höchstens die Hälfte dessen, was die Pflanze braucht. Ohne Üben wird also nichts reif.
   - Bedarf bis zur Ernte je Sorte: günstige Samen 4, mittlere 6, teure 8.

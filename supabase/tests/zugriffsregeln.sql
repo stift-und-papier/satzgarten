@@ -1442,6 +1442,39 @@ begin
     end if;
     n := n + 1;
 
+    -- 17.15 Gießen (Jazz 2026-11-13): fertige Übung +1 je richtiger Runde, mindestens +1, auch ohne neue Münzen
+    declare
+      v_p public.pflanzungen;
+      v_w0 integer;
+      v_w1 integer;
+    begin
+      delete from public.pflanzungen where schueler_id = v_s.id and feld = 11;
+      insert into public.pflanzungen (schueler_id, feld, sorte, gepflanzt_am) values (v_s.id, 11, 'kuerbis', '2026-03-01 08:00+01')
+      returning * into v_p;
+      v_w0 := public.wachstum(v_p);
+      -- U-3 ist schon befreundet: 2 von 3 richtig bringt keine Münzen, gießt aber +2
+      v := public.uebung_starten_um(v_s, v_paket, v_u1, '2026-03-14 08:00+01');
+      v_d := (v ->> 'durchgang')::uuid;
+      for v_nr in 0..2 loop
+        v := public.runde_pruefen_um(v_s, v_d, v_nr, jsonb_build_object('0', case when v_nr = 2 then 'x' else chr(97 + v_nr) end), '2026-03-14 08:01+01');
+      end loop;
+      v_w1 := public.wachstum(v_p);
+      if v_w1 - v_w0 <> 2 or (v -> 'abschluss' ->> 'muenzen')::int <> 0 then
+        raise exception 'Block 17.15: Übung gießt % statt 2 (Münzen %)', v_w1 - v_w0, v -> 'abschluss' ->> 'muenzen';
+      end if;
+      -- alles falsch: trotzdem +1
+      v := public.uebung_starten_um(v_s, v_paket, v_u1, '2026-03-15 08:00+01');
+      v_d := (v ->> 'durchgang')::uuid;
+      for v_nr in 0..2 loop
+        v := public.runde_pruefen_um(v_s, v_d, v_nr, '{"0":"x"}', '2026-03-15 08:01+01');
+      end loop;
+      if public.wachstum(v_p) - v_w1 <> 1 then raise exception 'Block 17.15: falsche Übung gießt nicht mindestens 1'; end if;
+      -- Lehrkraft-Münzen gießen nicht
+      insert into public.muenz_ereignisse (schueler_id, grund, schluessel, muenzen) values (v_s.id, 'lehrkraft', 'test-giessen', 10);
+      if public.wachstum(v_p) - v_w1 <> 1 then raise exception 'Block 17.15: Lehrkraft-Münzen gießen'; end if;
+    end;
+    n := n + 1;
+
     -- 17.14 Zurücksetzen löscht auch die Durchgänge
     perform set_config('request.jwt.claims', json_build_object('sub', c_lk_a, 'role', 'authenticated')::text, true);
     set local role authenticated;

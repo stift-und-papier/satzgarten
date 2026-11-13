@@ -58,6 +58,9 @@
   Test 6.16 an die neue Sterne-Regel angepasst. `npm test` 138, lint, build ohne Fehler. Echte Daten danach unverändert
   (475 Aufgaben, 43 Versuche, 2 Sterne-Stufen, 690 Münzen). **Nicht getestet:** Diktat-Schwelle 95 % und 100 %-Zusatz (Diktat-Runden
   kommen in Schritt 10), Browser (keine Oberfläche in diesem Schritt).
+  Nachtrag (Jazz): **Gießen** neu (Migration `giessen`, Funktion `wachstum`): jede fertige Übung +1 je richtiger Runde, mindestens +1,
+  auch ohne neue Münzen; Übungs-, Freundschafts- und Diktat-Zusatzmünzen gießen nicht. Test 17.15 (+2, +1, Lehrkraft-Münzen 0);
+  `npm run test:datenbank` → ALLE TESTS BESTANDEN (147). Spec in `docs/SPEC-felder.md` ergänzt.
 
 ## Datenorte
 - **Datenbank Supabase** (Projekt `diwpqkxhmuetdpxxcoar`, Frankfurt): Klassen, Pseudonyme, Aufgaben, Pakete, Zuweisungen,
@@ -118,6 +121,7 @@
   `src/lehrkraft/PaketDetail.tsx`, `src/lehrkraft/AufgabeEditor.tsx`, `docs/umbau/STATUS.md`
   Nachträge: `src/lib/filter.ts`, `src/lehrkraft/ListenFilter.tsx`, `src/lehrkraft/AufgabenListe.tsx`
 - Schritt 5: `supabase/migrations/20261113150000_uebungen_runden.sql` (neu), `supabase/tests/zugriffsregeln.sql`, `docs/umbau/STATUS.md`
+  Nachtrag Gießen: `supabase/migrations/20261113160000_giessen.sql` (neu), `supabase/tests/zugriffsregeln.sql`, `docs/SPEC-felder.md`
 
 ## Offene Fragen
 - Lizenztext zu `assets/orig.png` beim Einbau (Schritt 8) in `src/grafik/LIZENZ.md` übernehmen.
@@ -130,8 +134,6 @@
 - DB-Test Block 15 (Belohnungen, Igel-11) schlug einmal fehl (1 / 1) und lief danach dreimal durch; vermutlich zeitabhängig. Beobachten.
 - Erklärungen sind innerhalb einer Klassenstufe alphabetisch nach Bereich geordnet (Rechtschreibung, Satzglieder …).
 
-- Pflanzen wachsen je Münz-Ereignis: eine Übung mit Freundschaft gießt zweimal (Grundmünzen + Freundschaft), eine ganze Übung aber
-  seltener als früher sechs Einzelaufgaben. Nachfragen, ob das Gießen angepasst werden soll.
 - Merkdiktat: Genauigkeit des Durchgangs ist vorerst der Durchschnitt der Runden; genaue Zählung (alle Zeichen) in Schritt 10.
 - Die App-Typen (`SchuelerAufgabe`) kennen die neuen Felder noch nicht; Anbindung in Schritt 6/8.
 
