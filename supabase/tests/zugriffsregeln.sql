@@ -623,9 +623,13 @@ begin
     reset role;
 
     -- An einem anderen Tag zahlt dieselbe Aufgabe wieder (★★ = 15)
-    insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig, bearbeitet_am)
-    values (gen_random_uuid(), v_fuchs, v_m[1], '{}', '{}', 1, true, now() - interval '2 days') returning * into v_v;
+    insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig, bearbeitet_am, gespeichert_am)
+    values (gen_random_uuid(), v_fuchs, v_m[1], '{}', '{}', 1, true, now() - interval '2 days', now() - interval '2 days') returning * into v_v;
     if public.muenzen_fuer_versuch(v_v) <> 15 then raise exception 'Block 8.8: anderer Tag zahlt nicht'; end if;
+    n := n + 1;
+    -- Ein vom iPad gemeldeter früherer Tag zählt nicht als neuer Münz-Tag (sonst bis zu 14-mal Münzen)
+    v := public.antwort_abgeben(t_fuchs, v_paket, v_m[1], '{"0":"x"}', gen_random_uuid(), now() - interval '3 days');
+    if (v ->> 'muenzen')::int <> 0 then raise exception 'Block 8.8b: früherer Tag vom iPad zahlt nochmal: %', v; end if;
     n := n + 1;
     -- Diktat: unter 90 % nichts; erstes Geschafft 30; Verbesserung 10; gleich gut nichts; fehlerfrei 10 + 20 extra (einmal)
     insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig)
@@ -1065,7 +1069,32 @@ begin
     v_deutlich int;
     v jsonb;
     v_samen_vorher int;
+    v_ad uuid;
+    v_ab uuid;
   begin
+    -- Eigene Lernstand-Daten (echte Versuche von Igel-11 gibt es nicht mehr; alles wird am Ende verworfen):
+    -- je eine ★★★-Aufgabe mit genau einer Kompetenz aus dem KC der Klasse, zwei verschiedene Kompetenzen.
+    -- Aufgabe D: 4 Tage 0 %, dann 6 Tage 100 % → von „--“ auf „+“ (deutlich). Aufgabe B: 4 Tage 40 %, dann 4 Tage 80 % → „-“ auf „o“ (besser).
+    delete from public.versuche where schueler_id = v_igel;
+    with kandidaten as (
+      select a.id as aufgabe, min(ak.kompetenz_id::text) as kompetenz
+      from public.aufgaben a
+      join public.aufgabe_kompetenzen ak on ak.aufgabe_id = a.id
+      join public.kompetenzen k on k.id = ak.kompetenz_id
+        and k.kerncurriculum = (select kl.kerncurriculum from public.klassen kl join public.schueler s on s.klasse_id = kl.id where s.id = v_igel)
+      where a.stufe = 3 and a.typ <> 'erklaerung'
+      group by a.id having count(*) = 1
+    ), d as (select * from kandidaten order by kompetenz, aufgabe limit 1)
+    select d.aufgabe, (select k2.aufgabe from kandidaten k2 where k2.kompetenz <> d.kompetenz order by k2.kompetenz, k2.aufgabe limit 1)
+    into v_ad, v_ab from d;
+    insert into public.versuche (client_id, schueler_id, aufgabe_id, antworten, ergebnis, anteil_richtig, richtig, zaehlt_fuer_lernstand, bearbeitet_am)
+    select gen_random_uuid(), v_igel, x.aufgabe, '{}', '{}', x.anteil, x.anteil = 1, true, now() - make_interval(days => x.tag)
+    from (
+      select v_ad as aufgabe, 0::numeric as anteil, t as tag from generate_series(17, 20) t
+      union all select v_ad, 1, t from generate_series(5, 10) t
+      union all select v_ab, 0.4, t from generate_series(17, 20) t
+      union all select v_ab, 0.8, t from generate_series(5, 8) t
+    ) x;
     delete from public.belohnungen where schueler_id = v_igel;
     select count(*) filter (where x ->> 'kategorie' in ('besser', 'deutlich')), count(*) filter (where x ->> 'kategorie' = 'deutlich')
       into v_besser, v_deutlich

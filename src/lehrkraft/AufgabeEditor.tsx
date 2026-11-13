@@ -1,5 +1,5 @@
 // alt (Übungswiese), auf die Lehrkraft-Ansicht „ruhig“ (lk-*) umgestellt
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { AufgabeBearbeiten } from '../gemeinsam/AufgabeBearbeiten'
 import { fehlerText } from '../lib/fehler'
 import {
@@ -118,6 +118,8 @@ const Erklaerung = ({ offen, children }: { offen: boolean; children: React.React
 // Aufgabe anlegen oder bearbeiten (alle Formate) – wahlweise als Text mit [Klammern] oder per Formular.
 export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabeId: string | null; neuerTyp?: AufgabenTyp }) {
   const [typ, setTyp] = useState<AufgabenTyp>(neuerTyp)
+  // Id einer hier neu angelegten Aufgabe, solange die Seite noch "neu" ist (erneutes Speichern aktualisiert sie)
+  const angelegt = useRef<string | null>(null)
   const [darstellung, setDarstellung] = useState<Darstellung>('antippen')
   // Zuordnen: selbst eingetragene Kategorien (z. B. zusätzliche „Ablenker-Kategorien“), mit Komma getrennt
   const [kategorienText, setKategorienText] = useState('')
@@ -241,10 +243,13 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
       stufe,
       loesung,
     }
-    const { data, error } = aufgabeId
-      ? await supabase.from('aufgaben').update(datensatz).eq('id', aufgabeId).select('id').single()
+    const id = aufgabeId ?? angelegt.current
+    const { data, error } = id
+      ? await supabase.from('aufgaben').update(datensatz).eq('id', id).select('id').single()
       : await supabase.from('aufgaben').insert(datensatz).select('id').single()
     if (error) return setFehler(fehlerText(error))
+    // Neue Aufgabe ist jetzt gespeichert: scheitert gleich die Kompetenz-Zuordnung, aktualisiert erneutes Speichern sie (kein zweites Anlegen)
+    angelegt.current = data.id
 
     // Kompetenz-Zuordnung angleichen
     const entfernt = [...kompetenzIdsAlt].filter((id) => !kompetenzIds.has(id))

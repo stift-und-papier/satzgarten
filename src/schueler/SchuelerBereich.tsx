@@ -58,7 +58,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
   const warteschlangeSenden = useCallback(async () => {
     const liste = warteschlangeLesen(token)
     if (liste.length === 0) return
-    const rest: WartenderVersuch[] = []
+    const erledigt = new Set<string>()
     for (const v of liste) {
       const { error } = await supabase.rpc('antwort_abgeben', {
         p_token: token,
@@ -69,11 +69,13 @@ export function SchuelerBereich({ token, pfad }: Props) {
         p_bearbeitet_am: v.bearbeitet_am,
       })
       // Nur bei Netzwerkproblemen behalten; andere Fehler (z. B. Aufgabe gelöscht) verwerfen.
-      if (error && istNetzwerkfehler(error)) rest.push(v)
+      if (!(error && istNetzwerkfehler(error))) erledigt.add(v.client_id)
     }
+    // Neu lesen: Während des Sendens kann eine weitere Antwort dazugekommen sein, die nicht überschrieben werden darf
+    const rest = warteschlangeLesen(token).filter((v) => !erledigt.has(v.client_id))
     warteschlangeSpeichern(token, rest)
     setWartend(rest.length)
-    if (rest.length < liste.length) void laden()
+    if (erledigt.size > 0) void laden()
   }, [token, laden])
 
   useEffect(() => {

@@ -104,6 +104,3 @@ export function falscheWoerter(soll: string, ist: string): number[] {
   }
   return falsch
 }
-
-/** Ergebnisanzeige ohne Zahlen (Schüler:innen sehen nie Prozente) */
-export const GESCHAFFT_AB = 0.9

@@ -44,7 +44,7 @@
 - Schüler:innen: kein Konto, Link-Token (192 Bit) hinter `#`; Zugriff nur über Datenbankfunktionen mit Token-Prüfung.
 - Bibliotheken: supabase-js, @dnd-kit, qrcode. Neue nur nach Rückfrage (auch für Farm/Spielfigur).
 
-## Design (Übergang: Stilblatt „Gartenheft“ unter `#/stil`, wird in Phase 2 zum Pixel-Look)
+## Design (Stilblatt `#/stil` nach der Freigabe am 2026-11-13 entfernt)
 - Schüleransicht wird Pixel-Art (Sprout Lands, ganzzahlig vergrößert); Lehrkraft-Ansicht bleibt „ruhig“, in Schulblau #003466 (`--color-lk-*`).
 - Pixel-Rahmen (Karte, Knöpfe, gewählt, Rückmeldung, runde Knöpfe) nach den Sprout-Lands-Knöpfen als SVG, dazu Papier/Tinte/Holz/
   Rückmeldung in vier Varianten: erzeugt + kontrastgeprüft von `node scripts/pixel-rahmen.mjs` (Block PIXEL in tokens.css). `--px: 3px` = ein Grafik-Pixel.
@@ -265,3 +265,7 @@
   (`stelle__anhang`). Erklärseiten: Merkkasten Himmelblau hinterlegt (`--color-hilfe-flaeche`, 4 Varianten, Tinte 11,1 bis 16,5 : 1),
   Beispiele kursiv, Fachbegriffe fett (ohne Farbe), markierte Beispielwörter immer dunkel auf Gelb (auch im dunklen Modus).
   „+ Neues Paket“ oben in der Paketliste führt auf eine eigene Seite (`#/lehrkraft/pakete/neu`). Einstellungen als zugeklappte Bereiche.
+- 2026-11-13 (Claude, Prüfbericht, Lehrkraft: „Alle 6“): Münzen „einmal pro Tag“ zählen nach dem Ankunftstag beim Server (`gespeichert_am`,
+  Migration `muenz_tag_server`), nicht nach dem Datum vom iPad. Warteliste offline überschreibt keine neue Antwort mehr. Editor legt eine
+  neue Aufgabe beim erneuten Speichern nicht doppelt an. Veröffentlichung läuft erst nach `lint` und `test`. Stilblatt `#/stil` entfernt.
+  DB-Test Block 15 erzeugt seine Lernstand-Daten jetzt selbst (Igel-11 hat nach dem Löschen der alten Übungen keine Versuche mehr).

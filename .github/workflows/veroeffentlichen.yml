@@ -25,6 +25,9 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # Erst prüfen: schlägt ein Test fehl, wird nichts veröffentlicht
+      - run: npm run lint
+      - run: npm test
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

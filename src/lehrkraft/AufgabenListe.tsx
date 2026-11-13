@@ -1,5 +1,6 @@
 // alt (Übungswiese), auf die Lehrkraft-Ansicht „ruhig“ (lk-*) umgestellt
 import { useEffect, useState } from 'react'
+import { SterneText } from '../gemeinsam/Sterne'
 import { fehlerText } from '../lib/fehler'
 import { LEERER_FILTER, passt } from '../lib/filter'
 import { naechsteSortierung, sortiere, type Sortierung, type Spalte } from '../lib/sortierung'
@@ -125,7 +126,7 @@ Sie verschwindet aus allen Paketen, und alle Versuche der Schüler:innen zu dies
                   <a href={`#/lehrkraft/aufgaben/${a.id}`}>{a.titel}</a>
                 </td>
                 <td>{TYP_NAMEN[a.typ]}</td>
-                <td>{a.typ !== 'erklaerung' && <span aria-label={`Stufe ${a.stufe} von 3`}>{'★'.repeat(a.stufe) + '☆'.repeat(3 - a.stufe)}</span>}</td>
+                <td>{a.typ !== 'erklaerung' && <SterneText stufe={a.stufe} />}</td>
                 <td>{a.kompetenz || <span className="lk-leise">{a.typ === 'erklaerung' ? '–' : 'keine'}</span>}</td>
                 <td>{a.kc || <span className="lk-leise">–</span>}</td>
                 <td>

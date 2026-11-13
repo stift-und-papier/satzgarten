@@ -4,8 +4,6 @@ import { useNeueVersion } from './lib/version'
 
 // Vorschauseiten mit Beispieldaten – nur beim Entwickeln auf dem eigenen Rechner, nie in der veröffentlichten App.
 const Vorschau = import.meta.env.DEV ? lazy(() => import('./entwicklung/Vorschau')) : null
-// Stilblatt zum Prüfen des Designs am iPad (ohne Daten). Wird nach der Design-Freigabe entfernt.
-const Stilblatt = lazy(() => import('./stil/Stilblatt'))
 // Lehrkraft-Bereich eigenständig nachladen: Schüler:innen laden ihn nie.
 // Schüleransicht ebenfalls eigenständig: Lehrkräfte laden sie nur bei Bedarf.
 const SchuelerBereich = lazy(() => import('./schueler/SchuelerBereich').then((m) => ({ default: m.SchuelerBereich })))
@@ -33,12 +31,6 @@ function Seite() {
     return (
       <Suspense fallback={null}>
         <Vorschau />
-      </Suspense>
-    )
-  if (bereich === 'stil')
-    return (
-      <Suspense fallback={null}>
-        <Stilblatt />
       </Suspense>
     )
   if (bereich === 's' && pfad[1])
