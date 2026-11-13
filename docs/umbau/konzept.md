@@ -87,6 +87,9 @@ Heute: je Aufgabe ★ 10 / ★★ 15 / ★★★ 20. Eine Übung ist größer (m
 
 ## 6. Diktat
 
+> **Geändert von Jazz in Schritt 6 (2026-11-13):** Diktate zählen immer als Übung und haben **keine Runden** (im Editor kein Reiter).
+> Abschreiben: **ein Herz je 10 richtige Zeichen** (statt „ein Herz je Wort“ unten). Merkdiktat: ein Herz je richtig abgeschicktem Teil.
+
 **Abschreiben (weiterlaufender Text)**
 - Text läuft wie heute als Laufband, der Cursor wartet auf das richtige Zeichen (wie TastenHeld „race“).
 - **Ein Herz je fertig getipptem Wort** [E 7]: Wort ohne Fehler → Herz trifft; Wort mit mindestens einem Fehler → Herz verfehlt,

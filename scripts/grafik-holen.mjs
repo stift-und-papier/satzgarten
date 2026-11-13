@@ -12,7 +12,9 @@ const { PNG } = createRequire(import.meta.url)('pngjs')
 const UI = 'assets/entpackt/Sprout Lands - UI Pack - Premium pack/UI Sprites/'
 const SPRITES = 'assets/entpackt/Sprout Lands - Sprites - premium pack/'
 const UI_BASIS = 'assets/entpackt/Sprout Lands - UI Pack - Basic pack/Sprite sheets/'
-const PAPIER = 'assets/entpackt/Humble Gift - Paper UI System/Humble Gift - Paper UI System v1.1/Sprites/Paper UI Pack/Plain/1 Paper/'
+const MOBS = 'assets/entpackt/Sprout Sorry pack/Early Access/halloween/mobs/'
+const SCHLEIM = 'assets/entpackt/free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/'
+const PAPIER ='assets/entpackt/Humble Gift - Paper UI System/Humble Gift - Paper UI System v1.1/Sprites/Paper UI Pack/Plain/1 Paper/'
 
 // Zusammengesetzte Bilder: Teile (je 32×32) an Stellen (Spalte, Zeile) übereinander legen.
 // Sammelalbum-Seite (Humble Gift Paper UI): Papier 1–9 als 3×3, darüber Zierecken (11, 13, 15, 17) und Randlinien (10, 12, 14, 16).
@@ -91,6 +93,20 @@ const BILDER = [
   { name: 'fruechte', datei: SPRITES + 'Objects/Items/fruit-n-berries-items.png', x: 0, y: 0, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   // Boot (Deko), am Ufer festgebunden, schaukelt im Wasser (2 Bilder)
   { name: 'deko_boot', datei: SPRITES + 'Objects/Boats.png', x: 0, y: 0, breite: 96, hoehe: 32, bildBreite: 48, bildHoehe: 32 },
+  // Monster für die Übungen (Übungsumbau Schritt 6): je die Ruhe-Animation mit Blick nach vorn, eine Zeile.
+  // Rübchen: eigenes Werk der Lehrkraft; Schleime: craftpix (64 × 64, oben/unten leeren Rand abgeschnitten); Rest: Sprout Sorry Pack.
+  { name: 'monster_ruebchen', datei: 'assets/chomp_idle.png', x: 0, y: 0, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  ...[['gruen', 1], ['blau', 2], ['feuer', 3]].map(([farbe, n]) => ({
+    name: `monster_schleim_${farbe}`, datei: `${SCHLEIM}Slime${n}/Idle/Slime${n}_Idle_full.png`,
+    x: 0, y: 12, breite: 384, hoehe: 32, bildBreite: 64, bildHoehe: 32,
+  })),
+  { name: 'monster_gespenst', datei: MOBS + 'chost_spritesheet.png', x: 0, y: 0, breite: 160, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  ...['green', 'purple', 'golden'].map((farbe) => ({
+    name: `monster_spinne_${{ green: 'gruen', purple: 'lila', golden: 'gold' }[farbe]}`, datei: `${MOBS}lil_${farbe}_spider_spritesheet.png`,
+    x: 0, y: 0, breite: 240, hoehe: 16, bildBreite: 16, bildHoehe: 16,
+  })),
+  { name: 'monster_maus', datei: MOBS + 'little_grey_mouse.png', x: 0, y: 16, breite: 208, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  { name: 'monster_fledermaus', datei: 'assets/entpackt/Sprout Sorry pack/Early Access/Dungeon Pack/enemies/bat_animations.png', x: 0, y: 0, breite: 160, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
 ]
 
 mkdirSync('src/grafik', { recursive: true })

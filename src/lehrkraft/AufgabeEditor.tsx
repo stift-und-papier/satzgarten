@@ -26,6 +26,8 @@ import {
   type Pruefergebnis,
   type Stufe,
 } from '../lib/typen'
+import { Sprite } from '../gemeinsam/Sprite'
+import { MONSTER, type MonsterName } from '../lib/monster'
 import { KompetenzAuswahl } from './KompetenzAuswahl'
 
 // Je Format: Name, kurze Beschreibung und Mini-Beispiel (Format-Kacheln), Standard-Arbeitsanweisung und
@@ -77,7 +79,7 @@ export const FORMATE: Record<AufgabenTyp, { name: string; kurz: string; mini: st
   },
   erklaerung: {
     name: 'Erklärung',
-    kurz: 'Eine Seite, die ein Thema erklärt, mit Merkkasten und Beispielen. Steht im Paket zwischen den Aufgaben.',
+    kurz: 'Eine Seite, die ein Thema erklärt, mit Merkkasten und Beispielen. Steht im Paket zwischen den Übungen.',
     mini: 'Merke: „dass“ lässt sich nicht durch „dieses“ ersetzen.',
     anweisung: '',
     beispiel: '',
@@ -133,7 +135,13 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
   const [stufe, setStufe] = useState<Stufe>(2)
   const [farbig, setFarbig] = useState(true)
   const [grossKlein, setGrossKlein] = useState(true)
-  const [text, setText] = useState('')
+  // Übungsumbau: eine Übung hat mehrere Runden (Reiter), jede Runde ist ein eigener Aufgabentext im bisherigen Format
+  const [runden, setRunden] = useState<string[]>([''])
+  const [aktiv, setAktiv] = useState(0)
+  const text = runden[aktiv] ?? ''
+  const setText = (neu: string) => setRunden((alt) => alt.map((r, i) => (i === aktiv ? neu : r)))
+  const [rundenJe, setRundenJe] = useState(6)
+  const [monsterName, setMonsterName] = useState<string>('ruebchen')
   const [modus, setModus] = useState<'text' | 'formular'>('text')
   const [fehler, setFehler] = useState<string | null>(null)
   const [gespeichert, setGespeichert] = useState(false)
@@ -158,16 +166,20 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
       })
     void supabase
       .from('aufgaben')
-      .select('id, typ, titel, anweisung, farbig, hinweis, rueckmeldung_fehler, stufe, loesung, geaendert_am')
+      .select('id, typ, titel, anweisung, farbig, hinweis, rueckmeldung_fehler, stufe, loesung, geaendert_am, monster, runden_je_durchgang')
       .eq('id', aufgabeId)
       .eq('archiviert', false)
       .maybeSingle()
       .then(({ data, error }) => {
         if (error) return setFehler(fehlerText(error))
-        if (!data) return setFehler('Diese Aufgabe gibt es nicht mehr oder sie ist archiviert.')
+        if (!data) return setFehler('Diese Übung gibt es nicht mehr oder sie ist archiviert.')
         const a = data as Aufgabe
         setTyp(a.typ)
-        const l = a.loesung
+        setMonsterName(a.monster)
+        setRundenJe(a.runden_je_durchgang ?? 6)
+        // Einstellungen gelten für die ganze Übung und stehen in jeder Runde gleich; gelesen aus der ersten
+        const l = a.loesung.runden?.[0] ?? a.loesung
+        setRunden((a.loesung.runden ?? [a.loesung]).map((r) => r.text ?? teileZuText(r.teile)))
         setDarstellung(l.darstellung ?? 'antippen')
         setKategorienText((l.kategorien ?? []).join(', '))
         setKorrigieren(l.korrigieren ?? false)
@@ -179,7 +191,6 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
         setStufe(a.stufe)
         setFarbig(a.farbig)
         setGrossKlein(l.gross_klein_beachten ?? true)
-        setText(l.text ?? teileZuText(l.teile))
         if (l.modus) setDiktatModus(l.modus)
         if (l.erklaerung)
           setErkl({ text: l.erklaerung.text, merke: l.erklaerung.merke, beispiele: l.erklaerung.beispiele.join('\n') })
@@ -201,29 +212,37 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
     merke: erkl.merke.trim(),
     beispiele: erkl.beispiele.split('\n').map((b) => b.trim()).filter(Boolean),
   }
-  const { teile, fehler: textFehler } = useMemo(
+  // Jede Runde einzeln zerlegen; angezeigt (Formular, Vorschau) wird die gewählte Runde
+  const zerlegt = useMemo(
     () =>
-      typ === 'erklaerung'
-        ? { teile: [], fehler: [] }
-        : typ === 'diktat'
-          ? { teile: [], fehler: saetzeTeilen(text).length ? [] : ['Bitte fügen Sie einen Text ein.'] }
-        : typ === 'reihenfolge'
-          ? reihenZuTeilen(text)
-          : typ === 'ueberarbeiten'
-            ? versionenZuTeilen(text)
-            : textZuTeilen(text, typ === 'fehler' ? 'fehler' : typ === 'zuordnen'),
-    [text, typ],
+      runden.map((t) =>
+        typ === 'erklaerung'
+          ? { teile: [], fehler: [] }
+          : typ === 'diktat'
+            ? { teile: [], fehler: saetzeTeilen(t).length ? [] : ['Bitte fügen Sie einen Text ein.'] }
+            : typ === 'reihenfolge'
+              ? reihenZuTeilen(t)
+              : typ === 'ueberarbeiten'
+                ? versionenZuTeilen(t)
+                : textZuTeilen(t, typ === 'fehler' ? 'fehler' : typ === 'zuordnen'),
+      ),
+    [runden, typ],
   )
-  const kategorien = typ === 'zuordnen' ? kategorienAus(teile, kategorienText.split(',')) : undefined
+  const { teile, fehler: textFehler } = zerlegt[aktiv] ?? zerlegt[0]
+  // Runden mit Fehlern (außer der gewählten, deren Fehler direkt unter dem Textfeld stehen)
+  const fehlerRunden = zerlegt.flatMap((z, i) => (z.fehler.length || !runden[i].trim() ? [i + 1] : []))
+  const kategorien = typ === 'zuordnen' ? kategorienAus(zerlegt.flatMap((z) => z.teile), kategorienText.split(',')) : undefined
   const fehlerOptionen = typ === 'fehler' ? { korrigieren, anzahl_zeigen: anzahlZeigen } : {}
   // Spalte loesung (mit Lösungen); die Schüler-Fassung (inhalt) erzeugt die Datenbank daraus
   const istDiktat = typ === 'diktat'
   const saetze = istDiktat ? saetzeTeilen(text) : []
-  const loesung = istErklaerung
-    ? { text: '', gross_klein_beachten: true, teile: [], erklaerung }
-    : istDiktat
-    ? { text, gross_klein_beachten: true, teile: [], modus: diktatModus, saetze }
-    : { text, gross_klein_beachten: grossKlein, darstellung, kategorien, ...fehlerOptionen, teile }
+  const rundeLoesung = (t: string, tl: LueckentextTeil[]) =>
+    istDiktat
+      ? { text: t, gross_klein_beachten: true, teile: [], modus: diktatModus, saetze: saetzeTeilen(t) }
+      : { text: t, gross_klein_beachten: grossKlein, darstellung, kategorien, ...fehlerOptionen, teile: tl }
+  // gewählte Runde (für die Vorschau)
+  const loesung = istErklaerung ? { text: '', gross_klein_beachten: true, teile: [], erklaerung } : rundeLoesung(text, teile)
+  // Diktate haben keine Runden (Jazz, Schritt 6): gespeichert als eine einzige Runde, damit sie als Übung zählen
   const erklaerungLeer = !erklaerung.text && !erklaerung.merke
   const format = FORMATE[typ]
   const BEISPIEL = format.beispiel
@@ -233,8 +252,13 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
   async function speichern() {
     setFehler(null)
     if (!titel.trim()) return setFehler('Bitte einen Titel eingeben.')
-    if (textFehler.length) return setFehler('Der Aufgabentext hat noch Fehler (siehe oben).')
     if (istErklaerung && erklaerungLeer) return setFehler('Bitte einen Erklärtext oder einen Merksatz schreiben.')
+    if (!istErklaerung && fehlerRunden.length)
+      return setFehler(
+        istDiktat
+          ? 'Der Text fehlt noch oder hat Fehler (siehe oben).'
+          : `${fehlerRunden.length === 1 ? 'Runde' : 'Runden'} ${fehlerRunden.join(', ')}: Der Aufgabentext fehlt noch oder hat Fehler.`,
+      )
     const datensatz = {
       typ,
       titel: titel.trim(),
@@ -243,7 +267,9 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
       rueckmeldung_fehler: rueckmeldung.trim() || null,
       farbig,
       stufe,
-      loesung,
+      loesung: istErklaerung ? loesung : { runden: runden.map((t, i) => rundeLoesung(t, zerlegt[i].teile)) },
+      monster: monsterName,
+      runden_je_durchgang: Math.min(50, Math.max(1, Math.round(rundenJe) || 6)),
     }
     const id = aufgabeId ?? angelegt.current
     const { data, error } = id
@@ -273,7 +299,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
   async function loeschen() {
     if (!aufgabeId) return
     const ok = window.confirm(
-      'Diese Aufgabe endgültig löschen?\n\nSie verschwindet aus allen Paketen, und alle Versuche der Schüler:innen zu dieser Aufgabe werden gelöscht.',
+      `Diese ${istErklaerung ? 'Erklärseite' : 'Übung'} endgültig löschen?\n\nSie verschwindet aus allen Paketen, und alle Ergebnisse der Schüler:innen dazu werden gelöscht.`,
     )
     if (!ok) return
     const { error } = await supabase.from('aufgaben').delete().eq('id', aufgabeId)
@@ -286,10 +312,10 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
   return (
     <>
       <a className="lk-zurueck" href="#/lehrkraft/aufgaben">
-        ← Alle Aufgaben
+        ← Alle Übungen
       </a>
       <div className="lk-zeile">
-        <h1>{aufgabeId ? `${format.name} bearbeiten` : 'Neue Aufgabe'}</h1>
+        <h1>{aufgabeId ? `${format.name} bearbeiten` : istErklaerung ? 'Neue Erklärseite' : 'Neue Übung'}</h1>
         {/* Format nur bei neuen Aufgaben umschaltbar – gespeicherte Antworten passen sonst nicht mehr */}
         {!aufgabeId && (
           <label>
@@ -352,7 +378,40 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
           </label>
 
           <fieldset>
-            <legend>Aufgabentext</legend>
+            <legend>{istDiktat ? 'Aufgabentext' : 'Runden'}</legend>
+            {!istDiktat && (
+              <div className="lk-reiter" role="group" aria-label="Runden der Übung">
+                {runden.map((_, i) => (
+                  <button key={i} type="button" className="lk-knopf" aria-pressed={i === aktiv} onClick={() => setAktiv(i)}>
+                    Runde {i + 1}
+                    {fehlerRunden.includes(i + 1) && i !== aktiv && runden[i].trim() ? ' (Fehler)' : ''}
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  className="lk-knopf"
+                  disabled={runden.length >= 100}
+                  onClick={() => {
+                    setRunden([...runden, ''])
+                    setAktiv(runden.length)
+                  }}
+                >
+                  + Runde
+                </button>
+                {runden.length > 1 && (
+                  <button
+                    type="button"
+                    className="lk-knopf"
+                    onClick={() => {
+                      setRunden(runden.filter((_, i) => i !== aktiv))
+                      setAktiv(Math.max(0, aktiv - 1))
+                    }}
+                  >
+                    Runde {aktiv + 1} entfernen
+                  </button>
+                )}
+              </div>
+            )}
             {istDiktat ? (
               <div className="lk-reiter" role="group" aria-label="Art des Diktats">
                 <button type="button" className="lk-knopf" aria-pressed={diktatModus === 'abschreiben'} onClick={() => setDiktatModus('abschreiben')}>
@@ -444,17 +503,17 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                   onChange={(e) => setText(e.target.value)}
                   placeholder={BEISPIEL}
                   spellCheck={false}
-                  aria-label="Aufgabentext"
+                  aria-label={istDiktat ? 'Aufgabentext' : `Aufgabentext Runde ${aktiv + 1}`}
                 />
                 {istDiktat && diktatModus === 'merken' && text.trim() && <TrennAnsicht text={text} onChange={setText} />}
               </>
             ) : (
               typ === 'reihenfolge' ? (
-                <ReihenFormular text={text} onChange={setText} />
+                <ReihenFormular key={aktiv} text={text} onChange={setText} />
               ) : typ === 'ueberarbeiten' ? (
-                <VersionenFormular text={text} onChange={setText} />
+                <VersionenFormular key={aktiv} text={text} onChange={setText} />
               ) : (
-                <FormularModus teile={teile} onChange={setText} />
+                <FormularModus key={aktiv} teile={teile} onChange={setText} />
               )
             )}
 
@@ -531,6 +590,17 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
                 </div>
               </div>
             )}
+            {!istDiktat && (
+              <label>
+                Runden pro Durchgang
+                <input className="lk-feld lk-feld--zahl" type="number" min={1} max={50} value={rundenJe} onChange={(e) => setRundenJe(Number(e.target.value))} />
+                <span className="lk-leise">
+                  {runden.length > rundenJe
+                    ? `Jeder Durchgang zieht ${rundenJe} von ${runden.length} Runden, bevorzugt neue und früher falsche.`
+                    : 'Tragen Sie mehr Runden ein, kommen beim Wiederholen andere Beispiele.'}
+                </span>
+              </label>
+            )}
           </fieldset>
           </>
           )}
@@ -538,7 +608,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
 
             {/* Live-Vorschau: so sehen es Schüler:innen; „Prüfen“ prüft wie echt, speichert aber nichts */}
             <div className="lk-editor__vorschau">
-              <h3>So sehen es Schüler:innen</h3>
+              <h3>So sehen es Schüler:innen{!istErklaerung && !istDiktat && runden.length > 1 ? ` (Runde ${aktiv + 1})` : ''}</h3>
               {(istErklaerung ? !erklaerungLeer : text && textFehler.length === 0) ? (
                 <div className="lk-vorschau">
                   <AufgabeBearbeiten
@@ -592,6 +662,17 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
               ))}
             </div>
           </fieldset>
+          <fieldset>
+            <legend>Monster</legend>
+            <div className="lk-reiter lk-monster" role="group" aria-label="Monster der Übung">
+              {(Object.keys(MONSTER) as MonsterName[]).map((m) => (
+                <button type="button" key={m} className="lk-knopf" aria-pressed={monsterName === m} onClick={() => setMonsterName(m)}>
+                  <Sprite grafik={MONSTER[m].grafik} mal={MONSTER[m].mal} />
+                  {MONSTER[m].name}
+                </button>
+              ))}
+            </div>
+          </fieldset>
           <KompetenzAuswahl ausgewaehlt={kompetenzIds} onChange={setKompetenzIds} />
             </>
           )}
@@ -626,7 +707,7 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
           </button>
           {aufgabeId && (
             <button type="button" className="lk-knopf lk-knopf--gefahr" onClick={() => void loeschen()}>
-              Aufgabe löschen
+              {istErklaerung ? 'Erklärseite löschen' : 'Übung löschen'}
             </button>
           )}
         </div>

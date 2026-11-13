@@ -23,6 +23,16 @@ Deshalb liegen hier nur einzelne, ausgeschnittene Bilder, die die App wirklich b
 
 Obstbäume (`baum_*.png`), Früchte (`fruechte.png`) und Boot (`deko_boot.png`) kommen aus dem Premium-Paket (Tree animations, Items, Boats).
 
+Monster für die Übungen aus dem Sorry Pack (Ordner „Early Access“, halloween/mobs und Dungeon Pack/enemies):
+`monster_gespenst.png`, `monster_spinne_gruen.png`, `monster_spinne_lila.png`, `monster_spinne_gold.png`, `monster_maus.png`,
+`monster_fledermaus.png` (je eine Zeile der Ruhe- bzw. Flug-Animation).
+
+## craftpix.net
+
+- `monster_schleim_gruen.png`, `monster_schleim_blau.png`, `monster_schleim_feuer.png`: Ruhe-Animation (Blick nach vorn) aus
+  „Free Slime Mobs Pixel Art Top-Down Sprite Pack“ von craftpix.net. Lizenz https://craftpix.net/file-licenses/ :
+  Nutzung und Veränderung in eigenen Projekten erlaubt, die Grafiken nicht als Grafiken weitergeben, Nennung freiwillig.
+
 ## Von der Lehrkraft bereitgestellt
 
 - `feld.png`: aus `assets/Soil_Ground_Tile_single.png` (auf 14 × 14 verkleinert). Herkunft bitte noch eintragen.
@@ -31,7 +41,8 @@ Obstbäume (`baum_*.png`), Früchte (`fruechte.png`) und Boot (`deko_boot.png`) 
 
 - `einstein.png`: Maskottchen Einstein, Posen freundlich, blinzelt, lob, freut sich, huch, erklärt (aus der eigenen Vorlage
   auf ihr Pixelraster verkleinert, Hintergrund entfernt).
-- `bubble emotes july update.png` (Sprechblasen): noch nicht benutzt.
+- `bubble emotes july update.png` (Sprechblasen): daraus `herz.png`.
+- `monster_ruebchen.png`: Rübchen (aus `assets/chomp_idle.png`, obere Zeile der Ruhe-Animation).
 
 ## Humble Gift – Paper UI System (Humble Pixel)
 

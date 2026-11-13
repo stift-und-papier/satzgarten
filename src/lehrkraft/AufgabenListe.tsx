@@ -65,9 +65,9 @@ export function AufgabenListe() {
   const sortiert = zeilen && sortiere(zeilen, sortierung, (typ) => TYP_NAMEN[typ])
   async function loeschen(a: AufgabeMitKompetenzen) {
     const ok = window.confirm(
-      `Aufgabe „${a.titel}“ endgültig löschen?
+      `„${a.titel}“ endgültig löschen?
 
-Sie verschwindet aus allen Paketen, und alle Versuche der Schüler:innen zu dieser Aufgabe werden gelöscht.`,
+Sie verschwindet aus allen Paketen, und alle Ergebnisse der Schüler:innen dazu werden gelöscht.`,
     )
     if (!ok) return
     const { error } = await supabase.from('aufgaben').delete().eq('id', a.id)
@@ -78,10 +78,10 @@ Sie verschwindet aus allen Paketen, und alle Versuche der Schüler:innen zu dies
 
   return (
     <>
-      <h1>Aufgaben</h1>
+      <h1>Übungen</h1>
       <div className="lk-knopfreihe">
         <a className="lk-knopf lk-knopf--haupt" href="#/lehrkraft/aufgaben/neu">
-          + Neue Aufgabe
+          + Neue Übung
         </a>
       </div>
       {fehler && <p className="lk-hinweis" role="alert">{fehler}</p>}
@@ -99,9 +99,9 @@ Sie verschwindet aus allen Paketen, und alle Versuche der Schüler:innen zu dies
       {gefiltert === undefined ? (
         <p>Lädt …</p>
       ) : aufgaben?.length === 0 ? (
-        <p>Noch keine Aufgaben.</p>
+        <p>Noch keine Übungen.</p>
       ) : gefiltert.length === 0 ? (
-        <p>Keine Aufgabe passt zu diesem Filter.</p>
+        <p>Nichts passt zu diesem Filter.</p>
       ) : (
         <div className="lk-rollen">
         <table className="lk-tabelle">

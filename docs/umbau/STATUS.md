@@ -62,6 +62,26 @@
   auch ohne neue Münzen; Übungs-, Freundschafts- und Diktat-Zusatzmünzen gießen nicht. Test 17.15 (+2, +1, Lehrkraft-Münzen 0);
   `npm run test:datenbank` → ALLE TESTS BESTANDEN (147). Spec in `docs/SPEC-felder.md` ergänzt.
 
+- **Schritt 6 – Lehrkrafteditor** (2026-11-13, keine Migration):
+  - Editor: Reiter „Runde 1, Runde 2 … + Runde“, darin alles wie bisher (Text mit [Klammern] oder Formular, Vorschau der gewählten Runde),
+    „Runde n entfernen“ ohne Nachfrage, Feld „Runden pro Durchgang“ (Standard 6) mit Hinweis zum Pool. Gespeichert als `loesung.runden`.
+    Diktate ohne Reiter, gespeichert als eine einzige Runde (zählen so als Übung).
+  - Monster-Auswahl mit Bildern (10 Monster, Standard Rübchen), Bilder per `scripts/grafik-holen.mjs` nach `src/grafik/monster_*.png`
+    (je eine Zeile der Ruhe-Animation), Liste in `src/lib/monster.ts`, Herkunft in `src/grafik/LIZENZ.md`.
+  - Pakete: Zeilen mit kleinem Monster, Wörter „Übung“; Paket-Vorschau zeigt jede Runde als eigenen Schritt.
+  - „Versuch früher freigeben“ (`src/lehrkraft/Freigeben.tsx`): Klassenseite (Pseudonyme antippen, Übung oder alle, ohne Nachfrage)
+    und Lernstand-Seite der Schüler:in (je wartender Übung ein Knopf).
+  - Lehrkraft-Ansicht sagt „Übung“ statt „Aufgabe“ (Menü, Liste, Neue Übung, Formatwahl, Pakete).
+  **Getestet** (Browser, als Lehrkraft angemeldet, 1024 × 768 und 1180 × 820): Übung „Test: das oder dass (Runden)“ mit 3 Runden und Gespenst
+  angelegt, gespeichert, neu geladen (3 Runden, Gespenst, Formular je Runde zeigt die richtige Runde); in der Datenbank 3 Runden, `inhalt`
+  ohne Lösung, `ist_uebung` = ja. Merkdiktat „Test: Merkdiktat“ ohne Reiter gespeichert (1 Runde, 2 Teile, Übung = ja). „Testpaket Runden“
+  (Jg. 5, Realschule) mit beiden Übungen angelegt und der Klasse „Test“ zugewiesen; Vorschau Runde 1 von 3 geprüft („dass“ → richtig).
+  Freigeben: Dachs-19 (Testklasse) hat per Datenbank-Funktionen einen Durchgang beendet (gesperrt bis 14.11.) → Lernstand-Seite „Früher freigeben“
+  → neuer Durchgang „offen“; zweiter Durchgang beendet → Klassenseite „Für alle freigeben“ → „✓ Freigegeben (1 Übung)“.
+  Schüleransicht von Dachs-19 lädt und zeigt das Paket. `npm test` 138, lint, build ohne Fehler. Konsole ohne Fehler.
+  **Nicht getestet:** Übung als Schüler:in spielen (Oberfläche kommt in Schritt 8), `npm run test:datenbank` (keine Datenbank-Änderung).
+  Testdaten bleiben: zwei Testübungen, „Testpaket Runden“ (Klasse Test), zwei Durchgänge und 45 Münzen bei Dachs-19.
+
 ## Datenorte
 - **Datenbank Supabase** (Projekt `diwpqkxhmuetdpxxcoar`, Frankfurt): Klassen, Pseudonyme, Aufgaben, Pakete, Zuweisungen,
   Versuche, Lernstände, Münzen, Farm, Besitz. Aufbau nur über `supabase/migrations/` (31 Migrationen).
@@ -108,6 +128,9 @@
 - 2026-11-13 (Jazz, Schritt 5, alle Vorschläge): Migration wie im Konzept; Übung = hat Runden, Erklärseiten bleiben; Diktat-Feinheiten in
   Schritt 10, Fallende Wörter in Schritt 11; Münzen erst am Ende eines Durchgangs; geänderte Übung → angefangener Durchgang beginnt neu;
   Zurücksetzen löscht auch Durchgänge; Sterne-Aufstieg ab 2 Übungen sofort.
+- 2026-11-13 (Jazz, Schritt 6, alle Vorschläge, dazu): **Diktate zählen immer als Übung und haben keine Runden.** Herzen:
+  Abschreiben (fortlaufend) **ein Herz je 10 richtige Zeichen** (ersetzt „ein Herz je Wort“ aus dem Konzept), Merkdiktat ein Herz je
+  richtig abgeschicktem Teil. Umsetzung in Schritt 10. Freigeben ohne Nachfrage. Leseschrift-Haken je Schüler:in erst in Schritt 8.
 
 ## Geänderte Dateien
 - Schritt 0: `docs/umbau/STATUS.md`, `docs/umbau/ARBEITSPLAN.md` (neu), `.gitignore`, `CLAUDE.md`
@@ -122,6 +145,11 @@
   Nachträge: `src/lib/filter.ts`, `src/lehrkraft/ListenFilter.tsx`, `src/lehrkraft/AufgabenListe.tsx`
 - Schritt 5: `supabase/migrations/20261113150000_uebungen_runden.sql` (neu), `supabase/tests/zugriffsregeln.sql`, `docs/umbau/STATUS.md`
   Nachtrag Gießen: `supabase/migrations/20261113160000_giessen.sql` (neu), `supabase/tests/zugriffsregeln.sql`, `docs/SPEC-felder.md`
+- Schritt 6: `src/lehrkraft/AufgabeEditor.tsx`, `src/lehrkraft/PaketDetail.tsx`, `src/lehrkraft/Freigeben.tsx` (neu),
+  `src/lehrkraft/KlasseDetail.tsx`, `src/lehrkraft/Lernstand.tsx`, `src/lehrkraft/AufgabenListe.tsx`, `src/lehrkraft/PaketListe.tsx`,
+  `src/lehrkraft/FormatWahl.tsx`, `src/lehrkraft/LehrkraftRahmen.tsx`, `src/lib/monster.ts` (neu), `src/lib/typen.ts`,
+  `src/design/lehrkraft.css`, `scripts/grafik-holen.mjs`, `src/grafik/index.ts`, `src/grafik/monster_*.png` (10 neu), `src/grafik/LIZENZ.md`,
+  `docs/umbau/konzept.md`, `docs/umbau/STATUS.md`
 
 ## Offene Fragen
 - Lizenztext zu `assets/orig.png` beim Einbau (Schritt 8) in `src/grafik/LIZENZ.md` übernehmen.
@@ -135,7 +163,10 @@
 - Erklärungen sind innerhalb einer Klassenstufe alphabetisch nach Bereich geordnet (Rechtschreibung, Satzglieder …).
 
 - Merkdiktat: Genauigkeit des Durchgangs ist vorerst der Durchschnitt der Runden; genaue Zählung (alle Zeichen) in Schritt 10.
-- Die App-Typen (`SchuelerAufgabe`) kennen die neuen Felder noch nicht; Anbindung in Schritt 6/8.
+- Die Schüler-Typen (`SchuelerAufgabe`) kennen die neuen Felder noch nicht; Anbindung in Schritt 8 (Lehrkraft-Typen in Schritt 6 ergänzt).
+- Die craftpix-Schleime sind grün, blau und **Feuer** (braun mit Flammen), nicht lila wie im Konzept. Im Editor heißen sie „Schleim grün“,
+  „Schleim blau“, „Feuerschleim“. Bitte ansehen; sonst Schleim weglassen oder anderes Monster.
+- Diktat: Server zählt Merkdiktat und Abschreiben vorerst als eine Runde; Herzen und Genauigkeit richtig in Schritt 10.
 
 ## Nächster Schritt
-- Schritt 6 – Lehrkrafteditor anpassen.
+- Schritt 7 – Asset-Vorbereitung: Einstein „schießend“.

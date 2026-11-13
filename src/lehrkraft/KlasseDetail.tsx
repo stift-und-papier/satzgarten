@@ -5,6 +5,7 @@ import { erzeugePseudonyme, pseudonymListeLesen } from '../lib/pseudonyme'
 import { gehe, schuelerLink } from '../lib/router'
 import { supabase } from '../lib/supabase'
 import type { Klasse, Schueler } from '../lib/typen'
+import { FreigebenKlasse } from './Freigeben'
 
 // alt (Übungswiese), gekürzt: Klasse umbenennen, KC wählen, Pseudonyme anlegen/umbenennen/löschen, Sterne-Stufe fest einstellen.
 // Dazu Lernstand (Phase 7) und „Ergebnisse zurücksetzen“ (alt).
@@ -306,6 +307,8 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
           </form>
         </section>
       )}
+
+      {schueler.length > 0 && <FreigebenKlasse schueler={schueler} />}
 
       <section className="lk-abschnitt">
         <h2>Schüler:innen hinzufügen</h2>

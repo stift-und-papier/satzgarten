@@ -20,7 +20,7 @@ import { NeuesPaket, PaketListe } from './PaketListe'
 
 const MENUE: [string, string][] = [
   ['klassen', 'Klassen'],
-  ['aufgaben', 'Aufgaben'],
+  ['aufgaben', 'Übungen'],
   ['pakete', 'Pakete'],
   ['kompetenzen', 'Kompetenzen'],
   ['einstellungen', 'Einstellungen'],

@@ -6,6 +6,7 @@ import { fehlerText } from '../lib/fehler'
 import { datum, GROSSE_BEREICHE, grosserBereich, stufeAusPunkte, zusammenfassen, type Auswertung, type Einstellungen } from '../lib/lernstand'
 import { supabase } from '../lib/supabase'
 import type { Klasse, Kompetenz, Schueler } from '../lib/typen'
+import { FreigebenSchueler } from './Freigeben'
 import { Legende, StufenFeld, StufenStreifen, Verlauf } from './LernstandAnzeige'
 
 type Zeile = { schueler_id: string; kompetenz_id: string; daten: Auswertung | null }
@@ -327,6 +328,7 @@ export function SchuelerLernstand({ schuelerId }: { schuelerId: string }) {
         </button>
       </div>
       <EinzelKarte {...daten} daten={daten.werte} einzelseite />
+      <FreigebenSchueler schuelerId={daten.schueler.id} />
       <Legende />
       <p className="lk-leise">
         Berechnung: gewichteter Durchschnitt der letzten {e.anzahl_letzte} gewerteten Versuche (neuere zählen mehr; Aufgaben mit 1/2/3

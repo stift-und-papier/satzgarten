@@ -71,6 +71,8 @@ export type LueckentextInhalt = {
   /** nur beim Diktat: Art und (Teil-)Sätze (docs/SPEC-diktat.md) */
   modus?: 'abschreiben' | 'merken'
   saetze?: string[]
+  /** Übungsumbau: eine Übung besteht aus Runden, jede Runde im bisherigen Format (Diktat: genau eine, ohne Runden-Reiter) */
+  runden?: LueckentextInhalt[]
 }
 
 /** Spalte aufgaben.inhalt: Schüler-Fassung ohne Lösungen (erzeugt die Datenbank; Vorschau: ohneLoesung) */
@@ -95,6 +97,8 @@ export type LueckentextInhaltSchueler = {
     | ReiheOhneLoesung
     | VersionenOhneLoesung
   )[]
+  /** Übungsumbau: Schüler-Fassung je Runde */
+  runden?: LueckentextInhaltSchueler[]
 }
 
 /** Antwort je Stelle: Text (Lücke, Kategorie, Verbesserung), Nummern (Auswahl), true (Fehler markiert),
@@ -113,6 +117,9 @@ export interface Aufgabe {
   stufe: Stufe
   loesung: LueckentextInhalt
   geaendert_am: string
+  /** Übungsumbau: Monster (src/lib/monster.ts) und Runden je Durchgang (leer = alle) */
+  monster: string
+  runden_je_durchgang: number | null
 }
 
 export type Pruefergebnis = {

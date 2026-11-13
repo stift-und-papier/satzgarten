@@ -5,6 +5,8 @@ import { fehlerText } from '../lib/fehler'
 import { gehe } from '../lib/router'
 import { supabase } from '../lib/supabase'
 import type { Aufgabe, Klasse, LueckentextInhaltSchueler, Paket, Pruefergebnis, Schueler, Stufe, Zuweisung } from '../lib/typen'
+import { Sprite } from '../gemeinsam/Sprite'
+import { monster } from '../lib/monster'
 import { TYP_NAMEN } from './AufgabenListe'
 import { PaketTags, TagAuswahl } from './PaketTags'
 
@@ -12,7 +14,7 @@ type PaketAufgabe = Aufgabe & { inhalt: LueckentextInhaltSchueler }
 type Daten = {
   paket: Paket
   inhalt: { aufgabe_id: string; position: number; aufgabe: PaketAufgabe }[]
-  alleAufgaben: Pick<Aufgabe, 'id' | 'typ' | 'titel' | 'stufe'>[]
+  alleAufgaben: Pick<Aufgabe, 'id' | 'typ' | 'titel' | 'stufe' | 'monster'>[]
   zuweisungen: Zuweisung[]
   klassen: Klasse[]
   schueler: Pick<Schueler, 'id' | 'klasse_id' | 'pseudonym'>[]
@@ -28,7 +30,7 @@ export function PaketDetail({ paketId, vorschau }: { paketId: string; vorschau: 
     const [p, pa, a, z, k, s] = await Promise.all([
       supabase.from('pakete').select('*').eq('id', paketId).eq('archiviert', false).maybeSingle(),
       supabase.from('paket_aufgaben').select('aufgabe_id, position, aufgabe:aufgaben(*)').eq('paket_id', paketId).order('position'),
-      supabase.from('aufgaben').select('id, typ, titel, stufe').eq('archiviert', false).order('titel'),
+      supabase.from('aufgaben').select('id, typ, titel, stufe, monster').eq('archiviert', false).order('titel'),
       supabase.from('zuweisungen').select('*').eq('paket_id', paketId).order('erstellt_am'),
       supabase.from('klassen').select('id, name, kerncurriculum').order('name'),
       supabase.from('schueler').select('id, klasse_id, pseudonym').order('pseudonym'),
@@ -83,14 +85,19 @@ export function PaketDetail({ paketId, vorschau }: { paketId: string; vorschau: 
       {fehler && <p className="lk-hinweis" role="alert">{fehler}</p>}
 
       <section className="lk-abschnitt">
-        <h2>Aufgaben in diesem Paket</h2>
+        <h2>Übungen in diesem Paket</h2>
         {inhalt.length === 0 ? (
-          <p>Noch keine Aufgaben.</p>
+          <p>Noch keine Übungen.</p>
         ) : (
           <ol className="lk-liste">
             {inhalt.map((e, i) => (
               <li key={e.aufgabe_id} className="lk-eintrag">
                 <span>
+                  {e.aufgabe.typ !== 'erklaerung' && (
+                    <span className="lk-monster-klein" title={monster(e.aufgabe.monster).name}>
+                      <Sprite grafik={monster(e.aufgabe.monster).grafik} mal={Math.max(1, monster(e.aufgabe.monster).mal - 1)} />
+                    </span>
+                  )}
                   <a href={`#/lehrkraft/aufgaben/${e.aufgabe_id}`}>{e.aufgabe.titel}</a>
                   <span className="lk-leise">
                     {' '}
@@ -134,7 +141,7 @@ export function PaketDetail({ paketId, vorschau }: { paketId: string; vorschau: 
             }}
           >
             <label>
-              Aufgabe hinzufügen
+              Übung hinzufügen
               <select className="lk-feld" name="aufgabe">
                 {verfuegbar.map((a) => (
                   <option key={a.id} value={a.id}>
@@ -148,11 +155,11 @@ export function PaketDetail({ paketId, vorschau }: { paketId: string; vorschau: 
           </form>
         ) : (
           <p className="lk-leise">
-            Alle Ihre Aufgaben sind schon in diesem Paket. <a href="#/lehrkraft/aufgaben/neu">Neue Aufgabe anlegen</a>
+            Alle Ihre Übungen sind schon in diesem Paket. <a href="#/lehrkraft/aufgaben/neu">Neue Übung anlegen</a>
           </p>
         )}
         <p className="lk-leise">
-          Schüler:innen sehen je Themenbereich nur die Aufgaben ihrer Sterne-Stufe (Erklärseiten sehen alle). Legen Sie
+          Schüler:innen sehen je Themenbereich nur die Übungen ihrer Sterne-Stufe (Erklärseiten sehen alle). Legen Sie
           dieselbe Übung in mehreren Stufen an, bekommt jede:r die passende.
         </p>
         {inhalt.length > 0 && (
@@ -325,9 +332,18 @@ function loesungAus(a: Aufgabe): Record<number, string[]> {
 // Vorschau: das Paket so durcharbeiten, wie Schüler:innen es sehen (alle Stufen). Es wird nichts gespeichert.
 function PaketVorschau({ daten }: { daten: Daten }) {
   const [index, setIndex] = useState(0)
-  const eintrag = daten.inhalt[index]
-  if (!eintrag) return <p>Das Paket ist leer.</p>
-  const a = eintrag.aufgabe
+  // Übungen: jede Runde als eigener Schritt (wie im Spiel); Erklärseiten als ein Schritt
+  const schritte = daten.inhalt.flatMap(({ aufgabe: a }) =>
+    a.loesung.runden
+      ? a.loesung.runden.map((r, i) => ({
+          a: { ...a, loesung: r, inhalt: a.inhalt.runden?.[i] ?? { teile: [] } },
+          runde: a.loesung.runden!.length > 1 ? ` · Runde ${i + 1} von ${a.loesung.runden!.length}` : '',
+        }))
+      : [{ a, runde: '' }],
+  )
+  const schritt = schritte[index]
+  if (!schritt) return <p>Das Paket ist leer.</p>
+  const a = schritt.a
   let versuche = 0
   return (
     <>
@@ -336,11 +352,11 @@ function PaketVorschau({ daten }: { daten: Daten }) {
       </a>
       <h1>{daten.paket.titel}</h1>
       <p className="lk-leise">
-        Vorschau: Aufgabe {index + 1} von {daten.inhalt.length}. Hier sehen Sie alle Stufen; es wird nichts gespeichert.
+        Vorschau: Schritt {index + 1} von {schritte.length}{schritt.runde}. Hier sehen Sie alle Stufen; es wird nichts gespeichert.
       </p>
       <div className="lk-vorschau">
         <AufgabeBearbeiten
-          key={a.id}
+          key={`${a.id}-${index}`}
           aufgabe={{ ...a, versuche: 0, geloest: false, loesung_angesehen: false }}
           pruefen={async (antworten) => {
             const { data, error } = await supabase.rpc('pruefe_aufgabe', { p_typ: a.typ, p_loesung: a.loesung, p_antworten: antworten })
@@ -351,17 +367,17 @@ function PaketVorschau({ daten }: { daten: Daten }) {
           }}
           loesungHolen={async () => loesungAus(a)}
           weiter={
-            index + 1 < daten.inhalt.length
-              ? { text: 'Nächste Aufgabe', ziel: () => setIndex(index + 1) }
+            index + 1 < schritte.length
+              ? { text: 'Weiter', ziel: () => setIndex(index + 1) }
               : { text: 'Vorschau beenden', ziel: () => gehe(`/lehrkraft/pakete/${daten.paket.id}`) }
           }
         />
       </div>
       <div className="lk-knopfreihe">
         <button type="button" className="lk-knopf" disabled={index === 0} onClick={() => setIndex(index - 1)}>
-          Vorherige Aufgabe
+          Zurück
         </button>
-        <button type="button" className="lk-knopf" disabled={index + 1 >= daten.inhalt.length} onClick={() => setIndex(index + 1)}>
+        <button type="button" className="lk-knopf" disabled={index + 1 >= schritte.length} onClick={() => setIndex(index + 1)}>
           Überspringen
         </button>
       </div>

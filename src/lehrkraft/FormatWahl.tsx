@@ -6,10 +6,10 @@ export function FormatWahl() {
   return (
     <>
       <a className="lk-zurueck" href="#/lehrkraft/aufgaben">
-        ← Alle Aufgaben
+        ← Alle Übungen
       </a>
-      <h1>Neue Aufgabe</h1>
-      <p>Welches Format soll die Aufgabe haben? Sie können es beim Erstellen noch ändern.</p>
+      <h1>Neue Übung</h1>
+      <p>Welches Format soll die Übung haben? Sie können es beim Erstellen noch ändern.</p>
       <ul className="lk-kacheln">
         {(Object.keys(FORMATE) as AufgabenTyp[]).map((typ) => (
           <li key={typ}>

@@ -36,7 +36,7 @@ export function PaketListe() {
   return (
     <>
       <h1>Pakete</h1>
-      <p className="lk-leise">Ein Paket bündelt mehrere Aufgaben. Pakete weisen Sie Klassen oder einzelnen Schüler:innen zu.</p>
+      <p className="lk-leise">Ein Paket bündelt mehrere Übungen. Pakete weisen Sie Klassen oder einzelnen Schüler:innen zu.</p>
       <div className="lk-knopfreihe">
         <a className="lk-knopf lk-knopf--haupt" href="#/lehrkraft/pakete/neu">
           + Neues Paket
@@ -59,7 +59,7 @@ export function PaketListe() {
               <a className="lk-eintrag" href={`#/lehrkraft/pakete/${p.id}`}>
                 <strong>{p.titel}</strong>
                 <span className="lk-leise">
-                  {p.paket_aufgaben.length} Aufgaben ·{' '}
+                  {p.paket_aufgaben.length} Übungen ·{' '}
                   {(p.zuweisungen[0]?.count ?? 0) === 0 ? 'noch nicht zugewiesen' : `${p.zuweisungen[0].count}× zugewiesen`}
                 </span>
                 <PaketTags jahrgaenge={p.jahrgaenge} zweige={p.zweige} />
@@ -84,7 +84,7 @@ export function NeuesPaket() {
         ← Alle Pakete
       </a>
       <h1>Neues Paket</h1>
-      <p className="lk-leise">Geben Sie dem Paket einen Namen. Danach wählen Sie die Aufgaben aus.</p>
+      <p className="lk-leise">Geben Sie dem Paket einen Namen. Danach wählen Sie die Übungen aus.</p>
       {fehler && <p className="lk-hinweis" role="alert">{fehler}</p>}
       <form
         className="lk-abschnitt"
@@ -103,7 +103,7 @@ export function NeuesPaket() {
         </div>
         <TagAuswahl wert={tags} onChange={setTags} />
         <div className="lk-knopfreihe">
-          <button className="lk-knopf lk-knopf--haupt">Anlegen und Aufgaben wählen</button>
+          <button className="lk-knopf lk-knopf--haupt">Anlegen und Übungen wählen</button>
         </div>
       </form>
     </>

@@ -41,6 +41,16 @@ import baum_birne from './baum_birne.png'
 import baum_ohne_obst from './baum_ohne_obst.png'
 import fruechte from './fruechte.png'
 import deko_boot from './deko_boot.png'
+import monster_ruebchen from './monster_ruebchen.png'
+import monster_schleim_gruen from './monster_schleim_gruen.png'
+import monster_schleim_blau from './monster_schleim_blau.png'
+import monster_schleim_feuer from './monster_schleim_feuer.png'
+import monster_gespenst from './monster_gespenst.png'
+import monster_spinne_gruen from './monster_spinne_gruen.png'
+import monster_spinne_lila from './monster_spinne_lila.png'
+import monster_spinne_gold from './monster_spinne_gold.png'
+import monster_maus from './monster_maus.png'
+import monster_fledermaus from './monster_fledermaus.png'
 import feld from './feld.png'
 import album_seite from './album_seite.png'
 
@@ -87,6 +97,16 @@ export const GRAFIK = {
   baum_ohne_obst: { url: baum_ohne_obst, breite: 48, hoehe: 48, bildBreite: 48, bildHoehe: 48 },
   fruechte: { url: fruechte, breite: 64, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   deko_boot: { url: deko_boot, breite: 96, hoehe: 32, bildBreite: 48, bildHoehe: 32 },
+  monster_ruebchen: { url: monster_ruebchen, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  monster_schleim_gruen: { url: monster_schleim_gruen, breite: 384, hoehe: 32, bildBreite: 64, bildHoehe: 32 },
+  monster_schleim_blau: { url: monster_schleim_blau, breite: 384, hoehe: 32, bildBreite: 64, bildHoehe: 32 },
+  monster_schleim_feuer: { url: monster_schleim_feuer, breite: 384, hoehe: 32, bildBreite: 64, bildHoehe: 32 },
+  monster_gespenst: { url: monster_gespenst, breite: 160, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  monster_spinne_gruen: { url: monster_spinne_gruen, breite: 240, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  monster_spinne_lila: { url: monster_spinne_lila, breite: 240, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  monster_spinne_gold: { url: monster_spinne_gold, breite: 240, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  monster_maus: { url: monster_maus, breite: 208, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  monster_fledermaus: { url: monster_fledermaus, breite: 160, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   feld: { url: feld, breite: 14, hoehe: 14, bildBreite: 14, bildHoehe: 14 },
   album_seite: { url: album_seite, breite: 96, hoehe: 96, bildBreite: 96, bildHoehe: 96 },
 } as const
