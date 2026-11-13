@@ -39,6 +39,7 @@
   Nachtrag (Jazz): Aufgabenliste der Lehrkraft hat im Filter eine Auswahl **„Aufgabenart“** (z. B. nur Erklärungen)
   (`src/lib/filter.ts`, `src/lehrkraft/ListenFilter.tsx`, `src/lehrkraft/AufgabenListe.tsx`). Getestet: tsc, lint, `npm test` 138, build;
   im Browser nicht getestet (Lehrkraft-Anmeldung nötig).
+  Nachtrag 2 (Jazz): Filter-Auswahl „Bereich“ heißt jetzt **„Kernkompetenz“** (Aufgaben- und Paketliste, `ListenFilter.tsx`).
 
 ## Datenorte
 - **Datenbank Supabase** (Projekt `diwpqkxhmuetdpxxcoar`, Frankfurt): Klassen, Pseudonyme, Aufgaben, Pakete, Zuweisungen,

@@ -37,7 +37,7 @@ type Props = {
   arten?: Record<string, string>
 }
 
-// Filterleiste: Titelsuche, Jahrgang (aus der KC-Stufe der Kompetenzen), Bereich, einzelne Kompetenz.
+// Filterleiste: Titelsuche, Jahrgang (aus der KC-Stufe der Kompetenzen), Bereich (heißt in der Oberfläche „Kernkompetenz“, Jazz 2026-11-13), einzelne Kompetenz.
 export function ListenFilter({ filter, onChange, verwendet, treffer, gesamt, suchText, arten }: Props) {
   const bereiche = [...new Set(verwendet.map((k) => k.bereich))].sort((a, b) => a.localeCompare(b, 'de'))
   const imBereich = verwendet.filter(
@@ -88,7 +88,7 @@ export function ListenFilter({ filter, onChange, verwendet, treffer, gesamt, suc
           </select>
         </label>
         <label>
-          Bereich
+          Kernkompetenz
           <select className="lk-feld"
             value={filter.bereich}
             disabled={filter.jahrgang === 'ohne'}
@@ -107,7 +107,7 @@ export function ListenFilter({ filter, onChange, verwendet, treffer, gesamt, suc
             disabled={!filter.bereich || filter.jahrgang === 'ohne'}
             onChange={(e) => onChange({ ...filter, kompetenz: e.target.value })}
           >
-            <option value="">{filter.bereich ? 'alle im Bereich' : 'erst Bereich wählen'}</option>
+            <option value="">{filter.bereich ? 'alle in der Kernkompetenz' : 'erst Kernkompetenz wählen'}</option>
             {imBereich.map((k) => (
               <option key={k.id} value={k.id}>
                 {k.kurzname?.trim() || k.kompetenz}
