@@ -53,7 +53,8 @@ Für das **fliegende Herz**: ein volles Herz aus `Hearts.png`. Für das **Herz �
 
 | Datei | Größe | Herkunft |
 |---|---|---|
-| **`assets/Wiese.png` (gewählt)** | 1024 × 576 | Herkunft noch offen. Achtung: ist in Wahrheit ein **WebP**-Bild mit Endung `.png`; schon vergrößert (keine ganzzahligen Grafik-Pixel). Himmel, Wolken, Hügel, zwei Büsche, Blumenwiese. Farben hellgrün/türkis. |
+| **`assets/orig.png` (gewählt, Schritt 3)** | 576 × 324 | echtes PNG, Pixel-Art; https://free-game-assets.itch.io/nature-landscapes-free-pixel-art, frei verfügbar. Himmel mit großer Wolke, Hügel, Gras. |
+| `assets/Wiese.png` (nicht mehr gewählt) | 1024 × 576 | Herkunft noch offen. Achtung: ist in Wahrheit ein **WebP**-Bild mit Endung `.png`; schon vergrößert (keine ganzzahligen Grafik-Pixel). Himmel, Wolken, Hügel, zwei Büsche, Blumenwiese. Farben hellgrün/türkis. |
 | TastenHeld `assets/pixel/welten/wiese.png` | 444 × 160 | TastenHeld (selbst erzeugt, Erlaubnis) |
 | `src/grafik/gras.png`, `gras_deko.png` | 176 × 80, 96 × 32 | Sprout Lands (Farm-Boden) |
 
@@ -89,4 +90,4 @@ nutzt bisher keine Töne. Nur, wenn gewünscht (Frage an Jazz).
 2. Ein Monster **von der Seite** gibt es nicht; alle sind von oben/schräg. Wir nehmen die Richtung „nach vorn/zum Betrachter“
    oder „nach links“ (zur Spielfigur hin).
 3. Eine **Freund-Fassung** der Monster gibt es nicht (außer TastenHeld). Lösung laut Plan: Herz-Sprite über dem Kopf.
-4. Herkunft und Lizenz von `assets/Wiese.png` stehen noch nirgends (für `src/grafik/LIZENZ.md` nötig).
+4. Lizenztext der Seite zu `assets/orig.png` beim Einbau (Schritt 8) in `src/grafik/LIZENZ.md` übernehmen.
