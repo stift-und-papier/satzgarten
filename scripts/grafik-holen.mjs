@@ -105,8 +105,12 @@ const BILDER = [
     name: `monster_spinne_${{ green: 'gruen', purple: 'lila', golden: 'gold' }[farbe]}`, datei: `${MOBS}lil_${farbe}_spider_spritesheet.png`,
     x: 0, y: 0, breite: 240, hoehe: 16, bildBreite: 16, bildHoehe: 16,
   })),
+  // Übungsumbau Schritt 8: Spielszene. Wiese = unterer Teil von assets/orig.png (craftpix, Nature Landscapes),
+  // fliegendes Herz = mittleres volles Herz aus Sprout Lands UI Premium (Hearts.png). Fledermaus ohne das sitzende erste Bild.
+  { name: 'spiel_wiese', datei: 'assets/orig.png', x: 0, y: 186, breite: 576, hoehe: 90 },
+  { name: 'herz_flug', datei: UI + 'Icons/special icons/Hearts.png', x: 58, y: 9, breite: 13, hoehe: 11 },
   { name: 'monster_maus', datei: MOBS + 'little_grey_mouse.png', x: 0, y: 16, breite: 208, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
-  { name: 'monster_fledermaus', datei: 'assets/entpackt/Sprout Sorry pack/Early Access/Dungeon Pack/enemies/bat_animations.png', x: 0, y: 0, breite: 160, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  { name: 'monster_fledermaus', datei: 'assets/entpackt/Sprout Sorry pack/Early Access/Dungeon Pack/enemies/bat_animations.png', x: 32, y: 0, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
 ]
 
 mkdirSync('src/grafik', { recursive: true })

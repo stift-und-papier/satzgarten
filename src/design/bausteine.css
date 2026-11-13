@@ -478,6 +478,9 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   min-width: 2.5rem; height: 2.5rem;
   font-weight: 800; color: var(--color-aktion);
 }
+/* Übungsumbau: Monster der Übung statt Nummer, befreundet mit Herz oben rechts */
+.paket-liste__monster { position: relative; display: inline-grid; place-items: center; min-width: 4rem; min-height: 2.5rem; line-height: 0; }
+.paket-liste__freund { position: absolute; top: -10px; right: -4px; }
 .garten-seite__inhalt h1, .garten-seite__inhalt h2 { margin: 0; }
 /* Hilfe: Fragen zum Aufklappen */
 .hilfe-eintrag { border-top: calc(var(--px)) solid var(--color-holz); padding: var(--space-xs) 0; }
@@ -640,3 +643,47 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   position: absolute; right: 4px; bottom: 6px; min-width: 24px; padding: 0 4px; border-radius: 12px;
   background: #3b2a1a; color: #fff6e0; font-size: 15px; line-height: 22px; text-align: center;
 }
+
+/* ---------- Übungsumbau Schritt 8: Spielszene (src/schueler/Spielszene.tsx) ----------
+   Wiese 2-fach (576 × 90 → 1152 × 180), Himmelfarbe aus dem Bild als Rand. Einstein 3-fach links, Monster rechts.
+   Bewegung in ganzen Bildern (steps); bei „Bewegung reduzieren“ Standbilder, das Herz erscheint ohne Flug. */
+.spiel {
+  position: relative; height: 180px; overflow: hidden; border-radius: var(--radius-feld);
+  background-color: #63b6e2; background-repeat: no-repeat; background-position: center bottom; background-size: 1152px 180px;
+  image-rendering: pixelated;
+}
+.spiel-zeile { align-items: center; }
+.spiel-zeile .rueckmeldung { flex: 1 1 20rem; margin: 0; }
+.spiel__einstein { position: absolute; left: 6%; bottom: 6px; }
+.spiel__monster { position: absolute; right: 10%; bottom: 18px; display: flex; flex-direction: column; align-items: center; }
+.spiel__monster-bild { display: block; line-height: 0; }
+.spiel__monster-bild[data-spiegeln] { transform: scaleX(-1); }
+.spiel__monster-bild .sprite { animation: monster-lauf calc(var(--n) * 0.15s) steps(var(--n)) infinite; }
+@keyframes monster-lauf { from { background-position-x: 0; } to { background-position-x: var(--ende); } }
+.spiel__freund { line-height: 0; margin-bottom: -6px; animation: freund-schweben 2s steps(2) infinite; }
+@keyframes freund-schweben { 50% { transform: translateY(-6px); } }
+/* Treffer: kurz wackeln, nachdem das Herz angekommen ist; daneben: kurz hüpfen */
+.spiel__monster--treffer { animation: monster-wackeln 0.4s steps(1) 0.55s; }
+.spiel__monster--daneben { animation: monster-huepfen 0.5s steps(1) 0.3s; }
+@keyframes monster-wackeln { 0% { transform: translateX(6px); } 25% { transform: translateX(-6px); } 50% { transform: translateX(6px); } 75% { transform: none; } }
+@keyframes monster-huepfen { 0% { transform: translateY(-12px); } 40% { transform: translateY(-21px); } 80% { transform: translateY(-9px); } 100% { transform: none; } }
+.spiel__herz { position: absolute; left: 20%; bottom: 90px; line-height: 0; opacity: 0; }
+.spiel__herz--treffer { animation: herz-treffer 0.8s ease-out forwards; }
+.spiel__herz--daneben { animation: herz-daneben 0.8s ease-out forwards; }
+@keyframes herz-treffer {
+  0% { left: 20%; bottom: 90px; opacity: 1; }
+  45% { bottom: 130px; }
+  75% { left: calc(90% - 70px); bottom: 70px; opacity: 1; transform: none; }
+  100% { left: calc(90% - 70px); bottom: 70px; opacity: 0; transform: scale(1.5); }
+}
+@keyframes herz-daneben {
+  0% { left: 20%; bottom: 90px; opacity: 1; }
+  70% { left: calc(90% - 70px); bottom: 160px; opacity: 1; }
+  100% { left: 104%; bottom: 180px; opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spiel__monster-bild .sprite, .spiel__freund, .spiel__monster--treffer, .spiel__monster--daneben { animation: none; }
+  .spiel__herz--treffer { left: calc(90% - 70px); bottom: 70px; animation: herz-still 1s steps(1) forwards; }
+  .spiel__herz--daneben { display: none; }
+}
+@keyframes herz-still { 0% { opacity: 1; } 100% { opacity: 0; } }

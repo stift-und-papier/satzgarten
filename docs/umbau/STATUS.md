@@ -89,6 +89,34 @@
   gezählt und angesehen): alle 10 vollständig; Fledermaus Bild 1 sitzt (ruckt), Maus und Spinne schauen nach rechts, Hurt nur bei Schleimen.
   **Nicht getestet:** den Prompt bei Gemini (erzeugt Jazz selbst). Kein Code geändert, darum kein Browser- oder Programmtest.
 
+- **Schritt 8 – Spielansicht, Pilot Lückentext** (2026-11-13):
+  - Spielszene `src/schueler/Spielszene.tsx` (180 px hoch): Wiese (Ausschnitt aus `assets/orig.png`, 2-fach), Einstein 3-fach links,
+    Monster rechts mit Ruhe-Animation (16-px-Monster 6-fach, 32-px-Monster 3-fach; Maus und Spinnen gespiegelt), Herz fliegt
+    (Treffer: Monster wackelt; daneben: Herz fliegt drüber, Monster hüpft). Einstein geschockt bis zum nächsten Treffer.
+    Befreundet: `herz.png` schwebt über dem Monster. Bewegung reduzieren: Standbilder, Herz ohne Flug. Kein Herzzähler.
+  - Ablauf `src/schueler/UebungSpiel.tsx`: `uebung_starten` → je Runde einmal „Prüfen“ (`runde_pruefen`), danach Lösung im Satz und
+    „Weiter“ (Rückmeldung neben dem Knopf); oben „Runde n von m“. Abschluss: Einstein mit Satz, Münzen, „Zur nächsten Übung“ / „Zurück
+    zum Paket“. Angefangener Durchgang geht nach Neuladen bei der offenen Runde weiter. Ohne Internet „Nochmal senden“.
+    Heute schon gespielt: Szene mit „Morgen kannst du es noch einmal versuchen“. Andere Formate: „Diese Übung kommt bald.“
+  - Paketseite: Monster statt Nummer, Herz bei Freundschaft, Stand „Neu / Angefangen / Morgen wieder / Ihr seid Freunde …“.
+    „Dein nächster Schritt“ überspringt Übungen, die erst morgen wieder gehen.
+  - Leseschrift: Spalte „Leseschrift“ (Haken) auf der Klassenseite; schaltet OpenDyslexic ein, solange am Gerät nichts anderes gewählt ist
+    (`src/lib/leseschrift.ts` speichert jetzt auch „aus“).
+  - Grafiken (`scripts/grafik-holen.mjs`): `spiel_wiese.png`, `herz_flug.png` (Sprout Lands UI Premium), Fledermaus ohne sitzendes Bild.
+    `src/grafik/LIZENZ.md` ergänzt (Wiese: craftpix-Lizenz laut `License.txt` im Paket). Einstein „schiesst“ = Platzhalter Bild 0.
+  **Getestet** (Browser): Kater-73 (Klasse Test, 1024 × 768): Runde 1 richtig (Herz fliegt, trifft), Runde 2 falsch (Einstein geschockt,
+  Herz fliegt vorbei, Lösung „Das“ erscheint), Runde 3 richtig (Einstein wieder normal) → Abschluss mit Satz „braucht noch etwas Zeit …“,
+  +20 Münzen, Kontostand 135 → 155; Paketseite „Morgen wieder“; Übung erneut öffnen → Morgen-Ansicht. Specht-01 (1180 × 820): alles richtig
+  → „Juhu, ihr seid jetzt Freunde! …“, Herz über dem Gespenst, Einstein freut sich, +45 Münzen (30 + 15); Herz auf der Paketseite.
+  Dachs-19 (1024 × 768): Falsch-Rückmeldung und „Weiter“ passen ohne Scrollen über die Menüleiste (Knopf unten 660 px, Menü ab 689 px);
+  Neuladen mitten in der Übung → weiter bei Runde 2. Eingabefeld: autocorrect, autocapitalize, autocomplete aus, spellcheck false.
+  Lehrkraft: Haken „Leseschrift“ bei Specht-01 gesetzt → Schüleransicht in OpenDyslexic; am Gerät ausgeschaltet → bleibt aus.
+  Merkdiktat zeigt „Diese Übung kommt bald.“ `npm test` 138, lint, build ohne Fehler; Konsole nach der Korrektur doppelter Schlüssel ohne Fehler.
+  **Nicht getestet:** „Bewegung reduzieren“ (lässt sich im Browser-Fenster nicht einstellen, nur CSS geschrieben), echtes Offline-Verhalten
+  („Nochmal senden“), iPad (macht Jazz nach der Checkliste D), `npm run test:datenbank` (keine Datenbank-Änderung).
+  Testdaten: Kater-73, Specht-01 und Dachs-19 haben Durchgänge und Münzen; Specht-01 hat Leseschrift an und (durch einen inzwischen
+  behobenen Fehler) einen offenen Durchgang beim Merkdiktat.
+
 ## Datenorte
 - **Datenbank Supabase** (Projekt `diwpqkxhmuetdpxxcoar`, Frankfurt): Klassen, Pseudonyme, Aufgaben, Pakete, Zuweisungen,
   Versuche, Lernstände, Münzen, Farm, Besitz. Aufbau nur über `supabase/migrations/` (31 Migrationen).
@@ -141,6 +169,9 @@
 - 2026-11-13 (Jazz, Schritt 7, alle Vorschläge): Einstein **wirft** das Herz mit ausgestrecktem Arm nach rechts (keine Waffe), Herz nicht im Bild,
   ein einziges Bild, Prompt auf Englisch; Datei `assets/einstein-schiessend.png`. Fledermaus (nur Bilder 2–5) und Spiegeln von Maus/Spinne
   in Schritt 8. Schleime grün, blau und Feuer bleiben.
+- 2026-11-13 (Jazz, Schritt 8, alle Vorschläge): Pilot Lückentext; Satz befreundet „Juhu, ihr seid jetzt Freunde! Das Monster hat sich über
+  deine Herzen gefreut.“; Ablauf und Größen wie vorgeschlagen; fliegendes Herz aus Sprout Lands; Paketseite mit Monster; Leseschrift-Haken
+  auf der Klassenseite; kein TastenHeld-Code, darum noch keine `CREDITS.md`.
 
 ## Geänderte Dateien
 - Schritt 0: `docs/umbau/STATUS.md`, `docs/umbau/ARBEITSPLAN.md` (neu), `.gitignore`, `CLAUDE.md`
@@ -161,9 +192,12 @@
   `src/design/lehrkraft.css`, `scripts/grafik-holen.mjs`, `src/grafik/index.ts`, `src/grafik/monster_*.png` (10 neu), `src/grafik/LIZENZ.md`,
   `docs/umbau/konzept.md`, `docs/umbau/STATUS.md`
 - Schritt 7: `docs/umbau/bildprompt-einstein-schiessend.md` (neu), `docs/umbau/STATUS.md`
+- Schritt 8: `src/schueler/Spielszene.tsx` (neu), `src/schueler/UebungSpiel.tsx` (neu), `src/schueler/SchuelerBereich.tsx`,
+  `src/gemeinsam/Einstein.tsx`, `src/lib/monster.ts`, `src/lib/typen.ts`, `src/lib/leseschrift.ts`, `src/lehrkraft/KlasseDetail.tsx`,
+  `src/design/bausteine.css`, `scripts/grafik-holen.mjs`, `src/grafik/index.ts`, `src/grafik/spiel_wiese.png` (neu), `src/grafik/herz_flug.png` (neu),
+  `src/grafik/monster_fledermaus.png`, `src/grafik/LIZENZ.md`, `docs/umbau/STATUS.md`
 
 ## Offene Fragen
-- Lizenztext zu `assets/orig.png` beim Einbau (Schritt 8) in `src/grafik/LIZENZ.md` übernehmen.
 - Ganz ohne Zeitdruck bei „Fallende Wörter“ ist zurückgestellt. Steht in Abschnitt B von ARBEITSPLAN.md noch als Wunsch;
   im Konzept (Schritt 3) als „später“ führen.
 
@@ -174,9 +208,13 @@
 - Erklärungen sind innerhalb einer Klassenstufe alphabetisch nach Bereich geordnet (Rechtschreibung, Satzglieder …).
 
 - Merkdiktat: Genauigkeit des Durchgangs ist vorerst der Durchschnitt der Runden; genaue Zählung (alle Zeichen) in Schritt 10.
-- Die Schüler-Typen (`SchuelerAufgabe`) kennen die neuen Felder noch nicht; Anbindung in Schritt 8 (Lehrkraft-Typen in Schritt 6 ergänzt).
+- Einstein „schießt“ fehlt noch: Jazz legt das Gemini-Bild als `assets/einstein-schiessend.png` ab, dann freistellen, auf 52 × 47 bringen,
+  Farben angleichen und in `POSEN.schiesst` (`src/gemeinsam/Einstein.tsx`) eintragen.
+- Vorschlag Claude (bitte bestätigen): schon befreundet, diesmal nicht alles richtig → „Ihr seid schon Freunde. Morgen kannst du wieder mit dem
+  Monster üben.“; falsche Runde → „Daneben. Die richtige Lösung steht jetzt im Satz.“; keine neuen Münzen → „Diesmal gibt es keine neuen Münzen.
+  Beim Wiederholen bekommst du Münzen, wenn du besser bist als vorher.“
+- Einsteins Format-Erklärung beim ersten Mal entfällt im Spiel (Platz); ggf. in Schritt 9 wieder einbauen.
 - Diktat: Server zählt Merkdiktat und Abschreiben vorerst als eine Runde; Herzen und Genauigkeit richtig in Schritt 10.
 
 ## Nächster Schritt
-- Schritt 8 – Spielansicht, Pilot mit einem Aufgabenformat. Dabei: Einstein-Platzhalter, Fledermaus-Ausschnitt, Spiegeln von Maus/Spinne,
-  Lizenz von `assets/orig.png`, Leseschrift-Haken je Schüler:in.
+- Jazz testet auf dem iPad (Checkliste D im Arbeitsplan), danach Schritt 9 – alle bestehenden Aufgabenformate anbinden.

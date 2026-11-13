@@ -1,15 +1,24 @@
 import { useState } from 'react'
 
 // Leseschrift für Schüler:innen mit LRS: schaltet alle Texte auf OpenDyslexic um (siehe tokens.css).
-// Gespeichert nur auf diesem Gerät (localStorage); ohne Speicher gilt die normale Schrift.
+// Gespeichert auf diesem Gerät (localStorage: 'lrs' an, 'aus' aus). Übungsumbau Schritt 8: Hat die Lehrkraft den Haken
+// gesetzt (schueler.leseschrift), gilt OpenDyslexic, solange am Gerät nichts anderes gewählt wurde.
 const SCHLUESSEL = 'leseschrift'
+let vorgabe = false
 
 function gespeichert(): boolean {
   try {
-    return localStorage.getItem(SCHLUESSEL) === 'lrs'
+    const wert = localStorage.getItem(SCHLUESSEL)
+    return wert === null ? vorgabe : wert === 'lrs'
   } catch {
-    return false
+    return vorgabe
   }
+}
+
+/** Haken der Lehrkraft (aus schueler_start) */
+export function leseschriftVorgabe(an: boolean) {
+  vorgabe = an
+  anwenden(gespeichert())
 }
 
 function anwenden(an: boolean) {
@@ -28,8 +37,7 @@ export function useLeseschrift(): [boolean, (an: boolean) => void] {
     anwenden(neu)
     setAn(neu)
     try {
-      if (neu) localStorage.setItem(SCHLUESSEL, 'lrs')
-      else localStorage.removeItem(SCHLUESSEL)
+      localStorage.setItem(SCHLUESSEL, neu ? 'lrs' : 'aus')
     } catch {
       // Speicher gesperrt (z. B. privates Surfen): gilt dann nur bis zum Neuladen.
     }

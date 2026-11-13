@@ -21,6 +21,9 @@ import { Erklaerungen } from './Erklaerungen'
 import { Hilfe } from './Hilfe'
 import { Lernweg } from './Lernweg'
 import { Shop } from './Shop'
+import { UebungSpiel } from './UebungSpiel'
+import { monster } from '../lib/monster'
+import { leseschriftVorgabe } from '../lib/leseschrift'
 import { entwurfLesen, entwurfSpeichern, warteschlangeLesen, warteschlangeSpeichern, type WartenderVersuch } from './speicher'
 
 const EINSTEIN = einsteinTexte(einsteinMd)
@@ -45,7 +48,9 @@ export function SchuelerBereich({ token, pfad }: Props) {
     if (!belohnt.error) setBelohnungen(belohnt.data as Belohnung[])
     if (start.error) setFehler(fehlerText(start.error))
     else {
-      setDaten(start.data as SchuelerStart)
+      const d = start.data as SchuelerStart
+      leseschriftVorgabe(Boolean(d.leseschrift))
+      setDaten(d)
       setFehler(null)
     }
     if (!konto.error) {
@@ -158,10 +163,20 @@ export function SchuelerBereich({ token, pfad }: Props) {
           </a>
           <span className="ort">
             {paket.titel}
-            {aufgabe && ` · Aufgabe ${index + 1} von ${paket.aufgaben.length}`}
+            {aufgabe && ` · ${aufgabe.uebung ? 'Übung' : 'Aufgabe'} ${index + 1} von ${paket.aufgaben.length}`}
           </span>
         </div>
-        {aufgabe ? (
+        {aufgabe?.uebung ? (
+          <UebungSpiel
+            key={aufgabe.id}
+            token={token}
+            paketId={paket.id}
+            aufgabe={aufgabe}
+            nachAbschluss={() => void laden()}
+            naechste={paket.aufgaben[index + 1] ? `#${basis}/p/${paket.id}/a/${paket.aufgaben[index + 1].id}` : null}
+            zumPaket={`#${basis}/p/${paket.id}`}
+          />
+        ) : aufgabe ? (
           <AufgabeSeite
             key={aufgabe.id}
             token={token}
@@ -200,9 +215,20 @@ export function SchuelerBereich({ token, pfad }: Props) {
           {paket.aufgaben.map((a, i) => (
             <li key={a.id}>
               <a className="karte paket-liste__eintrag" href={`#${basis}/p/${paket.id}/a/${a.id}`}>
-                <span className="paket-liste__nr" aria-hidden="true">
-                  {a.geloest ? '✓' : i + 1}
-                </span>
+                {a.uebung ? (
+                  <span className="paket-liste__monster">
+                    <Sprite grafik={monster(a.monster).grafik} mal={monster(a.monster).grafik.bildHoehe <= 16 ? 2 : 1} />
+                    {a.befreundet && (
+                      <span className="paket-liste__freund">
+                        <Sprite grafik={GRAFIK.herz} mal={1} />
+                      </span>
+                    )}
+                  </span>
+                ) : (
+                  <span className="paket-liste__nr" aria-hidden="true">
+                    {a.geloest ? '✓' : i + 1}
+                  </span>
+                )}
                 <span>
                   <strong>{a.titel}</strong>
                   <br />
@@ -296,8 +322,9 @@ export function SchuelerBereich({ token, pfad }: Props) {
   }
 
   // Startseite (später mit der Farm): Einstein begrüßt, nächster Schritt
-  const naechstesPaket = daten.pakete.find((p) => p.aufgaben.some((a) => !a.geloest))
-  const naechste = naechstesPaket?.aufgaben.find((a) => !a.geloest)
+  const offen = (a: SchuelerAufgabe) => !a.geloest && !a.morgen
+  const naechstesPaket = daten.pakete.find((p) => p.aufgaben.some(offen))
+  const naechste = naechstesPaket?.aufgaben.find(offen)
   // Usability-Test 2026-11-13: beim ersten Mal (noch nichts gelöst) erklärt Einstein, wie Üben und Farm zusammenhängen
   const neu = !daten.pakete.some((p) => p.aufgaben.some((a) => a.geloest))
   const gruss = naechste ? (neu ? 'begruessung-neu' : 'begruessung') : daten.pakete.length ? 'begruessung-fertig' : 'begruessung-leer'
@@ -335,6 +362,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
 }
 
 function aufgabeStand(a: SchuelerAufgabe): string {
+  if (a.uebung) return a.morgen ? 'Morgen wieder' : a.angefangen ? 'Angefangen' : a.befreundet ? 'Ihr seid Freunde. Du kannst wieder üben.' : a.versuche > 0 ? 'Du kannst es nochmal versuchen.' : 'Neu'
   if (a.typ === 'erklaerung') return a.geloest ? 'Erklärung gelesen. Du kannst sie jederzeit noch einmal lesen.' : 'Erklärung: Lies sie dir in Ruhe durch.'
   return a.geloest ? 'Geschafft! Du kannst sie noch einmal üben.' : a.versuche > 0 ? 'Angefangen' : 'Neu'
 }

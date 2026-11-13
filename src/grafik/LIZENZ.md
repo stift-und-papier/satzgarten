@@ -27,11 +27,16 @@ Monster für die Übungen aus dem Sorry Pack (Ordner „Early Access“, hallowe
 `monster_gespenst.png`, `monster_spinne_gruen.png`, `monster_spinne_lila.png`, `monster_spinne_gold.png`, `monster_maus.png`,
 `monster_fledermaus.png` (je eine Zeile der Ruhe- bzw. Flug-Animation).
 
+Fliegendes Herz im Spiel (`herz_flug.png`): ein volles Herz aus `Hearts.png` (UI Pack Premium, Icons/special icons).
+
 ## craftpix.net
 
 - `monster_schleim_gruen.png`, `monster_schleim_blau.png`, `monster_schleim_feuer.png`: Ruhe-Animation (Blick nach vorn) aus
   „Free Slime Mobs Pixel Art Top-Down Sprite Pack“ von craftpix.net. Lizenz https://craftpix.net/file-licenses/ :
   Nutzung und Veränderung in eigenen Projekten erlaubt, die Grafiken nicht als Grafiken weitergeben, Nennung freiwillig.
+- `spiel_wiese.png`: Ausschnitt (Hügel und Gras) aus „Nature Landscapes Free Pixel Art“ (`orig.png`),
+  https://free-game-assets.itch.io/nature-landscapes-free-pixel-art ; `License.txt` im Paket verweist auf dieselbe Lizenz
+  https://craftpix.net/file-licenses/ .
 
 ## Von der Lehrkraft bereitgestellt
 

@@ -13,6 +13,8 @@ export interface Schueler {
   pseudonym: string
   token: string
   stufe_manuell: 1 | 2 | 3 | null
+  /** Übungsumbau: Leseschrift (OpenDyslexic) von der Lehrkraft eingeschaltet */
+  leseschrift?: boolean
 }
 
 export interface Kompetenz {
@@ -144,6 +146,35 @@ export type SchuelerAufgabe = {
   versuche: number
   geloest: boolean
   loesung_angesehen: boolean
+  // Übungsumbau: Übungen (mit Runden) holen ihren Inhalt über uebung_starten; inhalt ist dann leer
+  uebung?: boolean
+  monster?: string
+  befreundet?: boolean
+  angefangen?: boolean
+  /** heute schon gespielt, wieder frei ab morgen */
+  morgen?: boolean
+}
+
+/** Antwort von uebung_starten */
+export type Durchgang =
+  | { status: 'morgen'; monster: string; befreundet: boolean }
+  | {
+      status: 'offen'
+      durchgang: string
+      typ: AufgabenTyp
+      monster: string
+      befreundet: boolean
+      runden: { nr: number; inhalt: LueckentextInhaltSchueler }[]
+      gespielt: { nr: number; richtig: boolean; ergebnis: Pruefergebnis; loesung: Loesung }[]
+    }
+
+/** Antwort von runde_pruefen; abschluss nur nach der letzten Runde (keine Prozente für Schüler:innen) */
+export type RundeErgebnis = {
+  ergebnis: Pruefergebnis
+  richtig: boolean
+  loesung: Loesung
+  fertig: boolean
+  abschluss?: { befreundet: boolean; neu_befreundet: boolean; muenzen: number; kontostand: number } | null
 }
 
 // ---- Pakete (alt: Übungswiese) ----
@@ -180,6 +211,6 @@ export type SchuelerPaket = {
 }
 
 /** formate_geuebt: Formate, die schon einmal abgegeben wurden (Einstein erklärt nur neue) */
-export type SchuelerStart = { pseudonym: string; formate_geuebt: AufgabenTyp[]; pakete: SchuelerPaket[] }
+export type SchuelerStart = { pseudonym: string; leseschrift?: boolean; formate_geuebt: AufgabenTyp[]; pakete: SchuelerPaket[] }
 
 export type Loesung = { luecken: { id: number; loesungen: string[] }[] }
