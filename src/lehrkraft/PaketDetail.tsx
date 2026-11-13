@@ -26,15 +26,16 @@ export function PaketDetail({ paketId, vorschau }: { paketId: string; vorschau: 
 
   const laden = useCallback(async () => {
     const [p, pa, a, z, k, s] = await Promise.all([
-      supabase.from('pakete').select('*').eq('id', paketId).single(),
+      supabase.from('pakete').select('*').eq('id', paketId).eq('archiviert', false).maybeSingle(),
       supabase.from('paket_aufgaben').select('aufgabe_id, position, aufgabe:aufgaben(*)').eq('paket_id', paketId).order('position'),
-      supabase.from('aufgaben').select('id, typ, titel, stufe').order('titel'),
+      supabase.from('aufgaben').select('id, typ, titel, stufe').eq('archiviert', false).order('titel'),
       supabase.from('zuweisungen').select('*').eq('paket_id', paketId).order('erstellt_am'),
       supabase.from('klassen').select('id, name, kerncurriculum').order('name'),
       supabase.from('schueler').select('id, klasse_id, pseudonym').order('pseudonym'),
     ])
     const fehlerhaft = [p, pa, a, z, k, s].find((r) => r.error)
     if (fehlerhaft?.error) return setFehler(fehlerText(fehlerhaft.error))
+    if (!p.data) return setFehler('Dieses Paket gibt es nicht mehr oder es ist archiviert.')
     setDaten({
       paket: p.data as Paket,
       inhalt: pa.data as unknown as Daten['inhalt'],

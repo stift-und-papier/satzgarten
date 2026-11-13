@@ -24,6 +24,7 @@ export function PaketListe() {
     void supabase
       .from('pakete')
       .select('*, paket_aufgaben(aufgaben(aufgabe_kompetenzen(kompetenz_id))), zuweisungen(count)')
+      .eq('archiviert', false) // Übungsumbau: alte Pakete sind archiviert
       .order('erstellt_am', { ascending: false })
       .then(({ data, error }) => (error ? setFehler(fehlerText(error)) : setPakete(data as PaketMitAnzahl[])))
   }, [])

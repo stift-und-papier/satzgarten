@@ -35,6 +35,7 @@ export function AufgabenListe() {
     void supabase
       .from('aufgaben')
       .select('id, typ, titel, stufe, geaendert_am, aufgabe_kompetenzen(kompetenz_id), paket_aufgaben(pakete(zweige))')
+      .eq('archiviert', false) // Übungsumbau: alte Aufgaben sind archiviert (nur Erklärseiten bleiben)
       .order('geaendert_am', { ascending: false })
       .then(({ data, error }) => (error ? setFehler(fehlerText(error)) : setAufgaben(data as unknown as AufgabeMitKompetenzen[])))
   }, [])

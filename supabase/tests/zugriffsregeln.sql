@@ -1135,6 +1135,82 @@ begin
     n := n + 5;
   end;
 
+  -- ---------- 16 Archiv (Übungsumbau Schritt 4): Archiviertes erscheint nirgends, Erklärseiten bleiben ----------
+  declare
+    t_fuchs text := (select token from public.schueler where pseudonym = 'Fuchs-01');
+    t_dachs text := (select token from public.schueler where pseudonym = 'Dachs-03');
+    v_fuchs uuid := (select id from public.schueler where pseudonym = 'Fuchs-01');
+    v_paket uuid := (select id from public.pakete where titel = 'P-Test' and owner = c_lk_a);
+    v_lt uuid := (select id from public.aufgaben where titel = 'T-lueckentext' and owner = c_lk_a);
+    v_er uuid := (select id from public.aufgaben where titel = 'T-erklaerung' and owner = c_lk_a);
+    v jsonb;
+    v_vorher bigint := (select count(*) from public.versuche where schueler_id = (select id from public.schueler where pseudonym = 'Fuchs-01'));
+  begin
+    if v_paket is null or v_lt is null or v_er is null then raise exception 'Block 16.0: Testdaten aus Block 6 fehlen'; end if;
+    set local role anon;
+    if not public.schueler_start(t_fuchs)::text like '%' || v_lt || '%' then raise exception 'Block 16.0: Aufgabe vor dem Archivieren unsichtbar'; end if;
+    reset role;
+
+    -- 16.1 archivierte Aufgabe: weg aus der Startseite, Abgeben und Lösung gesperrt
+    update public.aufgaben set archiviert = true where id = v_lt;
+    set local role anon;
+    if public.schueler_start(t_fuchs)::text like '%' || v_lt || '%' then raise exception 'Block 16.1: archivierte Aufgabe sichtbar'; end if;
+    begin
+      perform public.antwort_abgeben(t_fuchs, v_paket, v_lt, '{"0":"das"}', gen_random_uuid());
+      raise exception 'Block 16.1: archivierte Aufgabe kann abgegeben werden';
+    exception when sqlstate 'P0002' then null;
+    end;
+    begin
+      perform public.loesung_anzeigen(t_fuchs, v_paket, v_lt);
+      raise exception 'Block 16.1: Lösung einer archivierten Aufgabe abrufbar';
+    exception when sqlstate 'P0002' then null;
+    end;
+    reset role;
+    n := n + 1;
+
+    -- 16.2 archiviertes Paket: Zuweisung bleibt, aber nichts mehr sichtbar
+    update public.pakete set archiviert = true where id = v_paket;
+    set local role anon;
+    if public.schueler_start(t_fuchs)::text like '%' || v_paket || '%' then raise exception 'Block 16.2: archiviertes Paket sichtbar'; end if;
+    reset role;
+    if not exists (select 1 from public.zuweisungen where paket_id = v_paket) then raise exception 'Block 16.2: Zuweisung verschwunden'; end if;
+    n := n + 1;
+
+    -- 16.3 Erklärseite bleibt über „Erklärungen“ erreichbar (auch wenn ihr Paket archiviert ist), ohne Lösung, Münzen einmalig
+    set local role anon;
+    v := public.erklaerungen_liste(t_fuchs);
+    if not v::text like '%' || v_er || '%' then raise exception 'Block 16.3: Erklärseite fehlt in der Liste: %', v; end if;
+    if v::text like '%loesung"%' or v::text like '%"loesung":%' then raise exception 'Block 16.3: Liste enthält Lösungen'; end if;
+    if (select x -> 'jahrgaenge' from jsonb_array_elements(v) x where x ->> 'id' = v_er::text) <> '[7]'::jsonb then
+      raise exception 'Block 16.3: Doppeljahrgang fehlt: %', v;
+    end if;
+    v := public.antwort_abgeben(t_fuchs, null, v_er, '{}', gen_random_uuid());
+    if not (v -> 'ergebnis' ->> 'richtig')::boolean then raise exception 'Block 16.3: Erklärseite nicht lesbar: %', v; end if;
+    reset role;
+    n := n + 1;
+
+    -- 16.4 Erklärseiten anderer Lehrkräfte: weder in der Liste noch abgebbar
+    set local role anon;
+    if public.erklaerungen_liste(t_dachs)::text like '%' || v_er || '%' then raise exception 'Block 16.4: B-Schüler sieht Erklärseite von A'; end if;
+    begin
+      perform public.antwort_abgeben(t_dachs, null, v_er, '{}', gen_random_uuid());
+      raise exception 'Block 16.4: B-Schüler kann Erklärseite von A abgeben';
+    exception when sqlstate 'P0002' then null;
+    end;
+    reset role;
+    n := n + 1;
+
+    -- 16.5 archivierte Erklärseite verschwindet ebenfalls; alte Versuche bleiben erhalten
+    update public.aufgaben set archiviert = true where id = v_er;
+    set local role anon;
+    if public.erklaerungen_liste(t_fuchs)::text like '%' || v_er || '%' then raise exception 'Block 16.5: archivierte Erklärseite in der Liste'; end if;
+    reset role;
+    if (select count(*) from public.versuche where schueler_id = v_fuchs) <> v_vorher + 1 then
+      raise exception 'Block 16.5: Versuche verändert (% statt %)', (select count(*) from public.versuche where schueler_id = v_fuchs), v_vorher + 1;
+    end if;
+    n := n + 1;
+  end;
+
   raise exception 'ALLE TESTS BESTANDEN (%)', n;
 end
 $test$;

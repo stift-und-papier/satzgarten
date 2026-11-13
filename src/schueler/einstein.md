@@ -15,7 +15,7 @@ Hallo {name}! Hier übst du Deutsch. Für jede gelöste Aufgabe bekommst du Mün
 Hallo {name}! Du hast gerade alle Übungen geschafft. Super!
 
 ## begruessung-leer
-Hallo {name}! Gerade gibt es keine Übungen für dich. Schau später noch einmal vorbei.
+Hallo {name}! Hier kommen bald neue Übungen. Unter „Erklärungen“ kannst du schon nachlesen, wie etwas geht.
 
 ## lueckentext
 Hier fehlen Wörter. Tippe in eine Lücke und schreib das Passende hinein. Wenn alles ausgefüllt ist, tippst du auf „Prüfen“.

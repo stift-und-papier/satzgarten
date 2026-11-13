@@ -489,6 +489,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .hilfe-eintrag summary::-webkit-details-marker { display: none; }
 .hilfe-eintrag summary::before { content: '▸'; color: var(--color-aktion); }
 .hilfe-eintrag[open] summary::before { content: '▾'; }
+/* Menü „Erklärungen“ (Übungsumbau Schritt 4): Bereich als Zwischenüberschrift im aufgeklappten Doppeljahrgang */
+.erklaerungen-bereich h2 { font-size: var(--text-h3); margin: var(--space-sm) 0 var(--space-xs); }
 
 /* ---------- Mein Lernweg (Phase 7, alt: Übungswiese) – nur Worte, nie Stufen oder Zahlen zum Stand ---------- */
 .lernweg-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-sm); }

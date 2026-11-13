@@ -8,7 +8,7 @@ import type { Antworten } from '../lib/typen'
 
 export type WartenderVersuch = {
   client_id: string
-  paket_id: string
+  paket_id: string | null // null: Erklärseite aus dem Menü „Erklärungen“
   aufgabe_id: string
   antworten: Antworten
   bearbeitet_am: string

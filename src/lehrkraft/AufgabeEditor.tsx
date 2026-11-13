@@ -160,9 +160,11 @@ export function AufgabeEditor({ aufgabeId, neuerTyp = 'lueckentext' }: { aufgabe
       .from('aufgaben')
       .select('id, typ, titel, anweisung, farbig, hinweis, rueckmeldung_fehler, stufe, loesung, geaendert_am')
       .eq('id', aufgabeId)
-      .single()
+      .eq('archiviert', false)
+      .maybeSingle()
       .then(({ data, error }) => {
         if (error) return setFehler(fehlerText(error))
+        if (!data) return setFehler('Diese Aufgabe gibt es nicht mehr oder sie ist archiviert.')
         const a = data as Aufgabe
         setTyp(a.typ)
         const l = a.loesung

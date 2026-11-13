@@ -17,6 +17,7 @@ import { neueId } from '../lib/zufall'
 import einsteinMd from './einstein.md?raw'
 import { Farm } from './Farm'
 import { Album } from './Album'
+import { Erklaerungen } from './Erklaerungen'
 import { Hilfe } from './Hilfe'
 import { Lernweg } from './Lernweg'
 import { Shop } from './Shop'
@@ -164,7 +165,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
           <AufgabeSeite
             key={aufgabe.id}
             token={token}
-            paket={paket}
+            paketId={paket.id}
             aufgabe={aufgabe}
             neuesFormat={!daten.formate_geuebt.includes(aufgabe.typ)}
             nachAbgabe={() => void laden()}
@@ -245,6 +246,34 @@ export function SchuelerBereich({ token, pfad }: Props) {
     )
   }
 
+  if (bereich === 'erklaerungen') {
+    return (
+      <Rahmen basis={basis} aktiv="erklaerungen" muenzen={muenzen} fenster={fenster}>
+        {wartendHinweis}
+        <Erklaerungen
+          token={token}
+          basis={basis}
+          id={paketId}
+          zeigen={(a, nachAbgabe) => (
+            <AufgabeSeite
+              key={a.id}
+              token={token}
+              paketId={null}
+              aufgabe={a}
+              neuesFormat={false}
+              nachAbgabe={() => {
+                nachAbgabe()
+                void laden()
+              }}
+              onWartend={setWartend}
+              weiter={{ text: 'Fertig', ziel: () => gehe(`${basis}/erklaerungen`) }}
+            />
+          )}
+        />
+      </Rahmen>
+    )
+  }
+
   if (bereich === 'hilfe') {
     return (
       <Rahmen basis={basis} aktiv="hilfe" muenzen={muenzen} fenster={fenster}>
@@ -259,7 +288,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
         {wartendHinweis}
         <header className="karte">
           <h1>Meine Übungen</h1>
-          <p>{daten.pakete.length === 0 ? 'Für dich gibt es gerade keine Übungen. Schau später noch einmal vorbei.' : 'Such dir eine Übung aus.'}</p>
+          <p>{daten.pakete.length === 0 ? 'Hier kommen bald neue Übungen.' : 'Such dir eine Übung aus.'}</p>
         </header>
         <PaketListe pakete={daten.pakete} basis={basis} />
       </Rahmen>
@@ -343,7 +372,7 @@ function PaketListe({ pakete, basis }: { pakete: SchuelerPaket[]; basis: string 
 
 type AufgabeSeiteProps = {
   token: string
-  paket: SchuelerPaket
+  paketId: string | null // null: Erklärseite aus dem Menü „Erklärungen“
   aufgabe: SchuelerAufgabe
   neuesFormat: boolean
   nachAbgabe: () => void
@@ -351,7 +380,7 @@ type AufgabeSeiteProps = {
   weiter: { text: string; ziel: () => void }
 }
 
-function AufgabeSeite({ token, paket, aufgabe, neuesFormat, nachAbgabe, onWartend, weiter }: AufgabeSeiteProps) {
+function AufgabeSeite({ token, paketId, aufgabe, neuesFormat, nachAbgabe, onWartend, weiter }: AufgabeSeiteProps) {
   // Beim Öffnen festhalten, ob das Format neu ist – sonst verschwände Einsteins Erklärung nach der ersten Abgabe
   const [erklaerung] = useState(() => (neuesFormat ? EINSTEIN[formatKennung(aufgabe.typ, aufgabe.inhalt.modus)] : undefined))
   const [start] = useState(() => entwurfLesen(token, aufgabe.id))
@@ -365,7 +394,7 @@ function AufgabeSeite({ token, paket, aufgabe, neuesFormat, nachAbgabe, onWarten
       pruefen={async (antworten) => {
         const versuch: WartenderVersuch = {
           client_id: neueId(),
-          paket_id: paket.id,
+          paket_id: paketId,
           aufgabe_id: aufgabe.id,
           antworten,
           bearbeitet_am: new Date().toISOString(),
@@ -393,7 +422,7 @@ function AufgabeSeite({ token, paket, aufgabe, neuesFormat, nachAbgabe, onWarten
         return antwort
       }}
       loesungHolen={async () => {
-        const { data, error } = await supabase.rpc('loesung_anzeigen', { p_token: token, p_paket_id: paket.id, p_aufgabe_id: aufgabe.id })
+        const { data, error } = await supabase.rpc('loesung_anzeigen', { p_token: token, p_paket_id: paketId, p_aufgabe_id: aufgabe.id })
         if (error) throw new Error(fehlerText(error))
         return Object.fromEntries((data as Loesung).luecken.map((l) => [l.id, l.loesungen]))
       }}
@@ -402,10 +431,11 @@ function AufgabeSeite({ token, paket, aufgabe, neuesFormat, nachAbgabe, onWarten
   )
 }
 
-const MENUE: { id: 'start' | 'shop' | 'uebungen' | 'lernweg' | 'hilfe'; symbol: SymbolName; text: string; ziel: string }[] = [
+const MENUE: { id: 'start' | 'shop' | 'uebungen' | 'erklaerungen' | 'lernweg' | 'hilfe'; symbol: SymbolName; text: string; ziel: string }[] = [
   { id: 'start', symbol: 'garten', text: 'Farm', ziel: '' },
   { id: 'shop', symbol: 'shop', text: 'Shop', ziel: '/shop' },
   { id: 'uebungen', symbol: 'uebungen', text: 'Übungen', ziel: '/uebungen' },
+  { id: 'erklaerungen', symbol: 'erklaerung', text: 'Erklärungen', ziel: '/erklaerungen' },
   { id: 'lernweg', symbol: 'lernweg', text: 'Lernweg', ziel: '/lernweg' },
   { id: 'hilfe', symbol: 'hilfe', text: 'Hilfe', ziel: '/hilfe' },
 ]
