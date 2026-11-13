@@ -82,6 +82,13 @@
   **Nicht getestet:** Übung als Schüler:in spielen (Oberfläche kommt in Schritt 8), `npm run test:datenbank` (keine Datenbank-Änderung).
   Testdaten bleiben: zwei Testübungen, „Testpaket Runden“ (Klasse Test), zwei Durchgänge und 45 Münzen bei Dachs-19.
 
+- **Schritt 7 – Asset-Vorbereitung Einstein „schießend“** (2026-11-13): `docs/umbau/bildprompt-einstein-schiessend.md` mit Beschreibung
+  von Einstein (52 × 47, frontal, schwarzer Umriss, 15 Farben), englischem Gemini-Prompt, Nachbesserungen und Einfüge-Anleitung
+  (`assets/einstein-schiessend.png`, Einbau in Schritt 8 nach `src/grafik/einstein_schiessend.png`; bis dahin Platzhalter normaler Einstein).
+  Vorlagebild `assets/einstein-vorlage-gross.png` (8-fach, nur lokal, nicht im Repo). Monster-Animationen geprüft (Pixel je Einzelbild
+  gezählt und angesehen): alle 10 vollständig; Fledermaus Bild 1 sitzt (ruckt), Maus und Spinne schauen nach rechts, Hurt nur bei Schleimen.
+  **Nicht getestet:** den Prompt bei Gemini (erzeugt Jazz selbst). Kein Code geändert, darum kein Browser- oder Programmtest.
+
 ## Datenorte
 - **Datenbank Supabase** (Projekt `diwpqkxhmuetdpxxcoar`, Frankfurt): Klassen, Pseudonyme, Aufgaben, Pakete, Zuweisungen,
   Versuche, Lernstände, Münzen, Farm, Besitz. Aufbau nur über `supabase/migrations/` (31 Migrationen).
@@ -131,6 +138,9 @@
 - 2026-11-13 (Jazz, Schritt 6, alle Vorschläge, dazu): **Diktate zählen immer als Übung und haben keine Runden.** Herzen:
   Abschreiben (fortlaufend) **ein Herz je 10 richtige Zeichen** (ersetzt „ein Herz je Wort“ aus dem Konzept), Merkdiktat ein Herz je
   richtig abgeschicktem Teil. Umsetzung in Schritt 10. Freigeben ohne Nachfrage. Leseschrift-Haken je Schüler:in erst in Schritt 8.
+- 2026-11-13 (Jazz, Schritt 7, alle Vorschläge): Einstein **wirft** das Herz mit ausgestrecktem Arm nach rechts (keine Waffe), Herz nicht im Bild,
+  ein einziges Bild, Prompt auf Englisch; Datei `assets/einstein-schiessend.png`. Fledermaus (nur Bilder 2–5) und Spiegeln von Maus/Spinne
+  in Schritt 8. Schleime grün, blau und Feuer bleiben.
 
 ## Geänderte Dateien
 - Schritt 0: `docs/umbau/STATUS.md`, `docs/umbau/ARBEITSPLAN.md` (neu), `.gitignore`, `CLAUDE.md`
@@ -150,6 +160,7 @@
   `src/lehrkraft/FormatWahl.tsx`, `src/lehrkraft/LehrkraftRahmen.tsx`, `src/lib/monster.ts` (neu), `src/lib/typen.ts`,
   `src/design/lehrkraft.css`, `scripts/grafik-holen.mjs`, `src/grafik/index.ts`, `src/grafik/monster_*.png` (10 neu), `src/grafik/LIZENZ.md`,
   `docs/umbau/konzept.md`, `docs/umbau/STATUS.md`
+- Schritt 7: `docs/umbau/bildprompt-einstein-schiessend.md` (neu), `docs/umbau/STATUS.md`
 
 ## Offene Fragen
 - Lizenztext zu `assets/orig.png` beim Einbau (Schritt 8) in `src/grafik/LIZENZ.md` übernehmen.
@@ -164,9 +175,8 @@
 
 - Merkdiktat: Genauigkeit des Durchgangs ist vorerst der Durchschnitt der Runden; genaue Zählung (alle Zeichen) in Schritt 10.
 - Die Schüler-Typen (`SchuelerAufgabe`) kennen die neuen Felder noch nicht; Anbindung in Schritt 8 (Lehrkraft-Typen in Schritt 6 ergänzt).
-- Die craftpix-Schleime sind grün, blau und **Feuer** (braun mit Flammen), nicht lila wie im Konzept. Im Editor heißen sie „Schleim grün“,
-  „Schleim blau“, „Feuerschleim“. Bitte ansehen; sonst Schleim weglassen oder anderes Monster.
 - Diktat: Server zählt Merkdiktat und Abschreiben vorerst als eine Runde; Herzen und Genauigkeit richtig in Schritt 10.
 
 ## Nächster Schritt
-- Schritt 7 – Asset-Vorbereitung: Einstein „schießend“.
+- Schritt 8 – Spielansicht, Pilot mit einem Aufgabenformat. Dabei: Einstein-Platzhalter, Fledermaus-Ausschnitt, Spiegeln von Maus/Spinne,
+  Lizenz von `assets/orig.png`, Leseschrift-Haken je Schüler:in.
