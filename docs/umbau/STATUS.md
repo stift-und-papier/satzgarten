@@ -41,6 +41,24 @@
   im Browser nicht getestet (Lehrkraft-Anmeldung nötig).
   Nachtrag 2 (Jazz): Filter-Auswahl „Bereich“ heißt jetzt **„Kernkompetenz“** (Aufgaben- und Paketliste, `ListenFilter.tsx`).
 
+- **Schritt 5 – Datenmodell und Spiellogik** (2026-11-13, ohne Oberfläche): Migration `uebungen_runden`.
+  - Übung = `aufgaben` mit `loesung.runden`; neue Spalten `monster` (Standard `ruebchen`), `runden_je_durchgang` (Standard 6),
+    `spiel`; Typ `fallende_woerter` erlaubt (Prüfung erst Schritt 11); `schueler.leseschrift`. Trigger schreibt `inhalt.runden` ohne Lösungen.
+  - Tabelle `durchgaenge` (Lehrkraft darf nur lesen). Funktionen für Schüler:innen: `uebung_starten` (neu, fortsetzen oder „morgen“),
+    `runde_pruefen` (ein Prüfen je Runde, danach Lösung dieser Runde; doppelt gesendet = altes Ergebnis). Nach der letzten Runde beendet
+    der Server den Durchgang selbst (statt eigener Funktion `uebung_beenden`, sicherer bei wackligem WLAN): ein `versuch`,
+    Sterne, Münzen; an die App gehen nur befreundet und Münzen, keine Prozente.
+  - Lehrkraft: `versuch_freigeben(Schüler-ids, Übung oder alle)`. `ergebnisse_zuruecksetzen` löscht auch Durchgänge.
+  - Münzen: ★ 20/30/40 × Anteil (abgerundet), Wiederholen nur Differenz, Freundschaft +10/15/20 einmalig, Diktat 100 % im
+    Wiederholen +10/15/20. Pool bevorzugt nie gespielte, dann falsche Runden. Sterne-Regel: mindestens 2, Anteil im ersten Versuch ≥ 80 %.
+  - `schueler_start` liefert je Übung zusätzlich `uebung`, `monster`, `befreundet`, `angefangen`, `morgen` und oben `leseschrift`.
+  **Getestet:** `npm run test:datenbank` → ALLE TESTS BESTANDEN (146), neuer Block 17 mit 14 Prüfungen: Inhalt ohne Lösung, Start/Fortsetzen,
+  Runde nur einmal prüfbar, Münzen 20 → +10 +15 → 0, Freundschaft bleibt, Kalendertag Berlin (23:59:30 gleich, 00:00:30 neuer Tag, obwohl UTC
+  noch Vortag), ein Versuch je Durchgang, Pool, fremde Token/Lehrkraft, Freigabe, geänderte Übung, Sterne-Aufstieg, Zurücksetzen.
+  Test 6.16 an die neue Sterne-Regel angepasst. `npm test` 138, lint, build ohne Fehler. Echte Daten danach unverändert
+  (475 Aufgaben, 43 Versuche, 2 Sterne-Stufen, 690 Münzen). **Nicht getestet:** Diktat-Schwelle 95 % und 100 %-Zusatz (Diktat-Runden
+  kommen in Schritt 10), Browser (keine Oberfläche in diesem Schritt).
+
 ## Datenorte
 - **Datenbank Supabase** (Projekt `diwpqkxhmuetdpxxcoar`, Frankfurt): Klassen, Pseudonyme, Aufgaben, Pakete, Zuweisungen,
   Versuche, Lernstände, Münzen, Farm, Besitz. Aufbau nur über `supabase/migrations/` (31 Migrationen).
@@ -84,6 +102,9 @@
 - 2026-11-13 (Jazz, Schritt 4): Archivieren per Migration wie vorgeschlagen; **kein** zusätzlicher Export nach `archiv/`
   (Texte in `inhalte/*.txt`, Sicherung lokal); alte Ergebnisse zählen weiter im Lernstand; Menüpunkt „Erklärungen“ zwischen
   Übungen und Lernweg, Erklärseiten bleiben in der Aufgabenliste der Lehrkraft.
+- 2026-11-13 (Jazz, Schritt 5, alle Vorschläge): Migration wie im Konzept; Übung = hat Runden, Erklärseiten bleiben; Diktat-Feinheiten in
+  Schritt 10, Fallende Wörter in Schritt 11; Münzen erst am Ende eines Durchgangs; geänderte Übung → angefangener Durchgang beginnt neu;
+  Zurücksetzen löscht auch Durchgänge; Sterne-Aufstieg ab 2 Übungen sofort.
 
 ## Geänderte Dateien
 - Schritt 0: `docs/umbau/STATUS.md`, `docs/umbau/ARBEITSPLAN.md` (neu), `.gitignore`, `CLAUDE.md`
@@ -95,6 +116,8 @@
   `src/schueler/Erklaerungen.tsx` (neu), `src/schueler/SchuelerBereich.tsx`, `src/schueler/speicher.ts`, `src/schueler/einstein.md`,
   `src/gemeinsam/Symbol.tsx`, `src/design/bausteine.css`, `src/lehrkraft/AufgabenListe.tsx`, `src/lehrkraft/PaketListe.tsx`,
   `src/lehrkraft/PaketDetail.tsx`, `src/lehrkraft/AufgabeEditor.tsx`, `docs/umbau/STATUS.md`
+  Nachträge: `src/lib/filter.ts`, `src/lehrkraft/ListenFilter.tsx`, `src/lehrkraft/AufgabenListe.tsx`
+- Schritt 5: `supabase/migrations/20261113150000_uebungen_runden.sql` (neu), `supabase/tests/zugriffsregeln.sql`, `docs/umbau/STATUS.md`
 
 ## Offene Fragen
 - Lizenztext zu `assets/orig.png` beim Einbau (Schritt 8) in `src/grafik/LIZENZ.md` übernehmen.
@@ -107,5 +130,10 @@
 - DB-Test Block 15 (Belohnungen, Igel-11) schlug einmal fehl (1 / 1) und lief danach dreimal durch; vermutlich zeitabhängig. Beobachten.
 - Erklärungen sind innerhalb einer Klassenstufe alphabetisch nach Bereich geordnet (Rechtschreibung, Satzglieder …).
 
+- Pflanzen wachsen je Münz-Ereignis: eine Übung mit Freundschaft gießt zweimal (Grundmünzen + Freundschaft), eine ganze Übung aber
+  seltener als früher sechs Einzelaufgaben. Nachfragen, ob das Gießen angepasst werden soll.
+- Merkdiktat: Genauigkeit des Durchgangs ist vorerst der Durchschnitt der Runden; genaue Zählung (alle Zeichen) in Schritt 10.
+- Die App-Typen (`SchuelerAufgabe`) kennen die neuen Felder noch nicht; Anbindung in Schritt 6/8.
+
 ## Nächster Schritt
-- Schritt 5 – Neues Datenmodell und Spiellogik (ohne Oberfläche).
+- Schritt 6 – Lehrkrafteditor anpassen.

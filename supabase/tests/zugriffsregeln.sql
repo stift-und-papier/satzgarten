@@ -410,7 +410,8 @@ begin
     n := n + 1;
 
     -- Stufen: Regel, Vorrang der Lehrkraft, Aufstieg
-    if not public.stufe_aufstieg(5, 4) or public.stufe_aufstieg(4, 4) or public.stufe_aufstieg(5, 3) then
+    -- Regel seit Übungsumbau Schritt 5: mindestens 2 Übungen, Summe der Anteile im ersten Versuch ≥ 80 %
+    if not public.stufe_aufstieg(2, 1.6) or public.stufe_aufstieg(1, 1) or public.stufe_aufstieg(2, 1.5) or not public.stufe_aufstieg(5, 4) then
       raise exception 'Block 6.16: Regel für den Aufstieg falsch';
     end if;
     n := n + 1;
@@ -1208,6 +1209,245 @@ begin
     if (select count(*) from public.versuche where schueler_id = v_fuchs) <> v_vorher + 1 then
       raise exception 'Block 16.5: Versuche verändert (% statt %)', (select count(*) from public.versuche where schueler_id = v_fuchs), v_vorher + 1;
     end if;
+    n := n + 1;
+  end;
+
+  -- ---------- 17 Übungen mit Runden und Durchgängen (Übungsumbau Schritt 5) ----------
+  -- Runde nr k hat die Lösung chr(97 + k) ('a', 'b', …). Zeiten mit Zeitzone +01 (Berlin im März, Winterzeit).
+  declare
+    t_fuchs text := (select token from public.schueler where pseudonym = 'Fuchs-01');
+    t_dachs text := (select token from public.schueler where pseudonym = 'Dachs-03');
+    v_s public.schueler := (select s from public.schueler s where s.pseudonym = 'Fuchs-01');
+    v_paket uuid;
+    v_u1 uuid;
+    v_u2 uuid;
+    v_u3 uuid;
+    v_er uuid := (select id from public.aufgaben where titel = 'T-erklaerung' and owner = c_lk_a);
+    v jsonb;
+    v_d uuid;
+    v_d2 uuid;
+    v_nr integer;
+    v_erste smallint[];
+    v_zweite smallint[];
+    v_versuche_vorher bigint := (select count(*) from public.versuche where schueler_id = (select id from public.schueler where pseudonym = 'Fuchs-01'));
+    r record;
+  begin
+    -- Übungen mit 3, 1 und 10 Runden (Lückentext, ★★, ohne Kompetenz = Bereich '')
+    insert into public.aufgaben (owner, typ, titel, stufe, runden_je_durchgang, loesung)
+    select c_lk_a, 'lueckentext', 'U-' || anz, 2, case when anz = 10 then 6 end,
+      jsonb_build_object('runden', (select jsonb_agg(jsonb_build_object('teile', jsonb_build_array(
+        jsonb_build_object('t', 'text', 'v', 'Runde'), jsonb_build_object('t', 'luecke', 'id', 0, 'loesungen', jsonb_build_array(chr(96 + k)))))
+        order by k) from generate_series(1, anz) k))
+    from unnest(array[3, 1, 10]) anz;
+    v_u1 := (select id from public.aufgaben where titel = 'U-3' and owner = c_lk_a);
+    v_u2 := (select id from public.aufgaben where titel = 'U-1' and owner = c_lk_a);
+    v_u3 := (select id from public.aufgaben where titel = 'U-10' and owner = c_lk_a);
+    insert into public.pakete (owner, titel, jahrgaenge, zweige) values (c_lk_a, 'P-Uebung', '{7}', '{Realschule}') returning id into v_paket;
+    insert into public.paket_aufgaben (paket_id, aufgabe_id, position) values (v_paket, v_u1, 1), (v_paket, v_u2, 2), (v_paket, v_u3, 3), (v_paket, v_er, 4);
+    insert into public.zuweisungen (owner, paket_id, klasse_id) values (c_lk_a, v_paket, c_kl_a);
+    update public.aufgaben set archiviert = false where id = v_er;  -- in Block 16 archiviert
+
+    -- 17.1 Trigger: Inhalt je Runde ohne Lösung
+    v := (select inhalt from public.aufgaben where id = v_u1);
+    if jsonb_array_length(v -> 'runden') <> 3 or v::text ~ 'loesungen' then raise exception 'Block 17.1: Inhalt der Runden falsch: %', v; end if;
+    n := n + 1;
+
+    -- 17.2 Start: Runden ohne Lösung; nochmal starten = derselbe Durchgang; Erklärseite ist keine Übung
+    v := public.uebung_starten_um(v_s, v_paket, v_u1, '2026-03-10 20:00+01');
+    v_d := (v ->> 'durchgang')::uuid;
+    if v ->> 'status' <> 'offen' or jsonb_array_length(v -> 'runden') <> 3 or v::text ~ 'loesungen' then
+      raise exception 'Block 17.2: Start falsch: %', v;
+    end if;
+    if (public.uebung_starten_um(v_s, v_paket, v_u1, '2026-03-10 20:05+01') ->> 'durchgang')::uuid <> v_d then
+      raise exception 'Block 17.2: zweiter Start legt neuen Durchgang an';
+    end if;
+    begin
+      perform public.uebung_starten_um(v_s, v_paket, v_er, '2026-03-10 20:05+01');
+      raise exception 'Block 17.2: Erklärseite startet als Übung';
+    exception when sqlstate '22023' then null;
+    end;
+    n := n + 1;
+
+    -- 17.3 Runde prüfen: Lösung erst danach; zweimal prüfen ändert nichts; fremde Runde abgelehnt
+    v := public.runde_pruefen_um(v_s, v_d, 0, '{"0":"a"}', '2026-03-10 20:10+01');
+    if not (v ->> 'richtig')::boolean or v -> 'loesung' <> '{"luecken":[{"id":0,"loesungen":["a"]}]}'::jsonb or (v ->> 'fertig')::boolean then
+      raise exception 'Block 17.3: Runde 0 falsch geprüft: %', v;
+    end if;
+    v := public.runde_pruefen_um(v_s, v_d, 0, '{"0":"falsch"}', '2026-03-10 20:11+01');
+    if not (v ->> 'richtig')::boolean or (select jsonb_array_length(ergebnisse) from public.durchgaenge where id = v_d) <> 1 then
+      raise exception 'Block 17.3: Runde ließ sich zweimal prüfen: %', v;
+    end if;
+    begin
+      perform public.runde_pruefen_um(v_s, v_d, 7, '{"0":"a"}', '2026-03-10 20:12+01');
+      raise exception 'Block 17.3: Runde außerhalb des Durchgangs angenommen';
+    exception when sqlstate '22023' then null;
+    end;
+    -- nach dem Fortsetzen: geprüfte Runde mit Lösung, offene ohne
+    v := public.uebung_starten_um(v_s, v_paket, v_u1, '2026-03-10 20:13+01');
+    if jsonb_array_length(v -> 'gespielt') <> 1 or (v -> 'runden')::text ~ 'loesungen' then raise exception 'Block 17.3: Fortsetzen falsch: %', v; end if;
+    n := n + 1;
+
+    -- 17.4 Ende (2 von 3 richtig, ★★): 20 Münzen, nicht befreundet, ein Versuch, keine Prozente an die App
+    v := public.runde_pruefen_um(v_s, v_d, 1, '{"0":"b"}', '2026-03-10 23:58+01');
+    v := public.runde_pruefen_um(v_s, v_d, 2, '{"0":"x"}', '2026-03-10 23:59+01');
+    if not (v ->> 'fertig')::boolean or (v -> 'abschluss' ->> 'befreundet')::boolean or (v -> 'abschluss' ->> 'muenzen')::int <> 20
+       or (v -> 'abschluss')::text ~ 'anteil' then
+      raise exception 'Block 17.4: Abschluss falsch: %', v;
+    end if;
+    if (select count(*) from public.versuche where client_id = v_d and anteil_richtig = 0.667 and not richtig) <> 1 then
+      raise exception 'Block 17.4: Versuch für den Lernstand fehlt';
+    end if;
+    n := n + 1;
+
+    -- 17.5 Kalendertag Berlin: 23:59:30 derselbe Tag → morgen; 00:00:30 (UTC noch Vortag) → neuer Durchgang
+    v := public.uebung_starten_um(v_s, v_paket, v_u1, '2026-03-10 23:59:30+01');
+    if v ->> 'status' <> 'morgen' or v::text ~ 'runden' then raise exception 'Block 17.5: zweiter Durchgang am selben Tag: %', v; end if;
+    v := public.uebung_starten_um(v_s, v_paket, v_u1, '2026-03-11 00:00:30+01');
+    if v ->> 'status' <> 'offen' then raise exception 'Block 17.5: am nächsten Tag kein Durchgang: %', v; end if;
+    v_d := (v ->> 'durchgang')::uuid;
+    n := n + 1;
+
+    -- 17.6 Wiederholen, alles richtig: nur Differenz 30 − 20 = 10 und Freundschaft +15
+    for v_nr in 0..2 loop
+      v := public.runde_pruefen_um(v_s, v_d, v_nr, jsonb_build_object('0', chr(97 + v_nr)), '2026-03-11 08:00+01');
+    end loop;
+    if not (v -> 'abschluss' ->> 'neu_befreundet')::boolean or (v -> 'abschluss' ->> 'muenzen')::int <> 25 then
+      raise exception 'Block 17.6: Münzen beim Verbessern falsch: %', v;
+    end if;
+    n := n + 1;
+
+    -- 17.7 nochmal alles richtig: keine Münzen; danach schlechter: bleibt befreundet
+    v := public.uebung_starten_um(v_s, v_paket, v_u1, '2026-03-12 08:00+01');
+    v_d := (v ->> 'durchgang')::uuid;
+    for v_nr in 0..2 loop
+      v := public.runde_pruefen_um(v_s, v_d, v_nr, jsonb_build_object('0', chr(97 + v_nr)), '2026-03-12 08:01+01');
+    end loop;
+    if (v -> 'abschluss' ->> 'muenzen')::int <> 0 or (v -> 'abschluss' ->> 'neu_befreundet')::boolean then
+      raise exception 'Block 17.7: Wiederholen bringt Münzen: %', v;
+    end if;
+    v := public.uebung_starten_um(v_s, v_paket, v_u1, '2026-03-13 08:00+01');
+    v_d := (v ->> 'durchgang')::uuid;
+    for v_nr in 0..2 loop
+      v := public.runde_pruefen_um(v_s, v_d, v_nr, '{"0":"x"}', '2026-03-13 08:01+01');
+    end loop;
+    if not (v -> 'abschluss' ->> 'befreundet')::boolean or (v -> 'abschluss' ->> 'muenzen')::int <> 0 then
+      raise exception 'Block 17.7: Freundschaft geht verloren: %', v;
+    end if;
+    if (select count(*) from public.muenz_ereignisse where schueler_id = v_s.id and grund = 'freundschaft') <> 1 then
+      raise exception 'Block 17.7: Freundschaft mehrfach bezahlt';
+    end if;
+    n := n + 1;
+
+    -- 17.8 Lernstand: genau ein Versuch je fertigem Durchgang
+    if (select count(*) from public.versuche where schueler_id = v_s.id) <> v_versuche_vorher + 4 then
+      raise exception 'Block 17.8: % Versuche statt %', (select count(*) from public.versuche where schueler_id = v_s.id), v_versuche_vorher + 4;
+    end if;
+    n := n + 1;
+
+    -- 17.9 Pool: 10 Runden, 6 je Durchgang; der zweite Durchgang enthält die 4 noch nie gespielten
+    v := public.uebung_starten_um(v_s, v_paket, v_u3, '2026-03-10 09:00+01');
+    v_d := (v ->> 'durchgang')::uuid;
+    v_erste := (select runden from public.durchgaenge where id = v_d);
+    if cardinality(v_erste) <> 6 or (select count(distinct x) from unnest(v_erste) x) <> 6 then raise exception 'Block 17.9: Ziehung falsch: %', v_erste; end if;
+    foreach v_nr in array v_erste loop
+      v := public.runde_pruefen_um(v_s, v_d, v_nr, jsonb_build_object('0', chr(97 + v_nr)), '2026-03-10 09:05+01');
+    end loop;
+    v := public.uebung_starten_um(v_s, v_paket, v_u3, '2026-03-11 09:00+01');
+    v_zweite := (select runden from public.durchgaenge where id = (v ->> 'durchgang')::uuid);
+    if not (v_zweite @> array(select x::smallint from generate_series(0, 9) x where x::smallint <> all (v_erste))) then
+      raise exception 'Block 17.9: neue Runden nicht bevorzugt: % / %', v_erste, v_zweite;
+    end if;
+    n := n + 1;
+
+    -- 17.10 Schutz: fremder Token, fremder Durchgang, interne Funktionen, Tabelle
+    set local role anon;
+    begin
+      perform public.uebung_starten(t_dachs, v_paket, v_u2);
+      raise exception 'Block 17.10: fremde Schüler:in startet die Übung';
+    exception when sqlstate 'P0002' then null;
+    end;
+    begin
+      perform public.runde_pruefen(t_dachs, (v ->> 'durchgang')::uuid, v_zweite[1], '{"0":"a"}');
+      raise exception 'Block 17.10: fremde Schüler:in prüft eine Runde';
+    exception when sqlstate 'P0002' then null;
+    end;
+    begin
+      perform public.uebung_starten_um(v_s, v_paket, v_u2, now());
+      raise exception 'Block 17.10: anon ruft interne Funktion auf';
+    exception when insufficient_privilege then null;
+    end;
+    begin
+      perform 1 from public.durchgaenge;
+      raise exception 'Block 17.10: anon liest durchgaenge';
+    exception when insufficient_privilege then null;
+    end;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if exists (select 1 from public.durchgaenge where schueler_id = v_s.id) then raise exception 'Block 17.10: B sieht Durchgänge von A'; end if;
+    reset role;
+    n := n + 1;
+
+    -- 17.11 heute (echte Uhr): fertig → morgen; B gibt nichts frei; A gibt frei → neuer Durchgang
+    set local role anon;
+    v := public.uebung_starten(t_fuchs, v_paket, v_u2);
+    v := public.runde_pruefen(t_fuchs, (v ->> 'durchgang')::uuid, 0, '{"0":"a"}');
+    if public.uebung_starten(t_fuchs, v_paket, v_u2) ->> 'status' <> 'morgen' then raise exception 'Block 17.11: heute nochmal erlaubt'; end if;
+    if not (public.schueler_start(t_fuchs) -> 'pakete' @> jsonb_build_array(jsonb_build_object('aufgaben',
+        jsonb_build_array(jsonb_build_object('id', v_u2, 'morgen', true, 'befreundet', true))))) then
+      raise exception 'Block 17.11: Startseite zeigt morgen/befreundet nicht';
+    end if;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if public.versuch_freigeben(array[v_s.id], v_u2) <> 0 then raise exception 'Block 17.11: B gibt Versuch von A frei'; end if;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if public.versuch_freigeben(array[v_s.id], null) <> 1 then raise exception 'Block 17.11: Freigabe wirkt nicht'; end if;
+    reset role;
+    set local role anon;
+    v := public.uebung_starten(t_fuchs, v_paket, v_u2);
+    if v ->> 'status' <> 'offen' then raise exception 'Block 17.11: nach Freigabe kein neuer Durchgang: %', v; end if;
+    v_d := (v ->> 'durchgang')::uuid;
+    reset role;
+    n := n + 1;
+
+    -- 17.12 Lehrkraft ändert die Übung: offener Durchgang beginnt neu, alte Runde wird abgelehnt
+    -- im Test läuft alles in einer Transaktion (now() bleibt gleich): spätere Änderung nachstellen
+    alter table public.aufgaben disable trigger aufgabe_vorbereiten;
+    update public.aufgaben set titel = 'U-1 geändert', geaendert_am = geaendert_am + interval '1 minute' where id = v_u2;
+    alter table public.aufgaben enable trigger aufgabe_vorbereiten;
+    set local role anon;
+    v := public.uebung_starten(t_fuchs, v_paket, v_u2);
+    v_d2 := (v ->> 'durchgang')::uuid;
+    if v_d2 = v_d then raise exception 'Block 17.12: alter Durchgang nach Änderung weitergeführt'; end if;
+    begin
+      perform public.runde_pruefen(t_fuchs, v_d, 0, '{"0":"a"}');
+      raise exception 'Block 17.12: Runde aus verworfenem Durchgang angenommen';
+    exception when sqlstate 'P0002' then null;
+    end;
+    reset role;
+    n := n + 1;
+
+    -- 17.13 Sterne-Aufstieg mit Übungen: drei ★★-Übungen, erster Versuch 2/3, 1 und 1 → 2,667 ≥ 0,8 · 3 → ★★★
+    -- (die ★★-Aufgaben aus Block 6 vorher entfernen, sonst zählen sie mit)
+    delete from public.versuche where schueler_id = v_s.id and aufgabe_id in (select id from public.aufgaben where owner = c_lk_a and titel like 'T-%');
+    -- Fuchs hat hier keine Stufe mehr im Bereich ''; für den Test auf ★★ setzen
+    insert into public.schueler_stufen (schueler_id, owner, bereich, stufe) values (v_s.id, c_lk_a, '', 2)
+      on conflict (schueler_id, bereich) do update set stufe = 2;
+    perform public.stufen_aktualisieren(v_s);
+    if (select stufe from public.schueler_stufen where schueler_id = v_s.id and bereich = '') is distinct from 3::smallint then
+      raise exception 'Block 17.13: Aufstieg mit Übungen fehlt';
+    end if;
+    n := n + 1;
+
+    -- 17.14 Zurücksetzen löscht auch die Durchgänge
+    perform set_config('request.jwt.claims', json_build_object('sub', c_lk_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform public.ergebnisse_zuruecksetzen(array[v_s.id]);
+    reset role;
+    if exists (select 1 from public.durchgaenge where schueler_id = v_s.id) then raise exception 'Block 17.14: Durchgänge bleiben nach Zurücksetzen'; end if;
     n := n + 1;
   end;
 
