@@ -5,8 +5,9 @@ import type { Kompetenz } from './typen'
 // (KC-Stufe „Ende Jg. 6/8/10“ → Doppeljahrgang). Alle gewählten Merkmale müssen bei DERSELBEN Kompetenz zutreffen.
 
 export type Doppeljahrgang = '5/6' | '7/8' | '9/10'
-export type Filter = { suche: string; schulform: string; jahrgang: '' | Doppeljahrgang | 'ohne'; bereich: string; kompetenz: string }
-export const LEERER_FILTER: Filter = { suche: '', schulform: '', jahrgang: '', bereich: '', kompetenz: '' }
+// art: Aufgabenart (nur Aufgabenliste); passt() prüft sie nicht, das macht die Liste selbst
+export type Filter = { suche: string; schulform: string; art: string; jahrgang: '' | Doppeljahrgang | 'ohne'; bereich: string; kompetenz: string }
+export const LEERER_FILTER: Filter = { suche: '', schulform: '', art: '', jahrgang: '', bereich: '', kompetenz: '' }
 export const DOPPELJAHRGAENGE: Doppeljahrgang[] = ['5/6', '7/8', '9/10']
 
 export type FilterKompetenz = Pick<Kompetenz, 'id' | 'bereich' | 'stufe'>

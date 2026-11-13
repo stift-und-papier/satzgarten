@@ -33,10 +33,12 @@ type Props = {
   treffer: number
   gesamt: number
   suchText: string
+  /** Aufgabenarten (Kennung → Name): zeigt die Auswahl „Aufgabenart“ */
+  arten?: Record<string, string>
 }
 
 // Filterleiste: Titelsuche, Jahrgang (aus der KC-Stufe der Kompetenzen), Bereich, einzelne Kompetenz.
-export function ListenFilter({ filter, onChange, verwendet, treffer, gesamt, suchText }: Props) {
+export function ListenFilter({ filter, onChange, verwendet, treffer, gesamt, suchText, arten }: Props) {
   const bereiche = [...new Set(verwendet.map((k) => k.bereich))].sort((a, b) => a.localeCompare(b, 'de'))
   const imBereich = verwendet.filter(
     (k) => k.bereich === filter.bereich && passt('', [k.id], { ...LEERER_FILTER, jahrgang: filter.jahrgang }, new Map([[k.id, k]])),
@@ -60,6 +62,19 @@ export function ListenFilter({ filter, onChange, verwendet, treffer, gesamt, suc
             ))}
           </select>
         </label>
+        {arten && (
+          <label>
+            Aufgabenart
+            <select className="lk-feld" value={filter.art} onChange={(e) => onChange({ ...filter, art: e.target.value })}>
+              <option value="">alle</option>
+              {Object.entries(arten).map(([art, name]) => (
+                <option key={art} value={art}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
         <label>
           Jahrgang
           <select className="lk-feld" value={filter.jahrgang} onChange={(e) => onChange({ ...filter, jahrgang: e.target.value as Filter['jahrgang'], kompetenz: '' })}>

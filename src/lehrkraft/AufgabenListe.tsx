@@ -48,7 +48,10 @@ export function AufgabenListe() {
   }
   // Erklärseiten haben nie Kompetenzen – bei „ohne Zuordnung“ gibt es dort nichts nachzuarbeiten
   const gefiltert = aufgaben?.filter(
-    (a) => !(filter.jahrgang === 'ohne' && a.typ === 'erklaerung') && passt(a.titel, ids(a), filter, kompetenzen, schulformen(a)),
+    (a) =>
+      (!filter.art || a.typ === filter.art) &&
+      !(filter.jahrgang === 'ohne' && a.typ === 'erklaerung') &&
+      passt(a.titel, ids(a), filter, kompetenzen, schulformen(a)),
   )
   // Kurznamen und Kerncurricula der zugeordneten Kompetenzen (zum Anzeigen und Sortieren)
   const zeilen = gefiltert?.map((a) => {
@@ -90,6 +93,7 @@ Sie verschwindet aus allen Paketen, und alle Versuche der Schüler:innen zu dies
           treffer={gefiltert?.length ?? 0}
           gesamt={aufgaben.length}
           suchText="Titel …"
+          arten={TYP_NAMEN}
         />
       )}
       {gefiltert === undefined ? (
