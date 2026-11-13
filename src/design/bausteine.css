@@ -657,7 +657,6 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .spiel__einstein { position: absolute; left: 6%; bottom: 6px; }
 .spiel__monster { position: absolute; right: 10%; bottom: 18px; display: flex; flex-direction: column; align-items: center; }
 .spiel__monster-bild { display: block; line-height: 0; }
-.spiel__monster-bild[data-spiegeln] { transform: scaleX(-1); }
 .spiel__monster-bild .sprite { animation: monster-lauf calc(var(--n) * 0.15s) steps(var(--n)) infinite; }
 @keyframes monster-lauf { from { background-position-x: 0; } to { background-position-x: var(--ende); } }
 .spiel__freund { line-height: 0; margin-bottom: -6px; animation: freund-schweben 2s steps(2) infinite; }

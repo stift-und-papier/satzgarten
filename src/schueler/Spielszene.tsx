@@ -48,7 +48,7 @@ export function Spielszene({ monsterName, schuss, befreundet, ende }: Props) {
             <Sprite grafik={GRAFIK.herz} mal={3} />
           </span>
         )}
-        <span className="spiel__monster-bild" style={lauf} data-spiegeln={'spiegeln' in m ? true : undefined}>
+        <span className="spiel__monster-bild" style={lauf}>
           <Sprite grafik={m.grafik} mal={mal} />
         </span>
       </div>

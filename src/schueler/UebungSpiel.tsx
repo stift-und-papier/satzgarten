@@ -106,7 +106,7 @@ export function UebungSpiel({ token, paketId, aufgabe, nachAbschluss, naechste, 
           {abschluss.muenzen > 0 ? (
             <MuenzenPlus anzahl={abschluss.muenzen} />
           ) : (
-            <p>Diesmal gibt es keine neuen Münzen. Beim Wiederholen bekommst du Münzen, wenn du besser bist als vorher.</p>
+            <p>Diesmal gibt es keine neuen Münzen. Versuche dich zu verbessern!</p>
           )}
           <div className="knopf-reihe">
             {naechste && (
@@ -225,7 +225,7 @@ export function UebungSpiel({ token, paketId, aufgabe, nachAbschluss, naechste, 
               <div className="rueckmeldung rueckmeldung--nochmal" role="status">
                 <span className="rueckmeldung__zeichen" aria-hidden="true">!</span>
                 <p>
-                  <strong>Daneben.</strong> Die richtige Lösung steht jetzt im Satz.
+                  <strong>Daneben.</strong> Schau dir die richtige Lösung an!
                 </p>
               </div>
             ))}

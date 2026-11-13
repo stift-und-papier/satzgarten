@@ -100,16 +100,16 @@ const BILDER = [
     name: `monster_schleim_${farbe}`, datei: `${SCHLEIM}Slime${n}/Idle/Slime${n}_Idle_full.png`,
     x: 0, y: 12, breite: 384, hoehe: 32, bildBreite: 64, bildHoehe: 32,
   })),
-  { name: 'monster_gespenst', datei: MOBS + 'chost_spritesheet.png', x: 0, y: 0, breite: 160, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  { name: 'monster_gespenst', datei: MOBS + 'chost_spritesheet.png', x: 0, y: 0, breite: 160, hoehe: 16, bildBreite: 16, bildHoehe: 16, spiegeln: true },
   ...['green', 'purple', 'golden'].map((farbe) => ({
     name: `monster_spinne_${{ green: 'gruen', purple: 'lila', golden: 'gold' }[farbe]}`, datei: `${MOBS}lil_${farbe}_spider_spritesheet.png`,
-    x: 0, y: 0, breite: 240, hoehe: 16, bildBreite: 16, bildHoehe: 16,
+    x: 0, y: 0, breite: 240, hoehe: 16, bildBreite: 16, bildHoehe: 16, spiegeln: true,
   })),
   // Übungsumbau Schritt 8: Spielszene. Wiese = unterer Teil von assets/orig.png (craftpix, Nature Landscapes),
   // fliegendes Herz = mittleres volles Herz aus Sprout Lands UI Premium (Hearts.png). Fledermaus ohne das sitzende erste Bild.
   { name: 'spiel_wiese', datei: 'assets/orig.png', x: 0, y: 186, breite: 576, hoehe: 90 },
   { name: 'herz_flug', datei: UI + 'Icons/special icons/Hearts.png', x: 58, y: 9, breite: 13, hoehe: 11 },
-  { name: 'monster_maus', datei: MOBS + 'little_grey_mouse.png', x: 0, y: 16, breite: 208, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  { name: 'monster_maus', datei: MOBS + 'little_grey_mouse.png', x: 0, y: 16, breite: 208, hoehe: 16, bildBreite: 16, bildHoehe: 16, spiegeln: true },
   { name: 'monster_fledermaus', datei: 'assets/entpackt/Sprout Sorry pack/Early Access/Dungeon Pack/enemies/bat_animations.png', x: 32, y: 0, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
 ]
 
@@ -122,6 +122,17 @@ for (const b of BILDER) {
   if (x + breite > quelle.width || y + hoehe > quelle.height) throw new Error(`${b.name}: Ausschnitt liegt außerhalb des Bildes`)
   const ziel = new PNG({ width: breite, height: hoehe })
   PNG.bitblt(quelle, ziel, x, y, breite, hoehe, 0, 0)
+  // spiegeln: jedes Einzelbild waagerecht umdrehen (Monster schauen im Original nach rechts, sollen zur Figur links schauen; Jazz, Schritt 8)
+  if (b.spiegeln) {
+    const bw = b.bildBreite ?? breite
+    const kopie = Buffer.from(ziel.data)
+    for (let yy = 0; yy < hoehe; yy++)
+      for (let xx = 0; xx < breite; xx++) {
+        const links = xx - (xx % bw)
+        const von = (yy * breite + links + bw - 1 - (xx % bw)) * 4
+        kopie.copy(ziel.data, (yy * breite + xx) * 4, von, von + 4)
+      }
+  }
   writeFileSync(`src/grafik/${b.name}.png`, PNG.sync.write(ziel))
   liste.push({ name: b.name, breite, hoehe, bildBreite: b.bildBreite ?? breite, bildHoehe: b.bildHoehe ?? hoehe })
   console.log(`${b.name}.png  ${breite}×${hoehe}`)
