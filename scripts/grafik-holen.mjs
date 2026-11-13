@@ -216,7 +216,11 @@ function figurAusGrossbild(datei) {
           let x0 = zx + best.ox + bx * K, y0 = zy + best.oy + by * K, v = streuung(x0, y0)
           for (const [sx, sy] of [[4, 0], [-4, 0], [0, 4], [0, -4]]) {
             const w = streuung(x0 + sx, y0 + sy)
-            if (w < v * 0.5) ((v = w), (x0 += sx), (y0 += sy))
+            if (w < v * 0.5) {
+              v = w
+              x0 += sx
+              y0 += sy
+            }
           }
           const werte = []
           for (let dy = 2; dy < 6; dy++) for (let dx = 2; dx < 6; dx++) werte.push(px(x0 + dx, y0 + dy))
