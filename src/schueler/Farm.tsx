@@ -42,7 +42,6 @@ export function Farm({ token, shop, album, figur: figurName, nachFigur }: { toke
   const leinwand = useRef<HTMLCanvasElement>(null)
   const ankunft = useRef<number>(undefined)
   const [blase, setBlase] = useState(true) // Sprechblase „… kann geerntet werden!“, bis man zum ersten Mal tippt
-  const [blasenBreite, setBlasenBreite] = useState(0) // gemessen, in Grafik-Pixeln
   const [einrichten, setEinrichten] = useState(false) // Fenster hinter dem Zahnrad: Figur und Deko
   const [dekoAus, setDekoAus] = useState<string[]>(() => {
     try {
@@ -107,20 +106,15 @@ export function Farm({ token, shop, album, figur: figurName, nachFigur }: { toke
 
   useEffect(() => () => window.clearTimeout(ankunft.current), [])
 
-  // Lehrkraft 2026-11-12: Die Blase steht immer links von der Figur. Fehlt dort Platz, läuft die Figur zuerst nach rechts.
-  const blasenPlatz = blasenBreite + 8
-  useEffect(() => {
-    if (!blase || !blasenBreite || figur.dauer > 0 || figur.x >= blasenPlatz) return
-    gehe((o) => mitte(o).x >= blasenPlatz, undefined, true)
-  }, [blase, blasenPlatz])
+  // Jazz 2026-11-14: Die Figur startet in der Mitte der Farm und bleibt stehen, bis man tippt. Die Blase steht links von ihr.
 
   /**
    * Figur auf kürzestem Weg um Hindernisse herum zur nächsten Kachel laufen lassen, für die `ziel` gilt; danach `dann`.
    * Gibt es keinen Weg, passiert `dann` sofort (alles bleibt bedienbar).
    */
-  function gehe(ziel: (o: Ort) => boolean, dann?: () => void, vonSelbst = false) {
+  function gehe(ziel: (o: Ort) => boolean, dann?: () => void) {
     window.clearTimeout(ankunft.current)
-    if (!vonSelbst) setBlase(false)
+    setBlase(false)
     const start = { x: Math.floor(figur.x / KACHEL), y: Math.floor(figur.y / KACHEL) }
     const pfad = weg(start, ziel, besetzt)
     if (!pfad) return dann?.()
@@ -300,10 +294,7 @@ export function Farm({ token, shop, album, figur: figurName, nachFigur }: { toke
     <section className="farm" style={{ ['--farm-breite' as string]: `${px(SPALTEN)}px` }}>
       {/* Jazz 2026-11-14: Leiste mit Sammelalbum-Knopf (Buch über dem Wort, Flieder), Titel als Holzschild wie auf den anderen Seiten, Zahnrad */}
       <div className="farm-leiste">
-        <a className="knopf knopf--album farm-album" href={album}>
-          <Symbol name="sammelbuch" />
-          Sammelalbum
-        </a>
+        <span />
         <header className="pixel-schild">
           <h2>Meine Farm</h2>
         </header>
@@ -404,16 +395,10 @@ export function Farm({ token, shop, album, figur: figurName, nachFigur }: { toke
           {blase && blasenText && (
             <span
               className="farm-blase"
-              ref={(el) => {
-                const b = el ? Math.ceil(el.offsetWidth / mal) : 0
-                if (b && b !== blasenBreite) setBlasenBreite(b)
-              }}
               style={{
                 ['--bild' as string]: `url(${GRAFIK.dialog_blase.url})`,
                 right: (SPALTEN * KACHEL - figur.x + 6) * mal,
                 top: (figur.y - 22) * mal,
-                // erst zeigen, wenn die Figur steht und links genug Platz ist
-                visibility: figur.dauer === 0 && figur.x >= blasenPlatz ? undefined : 'hidden',
               }}
             >
               {blasenText}
@@ -511,6 +496,14 @@ export function Farm({ token, shop, album, figur: figurName, nachFigur }: { toke
           )}
         </FarmMenue>
       )}
+
+      {/* Jazz 2026-11-14: Knopf zum Sammelalbum unten in der Mitte, über dem Vorrat */}
+      <div className="farm-album-zeile">
+        <a className="knopf knopf--album farm-album" href={album}>
+          <Symbol name="sammelbuch" />
+          Sammelalbum
+        </a>
+      </div>
 
       <div className="pixel-tafel farm-vorrat-tafel">
         <h3>Dein Vorrat</h3>

@@ -64,12 +64,19 @@ Alle Pixel-Spielinhalte in der Sprout-Lands-Palette.
   - **Farm:** Knopf „Sammelalbum“ (Buch über dem Wort, kleiner, Flieder statt Gold: `--rahmen-album`), Schild „Meine Farm“,
     Hinweis in eigener Box. Figur sagt „Ich kann mehrere Dinge ernten!“.
   - **Schiebeschalter** aus dem UI Pack (UI Settings Buttons) für den dunklen Modus und die Deko-Schalter: Knopf gleitet, Bahn wird grün.
-- [ ] **Migration `lernweg_zuletzt`** (nennt je Thema, wann zuletzt geübt wurde) ist geschrieben, aber noch nicht eingespielt.
-  Bis dahin stehen die Themen in der Reihenfolge der Kompetenzliste, nicht nach „zuletzt geübt“.
-- [ ] **Migration `album_monster` ist geschrieben, aber noch nicht eingespielt** (`npm run db:push`, danach `npm run test:datenbank`;
-  Test in Block 17.4 und 17.6 ergänzt). Bis dahin sind alle Monster-Klebestellen leer.
-  Achtung: Nach dem Einspielen kennt die Datenbank eine Migration, die es auf `uebungsumbau` noch nicht gibt.
-  `db push` von dort meldet das dann, bis `ui-umbau` zusammengeführt ist.
+- [x] **Dritte Runde (Jazz 2026-11-14):**
+  - **Farm:** Die Figur startet in der Mitte (Kachel 10, 7) und läuft nicht mehr von selbst; ihre Sprechblase bricht um.
+    Knopf „Sammelalbum“ unten in der Mitte über dem Vorrat.
+  - **Lernweg:** Einträge sind die geübten **Übungen** (Titel, darunter das Thema), zuletzt Geübtes oben, Symbole rechts in einer Spalte.
+    Antippen führt zur Übung, solange sie in einem Paket der Klasse steckt.
+  - **Erklärungen:** nur der eigene Jahrgang, nach Themen zum Aufklappen. Dafür haben Klassen jetzt einen **Jahrgang**
+    (Lehrkraft: Klassenseite, Feld „Jahrgang“; vorbelegt aus dem Klassennamen, z. B. „7b“ → 7; leer = alle Erklärungen).
+- [ ] **Drei Migrationen sind geschrieben, aber NICHT eingespielt** (Jazz muss zustimmen): `album_monster` (Monster-Sticker),
+  `lernweg_zuletzt` (Übungen im Lernweg, zuletzt geübt), `klasse_jahrgang` (Jahrgang der Klasse, Erklärungen filtern).
+  Danach `npm run test:datenbank` (Tests in Block 7.7, 16.3, 17.4, 17.6 ergänzt). Bis dahin: Monster-Stellen leer, im Lernweg stehen
+  Themen statt Übungen (nicht antippbar), Erklärungen zeigen alle Jahrgänge, das Feld „Jahrgang“ lässt sich nicht speichern.
+  Achtung: Nach dem Einspielen kennt die Datenbank Migrationen, die es auf `uebungsumbau` noch nicht gibt;
+  `db push` von dort meldet das, bis `ui-umbau` zusammengeführt ist.
 - [ ] Schritt 2: Shop als Buch (grüner Einband, Fragezeichen-Sticker).
 - [ ] Schritt 3: Übungen, Aufgaben, Lernweg, Hilfe, Menüleiste. Einstein umfärben (Vorher-Nachher).
 

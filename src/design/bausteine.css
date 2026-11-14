@@ -831,7 +831,7 @@ a.knopf { text-decoration: none; }
 /* ---------- Zweite Runde (Jazz 2026-11-14) ---------- */
 /* Ranke: Bild, Pflanzen-Symbol im Rahmen, dann Name und Bereich. Der Strich hinter dem Bild verlängert den Stiel bis zur nächsten Zeile. */
 .ranke li {
-  display: grid; grid-template-columns: 60px 48px 1fr; column-gap: var(--space-sm); align-items: center; min-height: 72px;
+  display: grid; grid-template-columns: 60px 1fr 48px; column-gap: var(--space-sm); align-items: center; min-height: 72px;
   background: linear-gradient(#645552, #645552) 27px 60px / 3px 100% no-repeat;
 }
 /* Pflanzen-Symbol (Emoji) im kleinen Holzrahmen aus dem UI Pack: 26 × 26 Bildpunkte, Rand 5, doppelt groß */
@@ -867,3 +867,16 @@ a.knopf { text-decoration: none; }
 .garten-seite .schalter__knopf { transition: left var(--dur-short) var(--ease-out); }
 .garten-seite .schalter[aria-checked='true'] .schalter__knopf { transform: none; left: 30px; }
 .garten-seite .schalter:focus-visible { outline: 3px solid var(--color-aktion); outline-offset: 2px; }
+
+/* ---------- Dritte Runde (Jazz 2026-11-14) ---------- */
+/* Lernweg: Übung (Name, darunter Thema) zum Antippen, Symbol rechts in einer Spalte */
+.ranke__text { display: grid; align-content: center; min-height: var(--tipp-min); line-height: 1.35; text-decoration: none; }
+a.ranke__text .ranke__name { text-decoration: underline; text-underline-offset: 4px; }
+a.ranke__text:focus-visible { outline: 3px solid var(--color-aktion); outline-offset: 2px; }
+/* Farm: Knopf zum Sammelalbum unten in der Mitte, über dem Vorrat */
+.farm-album-zeile { display: flex; justify-content: center; margin-top: var(--space-sm); }
+/* Erklärungen: Themen zum Aufklappen */
+.erklaerungen-thema summary { font-family: var(--font-display); font-size: var(--text-h3); }
+/* Sprechblase der Figur: in der Leseschrift ist der Satz breiter als der Platz links von der Figur (sie steht in der Mitte),
+   darum darf er umbrechen; die Blase wächst nach oben */
+.farm-blase { white-space: normal; width: max-content; max-width: 19rem; line-height: 26px; }

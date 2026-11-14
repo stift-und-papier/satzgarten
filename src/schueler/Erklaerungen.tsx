@@ -1,5 +1,6 @@
-// Übungsumbau Schritt 4 (Jazz 2026-11-13): Menüpunkt „Erklärungen“. Alle Erklärseiten für alle Schüler:innen,
-// geordnet nach Doppeljahrgang (aufklappbar) und darin nach Bereich. Lesen gibt wie bisher einmalig 5 Münzen.
+// Übungsumbau Schritt 4 (Jazz 2026-11-13): Menüpunkt „Erklärungen“. Lesen gibt wie bisher einmalig 5 Münzen.
+// Jazz 2026-11-14: nur die Erklärseiten des eigenen Jahrgangs (filtert der Server über klassen.jahrgang),
+// geordnet nach Themen (Bereich) zum Aufklappen.
 import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { Symbol } from '../gemeinsam/Symbol'
 import { fehlerText } from '../lib/fehler'
@@ -49,26 +50,18 @@ export function Erklaerungen({ token, basis, id, zeigen }: Props) {
   }
 
   // Die Liste kommt schon sortiert (Doppeljahrgang, Bereich, Titel) vom Server
-  const gruppen = new Map<string, Map<string, Erklaerung[]>>()
-  for (const e of liste) {
-    const jg = e.jahrgaenge?.length ? `Klasse ${e.jahrgaenge[0]}/${e.jahrgaenge[e.jahrgaenge.length - 1]}` : 'Weitere Erklärungen'
-    const bereiche = gruppen.get(jg) ?? new Map<string, Erklaerung[]>()
-    bereiche.set(e.bereich || 'Sonstiges', [...(bereiche.get(e.bereich || 'Sonstiges') ?? []), e])
-    gruppen.set(jg, bereiche)
-  }
+  const themen = new Map<string, Erklaerung[]>()
+  for (const e of liste) themen.set(e.bereich || 'Sonstiges', [...(themen.get(e.bereich || 'Sonstiges') ?? []), e])
 
   return (
     <>
       <header className="pixel-schild">
         <h1>Erklärungen</h1>
       </header>
-      <p className="karte">{liste.length === 0 ? 'Hier gibt es noch keine Erklärungen.' : 'Hier kannst du nachlesen, wie etwas geht. Tippe auf eine Klasse.'}</p>
-      {[...gruppen].map(([jg, bereiche]) => (
-        <details key={jg} className="karte hilfe-eintrag">
-          <summary>{jg}</summary>
-          {[...bereiche].map(([bereich, eintraege]) => (
-            <section key={bereich} className="erklaerungen-bereich">
-              <h2>{bereich}</h2>
+      <p className="karte">{liste.length === 0 ? 'Hier gibt es noch keine Erklärungen.' : 'Hier kannst du nachlesen, wie etwas geht. Tippe auf ein Thema.'}</p>
+      {[...themen].map(([bereich, eintraege]) => (
+        <details key={bereich} className="karte hilfe-eintrag erklaerungen-thema">
+          <summary>{bereich}</summary>
               <ul className="paket-liste">
                 {eintraege.map((e) => (
                   <li key={e.id}>
@@ -85,8 +78,6 @@ export function Erklaerungen({ token, basis, id, zeigen }: Props) {
                   </li>
                 ))}
               </ul>
-            </section>
-          ))}
         </details>
       ))}
     </>

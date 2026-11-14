@@ -350,7 +350,14 @@ export function SchuelerBereich({ token, pfad }: Props) {
           </a>
         )}
       </EinsteinSagt>
-      <Lernweg token={token} />
+      <Lernweg
+        token={token}
+        // Übung im Lernweg antippen: führt hin, solange sie in einem Paket der Klasse steckt
+        ziel={(aufgabeId) => {
+          const p = daten.pakete.find((x) => x.aufgaben.some((a) => a.id === aufgabeId))
+          return p ? `#${basis}/p/${p.id}/a/${aufgabeId}` : null
+        }}
+      />
     </Rahmen>
   )
 }

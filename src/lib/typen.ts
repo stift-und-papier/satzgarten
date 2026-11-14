@@ -5,6 +5,8 @@ export interface Klasse {
   id: string
   name: string
   kerncurriculum: Kerncurriculum
+  /** Jahrgang 5–10 (für die Erklärungen der Schüler:innen), leer = nicht festgelegt */
+  jahrgang?: number | null
 }
 
 export interface Schueler {

@@ -25,7 +25,8 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
 
   const laden = useCallback(async () => {
     const [k, s] = await Promise.all([
-      supabase.from('klassen').select('id, name, kerncurriculum').eq('id', klasseId).single(),
+      // alle Spalten: jahrgang gibt es erst nach der Migration klasse_jahrgang
+      supabase.from('klassen').select('*').eq('id', klasseId).single(),
       supabase.from('schueler').select('id, klasse_id, pseudonym, token, stufe_manuell').eq('klasse_id', klasseId),
     ])
     if (k.error || s.error) return setFehler(fehlerText(k.error ?? s.error))
@@ -158,6 +159,22 @@ export function KlasseDetail({ klasseId }: { klasseId: string }) {
           >
             {KERNCURRICULA.map((k) => (
               <option key={k}>{k}</option>
+            ))}
+          </select>
+        </label>
+        {/* Jazz 2026-11-14: Schüler:innen sehen unter „Erklärungen“ nur die Seiten ihres Jahrgangs; ohne Angabe alle */}
+        <label>
+          Jahrgang
+          <select
+            className="lk-feld"
+            value={klasse.jahrgang ?? ''}
+            onChange={(e) =>
+              void aendern(supabase.from('klassen').update({ jahrgang: e.target.value ? Number(e.target.value) : null }).eq('id', klasse.id), 'Jahrgang gespeichert.')
+            }
+          >
+            <option value="">nicht festgelegt</option>
+            {[5, 6, 7, 8, 9, 10].map((j) => (
+              <option key={j}>{j}</option>
             ))}
           </select>
         </label>

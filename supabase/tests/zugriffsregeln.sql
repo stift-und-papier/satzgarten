@@ -519,6 +519,11 @@ begin
     end if;
     -- Lernweg sortiert nach „zuletzt geübt“ (Migration lernweg_zuletzt)
     if (v -> 'kompetenzen' -> 0 ->> 'zuletzt') is null then raise exception 'Block 7.7: zuletzt fehlt in schueler_entwicklung: %', v; end if;
+    -- geübte Übungen zum Antippen: Titel und Thema, das Thema gibt es auch in der Themenliste
+    if jsonb_array_length(v -> 'uebungen') = 0 or (v -> 'uebungen' -> 0 ->> 'titel') is null
+       or not exists (select 1 from jsonb_array_elements(v -> 'kompetenzen') k where k ->> 'name' = v -> 'uebungen' -> 0 ->> 'kompetenz') then
+      raise exception 'Block 7.7: Übungen im Lernweg falsch: %', v -> 'uebungen';
+    end if;
     n := n + 2;
     begin
       perform public.schueler_entwicklung('falscher-token-falscher-token-xx');
@@ -1190,6 +1195,12 @@ begin
     v := public.antwort_abgeben(t_fuchs, null, v_er, '{}', gen_random_uuid());
     if not (v -> 'ergebnis' ->> 'richtig')::boolean then raise exception 'Block 16.3: Erklärseite nicht lesbar: %', v; end if;
     reset role;
+    -- Jahrgang der Klasse (Migration klasse_jahrgang): die Erklärseite steckt in einem Paket für Jahrgang 7
+    update public.klassen set jahrgang = 9 where id = (select klasse_id from public.schueler where id = v_fuchs);
+    if public.erklaerungen_liste(t_fuchs)::text like '%' || v_er || '%' then raise exception 'Block 16.3: Erklärseite für Jahrgang 7 in Klasse 9 sichtbar'; end if;
+    update public.klassen set jahrgang = 7 where id = (select klasse_id from public.schueler where id = v_fuchs);
+    if not public.erklaerungen_liste(t_fuchs)::text like '%' || v_er || '%' then raise exception 'Block 16.3: Erklärseite fehlt im eigenen Jahrgang'; end if;
+    update public.klassen set jahrgang = null where id = (select klasse_id from public.schueler where id = v_fuchs);
     n := n + 1;
 
     -- 16.4 Erklärseiten anderer Lehrkräfte: weder in der Liste noch abgebbar
