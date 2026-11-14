@@ -140,6 +140,17 @@
   Rübchen vorher/nachher, blaue Figur im Spiel (1024 × 768). `npm test` 138, lint, build ohne Fehler.
   **Nachtrag 3 (Jazz):** „Blau“ ist jetzt Variante 2: die Sprout-Lands-Figur direkt umgefärbt (Haare blau, Shirt lila, Palettenfarben),
   dadurch in allen Richtungen vollständig. Die Fassung aus `assets/Female character.png` (mit Schleife) ist nicht mehr in Gebrauch.
+  **Nachtrag 4 (Jazz, 2026-11-14): Spiel-Look.** Alle 7 Vorschläge angenommen, dazu Wiese in Palettenfarben.
+  - Spielfenster-Rahmen (Vorschlag D, Holz mit Pfosten, `rahmen_spiel.png`, 2-fach) um Kampfszene und Farm. Farm: Rahmen liegt über dem
+    äußeren Wasserstreifen der Karte (braucht keinen Platz, Antippen rechnet unverändert). Kampfszene 136 px hoch (Wiese 68 Zeilen,
+    Sprout-Lands-Palette), Figur 4-fach.
+  - Shop: Holzschild „Shop“, helle Tafel (`tafel.png`), Reiter (Samen, Tiere, Obstbäume, Deko, Felder, Verkaufen), Ware in Inventar-Plätzen
+    (`menue_platz.png`). Sammelalbum: Holzumschlag, Reiter Pflanzen/Tiere/Deko, Papierseite bleibt, Dinge in Inventar-Plätzen.
+  - Holz und Papier bleiben im dunklen Modus hell, Schrift darauf dunkel (`--color-album-tinte`). Schrift bleibt Nunito/OpenDyslexic.
+  **Getestet** (Browser): Shop und Album bei 1024 × 768 (dunkel) und 1180 × 820 (hell); Farm mit Rahmen ohne Scrollbalken (672 px);
+  Kampfszene mit Rückmeldung: „Weiter“ endet 682 px, Menü ab 689 px (passt ohne Scrollen); Treffer und Fehlschuss im Rahmen.
+  `npm test` 138, lint, build ohne Fehler. **Nicht getestet:** iPad; Shop-Reiter „Verkaufen“ (Kater-73 hat nichts im Vorrat).
+  `docs/umbau/rahmen-vorschlag.png` (Vorschaubild mit Paket-Grafiken) bleibt absichtlich ungespeichert (nicht im Repo).
 
 ## Datenorte
 - **Datenbank Supabase** (Projekt `diwpqkxhmuetdpxxcoar`, Frankfurt): Klassen, Pseudonyme, Aufgaben, Pakete, Zuweisungen,

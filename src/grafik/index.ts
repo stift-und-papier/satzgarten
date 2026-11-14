@@ -50,6 +50,8 @@ import monster_spinne_gruen from './monster_spinne_gruen.png'
 import monster_spinne_lila from './monster_spinne_lila.png'
 import monster_spinne_gold from './monster_spinne_gold.png'
 import spiel_wiese from './spiel_wiese.png'
+import rahmen_spiel from './rahmen_spiel.png'
+import tafel from './tafel.png'
 import herz_flug from './herz_flug.png'
 import monster_maus from './monster_maus.png'
 import monster_fledermaus from './monster_fledermaus.png'
@@ -109,7 +111,9 @@ export const GRAFIK = {
   monster_spinne_gruen: { url: monster_spinne_gruen, breite: 240, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   monster_spinne_lila: { url: monster_spinne_lila, breite: 240, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   monster_spinne_gold: { url: monster_spinne_gold, breite: 240, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
-  spiel_wiese: { url: spiel_wiese, breite: 576, hoehe: 90, bildBreite: 576, bildHoehe: 90 },
+  spiel_wiese: { url: spiel_wiese, breite: 576, hoehe: 68, bildBreite: 576, bildHoehe: 68 },
+  rahmen_spiel: { url: rahmen_spiel, breite: 58, hoehe: 57, bildBreite: 58, bildHoehe: 57 },
+  tafel: { url: tafel, breite: 106, hoehe: 122, bildBreite: 106, bildHoehe: 122 },
   herz_flug: { url: herz_flug, breite: 13, hoehe: 11, bildBreite: 13, bildHoehe: 11 },
   monster_maus: { url: monster_maus, breite: 208, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   monster_fledermaus: { url: monster_fledermaus, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },

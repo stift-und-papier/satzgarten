@@ -285,6 +285,8 @@ export function Farm({ token, shop, album, figur: figurName }: { token: string; 
         )}
       </div>
       <div ref={rahmen} className="farm-rahmen">
+        {/* Jazz 2026-11-14: Holzrahmen wie ein Spielfenster; liegt über dem äußeren Wasserstreifen der Karte (bausteine.css) */}
+        <div className="spiel-fenster">
         <div className="farm-landschaft" style={{ width: px(SPALTEN), height: px(ZEILEN) }} onClick={inDieLandschaft}>
           <canvas ref={leinwand} width={SPALTEN * KACHEL} height={ZEILEN * KACHEL} style={{ width: px(SPALTEN), height: px(ZEILEN) }} aria-hidden="true" />
 
@@ -380,6 +382,7 @@ export function Farm({ token, shop, album, figur: figurName }: { token: string; 
               {blasenText}
             </span>
           )}
+        </div>
         </div>
       </div>
 

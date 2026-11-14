@@ -126,7 +126,12 @@ const BILDER = [
   })),
   // Übungsumbau Schritt 8: Spielszene. Wiese = unterer Teil von assets/orig.png (craftpix, Nature Landscapes),
   // fliegendes Herz = mittleres volles Herz aus Sprout Lands UI Premium (Hearts.png). Fledermaus ohne das sitzende erste Bild.
-  { name: 'spiel_wiese', datei: 'assets/orig.png', x: 0, y: 186, breite: 576, hoehe: 90 },
+  // Jazz 2026-11-14: Wiese in den Farben der Sprout-Lands-Palette, flacher (68 Zeilen), damit Rahmen und Runde ohne Scrollen passen
+  { name: 'spiel_wiese', datei: 'assets/orig.png', x: 0, y: 204, breite: 576, hoehe: 68, palette: true },
+  // Spielfenster (Jazz 2026-11-14, Vorschlag D): Holzrahmen mit Pfosten aus dem UI Pack Premium, als border-image (Ränder 16/17)
+  { name: 'rahmen_spiel', datei: UI + 'ALL UI ASSETS on one sheet.png', x: 587, y: 12, breite: 58, hoehe: 57 },
+  // helle Tafel (Settings-Menü ohne Schrift) für Shop und Sammelalbum, als border-image (Rand 5)
+  { name: 'tafel', datei: UI + 'Other UI sprites/Setting menu.png', x: 139, y: 12, breite: 106, hoehe: 122 },
   { name: 'herz_flug', datei: UI + 'Icons/special icons/Hearts.png', x: 58, y: 9, breite: 13, hoehe: 11 },
   { name: 'monster_maus', datei: MOBS + 'little_grey_mouse.png', x: 0, y: 16, breite: 208, hoehe: 16, bildBreite: 16, bildHoehe: 16, spiegeln: true },
   { name: 'monster_fledermaus', datei: 'assets/entpackt/Sprout Sorry pack/Early Access/Dungeon Pack/enemies/bat_animations.png', x: 32, y: 0, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },

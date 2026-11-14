@@ -32,6 +32,8 @@ Monster für die Übungen aus dem Sorry Pack (Ordner „Early Access“, hallowe
 `monster_fledermaus.png` (je eine Zeile der Ruhe- bzw. Flug-Animation).
 
 Fliegendes Herz im Spiel (`herz_flug.png`): ein volles Herz aus `Hearts.png` (UI Pack Premium, Icons/special icons).
+Spielfenster-Rahmen (`rahmen_spiel.png`, Holzrahmen mit Pfosten) und helle Tafel (`tafel.png`, Settings-Menü ohne Schrift) aus dem
+UI Pack Premium. `spiel_wiese.png` (craftpix, siehe unten) ist auf die Sprout-Lands-Palette umgefärbt.
 
 ## craftpix.net
 

@@ -42,9 +42,9 @@ export function Spielszene({ figurName, monsterName, schuss, befreundet, ende }:
   const reaktion = schuss ? (schuss.treffer ? ' spiel__monster--treffer' : ' spiel__monster--daneben') : ''
 
   return (
-    <div className="spiel" aria-hidden="true" style={{ backgroundImage: `url(${GRAFIK.spiel_wiese.url})` }}>
+    <div className="spiel spiel-fenster" aria-hidden="true" style={{ backgroundImage: `url(${GRAFIK.spiel_wiese.url})` }}>
       <div className={`spiel__figur spiel__figur--${pose}`}>
-        <Sprite grafik={figur(figurName).grafik} nummer={bild} mal={5} />
+        <Sprite grafik={figur(figurName).grafik} nummer={bild} mal={4} />
       </div>
       <div key={`monster-${schuss?.nr ?? 'start'}`} className={`spiel__monster${reaktion}`}>
         {befreundet && (

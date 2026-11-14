@@ -526,18 +526,34 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .belohnung-liste li { display: flex; align-items: center; gap: var(--space-xs); }
 .fenster__nachricht { font-size: 1.15em; font-style: italic; }
 
+/* ---------- Spiel-Look für Shop und Sammelalbum (Jazz 2026-11-14) ----------
+   Holzschild = Spielfenster-Rahmen gefüllt; Tafel = helles Settings-Menü aus dem UI Pack. Beides sind Bilder und bleiben
+   darum auch im dunklen Modus hell; Schrift darauf immer dunkel (--color-album-tinte, 10,3 : 1). */
+.pixel-schild {
+  margin-inline: auto; width: fit-content; max-width: 100%; padding: 2px var(--space-md);
+  border: solid transparent; border-width: 32px 34px 34px;
+  border-image: url('../grafik/rahmen_spiel.png') 16 17 17 fill / 32px 34px 34px; image-rendering: pixelated;
+  color: var(--color-album-tinte); text-align: center;
+}
+.pixel-schild h1 { margin: 0; }
+.pixel-tafel {
+  padding: var(--space-sm); border: 10px solid transparent;
+  border-image: url('../grafik/tafel.png') 5 fill / 10px; image-rendering: pixelated;
+  color: var(--color-album-tinte);
+}
+.pixel-tafel .leise, .album-seite .leise { color: inherit; }
+.pixel-tafel > p:first-child { margin-top: 0; }
+.pixel-reiter { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-block: var(--space-sm); }
+
 /* ---------- Shop ---------- */
 .shop-raster {
   list-style: none; margin: 0; padding: 0;
-  display: grid; gap: var(--space-sm); grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  display: grid; gap: var(--space-sm); grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
 }
-.shop-artikel {
-  display: flex; flex-direction: column; align-items: center; gap: var(--space-2xs); text-align: center;
-  padding: var(--space-sm); background: var(--color-papier-2); border-radius: var(--radius-pille, 12px);
-}
+.shop-artikel { display: flex; flex-direction: column; align-items: center; gap: var(--space-2xs); text-align: center; padding: var(--space-2xs); }
 .shop-artikel .knopf-reihe { justify-content: center; }
-.shop-artikel--gesperrt { justify-content: center; min-height: 10rem; }
-.shop-artikel__frage { font-size: 2.5rem; font-weight: 800; line-height: 1; }
+.shop-artikel--gesperrt .farm-menue__bild { opacity: 0.75; } /* nur das Bild blasser, Text behält vollen Kontrast */
+.shop-artikel__frage { font-size: 2.5rem; font-weight: 800; line-height: 1; color: var(--color-album-tinte); }
 .muenzen-preis { display: inline-flex; align-items: center; gap: var(--space-2xs); font-weight: 800; font-variant-numeric: tabular-nums; }
 
 /* ---------- Sammelalbum (Album.tsx): Papierseite aus Humble Gift, bleibt auch im dunklen Modus hell ---------- */
@@ -551,18 +567,30 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   list-style: none; margin: 0; padding: 0;
   display: grid; gap: var(--space-sm); grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
 }
-.album-platz {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2xs);
-  min-height: 7rem; padding: var(--space-xs); text-align: center; font-weight: 800;
-  border: 2px solid var(--color-album-tinte); border-radius: 8px;
+/* Buch: Holzumschlag (Spielfenster-Rahmen gefüllt), darin Reiter und eine Papierseite */
+.album-buch {
+  padding: 0 var(--space-xs); border: solid transparent; border-width: 32px 34px 34px;
+  border-image: url('../grafik/rahmen_spiel.png') 16 17 17 fill / 32px 34px 34px; image-rendering: pixelated;
+  color: var(--color-album-tinte);
 }
-.album-platz--leer { opacity: 0.6; } /* nicht gestrichelt: das heißt sonst „hier schreiben“ */
+.album-buch .album-seite { margin-block: var(--space-xs) 0; }
+.album-platz {
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: var(--space-2xs);
+  padding: var(--space-2xs); text-align: center; font-weight: 800;
+}
+.album-platz--leer .farm-menue__bild { opacity: 0.6; } /* nicht gestrichelt: das heißt sonst „hier schreiben“ */
 .album-platz__frage { font-size: 2.5rem; font-weight: 800; line-height: 1; }
 
 /* ---------- Farm (Landschaft) ---------- */
 .farm-meldung { min-height: 3.2em; }
 .farm-meldung p:not(.leise) { font-weight: 800; }
 .farm-rahmen { overflow-x: auto; margin-inline: calc(-1 * var(--space-xs)); }
+/* Farm: Rahmen liegt über dem Rand der Karte (dort ist rundherum eine Kachel Wasser), braucht so keinen Platz */
+.farm-rahmen > .spiel-fenster { max-width: none; position: relative; border-width: 0; }
+.farm-rahmen > .spiel-fenster::after {
+  content: ''; position: absolute; inset: 0; z-index: 10000; pointer-events: none;
+  border: solid transparent; border-width: 32px 34px 34px; border-image: inherit;
+}
 .farm-landschaft { position: relative; isolation: isolate; margin-inline: auto; cursor: pointer; touch-action: manipulation; }
 .farm-landschaft canvas { display: block; image-rendering: pixelated; }
 .farm-landschaft .sprite { image-rendering: pixelated; }
@@ -645,12 +673,18 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 }
 
 /* ---------- Übungsumbau Schritt 8: Spielszene (src/schueler/Spielszene.tsx) ----------
-   Wiese 2-fach (576 × 90 → 1152 × 180), Himmelfarbe aus dem Bild als Rand. Spielfigur 5-fach links, Monster rechts.
+   Wiese 2-fach (576 × 68 → 1152 × 136) in Sprout-Lands-Farben, im Spielfenster-Rahmen. Spielfigur 4-fach links, Monster rechts.
    Bewegung in ganzen Bildern (steps); bei „Bewegung reduzieren“ Standbilder, das Herz erscheint ohne Flug. */
+/* Spielfenster (Jazz 2026-11-14): Holzrahmen mit Pfosten aus dem Sprout-Lands-UI-Pack, 2-fach, um Farm und Kampfszene */
+.spiel-fenster {
+  width: fit-content; max-width: 100%; margin-inline: auto;
+  border: 32px solid transparent; border-width: 32px 34px 34px;
+  border-image: url('../grafik/rahmen_spiel.png') 16 17 17 / 32px 34px 34px; image-rendering: pixelated;
+}
 .spiel {
-  position: relative; height: 180px; overflow: hidden; border-radius: var(--radius-feld);
-  background-color: #63b6e2; background-repeat: no-repeat; background-position: center bottom; background-size: 1152px 180px;
-  image-rendering: pixelated;
+  position: relative; box-sizing: content-box; width: auto; margin-inline: 0; height: 136px; overflow: hidden;
+  background-color: #97bb8e; background-repeat: no-repeat; background-position: center bottom; background-size: 1152px 136px;
+  background-clip: padding-box;
 }
 .spiel-zeile { align-items: center; }
 .spiel-zeile .rueckmeldung { flex: 1 1 20rem; margin: 0; }
@@ -660,34 +694,34 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .spiel__figur--huch { animation: einstein-zittern 2s steps(1) 1; }
 .spiel__figur--freut { animation: einstein-springen 1.6s steps(1) infinite; }
 @keyframes figur-schritt { 50% { transform: translateX(15px); } }
-.spiel__monster { position: absolute; right: 10%; bottom: 18px; display: flex; flex-direction: column; align-items: center; }
+.spiel__monster { position: absolute; right: 10%; bottom: 2px; display: flex; flex-direction: column; align-items: center; }
 .spiel__monster-bild { display: block; line-height: 0; }
 .spiel__monster-bild .sprite { animation: monster-lauf calc(var(--n) * 0.15s) steps(var(--n)) infinite; }
 @keyframes monster-lauf { from { background-position-x: 0; } to { background-position-x: var(--ende); } }
-.spiel__freund { line-height: 0; margin-bottom: -6px; animation: freund-schweben 2s steps(2) infinite; }
+.spiel__freund { line-height: 0; margin-bottom: -16px; animation: freund-schweben 2s steps(2) infinite; }
 @keyframes freund-schweben { 50% { transform: translateY(-6px); } }
 /* Treffer: kurz wackeln, nachdem das Herz angekommen ist; daneben: kurz hüpfen */
 .spiel__monster--treffer { animation: monster-wackeln 0.4s steps(1) 0.55s; }
 .spiel__monster--daneben { animation: monster-huepfen 0.5s steps(1) 0.3s; }
 @keyframes monster-wackeln { 0% { transform: translateX(6px); } 25% { transform: translateX(-6px); } 50% { transform: translateX(6px); } 75% { transform: none; } }
 @keyframes monster-huepfen { 0% { transform: translateY(-12px); } 40% { transform: translateY(-21px); } 80% { transform: translateY(-9px); } 100% { transform: none; } }
-.spiel__herz { position: absolute; left: 20%; bottom: 90px; line-height: 0; opacity: 0; }
+.spiel__herz { position: absolute; left: 20%; bottom: 70px; line-height: 0; opacity: 0; }
 .spiel__herz--treffer { animation: herz-treffer 0.8s ease-out forwards; }
 .spiel__herz--daneben { animation: herz-daneben 0.8s ease-out forwards; }
 @keyframes herz-treffer {
-  0% { left: 20%; bottom: 90px; opacity: 1; }
-  45% { bottom: 130px; }
-  75% { left: calc(90% - 70px); bottom: 70px; opacity: 1; transform: none; }
-  100% { left: calc(90% - 70px); bottom: 70px; opacity: 0; transform: scale(1.5); }
+  0% { left: 20%; bottom: 70px; opacity: 1; }
+  45% { bottom: 100px; }
+  75% { left: calc(90% - 70px); bottom: 50px; opacity: 1; transform: none; }
+  100% { left: calc(90% - 70px); bottom: 50px; opacity: 0; transform: scale(1.5); }
 }
 @keyframes herz-daneben {
-  0% { left: 20%; bottom: 90px; opacity: 1; }
-  70% { left: calc(90% - 70px); bottom: 160px; opacity: 1; }
-  100% { left: 104%; bottom: 180px; opacity: 1; }
+  0% { left: 20%; bottom: 70px; opacity: 1; }
+  70% { left: calc(90% - 70px); bottom: 116px; opacity: 1; }
+  100% { left: 104%; bottom: 136px; opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .spiel__figur, .spiel__monster-bild .sprite, .spiel__freund, .spiel__monster--treffer, .spiel__monster--daneben { animation: none; }
-  .spiel__herz--treffer { left: calc(90% - 70px); bottom: 70px; animation: herz-still 1s steps(1) forwards; }
+  .spiel__herz--treffer { left: calc(90% - 70px); bottom: 50px; animation: herz-still 1s steps(1) forwards; }
   .spiel__herz--daneben { display: none; }
 }
 @keyframes herz-still { 0% { opacity: 1; } 100% { opacity: 0; } }
