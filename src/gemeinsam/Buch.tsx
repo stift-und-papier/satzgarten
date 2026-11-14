@@ -7,10 +7,11 @@ import { einzelbild, type Grafik } from '../lib/sprite'
 import { Symbol } from './Symbol'
 
 /** Pixel-Grafik, die mit dem Buch wächst (wie Sprite, aber Größe über --bp statt fester Zahl) */
-export function BuchBild({ grafik, nummer = 0, className = '' }: { grafik: Grafik; nummer?: number; className?: string }) {
+export function BuchBild({ grafik, nummer = 0, className = '', titel }: { grafik: Grafik; nummer?: number; className?: string; titel?: string }) {
   const { x, y } = einzelbild(grafik, nummer)
   const stil = { '--b': grafik.bildBreite, '--h': grafik.bildHoehe, '--bb': grafik.breite, '--x': x, '--y': y, backgroundImage: `url(${grafik.url})` }
-  return <span className={`buch-bild ${className}`} aria-hidden="true" style={stil as CSSProperties} />
+  // ohne titel reine Verzierung (wie Sprite)
+  return <span className={`buch-bild ${className}`} role={titel ? 'img' : undefined} aria-label={titel} aria-hidden={titel ? undefined : true} style={stil as CSSProperties} />
 }
 
 type Phase = 'auf' | 'offen' | 'vor' | 'zurueck'
@@ -23,7 +24,7 @@ export function Buch({
   /** Knopf auf der Ecke oben links: aus dem Buch heraus */
   zurueck: { href: string; name: string }
   /** Lesezeichen: Name (für Vorlesehilfen) und Bild */
-  kapitel: { titel: string; bild: Grafik }[]
+  kapitel: { titel: string; bild: Grafik; nummer?: number }[]
   aktiv: number
   /** aufgeschlagene Doppelseite im Kapitel (ab 0) und Anzahl der Doppelseiten */
   seite: number
@@ -58,7 +59,7 @@ export function Buch({
         {kapitel.map((k, i) => (
           <button key={k.titel} type="button" aria-label={k.titel} aria-pressed={i === aktiv} onClick={() => blaettern(i, 0, i > aktiv ? 'vor' : 'zurueck')}>
             <BuchBild grafik={GRAFIK.lesezeichen} nummer={i % 4} />
-            <BuchBild grafik={k.bild} className="buch__reiter-bild" />
+            <BuchBild grafik={k.bild} nummer={k.nummer} className="buch__reiter-bild" />
           </button>
         ))}
       </div>

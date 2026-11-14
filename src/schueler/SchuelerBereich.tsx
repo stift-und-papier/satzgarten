@@ -366,7 +366,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
           </div>
         </section>
       )}
-      <Farm key={farmStand} token={token} figur={daten.figur ?? 'gruen'} shop={`#${basis}/shop`} album={`#${basis}/album`} />
+      <Farm key={farmStand} token={token} figur={daten.figur ?? 'gruen'} nachFigur={() => void laden()} shop={`#${basis}/shop`} album={`#${basis}/album`} />
     </Rahmen>
   )
 }

@@ -119,7 +119,7 @@ const BILDER = [
   { name: 'herz_flug', datei: UI + 'Icons/special icons/Hearts.png', x: 58, y: 9, breite: 13, hoehe: 11 },
   { name: 'monster_maus', datei: MOBS + 'little_grey_mouse.png', x: 0, y: 16, breite: 208, hoehe: 16, bildBreite: 16, bildHoehe: 16, spiegeln: true },
   // Emojis (UI Pack Basic, emojis-free, Zellen 32 × 32): Bilder auf den Lesezeichen im Buch und Fragezeichen im Shop (Jazz 2026-11-14)
-  ...[['reiter_pflanzen', 0, 12], ['reiter_tiere', 0, 17], ['reiter_deko', 3, 12], ['reiter_monster', 0, 10], ['emoji_frage', 3, 7]]
+  ...[['emoji_frage', 3, 7]]
     .map(([name, sp, ze]) => ({ name, datei: EMOJI, x: sp * 32, y: ze * 32, breite: 32, hoehe: 32 })),
   { name: 'monster_fledermaus', datei: 'assets/entpackt/Sprout Sorry pack/Early Access/Dungeon Pack/enemies/bat_animations.png', x: 32, y: 0, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
 ]
@@ -197,11 +197,11 @@ for (const n of KLEINER) {
 }
 
 // ---------- Buch für Sammelalbum und Shop (Jazz 2026-11-14): „Pixel Book Animation“ (gekauft), auf die Sprout-Lands-Palette umgefärbt.
-// Ein Streifen mit 12 Bildern (je 248 × 216): 0 zu, 1–2 klappt auf, 3 offen, 4–6 Seite blättert nach links, 7 offen,
+// Ein Streifen mit 12 Bildern (je 248 × 216): 0 zu, 1–2 klappt auf, 3 offen (flach, letztes Bild der Vorlage; Jazz), 4–6 Seite blättert nach links, 7 offen,
 // 8–10 Seite blättert zurück, 11 offen. Das offene Buch liegt im Bild bei x 2–245, y 49–213 (Maße in src/design/bausteine.css).
 {
   const q = PNG.sync.read(readFileSync('assets/entpackt/Pixel Book Animation/Book_Sheet.png'))
-  const B = 248, H = 216, folge = [0, 1, 2, 6, 3, 4, 5, 6, 5, 4, 3, 6]
+  const B = 248, H = 216, folge = [0, 1, 2, 14, 3, 4, 5, 14, 5, 4, 3, 14]
   const ziel = new PNG({ width: B * folge.length, height: H })
   ziel.data.fill(0)
   folge.forEach((n, i) => PNG.bitblt(q, ziel, (n % 4) * 256 + 4, Math.floor(n / 4) * 256 + 20, B, H, i * B, 0))
@@ -226,11 +226,11 @@ for (const n of KLEINER) {
 
 // Lesezeichen (Reiter am Buchrand): selbst gezeichnete Bänder mit Schwalbenschwanz in vier Palettenfarben (rot, blau, grün, gelb)
 {
-  const B = 52, H = 30
+  const B = 40, H = 20
   const farben = [[196, 88, 84], [92, 142, 190], [116, 164, 92], [226, 182, 84]]
   const ziel = new PNG({ width: B * farben.length, height: H })
   ziel.data.fill(0)
-  const drin = (x, y) => x >= 0 && y >= 0 && y < H && x <= B - 1 - Math.round(8 * (1 - Math.abs(y - (H - 1) / 2) / ((H - 1) / 2)))
+  const drin = (x, y) => x >= 0 && y >= 0 && y < H && x <= B - 1 - Math.round(5 * (1 - Math.abs(y - (H - 1) / 2) / ((H - 1) / 2)))
   farben.forEach((farbe, n) => {
     const mitte = naechsteFarbe(farbe), dunkel = naechsteFarbe(farbe.map((c) => c * 0.55)), hell = naechsteFarbe(farbe.map((c) => Math.min(255, c * 1.15 + 24)))
     for (let y = 0; y < H; y++)
@@ -246,8 +246,8 @@ for (const n of KLEINER) {
 }
 
 // ---------- Sticker fürs Sammelalbum (Jazz 2026-11-14): aus den schon ausgeschnittenen Bildern, im Stil der Sprout-Lands-Emojis.
-// Der dunkle Umriss wird farbig (dunklerer Ton der Fläche daneben), kleine Bilder (bis 18 Pixel) doppelt groß,
-// rundherum ein heller Kleberand (2 Pixel). Alle Sticker in einem Blatt mit gleich großen Zellen; Nummern in STICKER_NUMMER.
+// Der dunkle Umriss wird farbig (dunklerer Ton der Fläche daneben), rundherum ein heller Kleberand (1 Pixel). Gleiche Pixelgröße wie das Buch,
+// damit nichts über die Seite ragt. Alle Sticker in einem Blatt mit gleich großen Zellen; Nummern in STICKER_NUMMER.
 // Reihen der Sorten wie SORTE in src/lib/shop.ts.
 const SORTEN = ['karotte', 'blumenkohl', 'tomate', 'aubergine', 'tulpe', 'salat', 'weizen', 'kuerbis', 'rettich', 'rose', 'rote_bete', 'sternfrucht', 'gurke']
 const STICKER = [
@@ -258,7 +258,6 @@ const STICKER = [
   ...['ruebchen', 'schleim_gruen', 'schleim_blau', 'schleim_feuer', 'gespenst', 'spinne_gruen', 'spinne_lila', 'spinne_gold', 'maus', 'fledermaus']
     .map((id) => ['monster_' + id, 'monster_' + id, 0]),
 ]
-const STICKER_ART = process.env.STICKER_ART ?? 'c' // Muster zum Vergleichen: a = nur Kleberand, b = nur farbiger Umriss, c = beides
 const hellste = PALETTE.reduce((m, p) => (p[0] + p[1] + p[2] > m[0] + m[1] + m[2] ? p : m))
 const helligkeit = (f) => 0.3 * f[0] + 0.59 * f[1] + 0.11 * f[2]
 function sticker(name, nummer) {
@@ -271,7 +270,7 @@ function sticker(name, nummer) {
   const farbe = (x, y) => { const i = ((fy + y) * q.width + fx + x) * 4; return [q.data[i], q.data[i + 1], q.data[i + 2]] }
   let x0 = 1e9, y0 = 1e9, x1 = -1, y1 = -1
   for (let y = 0; y < g.bildHoehe; y++) for (let x = 0; x < g.bildBreite; x++) if (da(x, y)) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y) }
-  const w = x1 - x0 + 1, h = y1 - y0 + 1, mal = Math.max(w, h) <= 18 ? 2 : 1, R = STICKER_ART === 'b' ? 0 : 2
+  const w = x1 - x0 + 1, h = y1 - y0 + 1, mal = 1, R = 1
   const amRand = (x, y) => da(x, y) && (!da(x - 1, y) || !da(x + 1, y) || !da(x, y - 1) || !da(x, y + 1))
   const bild = new PNG({ width: w * mal + 2 * R, height: h * mal + 2 * R })
   bild.data.fill(0)
@@ -280,7 +279,7 @@ function sticker(name, nummer) {
     for (let x = x0; x <= x1; x++) {
       if (!da(x, y)) continue
       let f = farbe(x, y)
-      if (STICKER_ART !== 'a' && amRand(x, y)) {
+      if (amRand(x, y)) {
         const innen = []
         for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (da(x + dx, y + dy) && !amRand(x + dx, y + dy)) innen.push(farbe(x + dx, y + dy))
         if (innen.length) {
@@ -311,7 +310,7 @@ function sticker(name, nummer) {
   bilder.forEach((b, i) => PNG.bitblt(b, ziel, 0, 0, b.width, b.height, i * B + Math.floor((B - b.width) / 2), Math.floor((H - b.height) / 2)))
   writeFileSync('src/grafik/sticker.png', PNG.sync.write(ziel))
   liste.push({ name: 'sticker', breite: ziel.width, hoehe: H, bildBreite: B, bildHoehe: H })
-  console.log(`sticker.png  ${ziel.width}×${H} (${bilder.length} Sticker, Art ${STICKER_ART})`)
+  console.log(`sticker.png  ${ziel.width}×${H} (${bilder.length} Sticker)`)
 }
 
 const zeilen = liste.map((g) => `import ${g.name} from './${g.name}.png'`)

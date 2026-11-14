@@ -116,5 +116,5 @@ Nein. Die App zeigt keine Werbung und schickt keine Daten an Werbe- oder Analyse
 
 - Assets – From: **Sprout Lands** – By: **Cup Nooble**
 - Einstein hat deine Lehrkraft selbst gezeichnet.
-- Das Buch im Sammelalbum ist ein gekauftes Bild (**Pixel Book Animation**), passend umgefärbt.
+- Das Buch im Sammelalbum stammt aus **Pixel Book Animation** von heondu, passend umgefärbt.
 - Ideen und Teile des Diktats stammen aus **TastenHeld**, mit freundlicher Erlaubnis.

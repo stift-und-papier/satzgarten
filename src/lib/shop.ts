@@ -36,6 +36,12 @@ export const OBSTBAUM: Record<string, { name: string; grafik: Grafik; fruechte: 
   birnenbaum: { name: 'Birnenbaum', grafik: GRAFIK.baum_birne, fruechte: 'Birnen' },
 }
 
+// Deko zum Ein- und Ausblenden auf der Farm; Namen wie in shop_artikel
+export const DEKO_NAME: Record<string, string> = {
+  busch: 'Busch', blume_gelb: 'Gelbe Blume', pilz: 'Pilze', stein: 'Stein', blume_lila: 'Lila Blume', pilzhaus: 'Pilzhaus',
+  brunnen: 'Brunnen', boot: 'Boot', katze_rosa: 'Katzenblume rosa', katze_blau: 'Katzenblume blau',
+}
+
 /** Bild und Name für etwas im Vorrat: Geerntetes oder Ei/Milch */
 export function vorratDing(sorte: string): { name: string; grafik: Grafik; nummer: number } {
   if (sorte in SORTE) return { name: SORTE_NAME[sorte], grafik: GRAFIK.saatgut, nummer: SORTE[sorte] * 2 + 1 }

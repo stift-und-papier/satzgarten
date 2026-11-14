@@ -10,22 +10,23 @@ import { fehlerText } from '../lib/fehler'
 import type { Grafik } from '../lib/sprite'
 import { supabase } from '../lib/supabase'
 
-const KAPITEL: { arten: AlbumArt[]; titel: string; bild: Grafik }[] = [
-  { arten: ['samen', 'baum'], titel: 'Pflanzen', bild: GRAFIK.reiter_pflanzen },
-  { arten: ['tier'], titel: 'Tiere', bild: GRAFIK.reiter_tiere },
-  { arten: ['deko'], titel: 'Deko', bild: GRAFIK.reiter_deko },
-  { arten: ['monster'], titel: 'Monster', bild: GRAFIK.reiter_monster },
+// Bilder auf den Lesezeichen: kleine Spielbilder (16 × 16) in der Pixelgröße des Buchs (die Emojis waren zu groß, Jazz)
+const KAPITEL: { arten: AlbumArt[]; titel: string; bild: Grafik; nummer?: number }[] = [
+  { arten: ['samen', 'baum'], titel: 'Pflanzen', bild: GRAFIK.saatgut, nummer: 1 },
+  { arten: ['tier'], titel: 'Tiere', bild: GRAFIK.huhn },
+  { arten: ['deko'], titel: 'Deko', bild: GRAFIK.deko_pilz },
+  { arten: ['monster'], titel: 'Monster', bild: GRAFIK.monster_gespenst },
 ]
-const JE_SEITE = 6
+const JE_SEITE = 9
 
+// Jazz 2026-11-14: Sticker ohne Namen darunter (der Name bleibt für Vorlesehilfen)
 function Seite({ eintraege }: { eintraege: Eintrag[] }) {
   return (
     <ul className="sticker-raster">
       {eintraege.map((e) =>
         e.gesammelt ? (
           <li key={e.id} className="sticker-platz">
-            <BuchBild grafik={GRAFIK.sticker} nummer={STICKER_NUMMER[e.id]} className="sticker" />
-            {e.name}
+            <BuchBild grafik={GRAFIK.sticker} nummer={STICKER_NUMMER[e.id]} className="sticker" titel={e.name ?? undefined} />
           </li>
         ) : (
           <li key={e.id} className="sticker-platz sticker-platz--leer">
