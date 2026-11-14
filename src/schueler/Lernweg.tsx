@@ -18,7 +18,7 @@ type Daten = { kompetenzen: Thema[]; uebungen?: Uebung[]; texte: Record<string, 
 // (Character Backdrop aus dem UI Pack): keimt → wächst → wird groß → blüht
 const STUFEN: Kategorie[] = ['erste', 'dranbleiben', 'besser', 'deutlich']
 const STUFE_TEXT: Record<Kategorie, string> = { erste: 'angefangen', dranbleiben: 'dranbleiben', besser: 'wird besser', deutlich: 'deutlich besser' }
-const EMOJI: Record<Kategorie, string> = { erste: '🌱', dranbleiben: '🌿', besser: '🪴', deutlich: '🌷' }
+const EMOJI: Record<Kategorie, string> = { erste: '🌱', dranbleiben: '🌿', besser: '🪴', deutlich: '🌻' } // Sonnenblume statt Tulpe: auf dem braunen Rahmen besser zu sehen (Jazz)
 
 /** Mit titel liest die Vorlesehilfe die Bedeutung vor; ohne titel ist das Symbol Verzierung (der Text steht daneben). */
 function Pflanze({ art, titel }: { art: Kategorie; titel?: string }) {

@@ -74,10 +74,14 @@ Alle Pixel-Spielinhalte in der Sprout-Lands-Palette.
 - [x] **Drei Migrationen eingespielt am 2026-11-14 (Zustimmung von Jazz):** `album_monster`, `lernweg_zuletzt`, `klasse_jahrgang`.
   `npm run test:datenbank`: ALLE TESTS BESTANDEN (148). Achtung: Die Datenbank kennt damit Migrationen, die es auf `uebungsumbau`
   noch nicht gibt; `db push` von dort meldet das, bis `ui-umbau` zusammengeführt ist.
-- [x] **Schritt 2: Shop als Buch** (`src/schueler/Shop.tsx`, `buch_gruen.png`): grüner Einband, links 3 × 3 Kästchen, rechts das gewählte Stück
+- [x] **Schritt 2: Shop als Buch** (`src/schueler/Shop.tsx`, `buch_rot.png`): Einband (erst grün, jetzt beerenrot), links 3 × 3 Kästchen, rechts das gewählte Stück
   mit Name, Preis und „Kaufen“ (Nachfrage „Ja, kaufen“). Lesezeichen: Pflanzen (Samen, Obstbäume, Felder), Tiere, Deko, Verkaufen.
   Gesperrtes zeigt das Fragezeichen aus dem Emoji-Blatt. Farm: Sprechblase der Figur kleiner und immer im Rahmen.
-- [ ] Schritt 3: Übungen, Aufgaben, Lernweg, Hilfe, Menüleiste. Einstein umfärben (Vorher-Nachher).
+- [x] **Vierte Runde (Jazz 2026-11-14):** Einstein in Sprout-Lands-Farben (Vorher-Nachher-Bild freigegeben). Lesezeichen mit verkleinerten
+  Emojis aus dem UI Pack (`reiter.png`: Keimling, Küken, Pilz, Monster, Münze für „Verkaufen“). Shop-Buch beerenrot statt grün (`buch_rot.png`),
+  gleiche Größe wie das Sammelalbum (822 × 495 px bei 3-fach, gemessen). Lernweg: letzte Stufe 🌻 statt 🌷.
+  Kopfzeile: Dunkel-Schalter links, Münzen ganz rechts.
+- [x] Schritt 3: Übungen, Aufgaben, Lernweg, Hilfe, Menüleiste im Spiel-Look (siehe oben).
 
 ## Arbeitsordner
 

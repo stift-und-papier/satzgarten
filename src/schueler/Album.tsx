@@ -10,12 +10,12 @@ import { fehlerText } from '../lib/fehler'
 import type { Grafik } from '../lib/sprite'
 import { supabase } from '../lib/supabase'
 
-// Bilder auf den Lesezeichen: kleine Spielbilder (16 × 16) in der Pixelgröße des Buchs (die Emojis waren zu groß, Jazz)
+// Bilder auf den Lesezeichen: Emojis aus dem UI Pack, auf 16 × 16 verkleinert (GRAFIK.reiter: Keimling, Küken, Pilz, Monster, Münze)
 const KAPITEL: { arten: AlbumArt[]; titel: string; bild: Grafik; nummer?: number }[] = [
-  { arten: ['samen', 'baum'], titel: 'Pflanzen', bild: GRAFIK.saatgut, nummer: 1 },
-  { arten: ['tier'], titel: 'Tiere', bild: GRAFIK.huhn },
-  { arten: ['deko'], titel: 'Deko', bild: GRAFIK.deko_pilz },
-  { arten: ['monster'], titel: 'Monster', bild: GRAFIK.monster_gespenst },
+  { arten: ['samen', 'baum'], titel: 'Pflanzen', bild: GRAFIK.reiter, nummer: 0 },
+  { arten: ['tier'], titel: 'Tiere', bild: GRAFIK.reiter, nummer: 1 },
+  { arten: ['deko'], titel: 'Deko', bild: GRAFIK.reiter, nummer: 2 },
+  { arten: ['monster'], titel: 'Monster', bild: GRAFIK.reiter, nummer: 3 },
 ]
 const JE_SEITE = 9
 

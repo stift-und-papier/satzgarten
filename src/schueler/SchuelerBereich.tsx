@@ -541,19 +541,19 @@ function Rahmen({ basis, aktiv, menue = true, muenzen = null, fenster, children 
   return (
     <div className="garten-seite">
       <main className="garten-seite__inhalt">
-        {/* Jazz 2026-11-14: auf jeder Seite oben rechts Münzen und der Schalter für den dunklen Modus */}
+        {/* Jazz 2026-11-14: auf jeder Seite oben links der Schalter für den dunklen Modus, ganz rechts die Münzen */}
         <div className="muenzen-stand">
-          {muenzen !== null && (
-            <span className="muenzen" role="img" aria-label={`Du hast ${muenzen} Münzen`}>
-              <Sprite grafik={GRAFIK.muenze} mal={2} /> {muenzen}
-            </span>
-          )}
           <button type="button" role="switch" aria-checked={dunkel} className="schalter" onClick={() => setDunkel(!dunkel)}>
             <span className="schalter__bahn" aria-hidden="true">
               <span className="schalter__knopf" />
             </span>
             Dunkel
           </button>
+          {muenzen !== null && (
+            <span className="muenzen" role="img" aria-label={`Du hast ${muenzen} Münzen`}>
+              <Sprite grafik={GRAFIK.muenze} mal={2} /> {muenzen}
+            </span>
+          )}
         </div>
         {children}
       </main>

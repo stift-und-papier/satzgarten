@@ -19,13 +19,13 @@ type Phase = 'auf' | 'offen' | 'vor' | 'zurueck'
 const ruhig = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 export function Buch({
-  titel, zurueck, gruen = false, kapitel, aktiv, seite, seiten, onWechsel, links, rechts,
+  titel, zurueck, rot = false, kapitel, aktiv, seite, seiten, onWechsel, links, rechts,
 }: {
   titel: string
   /** Knopf auf der Ecke oben links: aus dem Buch heraus (Sammelalbum → Farm); der Shop hat keinen */
   zurueck?: { href: string; name: string }
-  /** grüner Einband (Shop) statt Holz (Sammelalbum) */
-  gruen?: boolean
+  /** beerenroter Einband (Shop) statt Holz (Sammelalbum) */
+  rot?: boolean
   /** Lesezeichen: Name (für Vorlesehilfen) und Bild */
   kapitel: { titel: string; bild: Grafik; nummer?: number }[]
   aktiv: number
@@ -69,7 +69,7 @@ export function Buch({
         ))}
       </div>
       <span className="buch__bild" onAnimationEnd={fertig}>
-        <BuchBild grafik={gruen ? GRAFIK.buch_gruen : GRAFIK.buch} nummer={3} />
+        <BuchBild grafik={rot ? GRAFIK.buch_rot : GRAFIK.buch} nummer={3} />
       </span>
       <div className="buch__seite buch__seite--links">{links}</div>
       <div className="buch__seite buch__seite--rechts">{rechts}</div>

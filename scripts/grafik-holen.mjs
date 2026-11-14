@@ -42,7 +42,8 @@ const BILDER = [
   // Einstein: eigene Zeichnung der Lehrkraft (assets/1794384222202.jpg), am 2026-11-11 auf ihr Pixelraster
   // (6,715 Bildpunkte je Pixel) verkleinert, Hintergrund entfernt. Bilder: freundlich, blinzelt, lob, freut sich, huch, erklärt,
   // erklärt mit Augen zu, lob mit geneigtem Arm (Winken).
-  { name: 'einstein', datei: 'assets/einstein-blatt.png', bildBreite: 52, bildHoehe: 47 }, // 8 Bilder
+  // Jazz 2026-11-14: Einstein in den Farben der Sprout-Lands-Palette (Vorher-Nachher-Bild gezeigt und freigegeben)
+  { name: 'einstein', datei: 'assets/einstein-blatt.png', bildBreite: 52, bildHoehe: 47, palette: true }, // 8 Bilder
   // Farm (Phase 8). Nummern der Einzelbilder stehen in src/lib/shop.ts.
   // Ohne Mais (Zeilen 0–1, doppelt hoch): Samentüte (Spalte 0) und Geerntetes (Spalte 1), Zeilen = Sorten wie bei „pflanzen“
   { name: 'saatgut', datei: SPRITES + 'Objects/Items/farming-Plants-items.png', x: 0, y: 32, breite: 32, hoehe: 208, bildBreite: 16, bildHoehe: 16 },
@@ -219,9 +220,9 @@ for (const n of KLEINER) {
     0xb2a280: 0xdcb98a, 0x8f7559: 0xc49a6c, // Seitenkanten unten, Schild auf dem Deckel
     0xcfaf46: 0xd4c169, 0xd6bf78: 0xeae178, 0xa86d19: 0xb09643, 0xbd933a: 0xbfa954, 0xb88d39: 0xbfa954, 0xded9b6: 0xf3f2c0, // Ecken
   }
-  // Shop: dasselbe Buch mit grünem Einband (Jazz 2026-11-14), sonst gleich
-  const gruen = { 0x663931: 0x78a158, 0xa1786a: 0x8db15d, 0xb8958a: 0xa4c263, 0x5b2b2b: 0x67835c, 0x4f1c24: 0x67835c, 0x3d0c19: 0x566560 }
-  for (const [name, einband] of [['buch', {}], ['buch_gruen', gruen]]) {
+  // Shop: dasselbe Buch mit beerenrotem Einband (Jazz 2026-11-14: Grün war auf der Wiese zu schlecht zu sehen), sonst gleich
+  const rot = { 0x663931: 0xa35b70, 0xa1786a: 0xaf6776, 0xb8958a: 0xbd757e, 0x5b2b2b: 0x865161, 0x4f1c24: 0x865161, 0x3d0c19: 0x6b4b5b }
+  for (const [name, einband] of [['buch', {}], ['buch_rot', rot]]) {
     const bild = new PNG({ width: ziel.width, height: H })
     ziel.data.copy(bild.data)
     for (let i = 0; i < bild.data.length; i += 4) {
@@ -235,6 +236,32 @@ for (const n of KLEINER) {
     liste.push({ name, breite: ziel.width, hoehe: H, bildBreite: B, bildHoehe: H })
   }
   console.log(`buch.png  ${ziel.width}×${H} (umgefärbt)`)
+}
+
+// Bilder auf den Lesezeichen (Jazz 2026-11-14): Emojis aus dem UI Pack (Zellen 32 × 32), auf die halbe Größe verkleinert, damit sie
+// aufs Lesezeichen passen: je 2 × 2 Bildpunkte werden einer (Mittel der sichtbaren, dann nächste Palettenfarbe).
+// reiter.png: 0 Keimling (Pflanzen), 1 Küken (Tiere), 2 Pilz (Deko), 3 Monster, 4 Münze (Verkaufen)
+{
+  const q = PNG.sync.read(readFileSync(EMOJI))
+  const zellen = [[0, 12], [0, 17], [3, 12], [0, 10], [1, 8]]
+  const ziel = new PNG({ width: 16 * zellen.length, height: 16 })
+  ziel.data.fill(0)
+  zellen.forEach(([sp, ze], n) => {
+    for (let y = 0; y < 16; y++)
+      for (let x = 0; x < 16; x++) {
+        const sichtbar = []
+        for (const [dx, dy] of [[0, 0], [1, 0], [0, 1], [1, 1]]) {
+          const i = ((ze * 32 + y * 2 + dy) * q.width + sp * 32 + x * 2 + dx) * 4
+          if (q.data[i + 3] > 127) sichtbar.push([q.data[i], q.data[i + 1], q.data[i + 2]])
+        }
+        if (sichtbar.length < 2) continue
+        const mittel = [0, 1, 2].map((c) => sichtbar.reduce((sum, f) => sum + f[c], 0) / sichtbar.length)
+        ziel.data.set([...naechsteFarbe(mittel), 255], (y * ziel.width + n * 16 + x) * 4)
+      }
+  })
+  writeFileSync('src/grafik/reiter.png', PNG.sync.write(ziel))
+  liste.push({ name: 'reiter', breite: ziel.width, hoehe: 16, bildBreite: 16, bildHoehe: 16 })
+  console.log('reiter.png  ' + ziel.width + '×16 (Emojis verkleinert)')
 }
 
 // Lesezeichen (Reiter am Buchrand): selbst gezeichnete Bänder mit Schwalbenschwanz in vier Palettenfarben (rot, blau, grün, gelb)

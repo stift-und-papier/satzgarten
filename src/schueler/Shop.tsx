@@ -1,6 +1,6 @@
 // Shop: mit Münzen Samen, Tiere, Deko und Felder kaufen (docs/SPEC-muenzen.md). Prüfen und Abziehen macht der Server (kaufen).
 // Geerntetes, Eier und Milch verkaufen (Lehrkraft 2026-11-12: Verkaufen nur im Shop). Preise kommen vom Server.
-// Jazz 2026-11-14: der Shop ist ein Buch mit grünem Einband (gemeinsam/Buch.tsx). Links die Ware in Kästchen, rechts das
+// Jazz 2026-11-14: der Shop ist ein Buch mit beerenrotem Einband (Grün war auf der Wiese zu schlecht zu sehen) (gemeinsam/Buch.tsx). Links die Ware in Kästchen, rechts das
 // angetippte Stück groß mit Name, Preis und „Kaufen“. Lesezeichen: Pflanzen, Tiere, Deko, Verkaufen.
 // Was noch gesperrt ist, zeigt das Fragezeichen aus dem Emoji-Blatt (nur hier, nicht im Sammelalbum).
 import { useCallback, useEffect, useState, type ReactNode } from 'react'
@@ -21,10 +21,11 @@ type Posten =
   | { key: string; art: 'ware'; v: Ware }
 
 const KAPITEL: { titel: string; arten: ArtikelArt[]; bild: Grafik; nummer?: number }[] = [
-  { titel: 'Pflanzen', arten: ['samen', 'baum', 'feld'], bild: GRAFIK.saatgut },
-  { titel: 'Tiere', arten: ['tier'], bild: GRAFIK.huhn },
-  { titel: 'Deko', arten: ['deko'], bild: GRAFIK.deko_pilz },
-  { titel: 'Verkaufen', arten: [], bild: GRAFIK.ei },
+  // Bilder auf den Lesezeichen: verkleinerte Emojis aus dem UI Pack (GRAFIK.reiter: Keimling, Küken, Pilz, Monster, Münze)
+  { titel: 'Pflanzen', arten: ['samen', 'baum', 'feld'], bild: GRAFIK.reiter, nummer: 0 },
+  { titel: 'Tiere', arten: ['tier'], bild: GRAFIK.reiter, nummer: 1 },
+  { titel: 'Deko', arten: ['deko'], bild: GRAFIK.reiter, nummer: 2 },
+  { titel: 'Verkaufen', arten: [], bild: GRAFIK.reiter, nummer: 4 },
 ]
 const VERKAUFEN = 3
 const JE_SEITE = 9
@@ -156,7 +157,7 @@ export function Shop({ token, nachKauf }: { token: string; nachKauf: () => void 
     <>
       <Buch
         titel="Shop"
-        gruen
+        rot
         kapitel={KAPITEL}
         aktiv={kapitel}
         seite={seite}

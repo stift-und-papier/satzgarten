@@ -784,8 +784,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .menue a { color: var(--color-album-tinte); }
 .menue a:hover .symbol, .menue a[aria-current='page'] .symbol { background: var(--color-buch-leer); }
 .menue a[aria-current='page'] .symbol { box-shadow: inset 0 -3px 0 var(--color-tafel-rand); }
-/* oben rechts auf jeder Seite: Münzen und Schalter für den dunklen Modus */
-.muenzen-stand { align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+/* oben auf jeder Seite: links der Schalter für den dunklen Modus, ganz rechts die Münzen */
+.muenzen-stand { justify-content: space-between; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
 /* Knopf zum Sammelalbum: Gold wie die Ecken des Buchs (nur dieser Knopf) */
 .knopf--album, .knopf--album:active { border-image-source: var(--rahmen-album); }
 /* Einstein auf dem Lernweg: Knopf in der Sprechblase führt zur nächsten Übung */
