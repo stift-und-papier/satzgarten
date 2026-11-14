@@ -175,95 +175,18 @@ for (const n of KLEINER) {
   console.log(`${n.name}.png  ${n.breite}×${n.hoehe} (verkleinert)`)
 }
 
-// Spielfigur „Blau“ (Jazz, 2026-11-13: von der Lehrkraft umgefärbte Sprout-Lands-Figur, als großes Bild 1024 × 768 mit weißem Grund).
-// Gleicher Aufbau wie figur.png (8 Richtungen × 3 Bilder je 16 × 32), aber 8-fach, leicht verschoben und unscharf. Darum: je Einzelbild
-// den Versatz des 8er-Rasters suchen (kleinste Streuung in den Blöcken), Blockmitte nehmen (Median), Hintergrund und graue Ränder
-// durchsichtig, Farben auf die Sprout-Lands-Palette, alleinstehende Pixel entfernen.
-function figurAusGrossbild(datei) {
-  const p = PNG.sync.read(readFileSync(datei))
-  const K = 8, SP = 8, ZE = 3, BW = 16, BH = 32
-  const px = (x, y) => {
-    x = Math.max(0, Math.min(p.width - 1, x)); y = Math.max(0, Math.min(p.height - 1, y))
-    const i = (y * p.width + x) * 4
-    return [p.data[i], p.data[i + 1], p.data[i + 2]]
-  }
-  const abstand = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2])
-  const bloecke = []
-  for (let r = 0; r < ZE; r++)
-    for (let c = 0; c < SP; c++) {
-      const zx = c * BW * K, zy = r * BH * K
-      let best = null
-      for (let oy = 0; oy < K; oy++)
-        for (let ox = 0; ox < K; ox++) {
-          let v = 0
-          for (let by = 0; by < BH - 1; by++)
-            for (let bx = 0; bx < BW - 1; bx++) {
-              const m = px(zx + ox + bx * K + 4, zy + oy + by * K + 4)
-              for (const [dx, dy] of [[1, 1], [6, 1], [1, 6], [6, 6]]) v += abstand(px(zx + ox + bx * K + dx, zy + oy + by * K + dy), m)
-            }
-          if (!best || v < best.v) best = { v, ox, oy }
-        }
-      // Teile der Vorlage sind um ein halbes Pixel verrutscht (Seitenansichten): je Block auch die um 4 verschobenen Raster prüfen
-      // und das nehmen, in dem der Block am gleichmäßigsten ist.
-      const streuung = (x0, y0) => {
-        const m = px(x0 + 4, y0 + 4)
-        let v = 0
-        for (let dy = 1; dy < 7; dy += 2) for (let dx = 1; dx < 7; dx += 2) v += abstand(px(x0 + dx, y0 + dy), m)
-        return v
-      }
-      for (let by = 0; by < BH; by++)
-        for (let bx = 0; bx < BW; bx++) {
-          let x0 = zx + best.ox + bx * K, y0 = zy + best.oy + by * K, v = streuung(x0, y0)
-          for (const [sx, sy] of [[4, 0], [-4, 0], [0, 4], [0, -4]]) {
-            const w = streuung(x0 + sx, y0 + sy)
-            if (w < v * 0.5) {
-              v = w
-              x0 += sx
-              y0 += sy
-            }
-          }
-          const werte = []
-          for (let dy = 2; dy < 6; dy++) for (let dx = 2; dx < 6; dx++) werte.push(px(x0 + dx, y0 + dy))
-          bloecke.push({ x: c * BW + bx, y: r * BH + by, f: [0, 1, 2].map((k) => werte.map((w) => w[k]).sort((a, b) => a - b)[8]) })
-        }
-    }
-  // Hintergrund = helle, fast graue Blöcke, die mit dem Rand des Einzelbilds verbunden sind (so bleiben helle Stellen innen erhalten,
-  // z. B. das Shirt in der Seitenansicht). Alles andere bekommt die nächste Farbe aus der Sprout-Lands-Palette.
-  const hell = (f) => Math.min(...f) > 150 && Math.max(...f) - Math.min(...f) < 50
-  const ziel = new PNG({ width: SP * BW, height: ZE * BH })
-  ziel.data.fill(0)
-  const block = new Map(bloecke.map((b) => [b.y * ziel.width + b.x, b]))
-  const hintergrund = new Set()
-  for (let r = 0; r < ZE; r++)
-    for (let c = 0; c < SP; c++) {
-      const x0 = c * BW, y0 = r * BH, offen = []
-      for (let x = x0; x < x0 + BW; x++) offen.push([x, y0], [x, y0 + BH - 1])
-      for (let y = y0; y < y0 + BH; y++) offen.push([x0, y], [x0 + BW - 1, y])
-      while (offen.length) {
-        const [x, y] = offen.pop()
-        const k = y * ziel.width + x
-        if (x < x0 || y < y0 || x >= x0 + BW || y >= y0 + BH || hintergrund.has(k) || !hell(block.get(k).f)) continue
-        hintergrund.add(k)
-        offen.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1])
-      }
-    }
-  for (const b of bloecke) {
-    const k = b.y * ziel.width + b.x
-    if (!hintergrund.has(k)) ziel.data.set([...naechsteFarbe(b.f), 255], k * 4)
-  }
-  // ganz alleinstehende Pixel (kein Nachbar) entfernen: Reste vom unscharfen Rand
-  const alt = Buffer.from(ziel.data)
-  const voll = (x, y) => x >= 0 && y >= 0 && x < ziel.width && y < ziel.height && alt[(y * ziel.width + x) * 4 + 3] > 0
-  for (let y = 0; y < ziel.height; y++)
-    for (let x = 0; x < ziel.width; x++)
-      if (voll(x, y) && ![[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => voll(x + dx, y + dy))) ziel.data[(y * ziel.width + x) * 4 + 3] = 0
-  return ziel
-}
+// Spielfigur „Blau“ (Jazz, 2026-11-13, Variante 2): die Sprout-Lands-Figur (figur.png) umgefärbt, Haare blau, Shirt lila,
+// nur Farben aus der Sprout-Lands-Palette. (Die vorher aus „assets/Female character.png“ zurückgerechnete Fassung ist in der Git-Geschichte.)
 {
-  const ziel = figurAusGrossbild('assets/Female character.png')
-  writeFileSync('src/grafik/figur_blau.png', PNG.sync.write(ziel))
-  liste.push({ name: 'figur_blau', breite: ziel.width, hoehe: ziel.height, bildBreite: 16, bildHoehe: 32 })
-  console.log('figur_blau.png  128×96 (aus Großbild)')
+  const q = PNG.sync.read(readFileSync('assets/entpackt/Sprout Sorry pack/Tests/free_character_spritesheet_by-cupnooble.png'))
+  const umfaerben = {
+    0x645552: 0x4a588e, 0x705f5b: 0x577297, 0x7b6762: 0x658ca1, 0x8c7369: 0x7ba6b4, 0x9d866f: 0x8cbfc2, // Haare
+    0x78a158: 0x694a87, 0x8db15d: 0x7b568c, 0xa4c263: 0x90689f, 0xc0d470: 0xa77bb3, 0xd2e077: 0xc89dd1, // Shirt
+  }
+  for (let i = 0; i < q.data.length; i += 4) if (q.data[i + 3] > 0 && umfaerben[q.data.readUIntBE(i, 3)]) q.data.writeUIntBE(umfaerben[q.data.readUIntBE(i, 3)], i, 3)
+  writeFileSync('src/grafik/figur_blau.png', PNG.sync.write(q))
+  liste.push({ name: 'figur_blau', breite: q.width, hoehe: q.height, bildBreite: 16, bildHoehe: 32 })
+  console.log(`figur_blau.png  ${q.width}×${q.height} (umgefärbt)`)
 }
 
 // Spielfigur „Katze“ (Jazz, 2026-11-13): Basic Charakter aus Sprout Lands (48 × 48, Reihen runter/hoch/links/rechts, Spalten 0–1 stehen,

@@ -138,6 +138,8 @@
   `aufPalette` in `scripts/grafik-holen.mjs`, nächste Farbe nach „redmean“). Dadurch sind grüner und blauer Schleim und die blaue Figur
   etwas gedämpfter (die Palette hat keine kräftigen Türkis- und Blautöne). Angesehen: alle 24 Bilder der blauen Figur, Schleime und
   Rübchen vorher/nachher, blaue Figur im Spiel (1024 × 768). `npm test` 138, lint, build ohne Fehler.
+  **Nachtrag 3 (Jazz):** „Blau“ ist jetzt Variante 2: die Sprout-Lands-Figur direkt umgefärbt (Haare blau, Shirt lila, Palettenfarben),
+  dadurch in allen Richtungen vollständig. Die Fassung aus `assets/Female character.png` (mit Schleife) ist nicht mehr in Gebrauch.
 
 ## Datenorte
 - **Datenbank Supabase** (Projekt `diwpqkxhmuetdpxxcoar`, Frankfurt): Klassen, Pseudonyme, Aufgaben, Pakete, Zuweisungen,

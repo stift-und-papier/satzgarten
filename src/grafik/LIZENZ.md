@@ -18,8 +18,8 @@ Lizenzbedingungen (Zusammenfassung des `read_me.txt` der Pakete):
 Die Spielfigur (`figur.png`) stammt aus dem **Sprout Lands Sorry Pack** (Ordner „Tests“), ebenfalls von Cup Nooble,
 mit denselben Bedingungen (nicht kommerziell, Paket nicht weitergeben).
 
-Weitere Spielfiguren (Übungsumbau, 2026-11-13): `figur_blau.png` ist dieselbe Figur, von der Lehrkraft mit einem Bildeditor
-umgefärbt (Vorlage `assets/Female character.png`, auf 16 × 32 je Bild zurückgerechnet). `figur_katze.png` ist der „Basic Charakter“
+Weitere Spielfiguren (Übungsumbau, 2026-11-13): `figur_blau.png` ist dieselbe Figur, umgefärbt (Haare blau, Shirt lila,
+nur Farben der Sprout-Lands-Palette; Jazz, Variante 2). `figur_katze.png` ist der „Basic Charakter“
 aus Sprout Lands (Sprites), umgebaut auf den Aufbau von `figur.png`.
 
 Deshalb liegen hier nur einzelne, ausgeschnittene Bilder, die die App wirklich benutzt
