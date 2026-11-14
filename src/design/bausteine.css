@@ -520,7 +520,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   border-image: url('../grafik/rahmen_spiel.png') 16 17 17 fill / 32px 34px 34px; image-rendering: pixelated;
   color: var(--color-album-tinte); text-align: center;
 }
-.pixel-schild h1 { margin: 0; }
+.pixel-schild h1, .pixel-schild h2 { margin: 0; }
 .pixel-tafel {
   padding: var(--space-sm); border: 10px solid transparent;
   border-image: url('../grafik/tafel.png') 5 fill / 10px; image-rendering: pixelated;
@@ -636,12 +636,10 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   content: ''; position: absolute; inset: 0; z-index: 10000; pointer-events: none;
   border: solid transparent; border-width: 32px 34px 34px; border-image: inherit;
 }
-/* clip-path: Das Rahmenbild ist außen 4 bis 5 Bildpunkte durchsichtig (2-fach: 8 bis 10 px); dort wird das Wasser abgeschnitten */
-.farm-landschaft {
-  position: relative; isolation: isolate; margin-inline: auto; cursor: pointer; touch-action: manipulation;
-  clip-path: inset(10px 12px 12px 12px);
-}
-.farm-landschaft canvas { display: block; image-rendering: pixelated; }
+.farm-landschaft { position: relative; isolation: isolate; margin-inline: auto; cursor: pointer; touch-action: manipulation; }
+/* clip-path: Das Rahmenbild ist außen 4 bis 5 Bildpunkte durchsichtig (2-fach: 8 bis 10 px); dort wird das Wasser abgeschnitten.
+   Nur am Hintergrundbild, damit die Sprechblase der Figur am oberen Rand nicht mit abgeschnitten wird. */
+.farm-landschaft canvas { display: block; image-rendering: pixelated; clip-path: inset(10px 12px 12px 12px); }
 .farm-landschaft .sprite { image-rendering: pixelated; }
 .farm-ding { position: absolute; pointer-events: none; line-height: 0; }
 .farm-feld, .farm-tier, .farm-liegt, .farm-baum {
@@ -799,11 +797,9 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 /* Knopf zum Sammelalbum: Gold wie die Ecken des Buchs (nur dieser Knopf) */
 .knopf--album, .knopf--album:active { border-image-source: var(--rahmen-album); }
 /* Einstein auf dem Lernweg: Knopf in der Sprechblase führt zur nächsten Übung */
-.einstein-weiter { margin-top: var(--space-xs); }
+.einstein-weiter { margin-top: var(--space-xs); padding-block: var(--space-2xs); line-height: 1.4; text-align: left; }
 
 /* ---------- Lernweg (Lernweg.tsx): Kästen je Kernkompetenz, darin rankt eine Pflanze hoch ---------- */
-.lernweg-legende { list-style: none; margin: var(--space-xs) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-md); }
-.lernweg-legende li { display: inline-flex; align-items: center; gap: var(--space-2xs); font-weight: 700; }
 .lernweg-kasten summary {
   list-style: none; cursor: pointer; min-height: var(--tipp-min); display: flex; align-items: center; gap: var(--space-sm);
   font-family: var(--font-display); font-size: var(--text-h3); font-weight: 800;
@@ -815,21 +811,13 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 /* Ranke: je Thema ein Stück (20 × 24 Bildpunkte, 3-fach = 60 × 72 px), Stiel in Spalte 9. Ist eine Zeile höher als das Bild,
    verlängert der Strich dahinter den Stiel (gleiche Farbe wie im Bild). Unten der Topf. */
 .ranke { list-style: none; margin: var(--space-sm) 0 0; padding: 0; }
-.ranke li {
-  display: grid; grid-template-columns: 60px 1fr; column-gap: var(--space-sm); align-items: center; min-height: 72px;
-  background: linear-gradient(#645552, #645552) 27px 60px / 3px 100% no-repeat;
-}
 .ranke li > .sprite { align-self: start; }
-.ranke p { margin: 0; }
+.ranke p { margin: 0; line-height: 1.35; } /* Name und Bereich eng beieinander (Jazz) */
 .ranke__name { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2xs) var(--space-xs); font-weight: 800; }
-.ranke li.ranke__topf { display: block; min-height: 0; background: none; line-height: 0; }
+/* Topf: 6 px nach oben, damit der Stiel im Topf steckt (oberste Bildzeile des Topfs ist leer) */
+.ranke li.ranke__topf { display: block; min-height: 0; background: none; line-height: 0; margin-top: -6px; position: relative; }
 
 /* ---------- Farm: Titel, Knöpfe und Hinweis in einer Textbox ---------- */
-.farm-leiste { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--space-sm); }
-.farm-leiste > :first-child { justify-self: start; }
-.farm-leiste > :last-child { justify-self: end; }
-.farm-leiste h2 { margin: 0; text-align: center; }
-.farm-meldung { text-align: center; margin-top: var(--space-xs); }
 .farm-meldung p { margin-inline: auto; }
 
 /* ---------- Leseschrift (OpenDyslexic) auf allen Schülerseiten: Überschriften brauchen mehr Zeilenabstand und die volle Breite,
@@ -839,3 +827,43 @@ a.knopf { text-decoration: none; }
 /* Pfeile vor aufklappbaren Zeilen: auf der hellen Tafel in der dunklen Schriftfarbe (die Aktionsfarbe ist im dunklen Modus zu blass) */
 .garten-seite .karte:not(.aufgabe) summary::before { color: inherit; }
 .garten-seite .karte:not(.aufgabe) .paket-liste__nr { color: inherit; }
+
+/* ---------- Zweite Runde (Jazz 2026-11-14) ---------- */
+/* Ranke: Bild, Pflanzen-Symbol im Rahmen, dann Name und Bereich. Der Strich hinter dem Bild verlängert den Stiel bis zur nächsten Zeile. */
+.ranke li {
+  display: grid; grid-template-columns: 60px 48px 1fr; column-gap: var(--space-sm); align-items: center; min-height: 72px;
+  background: linear-gradient(#645552, #645552) 27px 60px / 3px 100% no-repeat;
+}
+/* Pflanzen-Symbol (Emoji) im kleinen Holzrahmen aus dem UI Pack: 26 × 26 Bildpunkte, Rand 5, doppelt groß */
+.pflanze-symbol {
+  display: inline-grid; place-items: center; flex: none; width: 48px; height: 48px; box-sizing: border-box;
+  border: 10px solid transparent; border-image: url('../grafik/symbol_rahmen.png') 5 fill / 10px; image-rendering: pixelated;
+  font-size: 22px; line-height: 1; font-family: system-ui, sans-serif;
+}
+.garten-seite .karte.lernweg-legende { list-style: none; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-md); }
+.lernweg-legende li { display: inline-flex; align-items: center; gap: var(--space-xs); font-weight: 700; }
+.lernweg-kasten summary::before { order: 2; } /* Pfeil rechts, links das Symbol der Kernkompetenz */
+/* Farm: Leiste über dem Spielfenster (Sammelalbum, Schild, Zahnrad), darunter der Hinweis in einer eigenen Box */
+.farm-leiste { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--space-sm); }
+.farm-leiste > :first-child { justify-self: start; }
+.farm-leiste > :last-child { justify-self: end; }
+.farm-album { flex-direction: column; gap: 0; padding: 2px var(--space-sm); font-size: var(--text-klein); line-height: 1.1; }
+.farm-meldung { text-align: center; }
+.farm-meldung p { margin-inline: auto; }
+/* Schiebeschalter aus dem UI Pack (dunkler Modus, Deko): Bahn 28 × 14, Knopf 18 × 19 Bildpunkte, 3-fach. Der Knopf gleitet nach rechts. */
+.garten-seite .schalter { padding: 0; border: 0; border-radius: 0; background: none; color: inherit; gap: var(--space-xs); }
+.garten-seite .schalter__bahn {
+  width: 84px; height: 57px; border: 0; border-radius: 0; image-rendering: pixelated;
+  background: url('../grafik/schalter_bahn_aus.png') 0 9px / 84px 42px no-repeat;
+}
+/* ganze Angabe wiederholen: die allgemeine Regel für „an“ setzt sonst Größe und Lage des Bildes zurück */
+.garten-seite .schalter[aria-checked='true'] .schalter__bahn { background: url('../grafik/schalter_bahn_an.png') 0 9px / 84px 42px no-repeat; }
+.garten-seite .schalter__knopf, .garten-seite .schalter[aria-checked='true'] .schalter__knopf {
+  top: 0; width: 54px; height: 57px; border-radius: 0;
+  background: url('../grafik/schalter_knopf.png') 0 0 / 54px 57px no-repeat;
+}
+.garten-seite .schalter__knopf { left: 0; }
+/* über left statt transform: bei „Bewegung reduzieren“ ist transform gesperrt, der Knopf muss trotzdem die Seite wechseln */
+.garten-seite .schalter__knopf { transition: left var(--dur-short) var(--ease-out); }
+.garten-seite .schalter[aria-checked='true'] .schalter__knopf { transform: none; left: 30px; }
+.garten-seite .schalter:focus-visible { outline: 3px solid var(--color-aktion); outline-offset: 2px; }

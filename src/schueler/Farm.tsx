@@ -293,33 +293,33 @@ export function Farm({ token, shop, album, figur: figurName, nachFigur }: { toke
     ...daten.pflanzen.filter((p) => p.feld < felder && p.reif).map((p) => SORTE_NAME[p.sorte]),
     ...daten.baeume.filter((b) => b.tage === 0 && b.art in BAUM_PLAETZE).map((b) => OBSTBAUM[b.art].name),
   ]
-  const blasenText = reifes.length > 1 ? 'Ich kann heute vieles ernten!' : reifes.length ? `${reifes[0]} kann geerntet werden!` : null
+  const blasenText = reifes.length > 1 ? 'Ich kann mehrere Dinge ernten!' : reifes.length ? `${reifes[0]} kann geerntet werden!` : null
 
   return (
     // Jazz 2026-11-14: Spiel-Oberfläche statt Karte. Leiste (Sammelalbum, Zahnrad), Spielfenster in voller Breite, Vorrat als Tafel.
     <section className="farm" style={{ ['--farm-breite' as string]: `${px(SPALTEN)}px` }}>
-      {/* Jazz 2026-11-14: Titel, Knöpfe und Hinweis zusammen in einer Textbox; der Knopf zum Sammelalbum in Gold mit Text */}
-      <div className="karte farm-kopf">
-        <div className="farm-leiste">
-          <a className="knopf knopf--album" href={album}>
-            <Symbol name="sammelbuch" />
-            Mein Sammelalbum
-          </a>
-          <h2>Deine Farm</h2>
-          <button type="button" className="holzknopf" aria-label="Farm einrichten" onClick={() => setEinrichten(true)}>
-            <Symbol name="einstellungen" />
-          </button>
-        </div>
-        {/* Usability-Test 2026-11-13: Meldungen stehen über der Karte (unter ihr waren sie am iPad außer Sicht); fester Platz, damit die Karte nicht springt */}
-        <div className="farm-meldung">
-          {fehler ? (
-            <p role="alert">{fehler}</p>
-          ) : (
-            <p role="status" className={meldung ? undefined : 'leise'}>
-              {meldung ?? 'Tippe irgendwohin, dann läuft deine Figur dorthin. Tippe ein Feld, ein Tier oder einen Obstbaum an.'}
-            </p>
-          )}
-        </div>
+      {/* Jazz 2026-11-14: Leiste mit Sammelalbum-Knopf (Buch über dem Wort, Flieder), Titel als Holzschild wie auf den anderen Seiten, Zahnrad */}
+      <div className="farm-leiste">
+        <a className="knopf knopf--album farm-album" href={album}>
+          <Symbol name="sammelbuch" />
+          Sammelalbum
+        </a>
+        <header className="pixel-schild">
+          <h2>Meine Farm</h2>
+        </header>
+        <button type="button" className="holzknopf" aria-label="Farm einrichten" onClick={() => setEinrichten(true)}>
+          <Symbol name="einstellungen" />
+        </button>
+      </div>
+      {/* Usability-Test 2026-11-13: Meldungen stehen über der Karte (unter ihr waren sie am iPad außer Sicht); fester Platz, damit die Karte nicht springt */}
+      <div className="karte farm-meldung">
+        {fehler ? (
+          <p role="alert">{fehler}</p>
+        ) : (
+          <p role="status" className={meldung ? undefined : 'leise'}>
+            {meldung ?? 'Tippe irgendwohin, dann läuft deine Figur dorthin. Tippe ein Feld, ein Tier oder einen Obstbaum an.'}
+          </p>
+        )}
       </div>
       <div ref={rahmen} className="farm-rahmen">
         {/* Jazz 2026-11-14: Holzrahmen wie ein Spielfenster; liegt über dem äußeren Wasserstreifen der Karte (bausteine.css) */}

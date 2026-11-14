@@ -55,6 +55,10 @@ import tafel from './tafel.png'
 import herz_flug from './herz_flug.png'
 import monster_maus from './monster_maus.png'
 import emoji_frage from './emoji_frage.png'
+import schalter_bahn_aus from './schalter_bahn_aus.png'
+import schalter_bahn_an from './schalter_bahn_an.png'
+import schalter_knopf from './schalter_knopf.png'
+import symbol_rahmen from './symbol_rahmen.png'
 import monster_fledermaus from './monster_fledermaus.png'
 import feld from './feld.png'
 import figur_blau from './figur_blau.png'
@@ -122,6 +126,10 @@ export const GRAFIK = {
   herz_flug: { url: herz_flug, breite: 13, hoehe: 11, bildBreite: 13, bildHoehe: 11 },
   monster_maus: { url: monster_maus, breite: 208, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
   emoji_frage: { url: emoji_frage, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  schalter_bahn_aus: { url: schalter_bahn_aus, breite: 28, hoehe: 14, bildBreite: 28, bildHoehe: 14 },
+  schalter_bahn_an: { url: schalter_bahn_an, breite: 28, hoehe: 14, bildBreite: 28, bildHoehe: 14 },
+  schalter_knopf: { url: schalter_knopf, breite: 18, hoehe: 19, bildBreite: 18, bildHoehe: 19 },
+  symbol_rahmen: { url: symbol_rahmen, breite: 26, hoehe: 26, bildBreite: 26, bildHoehe: 26 },
   monster_fledermaus: { url: monster_fledermaus, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   feld: { url: feld, breite: 14, hoehe: 14, bildBreite: 14, bildHoehe: 14 },
   figur_blau: { url: figur_blau, breite: 128, hoehe: 96, bildBreite: 16, bildHoehe: 32 },

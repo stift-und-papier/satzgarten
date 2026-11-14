@@ -68,6 +68,8 @@ UI Pack Premium. `spiel_wiese.png` (craftpix, siehe unten) ist auf die Sprout-La
 
 - `sticker.png`: Sticker fürs Sammelalbum, erzeugt aus den oben genannten Bildern (Pflanzen, Tiere, Deko, Monster):
   Umriss eingefärbt, heller Kleberand. Es gelten die Lizenzen der jeweiligen Vorlagen.
+- `schalter_bahn_aus.png`, `schalter_bahn_an.png`, `schalter_knopf.png`, `symbol_rahmen.png`: aus „Sprout Lands – UI Pack – Premium pack“
+  (UI Settings Buttons, Character Backdrop-frame), Cup Nooble.
 - `lesezeichen.png`: selbst gezeichnet (Skript), Farben aus der Sprout-Lands-Palette.
 - `emoji_frage.png`: Emoji aus „Sprout Lands – UI Pack – Basic pack“ (`emojis-free`), Cup Nooble.
 

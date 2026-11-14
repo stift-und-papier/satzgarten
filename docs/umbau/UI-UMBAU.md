@@ -52,9 +52,18 @@ Alle Pixel-Spielinhalte in der Sprout-Lands-Palette.
     Von Claude entschieden, bitte prüfen: Pflanzen-Symbol = Tomate in 4 Wachstumsstufen (die Tulpe war zu klein).
     Kästen erscheinen nur für Kernkompetenzen, in denen schon geübt wurde.
   - **Farm:** Titel, Knöpfe und Hinweis in einer Textbox, Hinweis mittig. Zahnrad als echtes Zahnrad. Knopf „Mein Sammelalbum“
-    mit Text in Gold (`--rahmen-album`, 4 Varianten, Kontrast geprüft). Einstein steht nicht mehr auf der Farm.
+    mit Text (`--rahmen-album`, 4 Varianten, Kontrast geprüft). Einstein steht nicht mehr auf der Farm.
   - **Spiel-Look:** alle Kästen der Schülerseiten sind helle Holztafeln (`tafel.png`), Menüleiste als Holzbrett.
     Übungskästen und Erklärungen (`.aufgabe`) behalten den ruhigen Kasten.
+- [x] **Zweite Runde (Jazz 2026-11-14):**
+  - **Pflanzen-Symbole** wieder als Emoji (🌱 🌿 🪴 🌷, besser zu erkennen), jedes im kleinen Holzrahmen aus dem UI Pack
+    (`symbol_rahmen.png`, Character Backdrop a3). Im Lernweg steht das Symbol direkt vor seinem Thema, im Kasten vor dem Namen.
+  - **Überschriften** aller Schülerseiten als Holzschild (`pixel-schild`, wie im Shop); der Satz darunter entfällt oder steht in einer eigenen Box.
+    Legende der Pflanzen als eigene Box. Ranke steckt im Topf, Name und Bereich enger beieinander.
+  - **Einsteins Knopf:** „Mach weiter mit der Übung …!“
+  - **Farm:** Knopf „Sammelalbum“ (Buch über dem Wort, kleiner, Flieder statt Gold: `--rahmen-album`), Schild „Meine Farm“,
+    Hinweis in eigener Box. Figur sagt „Ich kann mehrere Dinge ernten!“.
+  - **Schiebeschalter** aus dem UI Pack (UI Settings Buttons) für den dunklen Modus und die Deko-Schalter: Knopf gleitet, Bahn wird grün.
 - [ ] **Migration `lernweg_zuletzt`** (nennt je Thema, wann zuletzt geübt wurde) ist geschrieben, aber noch nicht eingespielt.
   Bis dahin stehen die Themen in der Reihenfolge der Kompetenzliste, nicht nach „zuletzt geübt“.
 - [ ] **Migration `album_monster` ist geschrieben, aber noch nicht eingespielt** (`npm run db:push`, danach `npm run test:datenbank`;

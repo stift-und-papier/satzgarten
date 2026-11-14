@@ -210,15 +210,15 @@ export function SchuelerBereich({ token, pfad }: Props) {
     return (
       <Rahmen basis={basis} aktiv="uebungen" muenzen={muenzen} fenster={fenster}>
         {wartendHinweis}
-        <header className="karte">
+        <header className="pixel-schild">
           <div className="knopf-reihe">
             <a className="holzknopf" href={`#${basis}/uebungen`} aria-label="Zurück zu allen Übungen">
               <Symbol name="zurueck" />
             </a>
             <h1>{paket.titel}</h1>
           </div>
-          {paket.beschreibung && <p>{paket.beschreibung}</p>}
         </header>
+        {paket.beschreibung && <p className="karte">{paket.beschreibung}</p>}
         <ol className="paket-liste">
           {paket.aufgaben.map((a, i) => (
             <li key={a.id}>
@@ -322,10 +322,11 @@ export function SchuelerBereich({ token, pfad }: Props) {
     return (
       <Rahmen basis={basis} aktiv="uebungen" muenzen={muenzen} fenster={fenster}>
         {wartendHinweis}
-        <header className="karte">
+        {/* Jazz 2026-11-14: alle Überschriften als Holzschild (wie im Shop), ohne Satz darunter */}
+        <header className="pixel-schild">
           <h1>Meine Übungen</h1>
-          <p>{daten.pakete.length === 0 ? 'Hier kommen bald neue Übungen.' : 'Such dir eine Übung aus.'}</p>
         </header>
+        {daten.pakete.length === 0 && <p className="karte">Hier kommen bald neue Übungen.</p>}
         <PaketListe pakete={daten.pakete} basis={basis} />
       </Rahmen>
     )
@@ -345,7 +346,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
         <p>{EINSTEIN[gruss]?.replaceAll('{name}', daten.pseudonym)}</p>
         {naechstesPaket && naechste && (
           <a className="knopf knopf--haupt einstein-weiter" href={`#${basis}/p/${naechstesPaket.id}/a/${naechste.id}`}>
-            Weiter mit: {naechste.titel}
+            Mach weiter mit der Übung {naechste.titel}!
           </a>
         )}
       </EinsteinSagt>

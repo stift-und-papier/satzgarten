@@ -7,19 +7,25 @@ import { Sprite } from '../gemeinsam/Sprite'
 import { GRAFIK } from '../grafik'
 import { fehlerText } from '../lib/fehler'
 import { GROSSE_BEREICHE, grosserBereich } from '../lib/lernstand'
-import { SORTE } from '../lib/shop'
 import { supabase } from '../lib/supabase'
 
 type Kategorie = 'deutlich' | 'besser' | 'dranbleiben' | 'erste'
 type Thema = { name: string; bereich: string; kategorie: Kategorie; geloest: number; zuletzt?: string | null }
 type Daten = { kompetenzen: Thema[]; texte: Record<string, string>; naechster_schritt: string | null }
 
-// Wachstum der Tomate (4 Bilder, in allen Stufen gut zu erkennen): Keimling, wächst, rankt, trägt Früchte
+// Jazz 2026-11-14: wieder die Emoji-Pflanzen (besser zu erkennen als die Pixelbilder), jede in einem kleinen Holzrahmen
+// (Character Backdrop aus dem UI Pack): keimt → wächst → wird groß → blüht
 const STUFEN: Kategorie[] = ['erste', 'dranbleiben', 'besser', 'deutlich']
 const STUFE_TEXT: Record<Kategorie, string> = { erste: 'angefangen', dranbleiben: 'dranbleiben', besser: 'wird besser', deutlich: 'deutlich besser' }
+const EMOJI: Record<Kategorie, string> = { erste: '🌱', dranbleiben: '🌿', besser: '🪴', deutlich: '🌷' }
 
+/** Mit titel liest die Vorlesehilfe die Bedeutung vor; ohne titel ist das Symbol Verzierung (der Text steht daneben). */
 function Pflanze({ art, titel }: { art: Kategorie; titel?: string }) {
-  return <Sprite grafik={GRAFIK.pflanzen} nummer={SORTE.tomate * 4 + STUFEN.indexOf(art)} mal={3} titel={titel} />
+  return (
+    <span className="pflanze-symbol" role={titel ? 'img' : undefined} aria-label={titel} aria-hidden={titel ? undefined : true}>
+      {EMOJI[art]}
+    </span>
+  )
 }
 
 /** Durchschnitt der Themen eines Kastens als Pflanze (gerundet) */
@@ -50,36 +56,35 @@ export function Lernweg({ token }: { token: string }) {
 
   return (
     <>
-      <header className="karte lernweg-kopf">
+      <header className="pixel-schild">
         <h1>Mein Lernweg</h1>
-        {/* Usability-Test 2026-11-13: die Pflanzen erklären (sonst unklar) */}
-        <p>Tippe einen Kasten an. Dann siehst du, was du schon geübt hast. Die Pflanze wächst mit:</p>
-        <ul className="lernweg-legende">
-          {STUFEN.map((s) => (
-            <li key={s}>
-              <Pflanze art={s} /> {STUFE_TEXT[s]}
-            </li>
-          ))}
-        </ul>
       </header>
+      {/* Legende als eigene Box: erklärt die Pflanzen (Usability-Test 2026-11-13: sonst unklar) */}
+      <ul className="karte lernweg-legende" aria-label="Was die Pflanzen bedeuten">
+        {STUFEN.map((s) => (
+          <li key={s}>
+            <Pflanze art={s} /> {STUFE_TEXT[s]}
+          </li>
+        ))}
+      </ul>
 
       {kaesten.length === 0 && <p className="karte">Sobald du ein paar Aufgaben bearbeitet hast, siehst du hier deinen Weg.</p>}
 
       {kaesten.map(({ gross, themen }) => (
         <details key={gross} className="karte lernweg-kasten">
           <summary>
-            <span className="lernweg-kasten__name">{gross === 'Weitere' ? 'Weitere Themen' : gross}</span>
             <Pflanze art={durchschnitt(themen)} titel={STUFE_TEXT[durchschnitt(themen)]} />
+            <span className="lernweg-kasten__name">{gross === 'Weitere' ? 'Weitere Themen' : gross}</span>
           </summary>
           <ol className="ranke">
             {themen.map((k, i) => (
               <li key={k.name}>
                 {/* oberstes Stück ist die Spitze; die beiden gezeichneten Stücke wechseln sich von unten her ab */}
                 <Sprite grafik={GRAFIK.ranke} nummer={((themen.length - 1 - i) % 2) + (i === 0 ? 2 : 0)} mal={3} />
+                {/* Symbol steht direkt vor seinem Thema, so ist klar, wozu es gehört */}
+                <Pflanze art={k.kategorie} titel={daten.texte[k.kategorie] ?? STUFE_TEXT[k.kategorie]} />
                 <div>
-                  <p className="ranke__name">
-                    {k.name} <Pflanze art={k.kategorie} titel={daten.texte[k.kategorie] ?? STUFE_TEXT[k.kategorie]} />
-                  </p>
+                  <p className="ranke__name">{k.name}</p>
                   <p>{k.bereich}</p>
                 </div>
               </li>

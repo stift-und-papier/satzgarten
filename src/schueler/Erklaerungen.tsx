@@ -59,10 +59,10 @@ export function Erklaerungen({ token, basis, id, zeigen }: Props) {
 
   return (
     <>
-      <header className="karte">
+      <header className="pixel-schild">
         <h1>Erklärungen</h1>
-        <p>{liste.length === 0 ? 'Hier gibt es noch keine Erklärungen.' : 'Hier kannst du nachlesen, wie etwas geht. Tippe auf eine Klasse.'}</p>
       </header>
+      <p className="karte">{liste.length === 0 ? 'Hier gibt es noch keine Erklärungen.' : 'Hier kannst du nachlesen, wie etwas geht. Tippe auf eine Klasse.'}</p>
       {[...gruppen].map(([jg, bereiche]) => (
         <details key={jg} className="karte hilfe-eintrag">
           <summary>{jg}</summary>

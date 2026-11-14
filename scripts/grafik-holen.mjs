@@ -121,6 +121,12 @@ const BILDER = [
   // Emojis (UI Pack Basic, emojis-free, Zellen 32 × 32): Bilder auf den Lesezeichen im Buch und Fragezeichen im Shop (Jazz 2026-11-14)
   ...[['emoji_frage', 3, 7]]
     .map(([name, sp, ze]) => ({ name, datei: EMOJI, x: sp * 32, y: ze * 32, breite: 32, hoehe: 32 })),
+  // Schiebeschalter für den dunklen Modus (UI Settings Buttons): Bahn aus (dunkel) und an (grün), dazu der helle Knopf, der hin und her gleitet (Jazz 2026-11-14)
+  { name: 'schalter_bahn_aus', datei: UI + 'Other UI sprites/UI Settings Buttons.png', x: 2, y: 121, breite: 28, hoehe: 14 },
+  { name: 'schalter_bahn_an', datei: UI + 'Other UI sprites/UI Settings Buttons.png', x: 34, y: 121, breite: 28, hoehe: 14 },
+  { name: 'schalter_knopf', datei: UI + 'Other UI sprites/UI Settings Buttons.png', x: 7, y: 86, breite: 18, hoehe: 19 },
+  // kleiner Holzrahmen um die Pflanzen-Symbole im Lernweg (Character Backdrop-frame a3, nur das Quadrat), als border-image (Rand 5)
+  { name: 'symbol_rahmen', datei: UI + 'Dialouge UI/Character Backdrop-frame/backdrops_a3.png', x: 11, y: 11, breite: 26, hoehe: 26 },
   { name: 'monster_fledermaus', datei: 'assets/entpackt/Sprout Sorry pack/Early Access/Dungeon Pack/enemies/bat_animations.png', x: 32, y: 0, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
 ]
 
