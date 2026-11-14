@@ -74,7 +74,9 @@ Alle Pixel-Spielinhalte in der Sprout-Lands-Palette.
 - [x] **Drei Migrationen eingespielt am 2026-11-14 (Zustimmung von Jazz):** `album_monster`, `lernweg_zuletzt`, `klasse_jahrgang`.
   `npm run test:datenbank`: ALLE TESTS BESTANDEN (148). Achtung: Die Datenbank kennt damit Migrationen, die es auf `uebungsumbau`
   noch nicht gibt; `db push` von dort meldet das, bis `ui-umbau` zusammengeführt ist.
-- [ ] Schritt 2: Shop als Buch (grüner Einband, Fragezeichen-Sticker).
+- [x] **Schritt 2: Shop als Buch** (`src/schueler/Shop.tsx`, `buch_gruen.png`): grüner Einband, links 3 × 3 Kästchen, rechts das gewählte Stück
+  mit Name, Preis und „Kaufen“ (Nachfrage „Ja, kaufen“). Lesezeichen: Pflanzen (Samen, Obstbäume, Felder), Tiere, Deko, Verkaufen.
+  Gesperrtes zeigt das Fragezeichen aus dem Emoji-Blatt. Farm: Sprechblase der Figur kleiner und immer im Rahmen.
 - [ ] Schritt 3: Übungen, Aufgaben, Lernweg, Hilfe, Menüleiste. Einstein umfärben (Vorher-Nachher).
 
 ## Arbeitsordner

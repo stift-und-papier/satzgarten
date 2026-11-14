@@ -219,14 +219,21 @@ for (const n of KLEINER) {
     0xb2a280: 0xdcb98a, 0x8f7559: 0xc49a6c, // Seitenkanten unten, Schild auf dem Deckel
     0xcfaf46: 0xd4c169, 0xd6bf78: 0xeae178, 0xa86d19: 0xb09643, 0xbd933a: 0xbfa954, 0xb88d39: 0xbfa954, 0xded9b6: 0xf3f2c0, // Ecken
   }
-  for (let i = 0; i < ziel.data.length; i += 4) {
-    if (!ziel.data[i + 3]) continue
-    const neu = farben[ziel.data.readUIntBE(i, 3)]
-    if (neu === undefined) throw new Error('Buch: Farbe #' + ziel.data.readUIntBE(i, 3).toString(16) + ' ist nicht zugeordnet')
-    ziel.data.writeUIntBE(neu, i, 3)
+  // Shop: dasselbe Buch mit grünem Einband (Jazz 2026-11-14), sonst gleich
+  const gruen = { 0x663931: 0x78a158, 0xa1786a: 0x8db15d, 0xb8958a: 0xa4c263, 0x5b2b2b: 0x67835c, 0x4f1c24: 0x67835c, 0x3d0c19: 0x566560 }
+  for (const [name, einband] of [['buch', {}], ['buch_gruen', gruen]]) {
+    const bild = new PNG({ width: ziel.width, height: H })
+    ziel.data.copy(bild.data)
+    for (let i = 0; i < bild.data.length; i += 4) {
+      if (!bild.data[i + 3]) continue
+      const alt = bild.data.readUIntBE(i, 3)
+      const neu = einband[alt] ?? farben[alt]
+      if (neu === undefined) throw new Error('Buch: Farbe #' + alt.toString(16) + ' ist nicht zugeordnet')
+      bild.data.writeUIntBE(neu, i, 3)
+    }
+    writeFileSync('src/grafik/' + name + '.png', PNG.sync.write(bild))
+    liste.push({ name, breite: ziel.width, hoehe: H, bildBreite: B, bildHoehe: H })
   }
-  writeFileSync('src/grafik/buch.png', PNG.sync.write(ziel))
-  liste.push({ name: 'buch', breite: ziel.width, hoehe: H, bildBreite: B, bildHoehe: H })
   console.log(`buch.png  ${ziel.width}×${H} (umgefärbt)`)
 }
 

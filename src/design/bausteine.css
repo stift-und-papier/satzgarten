@@ -528,17 +528,8 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 }
 .pixel-tafel .leise { color: inherit; }
 .pixel-tafel > p:first-child { margin-top: 0; }
-.pixel-reiter { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-block: var(--space-sm); }
 
 /* ---------- Shop ---------- */
-.shop-raster {
-  list-style: none; margin: 0; padding: 0;
-  display: grid; gap: var(--space-sm); grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
-}
-.shop-artikel { display: flex; flex-direction: column; align-items: center; gap: var(--space-2xs); text-align: center; padding: var(--space-2xs); }
-.shop-artikel .knopf-reihe { justify-content: center; }
-.shop-artikel--gesperrt .farm-menue__bild { opacity: 0.75; } /* nur das Bild blasser, Text behält vollen Kontrast */
-.shop-artikel__frage { font-size: 2.5rem; font-weight: 800; line-height: 1; color: var(--color-album-tinte); }
 .muenzen-preis { display: inline-flex; align-items: center; gap: var(--space-2xs); font-weight: 800; font-variant-numeric: tabular-nums; }
 
 /* ---------- Buch (gemeinsam/Buch.tsx, Jazz 2026-11-14): Sammelalbum und Shop ----------
@@ -556,9 +547,10 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 /* shortcut: unter 900 px Breite (iPad hochkant, Handy) 2-fach; die Namen unter den Stickern werden dann eng. Bei Bedarf dort 2 Spalten. */
 @media (max-width: 56rem) { .buch { --bp: 2px; } }
 .buch-bild {
-  display: block; width: calc(var(--b) * var(--bp)); height: calc(var(--h) * var(--bp));
-  background-repeat: no-repeat; background-size: calc(var(--bb) * var(--bp)) auto;
-  background-position: calc(var(--x) * -1 * var(--bp)) calc(var(--y) * -1 * var(--bp));
+  --p: calc(var(--bp) * var(--m, 1)); /* ein Bildpunkt dieses Bildes */
+  display: block; width: calc(var(--b) * var(--p)); height: calc(var(--h) * var(--p));
+  background-repeat: no-repeat; background-size: calc(var(--bb) * var(--p)) auto;
+  background-position: calc(var(--x) * -1 * var(--p)) calc(var(--y) * -1 * var(--p));
   image-rendering: pixelated;
 }
 .buch__bild { position: absolute; z-index: 1; left: calc(-2 * var(--bp)); top: calc(-49 * var(--bp)); pointer-events: none; }
@@ -881,3 +873,20 @@ a.ranke__text:focus-visible { outline: 3px solid var(--color-aktion); outline-of
    darum darf er umbrechen; die Blase wächst nach oben */
 /* Jazz 2026-11-14: kleinere Schrift; die größte Breite setzt Farm.tsx so, dass die Blase im Holzrahmen bleibt */
 .farm-blase { white-space: normal; width: max-content; box-sizing: border-box; font-size: var(--text-klein); line-height: 22px; }
+
+/* ---------- Shop als Buch (Shop.tsx, Jazz 2026-11-14): links 3 × 3 Kästchen, rechts das gewählte Stück ---------- */
+.shop-kaestchen { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); row-gap: calc(2 * var(--bp)); justify-items: center; }
+/* Kästchen = Platz aus dem UI Pack (26 × 28 Bildpunkte) */
+.shop-kaestchen button {
+  position: relative; display: grid; place-items: center; overflow: hidden;
+  width: calc(26 * var(--bp)); height: calc(28 * var(--bp)); padding: 0 0 calc(2 * var(--bp)); border: 0; cursor: pointer;
+  background: url('../grafik/menue_platz.png') 0 0 / 100% 100% no-repeat; image-rendering: pixelated;
+  -webkit-tap-highlight-color: transparent;
+}
+/* gewählt: dunkler Rahmen um das Kästchen (Form, nicht nur Farbe) */
+.shop-kaestchen button[aria-pressed='true'] { outline: var(--bp) solid var(--color-album-tinte); outline-offset: calc(-1 * var(--bp)); }
+.shop-kaestchen button:focus-visible { outline: 3px solid var(--color-aktion); outline-offset: 2px; }
+.shop-wahl { display: flex; flex-direction: column; align-items: center; gap: var(--space-2xs); text-align: center; }
+.shop-wahl h2 { margin: var(--space-2xs) 0 0; font-size: 1.25rem; line-height: 1.3; }
+.shop-wahl .knopf { --px: 2px; min-height: 48px; }
+.buch-hinweis { line-height: 1.4; } /* Leseschrift: sonst ragt die Seite 2 px über den Bildschirm */

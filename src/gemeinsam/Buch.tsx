@@ -7,9 +7,10 @@ import { einzelbild, type Grafik } from '../lib/sprite'
 import { Symbol } from './Symbol'
 
 /** Pixel-Grafik, die mit dem Buch wächst (wie Sprite, aber Größe über --bp statt fester Zahl) */
-export function BuchBild({ grafik, nummer = 0, className = '', titel }: { grafik: Grafik; nummer?: number; className?: string; titel?: string }) {
+/** mal: Vielfaches eines Buch-Pixels (Standard 1), z. B. 2 für das große Bild im Shop oder 1/3 für ein 48er-Bild im Kästchen */
+export function BuchBild({ grafik, nummer = 0, className = '', titel, mal = 1 }: { grafik: Grafik; nummer?: number; className?: string; titel?: string; mal?: number }) {
   const { x, y } = einzelbild(grafik, nummer)
-  const stil = { '--b': grafik.bildBreite, '--h': grafik.bildHoehe, '--bb': grafik.breite, '--x': x, '--y': y, backgroundImage: `url(${grafik.url})` }
+  const stil = { '--m': mal, '--b': grafik.bildBreite, '--h': grafik.bildHoehe, '--bb': grafik.breite, '--x': x, '--y': y, backgroundImage: `url(${grafik.url})` }
   // ohne titel reine Verzierung (wie Sprite)
   return <span className={`buch-bild ${className}`} role={titel ? 'img' : undefined} aria-label={titel} aria-hidden={titel ? undefined : true} style={stil as CSSProperties} />
 }
@@ -18,11 +19,13 @@ type Phase = 'auf' | 'offen' | 'vor' | 'zurueck'
 const ruhig = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 export function Buch({
-  titel, zurueck, kapitel, aktiv, seite, seiten, onWechsel, links, rechts,
+  titel, zurueck, gruen = false, kapitel, aktiv, seite, seiten, onWechsel, links, rechts,
 }: {
   titel: string
-  /** Knopf auf der Ecke oben links: aus dem Buch heraus */
-  zurueck: { href: string; name: string }
+  /** Knopf auf der Ecke oben links: aus dem Buch heraus (Sammelalbum → Farm); der Shop hat keinen */
+  zurueck?: { href: string; name: string }
+  /** grüner Einband (Shop) statt Holz (Sammelalbum) */
+  gruen?: boolean
   /** Lesezeichen: Name (für Vorlesehilfen) und Bild */
   kapitel: { titel: string; bild: Grafik; nummer?: number }[]
   aktiv: number
@@ -52,9 +55,11 @@ export function Buch({
     <div className="buch" data-phase={phase}>
       {/* Das Holzschild mit dem Titel hätte das Buch aus dem Bildschirm geschoben (iPad quer): Titel nur für Vorlesehilfen */}
       <h1 className="buch__titel">{titel}</h1>
-      <a className="holzknopf buch__pfeil buch__zurueck" href={zurueck.href} aria-label={zurueck.name}>
-        <Symbol name="haus" />
-      </a>
+      {zurueck && (
+        <a className="holzknopf buch__pfeil buch__zurueck" href={zurueck.href} aria-label={zurueck.name}>
+          <Symbol name="haus" />
+        </a>
+      )}
       <div className="buch__reiter" role="group" aria-label="Kapitel wählen">
         {kapitel.map((k, i) => (
           <button key={k.titel} type="button" aria-label={k.titel} aria-pressed={i === aktiv} onClick={() => blaettern(i, 0, i > aktiv ? 'vor' : 'zurueck')}>
@@ -64,7 +69,7 @@ export function Buch({
         ))}
       </div>
       <span className="buch__bild" onAnimationEnd={fertig}>
-        <BuchBild grafik={GRAFIK.buch} nummer={3} />
+        <BuchBild grafik={gruen ? GRAFIK.buch_gruen : GRAFIK.buch} nummer={3} />
       </span>
       <div className="buch__seite buch__seite--links">{links}</div>
       <div className="buch__seite buch__seite--rechts">{rechts}</div>

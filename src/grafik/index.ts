@@ -64,6 +64,7 @@ import feld from './feld.png'
 import figur_blau from './figur_blau.png'
 import figur_katze from './figur_katze.png'
 import buch from './buch.png'
+import buch_gruen from './buch_gruen.png'
 import lesezeichen from './lesezeichen.png'
 import sticker from './sticker.png'
 import ranke from './ranke.png'
@@ -135,6 +136,7 @@ export const GRAFIK = {
   figur_blau: { url: figur_blau, breite: 128, hoehe: 96, bildBreite: 16, bildHoehe: 32 },
   figur_katze: { url: figur_katze, breite: 128, hoehe: 96, bildBreite: 16, bildHoehe: 32 },
   buch: { url: buch, breite: 2976, hoehe: 216, bildBreite: 248, bildHoehe: 216 },
+  buch_gruen: { url: buch_gruen, breite: 2976, hoehe: 216, bildBreite: 248, bildHoehe: 216 },
   lesezeichen: { url: lesezeichen, breite: 160, hoehe: 20, bildBreite: 40, bildHoehe: 20 },
   sticker: { url: sticker, breite: 1596, hoehe: 32, bildBreite: 42, bildHoehe: 32 },
   ranke: { url: ranke, breite: 80, hoehe: 24, bildBreite: 20, bildHoehe: 24 },
