@@ -71,12 +71,9 @@ Alle Pixel-Spielinhalte in der Sprout-Lands-Palette.
     Antippen führt zur Übung, solange sie in einem Paket der Klasse steckt.
   - **Erklärungen:** nur der eigene Jahrgang, nach Themen zum Aufklappen. Dafür haben Klassen jetzt einen **Jahrgang**
     (Lehrkraft: Klassenseite, Feld „Jahrgang“; vorbelegt aus dem Klassennamen, z. B. „7b“ → 7; leer = alle Erklärungen).
-- [ ] **Drei Migrationen sind geschrieben, aber NICHT eingespielt** (Jazz muss zustimmen): `album_monster` (Monster-Sticker),
-  `lernweg_zuletzt` (Übungen im Lernweg, zuletzt geübt), `klasse_jahrgang` (Jahrgang der Klasse, Erklärungen filtern).
-  Danach `npm run test:datenbank` (Tests in Block 7.7, 16.3, 17.4, 17.6 ergänzt). Bis dahin: Monster-Stellen leer, im Lernweg stehen
-  Themen statt Übungen (nicht antippbar), Erklärungen zeigen alle Jahrgänge, das Feld „Jahrgang“ lässt sich nicht speichern.
-  Achtung: Nach dem Einspielen kennt die Datenbank Migrationen, die es auf `uebungsumbau` noch nicht gibt;
-  `db push` von dort meldet das, bis `ui-umbau` zusammengeführt ist.
+- [x] **Drei Migrationen eingespielt am 2026-11-14 (Zustimmung von Jazz):** `album_monster`, `lernweg_zuletzt`, `klasse_jahrgang`.
+  `npm run test:datenbank`: ALLE TESTS BESTANDEN (148). Achtung: Die Datenbank kennt damit Migrationen, die es auf `uebungsumbau`
+  noch nicht gibt; `db push` von dort meldet das, bis `ui-umbau` zusammengeführt ist.
 - [ ] Schritt 2: Shop als Buch (grüner Einband, Fragezeichen-Sticker).
 - [ ] Schritt 3: Übungen, Aufgaben, Lernweg, Hilfe, Menüleiste. Einstein umfärben (Vorher-Nachher).
 

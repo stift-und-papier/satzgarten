@@ -521,7 +521,7 @@ begin
     if (v -> 'kompetenzen' -> 0 ->> 'zuletzt') is null then raise exception 'Block 7.7: zuletzt fehlt in schueler_entwicklung: %', v; end if;
     -- geübte Übungen zum Antippen: Titel und Thema, das Thema gibt es auch in der Themenliste
     if jsonb_array_length(v -> 'uebungen') = 0 or (v -> 'uebungen' -> 0 ->> 'titel') is null
-       or not exists (select 1 from jsonb_array_elements(v -> 'kompetenzen') k where k ->> 'name' = v -> 'uebungen' -> 0 ->> 'kompetenz') then
+       or not exists (select 1 from jsonb_array_elements(v -> 'kompetenzen') thema where thema ->> 'name' = v -> 'uebungen' -> 0 ->> 'kompetenz') then
       raise exception 'Block 7.7: Übungen im Lernweg falsch: %', v -> 'uebungen';
     end if;
     n := n + 2;
