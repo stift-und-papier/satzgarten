@@ -17,7 +17,8 @@ const PFADE: Record<SymbolName, string> = {
   // Blatt mit Eselsohr und Zeilen (Erklärseite)
   erklaerung: 'M6 3h9l4 4v14H6Z M15 3v4h4 M9 11h7 M9 14h7 M9 17h5',
   // Fragezeichen im Kreis
-  einstellungen: 'M12 9a3 3 0 1 0 0 6 3 3 0 1 0 0-6Z M12 2.5v3 M12 18.5v3 M2.5 12h3 M18.5 12h3 M5.3 5.3l2.1 2.1 M16.6 16.6l2.1 2.1 M5.3 18.7l2.1-2.1 M16.6 7.4l2.1-2.1',
+  // Zahnrad mit acht Zähnen und Loch in der Mitte (Jazz 2026-11-14: vorher sah es wie eine Sonne aus)
+  einstellungen: 'M10.4 5.2L10.7 2.6L13.3 2.6L13.6 5.2L15.7 6.1L17.7 4.4L19.6 6.3L17.9 8.3L18.8 10.4L21.4 10.7L21.4 13.3L18.8 13.6L17.9 15.7L19.6 17.7L17.7 19.6L15.7 17.9L13.6 18.8L13.3 21.4L10.7 21.4L10.4 18.8L8.3 17.9L6.3 19.6L4.4 17.7L6.1 15.7L5.2 13.6L2.6 13.3L2.6 10.7L5.2 10.4L6.1 8.3L4.4 6.3L6.3 4.4L8.3 6.1Z M12 8.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 1 0 0-6.4Z',
   hilfe: 'M12 3a9 9 0 1 0 0 18 9 9 0 1 0 0-18Z M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7 M12 16.5v.5',
   // Pfeile mit Schaft (deutlicher als nur eine Spitze)
   zurueck: 'M20 12H5 M11 5l-7 7 7 7',

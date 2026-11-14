@@ -62,6 +62,8 @@ import figur_katze from './figur_katze.png'
 import buch from './buch.png'
 import lesezeichen from './lesezeichen.png'
 import sticker from './sticker.png'
+import ranke from './ranke.png'
+import ranke_topf from './ranke_topf.png'
 
 export const GRAFIK = {
   muenze: { url: muenze, breite: 24, hoehe: 24, bildBreite: 24, bildHoehe: 24 },
@@ -127,6 +129,8 @@ export const GRAFIK = {
   buch: { url: buch, breite: 2976, hoehe: 216, bildBreite: 248, bildHoehe: 216 },
   lesezeichen: { url: lesezeichen, breite: 160, hoehe: 20, bildBreite: 40, bildHoehe: 20 },
   sticker: { url: sticker, breite: 1596, hoehe: 32, bildBreite: 42, bildHoehe: 32 },
+  ranke: { url: ranke, breite: 80, hoehe: 24, bildBreite: 20, bildHoehe: 24 },
+  ranke_topf: { url: ranke_topf, breite: 19, hoehe: 15, bildBreite: 19, bildHoehe: 15 },
 } as const
 
 /** Nummer des Stickers im Blatt GRAFIK.sticker (Schlüssel: Shop-Artikel bzw. monster_<Name>) */

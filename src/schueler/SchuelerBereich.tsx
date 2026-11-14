@@ -21,10 +21,9 @@ import { Erklaerungen } from './Erklaerungen'
 import { Hilfe } from './Hilfe'
 import { Lernweg } from './Lernweg'
 import { Shop } from './Shop'
-import { Einstellungen } from './Einstellungen'
 import { UebungSpiel } from './UebungSpiel'
 import { monster } from '../lib/monster'
-import { leseschriftVorgabe } from '../lib/leseschrift'
+import { useDunkel } from '../lib/thema'
 import { entwurfLesen, entwurfSpeichern, warteschlangeLesen, warteschlangeSpeichern, type WartenderVersuch } from './speicher'
 
 const EINSTEIN = einsteinTexte(einsteinMd)
@@ -50,7 +49,6 @@ export function SchuelerBereich({ token, pfad }: Props) {
     if (start.error) setFehler(fehlerText(start.error))
     else {
       const d = start.data as SchuelerStart
-      leseschriftVorgabe(Boolean(d.leseschrift))
       setDaten(d)
       setFehler(null)
     }
@@ -96,6 +94,14 @@ export function SchuelerBereich({ token, pfad }: Props) {
       window.clearInterval(timer)
     }
   }, [laden, warteschlangeSenden])
+
+  // Jazz 2026-11-14: Alle Schülerseiten in der Leseschrift für LRS (OpenDyslexic), ohne Schalter. Die Lehrkraft-Ansicht bleibt in Nunito.
+  useEffect(() => {
+    document.documentElement.dataset.leseschrift = 'lrs'
+    return () => {
+      delete document.documentElement.dataset.leseschrift
+    }
+  }, [])
 
   const basis = `/s/${token}`
   const fenster =
@@ -250,10 +256,12 @@ export function SchuelerBereich({ token, pfad }: Props) {
     )
   }
 
-  if (bereich === 'lernweg') {
+  // Jazz 2026-11-14: Die Farm ist ein eigener Menüpunkt; Startseite ist der Lernweg (unten)
+  if (bereich === 'farm') {
     return (
-      <Rahmen basis={basis} aktiv="lernweg" muenzen={muenzen} fenster={fenster}>
-        <Lernweg token={token} uebungen={`#${basis}/uebungen`} />
+      <Rahmen basis={basis} aktiv="farm" muenzen={muenzen} fenster={fenster}>
+        {wartendHinweis}
+        <Farm key={farmStand} token={token} figur={daten.figur ?? 'gruen'} nachFigur={() => void laden()} shop={`#${basis}/shop`} album={`#${basis}/album`} />
       </Rahmen>
     )
   }
@@ -268,8 +276,8 @@ export function SchuelerBereich({ token, pfad }: Props) {
 
   if (bereich === 'album') {
     return (
-      <Rahmen basis={basis} aktiv="start" muenzen={muenzen} fenster={fenster}>
-        <Album token={token} zurueck={`#${basis}`} />
+      <Rahmen basis={basis} aktiv="farm" muenzen={muenzen} fenster={fenster}>
+        <Album token={token} zurueck={`#${basis}/farm`} />
       </Rahmen>
     )
   }
@@ -302,14 +310,6 @@ export function SchuelerBereich({ token, pfad }: Props) {
     )
   }
 
-  if (bereich === 'einstellungen') {
-    return (
-      <Rahmen basis={basis} aktiv="einstellungen" muenzen={muenzen} fenster={fenster}>
-        <Einstellungen token={token} figur={daten.figur ?? 'gruen'} nachWahl={() => void laden()} />
-      </Rahmen>
-    )
-  }
-
   if (bereich === 'hilfe') {
     return (
       <Rahmen basis={basis} aktiv="hilfe" muenzen={muenzen} fenster={fenster}>
@@ -331,7 +331,7 @@ export function SchuelerBereich({ token, pfad }: Props) {
     )
   }
 
-  // Startseite (später mit der Farm): Einstein begrüßt, nächster Schritt
+  // Startseite (Jazz 2026-11-14): der Lernweg. Ganz oben begrüßt Einstein; gibt es eine offene Übung, führt ein Knopf in seiner Sprechblase dorthin.
   const offen = (a: SchuelerAufgabe) => !a.geloest && !a.morgen
   const naechstesPaket = daten.pakete.find((p) => p.aufgaben.some(offen))
   const naechste = naechstesPaket?.aufgaben.find(offen)
@@ -343,30 +343,13 @@ export function SchuelerBereich({ token, pfad }: Props) {
       {wartendHinweis}
       <EinsteinSagt pose="freundlich">
         <p>{EINSTEIN[gruss]?.replaceAll('{name}', daten.pseudonym)}</p>
+        {naechstesPaket && naechste && (
+          <a className="knopf knopf--haupt einstein-weiter" href={`#${basis}/p/${naechstesPaket.id}/a/${naechste.id}`}>
+            Weiter mit: {naechste.titel}
+          </a>
+        )}
       </EinsteinSagt>
-      {naechstesPaket && naechste && (
-        <section className="karte">
-          <div className="kopf-zeile">
-            <h2>Dein nächster Schritt:</h2>
-            {naechste.typ !== 'erklaerung' && (
-              <span className="paket-liste__stufe">
-                <span className="leise">Schwierigkeit</span>
-                <Sterne stufe={naechste.stufe} />
-              </span>
-            )}
-          </div>
-          <p>{naechste.titel}</p>
-          <div className="knopf-reihe">
-            <a className="knopf knopf--haupt" href={`#${basis}/p/${naechstesPaket.id}/a/${naechste.id}`}>
-              Weiter üben
-            </a>
-            <a className="knopf" href={`#${basis}/uebungen`}>
-              Alle Übungen
-            </a>
-          </div>
-        </section>
-      )}
-      <Farm key={farmStand} token={token} figur={daten.figur ?? 'gruen'} nachFigur={() => void laden()} shop={`#${basis}/shop`} album={`#${basis}/album`} />
+      <Lernweg token={token} />
     </Rahmen>
   )
 }
@@ -469,13 +452,13 @@ function AufgabeSeite({ token, paketId, aufgabe, neuesFormat, nachAbgabe, onWart
   )
 }
 
-const MENUE: { id: 'start' | 'shop' | 'uebungen' | 'erklaerungen' | 'lernweg' | 'einstellungen' | 'hilfe'; symbol: SymbolName; text: string; ziel: string }[] = [
-  { id: 'start', symbol: 'garten', text: 'Farm', ziel: '' },
-  { id: 'shop', symbol: 'shop', text: 'Shop', ziel: '/shop' },
+// Jazz 2026-11-14: erst Lernen (Lernweg ist die Startseite), dann Spielen. Einstellungen entfallen (Dunkel-Schalter oben, Figur auf der Farm).
+const MENUE: { id: 'start' | 'uebungen' | 'erklaerungen' | 'farm' | 'shop' | 'hilfe'; symbol: SymbolName; text: string; ziel: string }[] = [
+  { id: 'start', symbol: 'lernweg', text: 'Lernweg', ziel: '' },
   { id: 'uebungen', symbol: 'uebungen', text: 'Übungen', ziel: '/uebungen' },
   { id: 'erklaerungen', symbol: 'erklaerung', text: 'Erklärungen', ziel: '/erklaerungen' },
-  { id: 'lernweg', symbol: 'lernweg', text: 'Lernweg', ziel: '/lernweg' },
-  { id: 'einstellungen', symbol: 'einstellungen', text: 'Einstellungen', ziel: '/einstellungen' },
+  { id: 'farm', symbol: 'garten', text: 'Farm', ziel: '/farm' },
+  { id: 'shop', symbol: 'shop', text: 'Shop', ziel: '/shop' },
   { id: 'hilfe', symbol: 'hilfe', text: 'Hilfe', ziel: '/hilfe' },
 ]
 
@@ -546,16 +529,24 @@ function BelohnungFenster({ belohnungen, schliessen }: { belohnungen: Belohnung[
 }
 
 function Rahmen({ basis, aktiv, menue = true, muenzen = null, fenster, children }: { basis: string; aktiv: string; menue?: boolean; muenzen?: number | null; fenster?: ReactNode; children: ReactNode }) {
+  const [dunkel, setDunkel] = useDunkel()
   return (
     <div className="garten-seite">
       <main className="garten-seite__inhalt">
-        {muenzen !== null && (
-          <p className="muenzen-stand">
+        {/* Jazz 2026-11-14: auf jeder Seite oben rechts Münzen und der Schalter für den dunklen Modus */}
+        <div className="muenzen-stand">
+          {muenzen !== null && (
             <span className="muenzen" role="img" aria-label={`Du hast ${muenzen} Münzen`}>
               <Sprite grafik={GRAFIK.muenze} mal={2} /> {muenzen}
             </span>
-          </p>
-        )}
+          )}
+          <button type="button" role="switch" aria-checked={dunkel} className="schalter" onClick={() => setDunkel(!dunkel)}>
+            <span className="schalter__bahn" aria-hidden="true">
+              <span className="schalter__knopf" />
+            </span>
+            Dunkel
+          </button>
+        </div>
         {children}
       </main>
       {fenster}

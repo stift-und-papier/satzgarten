@@ -91,6 +91,7 @@ const MODI = {
     gewaehlt: { R: '#90625d', F: '#dcb98a', H: '#e8cfa6', D: '#754c60' },
     haupt: { R: '#754c60', F: '#c49a6c', H: '#dcb98a', S: '#aa7959', D: '#6b4b5b' },
     hilfe: { R: '#4a588e', F: '#e8cfa6', H: '#f3e5c2', S: '#7ba6b4', D: '#4a588e' },
+    album: { R: '#795e53', F: '#d4c169', H: '#eae178', S: '#b09643', D: '#6b4b5b' }, // Gold wie die Ecken des Buchs: nur der Knopf zum Sammelalbum
     blase: { R: '#4a588e', F: '#f3e5c2', H: '#faf2dc', S: '#99c5de', D: '#4a588e' },
     richtig: { R: '#566560', F: '#d6f1cd', H: '#e8f7e2', S: '#aed499', D: '#566560', tinte: '#18491c' },
     nochmal: { R: '#8a4a70', F: '#f3d8c5', H: '#f9eadf', S: '#e8b5ac', D: '#8a4a70', tinte: '#7c350e' },
@@ -102,6 +103,7 @@ const MODI = {
     gewaehlt: { R: '#c4bc93', F: '#3a2f29', H: '#4a3d35', D: '#120c09' },
     haupt: { R: '#e8cfa6', F: '#7b5a3e', H: '#90693f', S: '#4e3826', D: '#120c09' },
     hilfe: { R: '#92b2d4', F: '#4a3d35', H: '#5a4a40', S: '#2f3a52', D: '#120c09' },
+    album: { R: '#eae178', F: '#6e5c22', H: '#84702c', S: '#4a3d16', D: '#120c09' },
     blase: { R: '#92b2d4', F: '#2f2520', H: '#3b302a', S: '#2f3a52', D: '#120c09' },
     richtig: { R: '#82a884', F: '#193c1b', H: '#22492a', S: '#10291a', D: '#08140a', tinte: '#b9eeba' },
     nochmal: { R: '#d99a9a', F: '#512e1a', H: '#5e3822', S: '#3a2012', D: '#1a0d06', tinte: '#ffd3b2' },
@@ -113,6 +115,7 @@ const MODI = {
     gewaehlt: { R: '#3d281a', F: '#e8cfa6', H: '#f3e5c2', D: '#1c0e05' },
     haupt: { R: '#1c0e05', F: '#c49a6c', H: '#dcb98a', S: '#754c60', D: '#1c0e05' },
     hilfe: { R: '#2c3870', F: '#f3e5c2', H: '#fefcf4', S: '#577297', D: '#1c0e05' },
+    album: { R: '#1c0e05', F: '#d4c169', H: '#eae178', S: '#957a4b', D: '#1c0e05' },
     blase: { R: '#2c3870', F: '#fefcf4', H: '#fefcf4', S: '#92b2d4', D: '#1c0e05' },
     richtig: { R: '#012d07', F: '#d6f1cd', H: '#e8f7e2', S: '#97bb8e', D: '#012d07', tinte: '#012d07' },
     nochmal: { R: '#541600', F: '#f3d8c5', H: '#f9eadf', S: '#d99a9a', D: '#541600', tinte: '#541600' },
@@ -124,6 +127,7 @@ const MODI = {
     gewaehlt: { R: '#edd2b5', F: '#1f160f', H: '#2a1f18', D: '#030101' },
     haupt: { R: '#fff3d8', F: '#5e4430', H: '#6e523a', S: '#3b2a1c', D: '#030101' },
     hilfe: { R: '#8fd5fd', F: '#2a1f18', H: '#3b2e25', S: '#1a2a40', D: '#030101' },
+    album: { R: '#fff3d8', F: '#54461a', H: '#66561f', S: '#352c10', D: '#030101' },
     blase: { R: '#8fd5fd', F: '#140b05', H: '#140b05', S: '#1a2a40', D: '#030101' },
     richtig: { R: '#a9fea0', F: '#0c2410', H: '#12301a', S: '#08180b', D: '#030101', tinte: '#d5ffd5' },
     nochmal: { R: '#ffb1a2', F: '#2d140a', H: '#3a1c10', S: '#1e0c05', D: '#030101', tinte: '#ffead3' },
@@ -147,9 +151,10 @@ Object.entries(MODI).forEach(([modus, m], i) => {
   pruefe(modus, 'Schrift auf Knopf', m.tinte, m.knopf.F, 4.5)
   pruefe(modus, 'Schrift auf Hauptknopf', m.tinte, m.haupt.F, 4.5)
   pruefe(modus, 'Schrift auf gewähltem Knopf', m.tinte, m.gewaehlt.F, 4.5)
+  pruefe(modus, 'Schrift auf Album-Knopf', m.tinte, m.album.F, 4.5)
   pruefe(modus, 'Richtig-Schrift', m.richtig.tinte, m.richtig.F, 4.5)
   pruefe(modus, 'Nochmal-Schrift', m.nochmal.tinte, m.nochmal.F, 4.5)
-  for (const k of ['knopf', 'gewaehlt', 'haupt', 'hilfe']) pruefe(modus, `Rand ${k} auf Karte`, m[k].R, m.karte.F, 3)
+  for (const k of ['knopf', 'gewaehlt', 'haupt', 'hilfe', 'album']) pruefe(modus, `Rand ${k} auf Karte`, m[k].R, m.karte.F, 3)
   pruefe(modus, 'Rand Karte auf Wiese', m.karte.R, m.wiese, 3)
   pruefe(modus, 'Hilfe-Rand auf Knopf', m.hilfe.R, m.hilfe.F, 3)
   pruefe(modus, 'Rand der Sprechblase', m.blase.R, m.blase.F, 3)
@@ -176,6 +181,7 @@ const block = (m) => `
   --rahmen-knopf: ${svg(ECKIG, m.knopf)};
   --rahmen-gewaehlt: ${svg(GEDRUECKT, m.gewaehlt)};
   --rahmen-haupt: ${svg(ECKIG, m.haupt)};
+  --rahmen-album: ${svg(ECKIG, m.album)};
   --rahmen-richtig: ${svg(ECKIG, m.richtig)};
   --rahmen-nochmal: ${svg(ECKIG, m.nochmal)};
   --rahmen-blase: ${svg(ECKIG, m.blase)};

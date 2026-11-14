@@ -53,6 +53,8 @@ UI Pack Premium. `spiel_wiese.png` (craftpix, siehe unten) ist auf die Sprout-La
 - `einstein.png`: Maskottchen Einstein, Posen freundlich, blinzelt, lob, freut sich, huch, erklärt (aus der eigenen Vorlage
   auf ihr Pixelraster verkleinert, Hintergrund entfernt).
 - `bubble emotes july update.png` (Sprechblasen): daraus `herz.png`.
+- `ranke.png`, `ranke_topf.png`: Rankpflanze und Topf im Lernweg, eigene Zeichnung (2026-11-14), aus dem Screenshot auf das
+  Pixelraster zurückgerechnet (`assets/ranke_a.png`, `ranke_b.png`, `ranke_topf.png`), Farben aus der Sprout-Lands-Palette.
 - `monster_ruebchen.png`: Rübchen (aus `assets/chomp_idle.png`, obere Zeile der Ruhe-Animation).
 
 ## Pixel Book Animation (heondu, gekauft von der Lehrkraft über itch.io, 2026-11-14)

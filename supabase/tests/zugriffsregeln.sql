@@ -517,6 +517,8 @@ begin
     if v::text ~ '"(punkte|stufe|start_|vergleich_|trend_|verlauf|anzahl|prozent)"' or v::text ~ '65[.,]7' then
       raise exception 'Block 7.7: absolute Werte in schueler_entwicklung: %', v;
     end if;
+    -- Lernweg sortiert nach „zuletzt geübt“ (Migration lernweg_zuletzt)
+    if (v -> 'kompetenzen' -> 0 ->> 'zuletzt') is null then raise exception 'Block 7.7: zuletzt fehlt in schueler_entwicklung: %', v; end if;
     n := n + 2;
     begin
       perform public.schueler_entwicklung('falscher-token-falscher-token-xx');

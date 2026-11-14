@@ -313,6 +313,52 @@ function sticker(name, nummer) {
   console.log(`sticker.png  ${ziel.width}×${H} (${bilder.length} Sticker)`)
 }
 
+// ---------- Rankpflanze im Lernweg: eigene Zeichnung von Jazz (2026-11-14), aus ihrem Screenshot auf das Pixelraster zurückgerechnet
+// (assets/ranke_a.png, ranke_b.png, ranke_topf.png), Farben aus der Sprout-Lands-Palette.
+// ranke.png: 4 Bilder je 20 × 24, der Stiel steht immer in Spalte 9 und reicht bis zur Unterkante.
+// 0/1 = Stück A/B mitten in der Ranke (Stiel auch bis zur Oberkante), 2/3 = Stück A/B als Spitze. Der Topf (19 breit) steht darunter.
+{
+  const lies = (n) => PNG.sync.read(readFileSync(`assets/${n}.png`))
+  const a = lies('ranke_a'), b = lies('ranke_b'), topf = lies('ranke_topf')
+  // die drei Farben aus Stück A (Stück B hat vom Verkleinern Zwischentöne)
+  const farbenA = []
+  for (let i = 0; i < a.data.length; i += 4) {
+    const f = [a.data[i], a.data[i + 1], a.data[i + 2]]
+    if (a.data[i + 3] && !farbenA.some((g) => g.join() === f.join())) farbenA.push(f)
+  }
+  const B = 20, H = 24, STIEL = 9
+  const ziel = new PNG({ width: B * 4, height: H })
+  ziel.data.fill(0)
+  ;[[a, 6], [b, 8]].forEach(([q, stiel], n) => {
+    const da = (x, y) => q.data[(y * q.width + x) * 4 + 3] > 127
+    const farbe = (x, y) => { const i = (y * q.width + x) * 4; const f = [q.data[i], q.data[i + 1], q.data[i + 2]]; return farbenA.reduce((m, g) => (farbAbstand(g, f) < farbAbstand(m, f) ? g : m)) }
+    let oben = 0, unten = q.height - 1
+    while (!da(stiel, oben)) oben++
+    while (!da(stiel, unten)) unten--
+    const stielFarbe = farbe(stiel, unten)
+    for (const bild of [n, n + 2]) {
+      const setze = (x, y, f) => ziel.data.set([...f, 255], (y * ziel.width + bild * B + x) * 4)
+      for (let y = 0; y < q.height; y++) for (let x = 0; x < q.width; x++) if (da(x, y)) setze(x + STIEL - stiel, y, farbe(x, y))
+      for (let y = unten + 1; y < H; y++) setze(STIEL, y, stielFarbe)
+      if (bild < 2) for (let y = 0; y < oben; y++) setze(STIEL, y, stielFarbe)
+    }
+  })
+  aufPalette(ziel)
+  // Topf: nur die warmen Holz- und Orangetöne der Palette (die nächste Palettenfarbe machte die dunklen Stellen grau)
+  const warm = [0x795e53, 0x90625d, 0xaa7959, 0xba7c54, 0xd79e61, 0xeeba77, 0xf2cf8c].map((f) => [f >> 16, (f >> 8) & 255, f & 255])
+  for (let i = 0; i < topf.data.length; i += 4) {
+    if (topf.data[i + 3] < 128) { topf.data[i + 3] = 0; continue }
+    const f = [topf.data[i], topf.data[i + 1], topf.data[i + 2]]
+    topf.data.set([...warm.reduce((m, g) => (farbAbstand(g, f) < farbAbstand(m, f) ? g : m)), 255], i)
+  }
+  writeFileSync('src/grafik/ranke.png', PNG.sync.write(ziel))
+  writeFileSync('src/grafik/ranke_topf.png', PNG.sync.write(topf))
+  liste.push({ name: 'ranke', breite: ziel.width, hoehe: H, bildBreite: B, bildHoehe: H })
+  liste.push({ name: 'ranke_topf', breite: topf.width, hoehe: topf.height, bildBreite: topf.width, bildHoehe: topf.height })
+  const i = (H - 1) * ziel.width * 4 + STIEL * 4
+  console.log(`ranke.png  ${ziel.width}×${H}, ranke_topf.png  ${topf.width}×${topf.height} (Stielfarbe #${ziel.data.readUIntBE(i, 3).toString(16)})`)
+}
+
 const zeilen = liste.map((g) => `import ${g.name} from './${g.name}.png'`)
 zeilen.push('', 'export const GRAFIK = {')
 for (const g of liste)

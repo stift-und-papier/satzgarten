@@ -41,6 +41,22 @@ Alle Pixel-Spielinhalte in der Sprout-Lands-Palette.
   nur das Gerät, `localStorage`). Spielfenster füllt das iPad in der Breite (3-fach = 1008 px, dadurch 720 px hoch: man scrollt ein Stück).
   Wasser außerhalb des Rahmens abgeschnitten, Rahmen rutscht nicht mehr über die Menüleiste. Vorrat als Tafel unter der Farm.
   Offen (Frage an Jazz): Soll die Farm ganz oben stehen, also über Einsteins Begrüßung und „Dein nächster Schritt“?
+- [x] **Großer Umbau der Schülerseiten (Jazz 2026-11-14):**
+  - **Leseschrift (OpenDyslexic) immer an** auf allen Schülerseiten, kein Schalter mehr (auch die Spalte bei der Lehrkraft ist weg;
+    die Datenbank-Spalte `schueler.leseschrift` bleibt ungenutzt). Überschriften haben in der Leseschrift mehr Zeilenabstand.
+  - **Dunkel-Schalter** oben rechts auf jeder Seite neben den Münzen. Die Seite „Einstellungen“ entfällt.
+  - **Menü:** Lernweg (Startseite), Übungen, Erklärungen, Farm (`/farm`), Shop, Hilfe.
+  - **Lernweg:** oben Einstein mit Sprechblase; gibt es eine offene Übung, führt der Knopf „Weiter mit: …“ in der Blase dorthin.
+    Je Kernkompetenz ein Kasten zum Aufklappen mit der Pflanze für den Durchschnitt. Darin die geübten Themen, zuletzt Geübtes oben,
+    links die Rankpflanze aus dem Topf (Zeichnung von Jazz, `ranke.png`), je Thema ein Stück.
+    Von Claude entschieden, bitte prüfen: Pflanzen-Symbol = Tomate in 4 Wachstumsstufen (die Tulpe war zu klein).
+    Kästen erscheinen nur für Kernkompetenzen, in denen schon geübt wurde.
+  - **Farm:** Titel, Knöpfe und Hinweis in einer Textbox, Hinweis mittig. Zahnrad als echtes Zahnrad. Knopf „Mein Sammelalbum“
+    mit Text in Gold (`--rahmen-album`, 4 Varianten, Kontrast geprüft). Einstein steht nicht mehr auf der Farm.
+  - **Spiel-Look:** alle Kästen der Schülerseiten sind helle Holztafeln (`tafel.png`), Menüleiste als Holzbrett.
+    Übungskästen und Erklärungen (`.aufgabe`) behalten den ruhigen Kasten.
+- [ ] **Migration `lernweg_zuletzt`** (nennt je Thema, wann zuletzt geübt wurde) ist geschrieben, aber noch nicht eingespielt.
+  Bis dahin stehen die Themen in der Reihenfolge der Kompetenzliste, nicht nach „zuletzt geübt“.
 - [ ] **Migration `album_monster` ist geschrieben, aber noch nicht eingespielt** (`npm run db:push`, danach `npm run test:datenbank`;
   Test in Block 17.4 und 17.6 ergänzt). Bis dahin sind alle Monster-Klebestellen leer.
   Achtung: Nach dem Einspielen kennt die Datenbank eine Migration, die es auf `uebungsumbau` noch nicht gibt.
