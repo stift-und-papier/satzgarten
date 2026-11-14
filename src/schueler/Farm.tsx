@@ -399,6 +399,8 @@ export function Farm({ token, shop, album, figur: figurName, nachFigur }: { toke
                 ['--bild' as string]: `url(${GRAFIK.dialog_blase.url})`,
                 right: (SPALTEN * KACHEL - figur.x + 6) * mal,
                 top: (figur.y - 22) * mal,
+                // Jazz 2026-11-14: nie über den Holzrahmen hinaus (links 34 px Rahmen, dazu etwas Luft)
+                maxWidth: (figur.x - 6) * mal - 48,
               }}
             >
               {blasenText}

@@ -879,4 +879,5 @@ a.ranke__text:focus-visible { outline: 3px solid var(--color-aktion); outline-of
 .erklaerungen-thema summary { font-family: var(--font-display); font-size: var(--text-h3); }
 /* Sprechblase der Figur: in der Leseschrift ist der Satz breiter als der Platz links von der Figur (sie steht in der Mitte),
    darum darf er umbrechen; die Blase wächst nach oben */
-.farm-blase { white-space: normal; width: max-content; max-width: 19rem; line-height: 26px; }
+/* Jazz 2026-11-14: kleinere Schrift; die größte Breite setzt Farm.tsx so, dass die Blase im Holzrahmen bleibt */
+.farm-blase { white-space: normal; width: max-content; box-sizing: border-box; font-size: var(--text-klein); line-height: 22px; }
