@@ -1,92 +1,78 @@
 // „Mein Sammelalbum“ (Aufgabe 41c, Lehrkraft 2026-11-12): Pflanzen, Tiere und Deko, die man schon einmal hatte.
-// Noch nicht Gesammeltes als „?“. Was gesammelt ist, rechnet der Server (schueler_album). Papier: Humble Gift Paper UI.
-// Jazz 2026-11-14: Buch mit Holzumschlag (Spielfenster-Rahmen), Reiter je Seite, Dinge in Inventar-Plätzen.
+// Was gesammelt ist, rechnet der Server (schueler_album).
+// Jazz 2026-11-14: Stickeralbum als Buch zum Blättern (gemeinsam/Buch.tsx). Gesammeltes klebt als Sticker im Emoji-Stil,
+// was fehlt, ist eine blasse leere Klebestelle (kein Fragezeichen, kein Name). Neu: Monster, mit denen man befreundet ist.
 import { useEffect, useState } from 'react'
-import { Sprite } from '../gemeinsam/Sprite'
-import { Symbol } from '../gemeinsam/Symbol'
-import { GRAFIK } from '../grafik'
+import { Buch, BuchBild } from '../gemeinsam/Buch'
+import { GRAFIK, STICKER_NUMMER } from '../grafik'
+import { klebestellen, type AlbumArt, type AlbumEintrag as Eintrag } from '../lib/album'
 import { fehlerText } from '../lib/fehler'
-import { artikelBild, SORTE } from '../lib/shop'
+import type { Grafik } from '../lib/sprite'
 import { supabase } from '../lib/supabase'
 
-type Eintrag = { id: string; art: 'samen' | 'baum' | 'tier' | 'deko'; gesammelt: boolean; name: string | null }
-
-const SEITEN: { arten: Eintrag['art'][]; titel: string }[] = [
-  { arten: ['samen', 'baum'], titel: 'Pflanzen' },
-  { arten: ['tier'], titel: 'Tiere' },
-  { arten: ['deko'], titel: 'Deko' },
+const KAPITEL: { arten: AlbumArt[]; titel: string; bild: Grafik }[] = [
+  { arten: ['samen', 'baum'], titel: 'Pflanzen', bild: GRAFIK.reiter_pflanzen },
+  { arten: ['tier'], titel: 'Tiere', bild: GRAFIK.reiter_tiere },
+  { arten: ['deko'], titel: 'Deko', bild: GRAFIK.reiter_deko },
+  { arten: ['monster'], titel: 'Monster', bild: GRAFIK.reiter_monster },
 ]
+const JE_SEITE = 6
 
-/** Pflanzen als reife Pflanze, Tiere und Deko wie im Shop */
-function bild(e: Eintrag) {
-  if (e.art === 'samen') return { grafik: GRAFIK.pflanzen, nummer: SORTE[e.id] * 4 + 3 }
-  return artikelBild(e.id)
+function Seite({ eintraege }: { eintraege: Eintrag[] }) {
+  return (
+    <ul className="sticker-raster">
+      {eintraege.map((e) =>
+        e.gesammelt ? (
+          <li key={e.id} className="sticker-platz">
+            <BuchBild grafik={GRAFIK.sticker} nummer={STICKER_NUMMER[e.id]} className="sticker" />
+            {e.name}
+          </li>
+        ) : (
+          <li key={e.id} className="sticker-platz sticker-platz--leer">
+            <span className="sticker-leer" role="img" aria-label="Noch leer" />
+          </li>
+        ),
+      )}
+    </ul>
+  )
 }
 
 export function Album({ token, zurueck }: { token: string; zurueck: string }) {
   const [liste, setListe] = useState<Eintrag[] | null>(null)
   const [fehler, setFehler] = useState<string | null>(null)
-  const [seite, setSeite] = useState(0)
+  const [[kapitel, seite], setOrt] = useState([0, 0])
 
   useEffect(() => {
     void supabase.rpc('schueler_album', { p_token: token }).then(({ data, error }) => {
       if (error) setFehler(fehlerText(error))
-      else setListe(data as Eintrag[])
+      else setListe(klebestellen(data as Eintrag[]))
     })
   }, [token])
 
-  const { arten, titel } = SEITEN[seite]
+  const { arten, titel } = KAPITEL[kapitel]
+  const eintraege = (liste ?? []).filter((e) => arten.includes(e.art))
+  const ab = seite * JE_SEITE * 2
   return (
     <>
-      <header className="pixel-schild">
-        <div className="knopf-reihe">
-          <a className="holzknopf" href={zurueck} aria-label="Zurück zur Farm">
-            <Symbol name="zurueck" />
-          </a>
-          <h1>Mein Sammelalbum</h1>
-        </div>
-      </header>
-      {!liste ? (
-        <p className="karte" role={fehler ? 'alert' : 'status'}>{fehler ?? 'Einen Moment …'}</p>
-      ) : (
-        <div className="album-buch">
-          <div className="pixel-reiter" role="group" aria-label="Seite wählen">
-            {SEITEN.map((s, i) => (
-              <button key={s.titel} type="button" className="chip" aria-pressed={i === seite} onClick={() => setSeite(i)}>
-                {s.titel}
-              </button>
-            ))}
-          </div>
-          <section className="album-seite" aria-label={titel}>
+      <Buch
+        titel="Mein Sammelalbum"
+        zurueck={{ href: zurueck, name: 'Zurück zur Farm' }}
+        kapitel={KAPITEL}
+        aktiv={kapitel}
+        seite={seite}
+        seiten={Math.max(1, Math.ceil(eintraege.length / (JE_SEITE * 2)))}
+        onWechsel={(k, s) => setOrt([k, s])}
+        links={
+          <section aria-label={titel}>
             <h2>{titel}</h2>
-            <p>Hier klebt alles, was du schon einmal auf deiner Farm hattest. Was noch fehlt, zeigt ein Fragezeichen.</p>
-            <ul className="album-raster">
-              {liste
-                .filter((e) => arten.includes(e.art))
-                .map((e) => {
-                  if (!e.gesammelt) {
-                    return (
-                      <li key={e.id} className="album-platz album-platz--leer">
-                        <span className="farm-menue__bild">
-                          <span className="album-platz__frage" role="img" aria-label="Noch nicht gesammelt">?</span>
-                        </span>
-                      </li>
-                    )
-                  }
-                  const b = bild(e)
-                  return (
-                    <li key={e.id} className="album-platz">
-                      <span className="farm-menue__bild">
-                        <Sprite grafik={b.grafik} nummer={b.nummer} mal={b.grafik.bildBreite > 16 ? 2 : 3} />
-                      </span>
-                      {e.name}
-                    </li>
-                  )
-                })}
-            </ul>
+            {liste ? <Seite eintraege={eintraege.slice(ab, ab + JE_SEITE)} /> : <p role={fehler ? 'alert' : 'status'}>{fehler ?? 'Einen Moment …'}</p>}
           </section>
-        </div>
-      )}
+        }
+        rechts={<Seite eintraege={eintraege.slice(ab + JE_SEITE, ab + JE_SEITE * 2)} />}
+      />
+      <p className="leise buch-hinweis">
+        {kapitel === 3 ? 'Hier kleben die Monster, mit denen du dich angefreundet hast.' : 'Hier klebt alles, was du schon einmal auf deiner Farm hattest.'}
+      </p>
     </>
   )
 }

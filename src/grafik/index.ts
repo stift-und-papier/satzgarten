@@ -54,11 +54,18 @@ import rahmen_spiel from './rahmen_spiel.png'
 import tafel from './tafel.png'
 import herz_flug from './herz_flug.png'
 import monster_maus from './monster_maus.png'
+import reiter_pflanzen from './reiter_pflanzen.png'
+import reiter_tiere from './reiter_tiere.png'
+import reiter_deko from './reiter_deko.png'
+import reiter_monster from './reiter_monster.png'
+import emoji_frage from './emoji_frage.png'
 import monster_fledermaus from './monster_fledermaus.png'
 import feld from './feld.png'
 import figur_blau from './figur_blau.png'
 import figur_katze from './figur_katze.png'
-import album_seite from './album_seite.png'
+import buch from './buch.png'
+import lesezeichen from './lesezeichen.png'
+import sticker from './sticker.png'
 
 export const GRAFIK = {
   muenze: { url: muenze, breite: 24, hoehe: 24, bildBreite: 24, bildHoehe: 24 },
@@ -116,9 +123,19 @@ export const GRAFIK = {
   tafel: { url: tafel, breite: 106, hoehe: 122, bildBreite: 106, bildHoehe: 122 },
   herz_flug: { url: herz_flug, breite: 13, hoehe: 11, bildBreite: 13, bildHoehe: 11 },
   monster_maus: { url: monster_maus, breite: 208, hoehe: 16, bildBreite: 16, bildHoehe: 16 },
+  reiter_pflanzen: { url: reiter_pflanzen, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  reiter_tiere: { url: reiter_tiere, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  reiter_deko: { url: reiter_deko, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  reiter_monster: { url: reiter_monster, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
+  emoji_frage: { url: emoji_frage, breite: 32, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   monster_fledermaus: { url: monster_fledermaus, breite: 128, hoehe: 32, bildBreite: 32, bildHoehe: 32 },
   feld: { url: feld, breite: 14, hoehe: 14, bildBreite: 14, bildHoehe: 14 },
   figur_blau: { url: figur_blau, breite: 128, hoehe: 96, bildBreite: 16, bildHoehe: 32 },
   figur_katze: { url: figur_katze, breite: 128, hoehe: 96, bildBreite: 16, bildHoehe: 32 },
-  album_seite: { url: album_seite, breite: 96, hoehe: 96, bildBreite: 96, bildHoehe: 96 },
+  buch: { url: buch, breite: 2976, hoehe: 216, bildBreite: 248, bildHoehe: 216 },
+  lesezeichen: { url: lesezeichen, breite: 208, hoehe: 30, bildBreite: 52, bildHoehe: 30 },
+  sticker: { url: sticker, breite: 1672, hoehe: 36, bildBreite: 44, bildHoehe: 36 },
 } as const
+
+/** Nummer des Stickers im Blatt GRAFIK.sticker (Schlüssel: Shop-Artikel bzw. monster_<Name>) */
+export const STICKER_NUMMER: Record<string, number> = { karotte: 0, blumenkohl: 1, tomate: 2, aubergine: 3, tulpe: 4, salat: 5, weizen: 6, kuerbis: 7, rettich: 8, rose: 9, rote_bete: 10, sternfrucht: 11, gurke: 12, orangenbaum: 13, pfirsichbaum: 14, birnenbaum: 15, huhn: 16, kuh: 17, brunnen: 18, boot: 19, busch: 20, blume_gelb: 21, pilz: 22, stein: 23, blume_lila: 24, pilzhaus: 25, katze_rosa: 26, katze_blau: 27, monster_ruebchen: 28, monster_schleim_gruen: 29, monster_schleim_blau: 30, monster_schleim_feuer: 31, monster_gespenst: 32, monster_spinne_gruen: 33, monster_spinne_lila: 34, monster_spinne_gold: 35, monster_maus: 36, monster_fledermaus: 37 }

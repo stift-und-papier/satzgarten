@@ -541,7 +541,7 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
   border-image: url('../grafik/tafel.png') 5 fill / 10px; image-rendering: pixelated;
   color: var(--color-album-tinte);
 }
-.pixel-tafel .leise, .album-seite .leise { color: inherit; }
+.pixel-tafel .leise { color: inherit; }
 .pixel-tafel > p:first-child { margin-top: 0; }
 .pixel-reiter { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-block: var(--space-sm); }
 
@@ -556,30 +556,81 @@ p { margin: 0; text-wrap: pretty; max-width: 65ch; }
 .shop-artikel__frage { font-size: 2.5rem; font-weight: 800; line-height: 1; color: var(--color-album-tinte); }
 .muenzen-preis { display: inline-flex; align-items: center; gap: var(--space-2xs); font-weight: 800; font-variant-numeric: tabular-nums; }
 
-/* ---------- Sammelalbum (Album.tsx): Papierseite aus Humble Gift, bleibt auch im dunklen Modus hell ---------- */
-.album-seite {
-  margin-block: var(--space-md); padding: var(--space-sm);
-  border: 16px solid transparent; border-image: url('../grafik/album_seite.png') 32 fill / 64px stretch;
-  image-rendering: pixelated; color: var(--color-album-tinte);
-}
-.album-seite h2 { text-align: center; margin-top: 0; }
-.album-raster {
-  list-style: none; margin: 0; padding: 0;
-  display: grid; gap: var(--space-sm); grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
-}
-/* Buch: Holzumschlag (Spielfenster-Rahmen gefüllt), darin Reiter und eine Papierseite */
-.album-buch {
-  padding: 0 var(--space-xs); border: solid transparent; border-width: 32px 34px 34px;
-  border-image: url('../grafik/rahmen_spiel.png') 16 17 17 fill / 32px 34px 34px; image-rendering: pixelated;
+/* ---------- Buch (gemeinsam/Buch.tsx, Jazz 2026-11-14): Sammelalbum und Shop ----------
+   Alle Maße in Buch-Pixeln (--bp), damit Buch, Lesezeichen und Sticker gemeinsam ganzzahlig wachsen.
+   Bild-Streifen buch.png: je Bild 248 × 216, das offene Buch darin bei x 2–245, y 49–213 (also 244 × 165).
+   Rechts 40 Buch-Pixel Platz für die Lesezeichen. Das Buch ist ein Bild und bleibt auch im dunklen Modus hell. */
+.buch {
+  --bp: 3px;
+  position: relative; isolation: isolate;
+  width: calc(284 * var(--bp)); height: calc(165 * var(--bp));
+  /* breiter als die Textspalte: gleich große (auch negative) Ränder halten es in der Mitte */
+  margin: 0 calc((100% - 284 * var(--bp)) / 2) var(--space-2xs);
   color: var(--color-album-tinte);
 }
-.album-buch .album-seite { margin-block: var(--space-xs) 0; }
-.album-platz {
-  display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: var(--space-2xs);
-  padding: var(--space-2xs); text-align: center; font-weight: 800;
+/* shortcut: unter 900 px Breite (iPad hochkant, Handy) 2-fach; die Namen unter den Stickern werden dann eng. Bei Bedarf dort 2 Spalten. */
+@media (max-width: 56rem) { .buch { --bp: 2px; } }
+.buch-bild {
+  display: block; width: calc(var(--b) * var(--bp)); height: calc(var(--h) * var(--bp));
+  background-repeat: no-repeat; background-size: calc(var(--bb) * var(--bp)) auto;
+  background-position: calc(var(--x) * -1 * var(--bp)) calc(var(--y) * -1 * var(--bp));
+  image-rendering: pixelated;
 }
-.album-platz--leer .farm-menue__bild { opacity: 0.6; } /* nicht gestrichelt: das heißt sonst „hier schreiben“ */
-.album-platz__frage { font-size: 2.5rem; font-weight: 800; line-height: 1; }
+.buch__bild { position: absolute; z-index: 1; left: calc(-2 * var(--bp)); top: calc(-49 * var(--bp)); pointer-events: none; }
+/* steps(3) zeigt drei Bilder und bleibt dann auf dem vierten (offenes Buch) stehen */
+.buch[data-phase='auf'] .buch__bild > .buch-bild { animation: buch-auf 0.5s steps(3) forwards; }
+.buch[data-phase='vor'] .buch__bild > .buch-bild { animation: buch-vor 0.36s steps(3) forwards; }
+.buch[data-phase='zurueck'] .buch__bild > .buch-bild { animation: buch-zurueck 0.36s steps(3) forwards; }
+@keyframes buch-auf { from { background-position-x: 0; } to { background-position-x: calc(-744 * var(--bp)); } }
+@keyframes buch-vor { from { background-position-x: calc(-992 * var(--bp)); } to { background-position-x: calc(-1736 * var(--bp)); } }
+@keyframes buch-zurueck { from { background-position-x: calc(-1984 * var(--bp)); } to { background-position-x: calc(-2728 * var(--bp)); } }
+/* Seiten: liegen auf dem Papier des Bildes */
+.buch__seite { position: absolute; z-index: 2; top: calc(13 * var(--bp)); width: calc(104 * var(--bp)); height: calc(130 * var(--bp)); }
+.buch__seite--links { left: calc(11 * var(--bp)); }
+.buch__seite--rechts { left: calc(129 * var(--bp)); padding-top: calc(2.25rem + var(--space-2xs)); } /* so hoch wie die Überschrift links */
+.buch__seite h2 { margin: 0 0 var(--space-2xs); max-width: none; text-align: center; font-size: 1.5rem; line-height: 2.25rem; }
+/* solange das Buch aufklappt oder blättert, ist die Seite leer */
+.buch:not([data-phase='offen']) :is(.buch__seite, .buch__pfeil) { visibility: hidden; }
+/* Lesezeichen: stecken unter dem Buchrand, das gewählte schaut weiter heraus */
+.buch__reiter { position: absolute; z-index: 0; left: calc(232 * var(--bp)); top: calc(12 * var(--bp)); display: grid; gap: calc(3 * var(--bp)); }
+.buch__reiter button {
+  position: relative; padding: 0; border: 0; background: none; cursor: pointer;
+  transform: translateX(calc(-6 * var(--bp))); transition: transform var(--dur-micro) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.buch__reiter button[aria-pressed='true'] { transform: none; }
+.buch__reiter button:focus-visible { outline: 3px solid var(--color-aktion); outline-offset: 2px; }
+.buch__reiter-bild { position: absolute; left: calc(13 * var(--bp)); top: calc(-1 * var(--bp)); }
+/* Pfeile zum Blättern auf den unteren Ecken des Buchs */
+.buch__pfeil { position: absolute; z-index: 3; bottom: calc(-4 * var(--bp)); }
+.buch__pfeil--zurueck { left: calc(-4 * var(--bp)); }
+.buch__zurueck { left: calc(-4 * var(--bp)); bottom: auto; top: calc(-4 * var(--bp)); }
+.buch__titel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.buch__pfeil--vor { right: calc(36 * var(--bp)); }
+.buch-hinweis { text-align: center; margin: 0 auto; }
+@media (prefers-reduced-motion: reduce) { .buch__reiter button { transition: none; } }
+
+/* ---------- Sammelalbum (Album.tsx): Sticker im Emoji-Stil, je Seite 3 × 2 Klebestellen ---------- */
+.sticker-raster { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); row-gap: var(--space-2xs); }
+.sticker-platz {
+  display: flex; flex-direction: column; align-items: center; min-width: 0; min-height: calc(36 * var(--bp) + 2.5em);
+  text-align: center; font-weight: 700; line-height: 1.2; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: anywhere;
+}
+/* Zelle im Stickerblatt ist breiter als die Spalte (Boot): seitlich überstehen lassen. Schatten = klebt auf dem Papier. */
+.sticker { flex: none; margin-inline: calc(-6 * var(--bp)); filter: drop-shadow(0 var(--bp) 0 rgba(107, 75, 91, 0.3)); }
+/* leicht schief eingeklebt */
+.sticker-platz:nth-child(3n + 1) .sticker { transform: rotate(-4deg); }
+.sticker-platz:nth-child(3n) .sticker { transform: rotate(3deg); }
+.sticker-platz:nth-child(4n + 2) .sticker { transform: rotate(5deg); }
+/* leere Klebestelle: blasses Feld mit abgeschnittenen Ecken, nicht gestrichelt (das heißt sonst „hier schreiben“) */
+.sticker-leer {
+  width: calc(26 * var(--bp)); height: calc(26 * var(--bp)); margin-block: calc(5 * var(--bp));
+  background: var(--color-buch-leer);
+  clip-path: polygon(
+    calc(2 * var(--bp)) 0, calc(100% - 2 * var(--bp)) 0, 100% calc(2 * var(--bp)), 100% calc(100% - 2 * var(--bp)),
+    calc(100% - 2 * var(--bp)) 100%, calc(2 * var(--bp)) 100%, 0 calc(100% - 2 * var(--bp)), 0 calc(2 * var(--bp))
+  );
+}
 
 /* ---------- Farm (Landschaft) ---------- */
 .farm-meldung { min-height: 3.2em; }

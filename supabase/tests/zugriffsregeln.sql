@@ -1297,6 +1297,8 @@ begin
     if (select count(*) from public.versuche where client_id = v_d and anteil_richtig = 0.667 and not richtig) <> 1 then
       raise exception 'Block 17.4: Versuch für den Lernstand fehlt';
     end if;
+    -- Sammelalbum: noch nicht befreundet, also kein Monster
+    if public.schueler_album(t_fuchs)::text ~ 'monster' then raise exception 'Block 17.4: Album zeigt ein Monster ohne Freundschaft'; end if;
     n := n + 1;
 
     -- 17.5 Kalendertag Berlin: 23:59:30 derselbe Tag → morgen; 00:00:30 (UTC noch Vortag) → neuer Durchgang
@@ -1313,6 +1315,11 @@ begin
     end loop;
     if not (v -> 'abschluss' ->> 'neu_befreundet')::boolean or (v -> 'abschluss' ->> 'muenzen')::int <> 25 then
       raise exception 'Block 17.6: Münzen beim Verbessern falsch: %', v;
+    end if;
+    -- Sammelalbum: befreundetes Monster klebt jetzt drin (Standard-Monster Rübchen), fremde Alben nicht
+    if not (public.schueler_album(t_fuchs) @> '[{"id":"ruebchen","art":"monster","gesammelt":true}]')
+       or public.schueler_album(t_dachs)::text ~ 'monster' then
+      raise exception 'Block 17.6: Monster im Sammelalbum falsch';
     end if;
     n := n + 1;
 
